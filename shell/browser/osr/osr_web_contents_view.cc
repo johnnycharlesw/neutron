@@ -11,7 +11,7 @@
 #include "ui/display/screen.h"
 #include "ui/display/screen_info.h"
 
-namespace electron {
+namespace neutron {
 
 OffScreenWebContentsView::OffScreenWebContentsView(
     bool transparent,
@@ -204,4 +204,4 @@ OffScreenWebContentsView::GetBackForwardTransitionAnimationManager() {
   return nullptr;
 }
 
-}  // namespace electron
+}  // namespace neutron

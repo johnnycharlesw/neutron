@@ -3,7 +3,7 @@
 > Control file downloads from remote sources.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 `DownloadItem` is an [EventEmitter][event-emitter] that represents a download item in Electron.
 It is used in `will-download` event of `Session` class, and allows users to
@@ -11,7 +11,7 @@ control the download item.
 
 ```js
 // In the main process.
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 win.webContents.session.on('will-download', (event, item, webContents) => {

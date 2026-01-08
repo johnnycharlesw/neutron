@@ -1,10 +1,10 @@
-import * as squirrelUpdate from '@electron/internal/browser/api/auto-updater/squirrel-update-win';
+import * as squirrelUpdate from '@neutron/internal/browser/api/auto-updater/squirrel-update-win';
 
-import { app } from 'electron/main';
+import { app } from 'neutron/main';
 
 import { EventEmitter } from 'events';
 
-class AutoUpdater extends EventEmitter implements Electron.AutoUpdater {
+class AutoUpdater extends EventEmitter implements Neutron.AutoUpdater {
   updateAvailable: boolean = false;
   updateURL: string | null = null;
 

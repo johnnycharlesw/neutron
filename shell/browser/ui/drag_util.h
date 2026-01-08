@@ -21,7 +21,7 @@ namespace gfx {
 class Image;
 }
 
-namespace electron {
+namespace neutron {
 
 void DragFileItems(const std::vector<base::FilePath>& files,
                    const gfx::Image& icon,
@@ -31,6 +31,6 @@ void DragFileItems(const std::vector<base::FilePath>& files,
 std::unique_ptr<SkRegion> DraggableRegionsToSkRegion(
     const std::vector<blink::mojom::DraggableRegionPtr>& regions);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_DRAG_UTIL_H_

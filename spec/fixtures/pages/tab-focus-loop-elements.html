@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <title></title>
   <script>
-    const { ipcRenderer } = require('electron')
+    const { ipcRenderer } = require('neutron')
 
     function handleFocusChange(event) {
       if (event.target.tagName && event.target.tagName !== 'WEBVIEW') {

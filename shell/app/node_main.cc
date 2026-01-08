@@ -22,15 +22,15 @@
 #include "base/task/single_thread_task_runner.h"
 #include "base/task/thread_pool/thread_pool_instance.h"
 #include "content/public/common/content_switches.h"
-#include "electron/fuses.h"
-#include "electron/mas.h"
+#include "neutron/fuses.h"
+#include "neutron/mas.h"
 #include "gin/array_buffer.h"
 #include "gin/public/isolate_holder.h"
 #include "gin/v8_initializer.h"
 #include "shell/app/uv_task_runner.h"
 #include "shell/browser/javascript_environment.h"
-#include "shell/common/api/electron_bindings.h"
-#include "shell/common/electron_command_line.h"
+#include "shell/common/api/neutron_bindings.h"
+#include "shell/common/neutron_command_line.h"
 #include "shell/common/gin_helper/dictionary.h"
 #include "shell/common/node_bindings.h"
 #include "shell/common/node_includes.h"
@@ -55,7 +55,7 @@
 
 #if !IS_MAS_BUILD()
 #include "components/crash/core/app/crashpad.h"  // nogncheck
-#include "shell/app/electron_crash_reporter_client.h"
+#include "shell/app/neutron_crash_reporter_client.h"
 #include "shell/common/crash_keys.h"
 #endif
 
@@ -77,7 +77,7 @@ void ExitIfContainsDisallowedFlags(const std::vector<std::string>& argv) {
     const auto key = std::string_view{arg}.substr(0, arg.find('='));
     if (disallowed.contains(key)) {
       LOG(ERROR) << "The Node.js cli flag " << key
-                 << " is not supported in Electron";
+                 << " is not supported in Neutron";
       // Node.js returns 9 from ProcessGlobalArgs for any errors encountered
       // when setting up cli flags and env vars. Since we're outlawing these
       // flags (making them errors) exit with the same error code for
@@ -113,20 +113,20 @@ void ClearCrashKeyStub(const std::string& key) {}
 v8::Local<v8::Value> GetParameters(v8::Isolate* isolate) {
   std::map<std::string, std::string> keys;
 #if !IS_MAS_BUILD()
-  electron::crash_keys::GetCrashKeys(&keys);
+  neutron::crash_keys::GetCrashKeys(&keys);
 #endif
   return gin::ConvertToV8(isolate, keys);
 }
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 int NodeMain() {
   DCHECK(base::CommandLine::InitializedForCurrentProcess());
 
   auto os_env = base::Environment::Create();
-  bool node_options_enabled = electron::fuses::IsNodeOptionsEnabled();
+  bool node_options_enabled = neutron::fuses::IsNodeOptionsEnabled();
   if (!node_options_enabled) {
     os_env->UnSetVar("NODE_OPTIONS");
     os_env->UnSetVar("NODE_EXTRA_CA_CERTS");
@@ -138,10 +138,10 @@ int NodeMain() {
     // from another app, i.e. args are discarded in following call:
     //   exec("Sandboxed.app", ["--custom-args-will-be-discarded"])
     // However it is possible to bypass the restriction by abusing the node mode
-    // of Electron apps:
-    //   exec("Electron.app", {env: {ELECTRON_RUN_AS_NODE: "1",
+    // of Neutron apps:
+    //   exec("Neutron.app", {env: {ELECTRON_RUN_AS_NODE: "1",
     //                               NODE_OPTIONS: "--require 'bad.js'"}})
-    // To prevent Electron apps from being used to work around macOS security
+    // To prevent Neutron apps from being used to work around macOS security
     // restrictions, when the parent process is not part of the app bundle, all
     // environment variables that may be used to inject scripts are removed.
     if (UnsetHijackableEnvs(os_env.get())) {
@@ -188,11 +188,11 @@ int NodeMain() {
     feature_list->InitFromCommandLine("", "");
     base::FeatureList::SetInstance(std::move(feature_list));
 
-    // Explicitly register electron's builtin bindings.
+    // Explicitly register neutron's builtin bindings.
     NodeBindings::RegisterBuiltinBindings();
 
     // Parse Node.js cli flags and strip out disallowed options.
-    std::vector<std::string> args = ElectronCommandLine::AsUtf8();
+    std::vector<std::string> args = NeutronCommandLine::AsUtf8();
     ExitIfContainsDisallowedFlags(args);
 
     uint64_t process_flags =
@@ -230,7 +230,7 @@ int NodeMain() {
     // On Linux, initialize crashpad after Nodejs init phase so that
     // crash and termination signal handlers can be set by the crashpad client.
     if (pid != -1) {
-      ElectronCrashReporterClient::Create();
+      NeutronCrashReporterClient::Create();
       crash_reporter::InitializeCrashpad(false, "node");
       crash_keys::SetCrashKeysFromCommandLine(
           *base::CommandLine::ForCurrentProcess());
@@ -239,7 +239,7 @@ int NodeMain() {
       command_line->RemoveSwitch(crash_reporter::switches::kCrashpadHandlerPid);
     }
 #elif BUILDFLAG(IS_WIN) || (BUILDFLAG(IS_MAC) && !IS_MAS_BUILD())
-    ElectronCrashReporterClient::Create();
+    NeutronCrashReporterClient::Create();
     crash_reporter::InitializeCrashpad(false, "node");
     crash_keys::SetCrashKeysFromCommandLine(
         *base::CommandLine::ForCurrentProcess());
@@ -250,7 +250,7 @@ int NodeMain() {
         gin::V8SnapshotFileType::kWithAdditionalContext);
 
     // V8 requires a task scheduler.
-    base::ThreadPoolInstance::CreateAndStartWithDefaultParams("Electron");
+    base::ThreadPoolInstance::CreateAndStartWithDefaultParams("Neutron");
 
     // Allow Node.js to track the amount of time the event loop has spent
     // idle in the kernel’s event provider .
@@ -277,7 +277,7 @@ int NodeMain() {
 
       uint64_t env_flags = node::EnvironmentFlags::kDefaultFlags |
                            node::EnvironmentFlags::kHideConsoleWindows;
-      env = electron::util::CreateEnvironment(
+      env = neutron::util::CreateEnvironment(
           isolate, isolate_data, isolate->GetCurrentContext(), result->args(),
           result->exec_args(),
           static_cast<node::EnvironmentFlags::Flags>(env_flags));
@@ -286,7 +286,7 @@ int NodeMain() {
       node::SetIsolateUpForNode(isolate);
 
       gin_helper::Dictionary process(isolate, env->process_object());
-      process.SetMethod("crash", &ElectronBindings::Crash);
+      process.SetMethod("crash", &NeutronBindings::Crash);
 
       // Setup process.crashReporter in child node processes
       auto reporter = gin_helper::Dictionary::CreateEmpty(isolate);
@@ -296,9 +296,9 @@ int NodeMain() {
       reporter.SetMethod("removeExtraParameter", &ClearCrashKeyStub);
 #else
       reporter.SetMethod("addExtraParameter",
-                         &electron::crash_keys::SetCrashKey);
+                         &neutron::crash_keys::SetCrashKey);
       reporter.SetMethod("removeExtraParameter",
-                         &electron::crash_keys::ClearCrashKey);
+                         &neutron::crash_keys::ClearCrashKey);
 #endif
 
       process.Set("crashReporter", reporter);
@@ -331,4 +331,4 @@ int NodeMain() {
   return exit_code;
 }
 
-}  // namespace electron
+}  // namespace neutron

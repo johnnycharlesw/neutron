@@ -10,7 +10,7 @@
 
 #include "base/memory/raw_ptr.h"
 #include "content/public/browser/render_widget_host.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "shell/browser/osr/osr_view_proxy.h"
 #include "ui/base/metadata/metadata_header_macros.h"
 #include "ui/base/metadata/metadata_impl_macros.h"
@@ -28,7 +28,7 @@ namespace ui {
 struct AXNodeData;
 }
 
-namespace electron {
+namespace neutron {
 
 constexpr int kPopupBorderThickness = 1;
 constexpr int kEndPadding = 8;
@@ -154,6 +154,6 @@ class AutofillPopupView : public views::WidgetDelegateView,
   base::WeakPtrFactory<AutofillPopupView> weak_ptr_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_AUTOFILL_POPUP_VIEW_H_

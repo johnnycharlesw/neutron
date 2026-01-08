@@ -1,10 +1,10 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import { ipcRendererInternal } from '@electron/internal/renderer/ipc-renderer-internal';
-import type * as guestViewInternalModule from '@electron/internal/renderer/web-view/guest-view-internal';
-import type * as webViewElementModule from '@electron/internal/renderer/web-view/web-view-element';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import { ipcRendererInternal } from '@neutron/internal/renderer/ipc-renderer-internal';
+import type * as guestViewInternalModule from '@neutron/internal/renderer/web-view/guest-view-internal';
+import type * as webViewElementModule from '@neutron/internal/renderer/web-view/web-view-element';
 
-const v8Util = process._linkedBinding('electron_common_v8_util');
-const { mainFrame: webFrame } = process._linkedBinding('electron_renderer_web_frame');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
+const { mainFrame: webFrame } = process._linkedBinding('neutron_renderer_web_frame');
 
 function handleFocusBlur () {
   // Note that while Chromium content APIs have observer for focus/blur, they
@@ -22,11 +22,11 @@ function handleFocusBlur () {
 export function webViewInit (webviewTag: boolean, isWebView: boolean) {
   // Don't allow recursive `<webview>`.
   if (webviewTag && !isWebView) {
-    const guestViewInternal = require('@electron/internal/renderer/web-view/guest-view-internal') as typeof guestViewInternalModule;
+    const guestViewInternal = require('@neutron/internal/renderer/web-view/guest-view-internal') as typeof guestViewInternalModule;
     if (process.contextIsolated) {
       v8Util.setHiddenValue(window, 'guestViewInternal', guestViewInternal);
     } else {
-      const { setupWebView } = require('@electron/internal/renderer/web-view/web-view-element') as typeof webViewElementModule;
+      const { setupWebView } = require('@neutron/internal/renderer/web-view/web-view-element') as typeof webViewElementModule;
       setupWebView({
         guestViewInternal,
         allowGuestViewElementDefinition: webFrame.allowGuestViewElementDefinition,

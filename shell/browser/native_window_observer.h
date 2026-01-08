@@ -23,7 +23,7 @@ class Rect;
 enum class ResizeEdge;
 }  // namespace gfx
 
-namespace electron {
+namespace neutron {
 
 class NativeWindowObserver : public base::CheckedObserver {
  public:
@@ -112,6 +112,6 @@ class NativeWindowObserver : public base::CheckedObserver {
   virtual void UpdateWindowControlsOverlay(const gfx::Rect& bounding_rect) {}
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NATIVE_WINDOW_OBSERVER_H_

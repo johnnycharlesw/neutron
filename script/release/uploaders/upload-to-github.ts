@@ -45,7 +45,7 @@ function getRepo (): ElectronReleaseRepo {
 }
 
 const targetRepo = getRepo();
-const uploadUrl = `https://uploads.github.com/repos/electron/${targetRepo}/releases/${releaseId}/assets{?name,label}`;
+const uploadUrl = `https://uploads.github.com/repos/neutron/${targetRepo}/releases/${releaseId}/assets{?name,label}`;
 let retry = 0;
 
 let octokit = new Octokit({

@@ -11,7 +11,7 @@
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/image/image_skia_rep.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -52,7 +52,7 @@ void TrayIconLinux::SetToolTip(const std::string& tool_tip) {
     status_icon->SetToolTip(tool_tip_);
 }
 
-void TrayIconLinux::SetContextMenu(raw_ptr<ElectronMenuModel> menu_model) {
+void TrayIconLinux::SetContextMenu(raw_ptr<NeutronMenuModel> menu_model) {
   menu_model_ = menu_model;
   if (auto* status_icon = GetStatusIcon())
     status_icon->UpdatePlatformContextMenu(menu_model_);
@@ -98,7 +98,7 @@ void TrayIconLinux::OnClick() {
 
 bool TrayIconLinux::HasClickAction() {
   // Returning true will make the tooltip show as an additional context menu
-  // item, which makes sense in Chrome but not in most Electron apps.
+  // item, which makes sense in Chrome but not in most Neutron apps.
   return false;
 }
 
@@ -118,4 +118,4 @@ TrayIcon* TrayIcon::Create(std::optional<base::Uuid> guid) {
   return new TrayIconLinux;
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -1,4 +1,4 @@
-import { screen, desktopCapturer, NativeImage } from 'electron';
+import { screen, desktopCapturer, NativeImage } from 'neutron';
 
 import { AssertionError } from 'chai';
 
@@ -36,8 +36,8 @@ function formatHexByte (val: number): string {
  * Get the hex color at the given pixel coordinate in an image.
  */
 function getPixelColor (
-  image: Electron.NativeImage,
-  point: Electron.Point
+  image: Neutron.NativeImage,
+  point: Neutron.Point
 ): string {
   // image.crop crashes if point is fractional, so round to prevent that crash
   const pixel = image.crop({
@@ -77,7 +77,7 @@ function areColorsSimilar (
   return distance <= distanceThreshold;
 }
 
-function displayCenter (display: Electron.Display): Electron.Point {
+function displayCenter (display: Neutron.Display): Neutron.Point {
   return {
     x: display.size.width / 2,
     y: display.size.height / 2
@@ -103,7 +103,7 @@ export class ScreenCapture {
   /** Timeout to wait for expected color to match. */
   static TIMEOUT = 3000;
 
-  constructor (display?: Electron.Display) {
+  constructor (display?: Neutron.Display) {
     this.display = display || screen.getPrimaryDisplay();
   }
 
@@ -117,7 +117,7 @@ export class ScreenCapture {
 
   public async expectColorAtPointOnDisplayMatches (
     hexColor: string,
-    findPoint: (displaySize: Electron.Size) => Electron.Point
+    findPoint: (displaySize: Neutron.Size) => Neutron.Point
   ) {
     return this._expectImpl(findPoint(this.display.size), hexColor, true);
   }
@@ -154,11 +154,11 @@ export class ScreenCapture {
   }
 
   private async _expectImpl (
-    point: Electron.Point,
+    point: Neutron.Point,
     expectedColor: string,
     matchIsExpected: boolean
   ) {
-    let frame: Electron.NativeImage;
+    let frame: Neutron.NativeImage;
     let actualColor: string;
     let gotExpectedResult: boolean = false;
     const expiration = Date.now() + ScreenCapture.TIMEOUT;
@@ -197,13 +197,13 @@ export class ScreenCapture {
     }
   }
 
-  private display: Electron.Display;
+  private display: Neutron.Display;
 }
 
 /**
  * Whether the current VM has a valid screen which can be used to capture.
  *
- * This is specific to Electron's CI test runners.
+ * This is specific to Neutron's CI test runners.
  * - Linux: virtual screen display is 0x0
  * - Win32 arm64 (WOA): virtual screen display is 0x0
  * - Win32 ia32: skipped

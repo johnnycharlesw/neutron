@@ -5,7 +5,7 @@ The version number should be a part of the page URL. If it's not, you are
 probably using the documentation of a development branch which may contain API
 changes that are not compatible with your Electron version. To view older
 versions of the documentation, you can
-[browse by tag](https://github.com/electron/electron/tree/v1.4.0)
+[browse by tag](https://github.com/neutron/neutron/tree/v1.4.0)
 on GitHub by opening the "Switch branches/tags" dropdown and selecting the tag
 that matches your version.
 
@@ -42,9 +42,9 @@ an issue:
   * [Web embeds in Electron](tutorial/web-embeds.md)
 * [Boilerplates and CLIs](tutorial/boilerplates-and-clis.md)
   * [Boilerplate vs CLI](tutorial/boilerplates-and-clis.md#boilerplate-vs-cli)
-  * [Electron Forge](tutorial/boilerplates-and-clis.md#electron-forge)
-  * [electron-builder](tutorial/boilerplates-and-clis.md#electron-builder)
-  * [electron-react-boilerplate](tutorial/boilerplates-and-clis.md#electron-react-boilerplate)
+  * [Electron Forge](tutorial/boilerplates-and-clis.md#neutron-forge)
+  * [neutron-builder](tutorial/boilerplates-and-clis.md#neutron-builder)
+  * [neutron-react-boilerplate](tutorial/boilerplates-and-clis.md#neutron-react-boilerplate)
   * [Other Tools and Boilerplates](tutorial/boilerplates-and-clis.md#other-tools-and-boilerplates)
 
 ### Advanced steps
@@ -81,8 +81,8 @@ These individual tutorials expand on topics discussed in the guide above.
   * [Custom Mirrors and Caches](tutorial/installation.md#custom-mirrors-and-caches)
   * [Troubleshooting](tutorial/installation.md#troubleshooting)
 * Electron Releases & Developer Feedback
-  * [Versioning Policy](tutorial/electron-versioning.md)
-  * [Release Timelines](tutorial/electron-timelines.md)
+  * [Versioning Policy](tutorial/neutron-versioning.md)
+  * [Release Timelines](tutorial/neutron-timelines.md)
 
 ---
 
@@ -98,7 +98,7 @@ These individual tutorials expand on topics discussed in the guide above.
 
 ### Custom Web Features:
 
-* [`-electron-corner-smoothing` CSS Rule](api/corner-smoothing-css.md)
+* [`-neutron-corner-smoothing` CSS Rule](api/corner-smoothing-css.md)
 * [`<webview>` Tag](api/webview-tag.md)
 * [`window.open` Function](api/window-open.md)
 

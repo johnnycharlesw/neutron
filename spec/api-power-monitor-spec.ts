@@ -44,7 +44,7 @@ describe('powerMonitor', () => {
     before(done => {
       logindMock.on('MethodCalled', onceMethodCalled(done));
       // lazy load powerMonitor after we listen to MethodCalled mock signal
-      dbusMockPowerMonitor = require('electron').powerMonitor;
+      dbusMockPowerMonitor = require('neutron').powerMonitor;
     });
 
     it('should call Inhibit to delay suspend once a listener is added', async () => {
@@ -69,7 +69,7 @@ describe('powerMonitor', () => {
         expect(calls[0].slice(1)).to.deep.equal([
           'Inhibit', [
             [[{ type: 's', child: [] }], ['sleep']],
-            [[{ type: 's', child: [] }], ['electron']],
+            [[{ type: 's', child: [] }], ['neutron']],
             [[{ type: 's', child: [] }], ['Application cleanup before suspend']],
             [[{ type: 's', child: [] }], ['delay']]
           ]
@@ -101,7 +101,7 @@ describe('powerMonitor', () => {
           expect(calls[1].slice(1)).to.deep.equal([
             'Inhibit', [
               [[{ type: 's', child: [] }], ['sleep']],
-              [[{ type: 's', child: [] }], ['electron']],
+              [[{ type: 's', child: [] }], ['neutron']],
               [[{ type: 's', child: [] }], ['Application cleanup before suspend']],
               [[{ type: 's', child: [] }], ['delay']]
             ]
@@ -123,7 +123,7 @@ describe('powerMonitor', () => {
         expect(calls[2].slice(1)).to.deep.equal([
           'Inhibit', [
             [[{ type: 's', child: [] }], ['shutdown']],
-            [[{ type: 's', child: [] }], ['electron']],
+            [[{ type: 's', child: [] }], ['neutron']],
             [[{ type: 's', child: [] }], ['Ensure a clean shutdown']],
             [[{ type: 's', child: [] }], ['delay']]
           ]
@@ -141,14 +141,14 @@ describe('powerMonitor', () => {
   });
 
   it('is usable before app ready', async () => {
-    const remoteApp = await startRemoteControlApp(['--boot-eval=globalThis.initialValue=require("electron").powerMonitor.getSystemIdleTime()']);
+    const remoteApp = await startRemoteControlApp(['--boot-eval=globalThis.initialValue=require("neutron").powerMonitor.getSystemIdleTime()']);
     expect(await remoteApp.remoteEval('globalThis.initialValue')).to.be.a('number');
   });
 
   describe('when powerMonitor module is loaded', () => {
-    let powerMonitor: typeof Electron.powerMonitor;
+    let powerMonitor: typeof Neutron.powerMonitor;
     before(() => {
-      powerMonitor = require('electron').powerMonitor;
+      powerMonitor = require('neutron').powerMonitor;
     });
     describe('powerMonitor.getSystemIdleState', () => {
       it('gets current system idle state', () => {

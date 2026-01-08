@@ -36,7 +36,7 @@
 #include "content/public/browser/web_contents.h"
 #include "content/public/browser/web_contents_delegate.h"
 #include "content/public/browser/web_ui_data_source.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/native_window.h"
 #include "shell/browser/window_list.h"
 #include "ui/accessibility/accessibility_features.h"
@@ -139,7 +139,7 @@ base::Value::Dict BuildTargetDescriptor(content::RenderViewHost* rvh) {
                                rvh->GetRoutingID(), accessibility_mode);
 }
 
-base::Value::Dict BuildTargetDescriptor(electron::NativeWindow* window) {
+base::Value::Dict BuildTargetDescriptor(neutron::NativeWindow* window) {
   base::Value::Dict target_data;
   target_data.Set(kSessionIdField, window->window_id());
   target_data.Set(kNameField, window->GetTitle());
@@ -162,7 +162,7 @@ void HandleAccessibilityRequestCallback(
       *content::BrowserAccessibilityState::GetInstance();
   base::Value::Dict data;
   PrefService* pref =
-      static_cast<electron::ElectronBrowserContext*>(current_context)->prefs();
+      static_cast<neutron::NeutronBrowserContext*>(current_context)->prefs();
   ui::AXMode mode =
       content::BrowserAccessibilityState::GetInstance()->GetAccessibilityMode();
   bool native = mode.has_mode(ui::AXMode::kNativeAPIs);
@@ -289,7 +289,7 @@ void HandleAccessibilityRequestCallback(
   data.Set(kPagesField, std::move(page_list));
 
   base::Value::List window_list;
-  for (auto* window : electron::WindowList::GetWindows()) {
+  for (auto* window : neutron::WindowList::GetWindows()) {
     window_list.Append(BuildTargetDescriptor(window));
   }
   data.Set(kBrowsersField, std::move(window_list));
@@ -351,7 +351,7 @@ const std::string& CheckJSValue(const std::string* str) {
 
 }  // namespace
 
-ElectronAccessibilityUI::ElectronAccessibilityUI(content::WebUI* web_ui)
+NeutronAccessibilityUI::NeutronAccessibilityUI(content::WebUI* web_ui)
     : content::WebUIController(web_ui) {
   auto* const browser_context = web_ui->GetWebContents()->GetBrowserContext();
   // Set up the chrome://accessibility source.
@@ -376,15 +376,15 @@ ElectronAccessibilityUI::ElectronAccessibilityUI(content::WebUI* web_ui)
       "trusted-types parse-html-subset sanitize-inner-html;");
 
   web_ui->AddMessageHandler(
-      std::make_unique<ElectronAccessibilityUIMessageHandler>());
+      std::make_unique<NeutronAccessibilityUIMessageHandler>());
 }
 
-ElectronAccessibilityUI::~ElectronAccessibilityUI() = default;
+NeutronAccessibilityUI::~NeutronAccessibilityUI() = default;
 
-ElectronAccessibilityUIMessageHandler::ElectronAccessibilityUIMessageHandler() =
+NeutronAccessibilityUIMessageHandler::NeutronAccessibilityUIMessageHandler() =
     default;
 
-void ElectronAccessibilityUIMessageHandler::GetRequestTypeAndFilters(
+void NeutronAccessibilityUIMessageHandler::GetRequestTypeAndFilters(
     const base::Value::Dict& data,
     std::string& request_type,
     std::string& allow,
@@ -397,7 +397,7 @@ void ElectronAccessibilityUIMessageHandler::GetRequestTypeAndFilters(
   deny = CheckJSValue(data.FindStringByDottedPath("filters.deny"));
 }
 
-void ElectronAccessibilityUIMessageHandler::RequestNativeUITree(
+void NeutronAccessibilityUIMessageHandler::RequestNativeUITree(
     const base::Value::List& args) {
   const base::Value::Dict& data = args.front().GetDict();
 
@@ -414,7 +414,7 @@ void ElectronAccessibilityUIMessageHandler::RequestNativeUITree(
                      ui::AXPropertyFilter::ALLOW_EMPTY);
   AddPropertyFilters(property_filters, deny, ui::AXPropertyFilter::DENY);
 
-  for (auto* window : electron::WindowList::GetWindows()) {
+  for (auto* window : neutron::WindowList::GetWindows()) {
     if (window->window_id() == window_id) {
       base::Value::Dict result = BuildTargetDescriptor(window);
       gfx::NativeWindow native_window = window->GetNativeWindow();
@@ -435,7 +435,7 @@ void ElectronAccessibilityUIMessageHandler::RequestNativeUITree(
   FireWebUIListener(request_type, result);
 }
 
-void ElectronAccessibilityUIMessageHandler::RegisterMessages() {
+void NeutronAccessibilityUIMessageHandler::RegisterMessages() {
   DCHECK_CURRENTLY_ON(content::BrowserThread::UI);
 
   web_ui()->RegisterMessageCallback(
@@ -459,7 +459,7 @@ void ElectronAccessibilityUIMessageHandler::RegisterMessages() {
   web_ui()->RegisterMessageCallback(
       "requestNativeUITree",
       base::BindRepeating(
-          &ElectronAccessibilityUIMessageHandler::RequestNativeUITree,
+          &NeutronAccessibilityUIMessageHandler::RequestNativeUITree,
           base::Unretained(this)));
 #if defined(USE_AURA)
   web_ui()->RegisterMessageCallback(
@@ -475,7 +475,7 @@ void ElectronAccessibilityUIMessageHandler::RegisterMessages() {
 }
 
 // static
-void ElectronAccessibilityUIMessageHandler::RegisterPrefs(
+void NeutronAccessibilityUIMessageHandler::RegisterPrefs(
     user_prefs::PrefRegistrySyncable* registry) {
   const std::string_view default_api_type =
       std::string_view(ui::AXApiType::Type(ui::AXApiType::kBlink));

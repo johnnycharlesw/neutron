@@ -24,7 +24,7 @@
 #include "ui/views/window/frame_caption_button.h"
 #include "ui/views/window/vector_icons/vector_icons.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -560,4 +560,4 @@ int OpaqueFrameView::GetWindowCaptionSpacing(views::FrameButton button_id,
 BEGIN_METADATA(OpaqueFrameView)
 END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

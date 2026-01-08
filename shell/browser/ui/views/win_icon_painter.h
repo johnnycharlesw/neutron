@@ -14,7 +14,7 @@ class Canvas;
 class Rect;
 }  // namespace gfx
 
-namespace electron {
+namespace neutron {
 
 // Copied from chrome/browser/ui/views/frame/windows_icon_painter.h
 class WinIconPainter {
@@ -66,6 +66,6 @@ class Win11IconPainter : public WinIconPainter {
                         const gfx::Rect& symbol_rect,
                         cc::PaintFlags& flags) override;
 };
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_WIN_ICON_PAINTER_H_

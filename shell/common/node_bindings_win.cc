@@ -8,7 +8,7 @@
 
 #include "base/system/sys_info.h"
 
-namespace electron {
+namespace neutron {
 
 NodeBindingsWin::NodeBindingsWin(BrowserEnvironment browser_env)
     : NodeBindings(browser_env) {
@@ -53,4 +53,4 @@ std::unique_ptr<NodeBindings> NodeBindings::Create(BrowserEnvironment env) {
   return std::make_unique<NodeBindingsWin>(env);
 }
 
-}  // namespace electron
+}  // namespace neutron

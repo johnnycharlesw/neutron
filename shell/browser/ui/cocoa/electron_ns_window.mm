@@ -2,14 +2,14 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "shell/browser/ui/cocoa/electron_ns_window.h"
+#include "shell/browser/ui/cocoa/neutron_ns_window.h"
 
 #include "base/strings/sys_string_conversions.h"
-#include "electron/mas.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "neutron/mas.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/native_window_mac.h"
-#include "shell/browser/ui/cocoa/electron_preview_item.h"
-#include "shell/browser/ui/cocoa/electron_touch_bar.h"
+#include "shell/browser/ui/cocoa/neutron_preview_item.h"
+#include "shell/browser/ui/cocoa/neutron_touch_bar.h"
 #include "shell/browser/ui/cocoa/root_view_mac.h"
 #include "ui/base/cocoa/window_size_constants.h"
 
@@ -18,11 +18,11 @@
 
 using namespace std::string_view_literals;
 
-namespace electron {
+namespace neutron {
 
 int ScopedDisableResize::disable_resize_ = 0;
 
-}  // namespace electron
+}  // namespace neutron
 
 @interface NSWindow (PrivateAPI)
 - (int64_t)_resizeDirectionForMouseLocation:(CGPoint)location;
@@ -48,8 +48,8 @@ MouseDownImpl g_nsnextstepframe_mousedown;
 @implementation SwizzledMethodsClass
 - (void)swiz_nsthemeframe_mouseDown:(NSEvent*)event {
   if ([self.window respondsToSelector:@selector(shell)]) {
-    electron::NativeWindowMac* shell =
-        (electron::NativeWindowMac*)[(id)self.window shell];
+    neutron::NativeWindowMac* shell =
+        (neutron::NativeWindowMac*)[(id)self.window shell];
     if (shell && !shell->has_frame())
       [self cr_mouseDownOnFrameView:event];
     g_nsthemeframe_mousedown(self, @selector(mouseDown:), event);
@@ -58,8 +58,8 @@ MouseDownImpl g_nsnextstepframe_mousedown;
 
 - (void)swiz_nsnextstepframe_mouseDown:(NSEvent*)event {
   if ([self.window respondsToSelector:@selector(shell)]) {
-    electron::NativeWindowMac* shell =
-        (electron::NativeWindowMac*)[(id)self.window shell];
+    neutron::NativeWindowMac* shell =
+        (neutron::NativeWindowMac*)[(id)self.window shell];
     if (shell && !shell->has_frame()) {
       [self cr_mouseDownOnFrameView:event];
     }
@@ -69,8 +69,8 @@ MouseDownImpl g_nsnextstepframe_mousedown;
 
 - (void)swiz_nsview_swipeWithEvent:(NSEvent*)event {
   if ([self.window respondsToSelector:@selector(shell)]) {
-    electron::NativeWindowMac* shell =
-        (electron::NativeWindowMac*)[(id)self.window shell];
+    neutron::NativeWindowMac* shell =
+        (neutron::NativeWindowMac*)[(id)self.window shell];
     if (shell) {
       if (event.deltaY == 1.0) {
         shell->NotifyWindowSwipe("up");
@@ -123,7 +123,7 @@ void SwizzleSwipeWithEvent(NSView* view, SEL swiz_selector) {
 @synthesize disableKeyOrMainWindow;
 @synthesize vibrantView;
 
-- (id)initWithShell:(electron::NativeWindowMac*)shell
+- (id)initWithShell:(neutron::NativeWindowMac*)shell
           styleMask:(NSUInteger)styleMask {
   if ((self = [super initWithContentRect:ui::kWindowSizeDeterminedLater
                                styleMask:styleMask
@@ -166,7 +166,7 @@ void SwizzleSwipeWithEvent(NSView* view, SEL swiz_selector) {
   shell_ = nullptr;
 }
 
-- (electron::NativeWindowMac*)shell {
+- (neutron::NativeWindowMac*)shell {
   return shell_;
 }
 
@@ -199,13 +199,13 @@ void SwizzleSwipeWithEvent(NSView* view, SEL swiz_selector) {
         ([event modifierFlags] & NSEventModifierFlagControl)));
 
   if (shouldDisableDraggable) {
-    electron::api::WebContents::SetDisableDraggableRegions(true);
+    neutron::api::WebContents::SetDisableDraggableRegions(true);
   }
 
   [super sendEvent:event];
 
   if (shouldDisableDraggable) {
-    electron::api::WebContents::SetDisableDraggableRegions(false);
+    neutron::api::WebContents::SetDisableDraggableRegions(false);
   }
 }
 
@@ -223,7 +223,7 @@ void SwizzleSwipeWithEvent(NSView* view, SEL swiz_selector) {
 
 - (NSRect)constrainFrameRect:(NSRect)frameRect toScreen:(NSScreen*)screen {
   // Resizing is disabled.
-  if (electron::ScopedDisableResize::IsResizeDisabled())
+  if (neutron::ScopedDisableResize::IsResizeDisabled())
     return [self frame];
 
   NSRect result = [super constrainFrameRect:frameRect toScreen:screen];
@@ -248,7 +248,7 @@ void SwizzleSwipeWithEvent(NSView* view, SEL swiz_selector) {
 - (void)setFrame:(NSRect)windowFrame display:(BOOL)displayViews {
   // constrainFrameRect is not called on hidden windows so disable adjusting
   // the frame directly when resize is disabled
-  if (!electron::ScopedDisableResize::IsResizeDisabled())
+  if (!neutron::ScopedDisableResize::IsResizeDisabled())
     [super setFrame:windowFrame display:displayViews];
 }
 
@@ -339,7 +339,7 @@ void SwizzleSwipeWithEvent(NSView* view, SEL swiz_selector) {
 
 - (void)performClose:(id)sender {
   if (shell_->title_bar_style() ==
-      electron::NativeWindowMac::TitleBarStyle::kCustomButtonsOnHover) {
+      neutron::NativeWindowMac::TitleBarStyle::kCustomButtonsOnHover) {
     [[self delegate] windowShouldClose:self];
   } else if (!([self styleMask] & NSWindowStyleMaskTitled)) {
     // performClose does not work for windows without title, so we have to
@@ -401,7 +401,7 @@ void SwizzleSwipeWithEvent(NSView* view, SEL swiz_selector) {
 - (void)performMiniaturize:(id)sender {
   if (shell_ &&
       shell_->title_bar_style() ==
-          electron::NativeWindowMac::TitleBarStyle::kCustomButtonsOnHover) {
+          neutron::NativeWindowMac::TitleBarStyle::kCustomButtonsOnHover) {
     [self miniaturize:self];
   } else {
     [super performMiniaturize:sender];

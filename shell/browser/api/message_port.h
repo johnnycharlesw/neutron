@@ -27,7 +27,7 @@ namespace mojo {
 class Connector;
 }  // namespace mojo
 
-namespace electron {
+namespace neutron {
 
 // A non-blink version of blink::MessagePort.
 class MessagePort final : public gin_helper::DeprecatedWrappable<MessagePort>,
@@ -98,6 +98,6 @@ class MessagePort final : public gin_helper::DeprecatedWrappable<MessagePort>,
   base::WeakPtrFactory<MessagePort> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_API_MESSAGE_PORT_H_

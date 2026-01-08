@@ -4,7 +4,7 @@
     if (e.data === 'ready') {
       child.postMessage('testing', '*')
     } else {
-      require('electron').ipcRenderer.send('complete', {eventOrigin: e.origin, ...JSON.parse(e.data)})
+      require('neutron').ipcRenderer.send('complete', {eventOrigin: e.origin, ...JSON.parse(e.data)})
     }
   }
 </script>

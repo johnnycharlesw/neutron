@@ -53,7 +53,7 @@ are disabled by default for context menus in Electron. To enable these features,
 parameter in `menu.popup`.
 
 ```js title='Associating a frame to the context menu'
-const { BrowserWindow, Menu } = require('electron/main')
+const { BrowserWindow, Menu } = require('neutron/main')
 
 const menu = Menu.buildFromTemplate([{ role: 'editMenu' }])
 const win = new BrowserWindow()

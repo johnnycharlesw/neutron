@@ -33,13 +33,13 @@ const oldPath = document.querySelector('input[type=file]').files[0].path
 // Renderer:
 
 const file = document.querySelector('input[type=file]').files[0]
-electronApi.doSomethingWithFile(file)
+neutronApi.doSomethingWithFile(file)
 
 // Preload script:
 
-const { contextBridge, webUtils } = require('electron')
+const { contextBridge, webUtils } = require('neutron')
 
-contextBridge.exposeInMainWorld('electronApi', {
+contextBridge.exposeInMainWorld('neutronApi', {
   doSomethingWithFile (file) {
     const path = webUtils.getPathForFile(file)
     // Do something with the path, e.g., send it over IPC to the main process.

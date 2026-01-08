@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "electron/shell/browser/feature_list.h"
+#include "neutron/shell/browser/feature_list.h"
 
 #include <string>
 
@@ -13,7 +13,7 @@
 #include "components/spellcheck/common/spellcheck_features.h"
 #include "content/common/features.h"
 #include "content/public/common/content_features.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "media/base/media_switches.h"
 #include "net/base/features.h"
 #include "printing/buildflags/buildflags.h"
@@ -38,7 +38,7 @@
 #include "ui/views/views_features.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 void InitializeFeatureList() {
   auto* cmd_line = base::CommandLine::ForCurrentProcess();
@@ -56,7 +56,7 @@ void InitializeFeatureList() {
       // this breaks PDFs locally as we don't have GLIC infra enabled.
       std::string(",") + ax::mojom::features::kScreenAIOCREnabled.name +
       // See https://chromium-review.googlesource.com/c/chromium/src/+/6626905
-      // Needed so that ElectronBrowserClient::RegisterPendingSiteInstance does
+      // Needed so that NeutronBrowserClient::RegisterPendingSiteInstance does
       // not throw a check.
       std::string(", TraceSiteInstanceGetProcessCreation") +
       // See https://chromium-review.googlesource.com/c/chromium/src/+/6910012
@@ -67,7 +67,7 @@ void InitializeFeatureList() {
 #if BUILDFLAG(IS_WIN)
   // Refs https://issues.chromium.org/issues/401996981
   // TODO(deepak1556): Remove this once test added in
-  // https://github.com/electron/electron/pull/12904
+  // https://github.com/neutron/neutron/pull/12904
   // can work without this feature.
   enable_features += std::string(",") +
                      views::features::kEnableTransparentHwndEnlargement.name;
@@ -75,7 +75,7 @@ void InitializeFeatureList() {
   // See https://chromium-review.googlesource.com/c/chromium/src/+/7204292
   // This feature causes the following sandbox failure on Windows:
   // sandbox\policy\win\sandbox_win.cc:777 Sandbox cannot access executable
-  // electron.exe. Check filesystem permissions are valid.
+  // neutron.exe. Check filesystem permissions are valid.
   // See https://bit.ly/31yqMJR.: Access is denied. (0x5)
   disable_features +=
       std::string(",") + sandbox::policy::features::kNetworkServiceSandbox.name;
@@ -125,4 +125,4 @@ std::string DisablePlatformSpecificFeatures() {
 }
 #endif
 
-}  // namespace electron
+}  // namespace neutron

@@ -3,7 +3,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#import "shell/browser/ui/cocoa/electron_menu_controller.h"
+#import "shell/browser/ui/cocoa/neutron_menu_controller.h"
 
 #include <string>
 #include <utility>
@@ -15,9 +15,9 @@
 #include "content/public/browser/browser_task_traits.h"
 #include "content/public/browser/browser_thread.h"
 #include "net/base/apple/url_conversions.h"
-#include "shell/browser/mac/electron_application.h"
+#include "shell/browser/mac/neutron_application.h"
 #include "shell/browser/native_window.h"
-#include "shell/browser/ui/electron_menu_model.h"
+#include "shell/browser/ui/neutron_menu_model.h"
 #include "shell/browser/window_list.h"
 #include "ui/base/accelerators/accelerator.h"
 #include "ui/base/l10n/l10n_util_mac.h"
@@ -26,7 +26,7 @@
 #include "ui/strings/grit/ui_strings.h"
 
 using content::BrowserThread;
-using SharingItem = electron::ElectronMenuModel::SharingItem;
+using SharingItem = neutron::ElectronMenuModel::SharingItem;
 
 namespace {
 
@@ -77,7 +77,7 @@ Role kRolesMap[] = {
 
 // Called when adding a submenu to the menu and checks if the submenu, via its
 // |model|, has visible child items.
-bool MenuHasVisibleItems(const electron::ElectronMenuModel* model) {
+bool MenuHasVisibleItems(const neutron::ElectronMenuModel* model) {
   int count = model->GetItemCount();
   for (int index = 0; index < count; index++) {
     if (model->IsVisibleAt(index))
@@ -119,37 +119,37 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 
 }  // namespace
 
-// This class stores a base::WeakPtr<electron::ElectronMenuModel> as an
+// This class stores a base::WeakPtr<neutron::ElectronMenuModel> as an
 // Objective-C object, which allows it to be stored in the representedObject
 // field of an NSMenuItem.
 @interface WeakPtrToElectronMenuModelAsNSObject : NSObject
-+ (instancetype)weakPtrForModel:(electron::ElectronMenuModel*)model;
-+ (electron::ElectronMenuModel*)getFrom:(id)instance;
-- (instancetype)initWithModel:(electron::ElectronMenuModel*)model;
-- (electron::ElectronMenuModel*)menuModel;
++ (instancetype)weakPtrForModel:(neutron::ElectronMenuModel*)model;
++ (neutron::ElectronMenuModel*)getFrom:(id)instance;
+- (instancetype)initWithModel:(neutron::ElectronMenuModel*)model;
+- (neutron::ElectronMenuModel*)menuModel;
 @end
 
 @implementation WeakPtrToElectronMenuModelAsNSObject {
-  base::WeakPtr<electron::ElectronMenuModel> _model;
+  base::WeakPtr<neutron::ElectronMenuModel> _model;
 }
 
-+ (instancetype)weakPtrForModel:(electron::ElectronMenuModel*)model {
++ (instancetype)weakPtrForModel:(neutron::ElectronMenuModel*)model {
   return [[WeakPtrToElectronMenuModelAsNSObject alloc] initWithModel:model];
 }
 
-+ (electron::ElectronMenuModel*)getFrom:(id)instance {
++ (neutron::ElectronMenuModel*)getFrom:(id)instance {
   return [base::apple::ObjCCastStrict<WeakPtrToElectronMenuModelAsNSObject>(
       instance) menuModel];
 }
 
-- (instancetype)initWithModel:(electron::ElectronMenuModel*)model {
+- (instancetype)initWithModel:(neutron::ElectronMenuModel*)model {
   if ((self = [super init])) {
     _model = model->GetWeakPtr();
   }
   return self;
 }
 
-- (electron::ElectronMenuModel*)menuModel {
+- (neutron::ElectronMenuModel*)menuModel {
   return _model.get();
 }
 
@@ -157,15 +157,15 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 
 @implementation ElectronMenuController
 
-- (electron::ElectronMenuModel*)model {
+- (neutron::ElectronMenuModel*)model {
   return model_.get();
 }
 
-- (void)setModel:(electron::ElectronMenuModel*)model {
+- (void)setModel:(neutron::ElectronMenuModel*)model {
   model_ = model->GetWeakPtr();
 }
 
-- (instancetype)initWithModel:(electron::ElectronMenuModel*)model
+- (instancetype)initWithModel:(neutron::ElectronMenuModel*)model
         useDefaultAccelerator:(BOOL)use {
   if ((self = [super init])) {
     model_ = model->GetWeakPtr();
@@ -190,7 +190,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
   popupCloseCallback = std::move(callback);
 }
 
-- (void)populateWithModel:(electron::ElectronMenuModel*)model {
+- (void)populateWithModel:(neutron::ElectronMenuModel*)model {
   if (!menu_)
     return;
 
@@ -208,7 +208,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 
   const int count = model->GetItemCount();
   for (int index = 0; index < count; index++) {
-    if (model->GetTypeAt(index) == electron::ElectronMenuModel::TYPE_SEPARATOR)
+    if (model->GetTypeAt(index) == neutron::ElectronMenuModel::TYPE_SEPARATOR)
       [self addSeparatorToMenu:menu_ atIndex:index];
     else
       [self addItemToMenu:menu_ atIndex:index fromModel:model];
@@ -230,7 +230,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 
 // Creates a NSMenu from the given model. If the model has submenus, this can
 // be invoked recursively.
-- (NSMenu*)menuFromModel:(electron::ElectronMenuModel*)model {
+- (NSMenu*)menuFromModel:(neutron::ElectronMenuModel*)model {
   NSMenu* menu = [[NSMenu alloc] initWithTitle:@""];
   // We manually manage enabled/disabled/hidden state for every item,
   // including Cocoa role-based selectors.
@@ -238,7 +238,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 
   const int count = model->GetItemCount();
   for (int index = 0; index < count; index++) {
-    if (model->GetTypeAt(index) == electron::ElectronMenuModel::TYPE_SEPARATOR)
+    if (model->GetTypeAt(index) == neutron::ElectronMenuModel::TYPE_SEPARATOR)
       [self addSeparatorToMenu:menu atIndex:index];
     else
       [self addItemToMenu:menu atIndex:index fromModel:model];
@@ -320,7 +320,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 }
 
 - (NSMenuItem*)makeMenuItemForIndex:(NSInteger)index
-                          fromModel:(electron::ElectronMenuModel*)model {
+                          fromModel:(neutron::ElectronMenuModel*)model {
   std::u16string label16 = model->GetLabelAt(index);
   auto rawSecondaryLabel = model->GetSecondaryLabelAt(index);
   NSString* label = l10n_util::FixUpWindowsStyleLabel(label16);
@@ -338,7 +338,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
   }
 
   std::u16string role = model->GetRoleAt(index);
-  electron::ElectronMenuModel::ItemType type = model->GetTypeAt(index);
+  neutron::ElectronMenuModel::ItemType type = model->GetTypeAt(index);
   std::u16string customType = model->GetCustomTypeAt(index);
 
   // The sectionHeaderWithTitle menu item is only available in macOS 14.0+.
@@ -371,13 +371,13 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
     item.target = nil;
     item.action = nil;
     [item setSubmenu:[self createShareMenuForItem:sharing_item]];
-  } else if (type == electron::ElectronMenuModel::TYPE_SUBMENU &&
+  } else if (type == neutron::ElectronMenuModel::TYPE_SUBMENU &&
              model->IsVisibleAt(index)) {
     // Recursively build a submenu from the sub-model at this index.
     item.target = nil;
     item.action = nil;
-    electron::ElectronMenuModel* submenuModel =
-        static_cast<electron::ElectronMenuModel*>(
+    neutron::ElectronMenuModel* submenuModel =
+        static_cast<neutron::ElectronMenuModel*>(
             model->GetSubmenuModelAt(index));
     NSMenu* submenu = MenuHasVisibleItems(submenuModel)
                           ? [self menuFromModel:submenuModel]
@@ -420,7 +420,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
       // GetKeyEquivalentAndModifierMaskFromAccelerator API,
       // because it will convert Shift+Character to ShiftedCharacter, for
       // example Shift+/ would be converted to ?, which is against macOS HIG.
-      // See also https://github.com/electron/electron/issues/21790.
+      // See also https://github.com/neutron/neutron/issues/21790.
       NSUInteger modifier_mask = 0;
       if (accelerator.IsCtrlDown())
         modifier_mask |= NSEventModifierFlagControl;
@@ -474,7 +474,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
     return;
   }
 
-  electron::ElectronMenuModel* model =
+  neutron::ElectronMenuModel* model =
       [WeakPtrToElectronMenuModelAsNSObject getFrom:represented];
   if (!model)
     return;
@@ -504,7 +504,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 // associated with the entry in the model identified by |modelIndex|.
 - (void)addItemToMenu:(NSMenu*)menu
               atIndex:(NSInteger)index
-            fromModel:(electron::ElectronMenuModel*)model {
+            fromModel:(neutron::ElectronMenuModel*)model {
   [menu insertItem:[self makeMenuItemForIndex:index fromModel:model]
            atIndex:index];
 }
@@ -513,7 +513,7 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
 // item chosen.
 - (void)itemSelected:(id)sender {
   NSInteger modelIndex = [sender tag];
-  electron::ElectronMenuModel* model =
+  neutron::ElectronMenuModel* model =
       [WeakPtrToElectronMenuModelAsNSObject getFrom:[sender representedObject]];
   DCHECK(model);
   if (model) {
@@ -595,8 +595,8 @@ NSArray* ConvertSharingItemToNS(const SharingItem& item) {
     sourceWindowForShareItems:(NSArray*)items
           sharingContentScope:(NSSharingContentScope*)scope {
   // Return the current active window.
-  const auto& list = electron::WindowList::GetWindows();
-  for (electron::NativeWindow* window : list) {
+  const auto& list = neutron::WindowList::GetWindows();
+  for (neutron::NativeWindow* window : list) {
     if (window->IsFocused())
       return window->GetNativeWindow().GetNativeNSWindow();
   }

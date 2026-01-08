@@ -22,7 +22,7 @@
 
 using content::BrowserThread;
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -397,4 +397,4 @@ void WebContentsZoomController::UpdateState(const std::string& host) {
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(WebContentsZoomController);
 
-}  // namespace electron
+}  // namespace neutron

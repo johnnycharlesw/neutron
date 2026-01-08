@@ -1,9 +1,9 @@
-import { ParentPort } from '@electron/internal/utility/parent-port';
+import { ParentPort } from '@neutron/internal/utility/parent-port';
 
 import { EventEmitter } from 'events';
 import { pathToFileURL } from 'url';
 
-const v8Util = process._linkedBinding('electron_common_v8_util');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
 
 const entryScript: string = v8Util.getHiddenValue(process, '_serviceStartupScript');
 // We modified the original process.argv to let node.js load the init.js,
@@ -11,9 +11,9 @@ const entryScript: string = v8Util.getHiddenValue(process, '_serviceStartupScrip
 process.argv.splice(1, 1, entryScript);
 
 // Import common settings.
-require('@electron/internal/common/init');
+require('@neutron/internal/common/init');
 
-process._linkedBinding('electron_browser_event_emitter').setEventEmitterPrototype(EventEmitter.prototype);
+process._linkedBinding('neutron_browser_event_emitter').setEventEmitterPrototype(EventEmitter.prototype);
 
 const parentPort: ParentPort = new ParentPort();
 Object.defineProperty(process, 'parentPort', {
@@ -22,7 +22,7 @@ Object.defineProperty(process, 'parentPort', {
   value: parentPort
 });
 
-// Based on third_party/electron_node/lib/internal/worker/io.js
+// Based on third_party/neutron_node/lib/internal/worker/io.js
 parentPort.on('newListener', (name: string) => {
   if (name === 'message' && parentPort.listenerCount('message') === 0) {
     parentPort.start();

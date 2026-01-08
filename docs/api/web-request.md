@@ -3,7 +3,7 @@
 > Intercept and modify the contents of a request at various stages of its lifetime.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 Instances of the `WebRequest` class are accessed by using the `webRequest`
 property of a `Session`.
@@ -24,11 +24,11 @@ called with a `response` object when `listener` has done its work.
 An example of adding `User-Agent` header for requests:
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 
 // Modify the user agent for all requests to the following urls.
 const filter = {
-  urls: ['https://*.github.com/*', '*://electron.github.io/*']
+  urls: ['https://*.github.com/*', '*://neutron.github.io/*']
 }
 
 session.defaultSession.webRequest.onBeforeSendHeaders(filter, (details, callback) => {

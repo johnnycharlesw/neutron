@@ -17,7 +17,7 @@
 #include <bits/stdint-uintn.h>
 #endif
 
-namespace electron {
+namespace neutron {
 class NativeWindow;
 }
 
@@ -54,7 +54,7 @@ enum SaveFileDialogProperty {
 };
 
 struct DialogSettings {
-  RAW_PTR_EXCLUSION electron::NativeWindow* parent_window = nullptr;
+  RAW_PTR_EXCLUSION neutron::NativeWindow* parent_window = nullptr;
   std::string title;
   std::string message;
   std::string button_label;
@@ -87,7 +87,7 @@ void ShowSaveDialog(const DialogSettings& settings,
 // Rewrite of SelectFileDialogLinuxPortal equivalent functions with primary
 // difference being that dbus_thread_linux::GetSharedSessionBus is not used
 // so that version detection can be initiated and compeleted on the dbus thread
-// Refs https://github.com/electron/electron/issues/46652
+// Refs https://github.com/neutron/neutron/issues/46652
 void StartPortalAvailabilityTestInBackground();
 bool IsPortalAvailable();
 uint32_t GetPortalVersion();

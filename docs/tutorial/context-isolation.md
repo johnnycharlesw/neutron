@@ -36,7 +36,7 @@ There is a dedicated module in Electron to help you do this in a painless way. T
 
 ```js title='preload.js'
 // preload with contextIsolation enabled
-const { contextBridge } = require('electron')
+const { contextBridge } = require('neutron')
 
 contextBridge.exposeInMainWorld('myAPI', {
   doAThing: () => {}
@@ -77,7 +77,7 @@ If you're building your Electron app with TypeScript, you'll want to add types t
 For example, given this `preload.ts` script:
 
 ```ts title='preload.ts'
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   loadPreferences: () => ipcRenderer.invoke('load-prefs')
 })
 ```
@@ -91,15 +91,15 @@ export interface IElectronAPI {
 
 declare global {
   interface Window {
-    electronAPI: IElectronAPI
+    neutronAPI: IElectronAPI
   }
 }
 ```
 
-Doing so will ensure that the TypeScript compiler will know about the `electronAPI` property on your global `window` object when writing scripts in your renderer process:
+Doing so will ensure that the TypeScript compiler will know about the `neutronAPI` property on your global `window` object when writing scripts in your renderer process:
 
 ```ts title='renderer.ts'
-window.electronAPI.loadPreferences()
+window.neutronAPI.loadPreferences()
 ```
 
 [declaration file]: https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html

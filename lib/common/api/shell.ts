@@ -1,3 +1,3 @@
-const shell = process._linkedBinding('electron_common_shell');
+const shell = process._linkedBinding('neutron_common_shell');
 
 export default shell;

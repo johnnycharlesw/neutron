@@ -7,7 +7,7 @@
 
 #include "ui/views/views_delegate.h"
 
-namespace electron {
+namespace neutron {
 
 class ViewsDelegateMac : public views::ViewsDelegate {
  public:
@@ -25,6 +25,6 @@ class ViewsDelegateMac : public views::ViewsDelegate {
   ui::ContextFactory* GetContextFactory() override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_COCOA_VIEWS_DELEGATE_MAC_H_

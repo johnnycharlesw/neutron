@@ -1,4 +1,4 @@
-const { app, BrowserWindow, BrowserView } = require('electron');
+const { app, BrowserWindow, BrowserView } = require('neutron');
 
 const { expect } = require('chai');
 

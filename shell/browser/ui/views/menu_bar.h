@@ -7,7 +7,7 @@
 
 #include "base/memory/raw_ptr.h"
 #include "shell/browser/native_window_observer.h"
-#include "shell/browser/ui/electron_menu_model.h"
+#include "shell/browser/ui/neutron_menu_model.h"
 #include "shell/browser/ui/views/menu_delegate.h"
 #include "shell/browser/ui/views/root_view.h"
 #include "ui/base/metadata/metadata_header_macros.h"
@@ -18,7 +18,7 @@ namespace views {
 class MenuButton;
 }
 
-namespace electron {
+namespace neutron {
 
 class MenuBar : public views::AccessiblePaneView,
                 private MenuDelegate::Observer,
@@ -34,7 +34,7 @@ class MenuBar : public views::AccessiblePaneView,
   MenuBar& operator=(const MenuBar&) = delete;
 
   // Replaces current menu with a new one.
-  void SetMenu(ElectronMenuModel* menu_model);
+  void SetMenu(NeutronMenuModel* menu_model);
 
   // Shows underline under accelerators.
   void SetAcceleratorVisibility(bool visible);
@@ -50,7 +50,7 @@ class MenuBar : public views::AccessiblePaneView,
 
   // Get the menu under specified screen point.
   bool GetMenuButtonFromScreenPoint(const gfx::Point& point,
-                                    ElectronMenuModel** menu_model,
+                                    NeutronMenuModel** menu_model,
                                     views::MenuButton** button);
 
   void ViewHierarchyChanged(
@@ -88,10 +88,10 @@ class MenuBar : public views::AccessiblePaneView,
 
   raw_ptr<NativeWindow> window_;
   raw_ptr<RootView> root_view_;
-  raw_ptr<ElectronMenuModel> menu_model_ = nullptr;
+  raw_ptr<NeutronMenuModel> menu_model_ = nullptr;
   bool accelerator_installed_ = false;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_MENU_BAR_H_

@@ -77,21 +77,21 @@ jobs:
           {
             "series": [
               {
-                "metric": "electron.macos.disk.free_space_before_cleanup_gb",
+                "metric": "neutron.macos.disk.free_space_before_cleanup_gb",
                 "points": [{"timestamp": ${TIMESTAMP}, "value": ${FREE_BEFORE_GB}}],
                 "type": 3,
                 "unit": "gigabyte",
                 "tags": ["runner:${MATRIX_RUNNER}", "platform:macos"]
               },
               {
-                "metric": "electron.macos.disk.free_space_after_cleanup_gb",
+                "metric": "neutron.macos.disk.free_space_after_cleanup_gb",
                 "points": [{"timestamp": ${TIMESTAMP}, "value": ${FREE_AFTER_GB}}],
                 "type": 3,
                 "unit": "gigabyte",
                 "tags": ["runner:${MATRIX_RUNNER}", "platform:macos"]
               },
               {
-                "metric": "electron.macos.disk.space_freed_gb",
+                "metric": "neutron.macos.disk.space_freed_gb",
                 "points": [{"timestamp": ${TIMESTAMP}, "value": ${SPACE_FREED_GB}}],
                 "type": 3,
                 "unit": "gigabyte",

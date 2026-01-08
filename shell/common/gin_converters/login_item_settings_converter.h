@@ -7,31 +7,31 @@
 
 #include "gin/converter.h"
 
-namespace electron {
+namespace neutron {
 struct LoginItemSettings;
 struct LaunchItem;
-}  // namespace electron
+}  // namespace neutron
 
 namespace gin {
 
 #if BUILDFLAG(IS_WIN)
 template <>
-struct Converter<electron::LaunchItem> {
+struct Converter<neutron::LaunchItem> {
   static v8::Local<v8::Value> ToV8(v8::Isolate* isolate,
-                                   electron::LaunchItem val);
+                                   neutron::LaunchItem val);
   static bool FromV8(v8::Isolate* isolate,
                      v8::Local<v8::Value> val,
-                     electron::LaunchItem* out);
+                     neutron::LaunchItem* out);
 };
 #endif
 
 template <>
-struct Converter<electron::LoginItemSettings> {
+struct Converter<neutron::LoginItemSettings> {
   static v8::Local<v8::Value> ToV8(v8::Isolate* isolate,
-                                   electron::LoginItemSettings val);
+                                   neutron::LoginItemSettings val);
   static bool FromV8(v8::Isolate* isolate,
                      v8::Local<v8::Value> val,
-                     electron::LoginItemSettings* out);
+                     neutron::LoginItemSettings* out);
 };
 
 }  // namespace gin

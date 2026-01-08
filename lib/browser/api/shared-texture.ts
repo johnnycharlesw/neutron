@@ -1,23 +1,23 @@
-import ipcMain from '@electron/internal/browser/api/ipc-main';
-import * as ipcMainInternalUtils from '@electron/internal/browser/ipc-main-internal-utils';
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
+import ipcMain from '@neutron/internal/browser/api/ipc-main';
+import * as ipcMainInternalUtils from '@neutron/internal/browser/ipc-main-internal-utils';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
 
 import { randomUUID } from 'crypto';
 
 const transferTimeout = 1000;
-const sharedTextureNative = process._linkedBinding('electron_common_shared_texture');
+const sharedTextureNative = process._linkedBinding('neutron_common_shared_texture');
 const managedSharedTextures = new Map<string, SharedTextureImportedWrapper>();
 
-type AllReleasedCallback = (imported: Electron.SharedTextureImported) => void;
+type AllReleasedCallback = (imported: Neutron.SharedTextureImported) => void;
 
 type SharedTextureImportedWrapper = {
-  texture: Electron.SharedTextureImported;
+  texture: Neutron.SharedTextureImported;
   allReferencesReleased: AllReleasedCallback | undefined;
   mainReference: boolean;
-  rendererFrameReferences: Map<number, { count: number, reference: Electron.WebFrameMain }>;
+  rendererFrameReferences: Map<number, { count: number, reference: Neutron.WebFrameMain }>;
 }
 
-ipcMain.handle(IPC_MESSAGES.IMPORT_SHARED_TEXTURE_RELEASE_RENDERER_TO_MAIN, (event: Electron.IpcMainInvokeEvent, textureId: string) => {
+ipcMain.handle(IPC_MESSAGES.IMPORT_SHARED_TEXTURE_RELEASE_RENDERER_TO_MAIN, (event: Neutron.IpcMainInvokeEvent, textureId: string) => {
   const frameTreeNodeId = event.frameTreeNodeId ?? event.sender.mainFrame.frameTreeNodeId;
   wrapperReleaseFromRenderer(textureId, frameTreeNodeId);
 });
@@ -108,7 +108,7 @@ function wrapperReleaseFromMain (id: string) {
   }
 }
 
-async function sendSharedTexture (options: Electron.SendSharedTextureOptions, ...args: any[]) {
+async function sendSharedTexture (options: Neutron.SendSharedTextureOptions, ...args: any[]) {
   const imported = options.importedSharedTexture;
   const transfer = imported.subtle.startTransferSharedTexture();
 
@@ -119,12 +119,12 @@ async function sendSharedTexture (options: Electron.SendSharedTextureOptions, ..
     }, transferTimeout);
   });
 
-  const targetFrame: Electron.WebFrameMain | undefined = options.frame;
+  const targetFrame: Neutron.WebFrameMain | undefined = options.frame;
   if (!targetFrame) {
     throw new Error('`frame` should be provided');
   }
 
-  const invokePromise: Promise<Electron.SharedTextureSyncToken> = ipcMainInternalUtils.invokeInWebFrameMain<Electron.SharedTextureSyncToken>(
+  const invokePromise: Promise<Neutron.SharedTextureSyncToken> = ipcMainInternalUtils.invokeInWebFrameMain<Neutron.SharedTextureSyncToken>(
     targetFrame,
     IPC_MESSAGES.IMPORT_SHARED_TEXTURE_TRANSFER_MAIN_TO_RENDERER,
     transfer,
@@ -159,10 +159,10 @@ async function sendSharedTexture (options: Electron.SendSharedTextureOptions, ..
   scheduleCheckManagedSharedTextures();
 }
 
-function importSharedTexture (options: Electron.ImportSharedTextureOptions) {
+function importSharedTexture (options: Neutron.ImportSharedTextureOptions) {
   const id = randomUUID();
   const imported = sharedTextureNative.importSharedTexture(Object.assign(options.textureInfo, { id }));
-  const ret: Electron.SharedTextureImported = {
+  const ret: Neutron.SharedTextureImported = {
     textureId: id,
     subtle: imported,
     getVideoFrame: imported.getVideoFrame,

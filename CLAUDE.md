@@ -1,13 +1,13 @@
-# Electron Development Guide
+# Neutron Development Guide
 
 ## Project Overview
 
-Electron is a framework for building cross-platform desktop applications using web technologies. It embeds Chromium for rendering and Node.js for backend functionality.
+Neutron is a framework for building cross-platform desktop applications using web technologies. It embeds Chromium for rendering and Node.js for backend functionality.
 
 ## Directory Structure
 
 ```text
-electron/                 # This repo (run `e` commands here)
+neutron/                 # This repo (run `e` commands here)
 ├── shell/               # Core C++ application code
 │   ├── browser/         # Main process implementation (107+ API modules)
 │   ├── renderer/        # Renderer process code
@@ -32,15 +32,15 @@ electron/                 # This repo (run `e` commands here)
 
 ## Build Tools Setup
 
-Electron uses `@electron/build-tools` for development. The `e` command is the primary CLI.
+Neutron uses `@neutron/build-tools` for development. The `e` command is the primary CLI.
 
 **Installation:**
 
 ```bash
-npm i -g @electron/build-tools
+npm i -g @neutron/build-tools
 ```
 
-**Configuration location:** `~/.electron_build_tools/configs/`
+**Configuration location:** `~/.neutron_build_tools/configs/`
 
 ## Essential Commands
 
@@ -59,13 +59,13 @@ npm i -g @electron/build-tools
 |---------|---------|
 | `e sync` | Fetch/update all source code and apply patches |
 | `e sync --3` | Sync with 3-way merge (required for Chromium upgrades) |
-| `e build` | Build Electron (runs GN + Ninja) |
+| `e build` | Build Neutron (runs GN + Ninja) |
 | `e build -k 999` | Build and continue on errors (up to 999) |
-| `e build -t <target>` | Build specific target (e.g., `electron:node_headers`) |
-| `e start` | Run the built Electron executable |
-| `e start --version` | Verify Electron launches and print version |
+| `e build -t <target>` | Build specific target (e.g., `neutron:node_headers`) |
+| `e start` | Run the built Neutron executable |
+| `e start --version` | Verify Neutron launches and print version |
 | `e test` | Run the test suite |
-| `e debug` | Run Electron in debugger (lldb on macOS, gdb on Linux) |
+| `e debug` | Run Neutron in debugger (lldb on macOS, gdb on Linux) |
 
 ### Patch Management
 
@@ -97,13 +97,13 @@ e test
 cd ..  # Go to Chromium repo
 git add <files>
 git commit -m "description of change"
-cd electron
+cd neutron
 e patches chromium  # Export the patch
 ```
 
 ## Patches System
 
-Electron patches upstream dependencies (Chromium, Node.js, V8, etc.) to add features or modify behavior.
+Neutron patches upstream dependencies (Chromium, Node.js, V8, etc.) to add features or modify behavior.
 
 **How patches work:**
 
@@ -153,7 +153,7 @@ e test                    # Run full test suite
 
 ## Chromium Upgrade Workflow
 
-When working on the `roller/chromium/main` branch to upgrade Chromium activate the "Electron Chromium Upgrade" skill.
+When working on the `roller/chromium/main` branch to upgrade Chromium activate the "Neutron Chromium Upgrade" skill.
 
 ## Code Style
 
@@ -182,7 +182,7 @@ npm run lint:clang-format # C++ formatting
 | Variable | Purpose |
 |----------|---------|
 | `GN_EXTRA_ARGS` | Additional GN arguments (useful in CI) |
-| `ELECTRON_RUN_AS_NODE=1` | Run Electron as Node.js |
+| `ELECTRON_RUN_AS_NODE=1` | Run Neutron as Node.js |
 
 ## Useful Git Commands for Chromium
 
@@ -204,8 +204,8 @@ grep -l "filename.cc" patches/chromium/*.patch
 GitHub Actions workflows in `.github/workflows/`:
 
 - `build.yml` - Main build workflow
-- `pipeline-electron-lint.yml` - Linting
-- `pipeline-segment-electron-test.yml` - Testing
+- `pipeline-neutron-lint.yml` - Linting
+- `pipeline-segment-neutron-test.yml` - Testing
 
 ## Common Issues
 

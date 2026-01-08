@@ -9,7 +9,7 @@
 #include "v8/include/v8-local-handle.h"
 #include "v8/include/v8-object.h"
 
-namespace electron::api::context_bridge {
+namespace neutron::api::context_bridge {
 
 /**
  * NB: This is designed for context_bridge. Beware using it elsewhere!
@@ -38,6 +38,6 @@ class ObjectCache final {
       proxy_map_;
 };
 
-}  // namespace electron::api::context_bridge
+}  // namespace neutron::api::context_bridge
 
 #endif  // ELECTRON_SHELL_RENDERER_API_CONTEXT_BRIDGE_OBJECT_CACHE_H_

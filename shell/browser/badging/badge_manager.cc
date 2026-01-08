@@ -90,11 +90,11 @@ void BadgeManager::SetBadge(blink::mojom::BadgeValuePtr mojo_value) {
                                  ? std::nullopt
                                  : std::make_optional(mojo_value->get_number());
 
-  electron::Browser::Get()->SetBadgeCount(value);
+  neutron::Browser::Get()->SetBadgeCount(value);
 }
 
 void BadgeManager::ClearBadge() {
-  electron::Browser::Get()->SetBadgeCount(0);
+  neutron::Browser::Get()->SetBadgeCount(0);
 }
 
 }  // namespace badging

@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#import "shell/browser/ui/cocoa/electron_bundle_mover.h"
+#import "shell/browser/ui/cocoa/neutron_bundle_mover.h"
 
 #import <AppKit/AppKit.h>
 #import <Security/Security.h>
@@ -21,13 +21,13 @@
 namespace gin {
 
 template <>
-struct Converter<electron::BundlerMoverConflictType> {
+struct Converter<neutron::BundlerMoverConflictType> {
   static v8::Local<v8::Value> ToV8(v8::Isolate* isolate,
-                                   electron::BundlerMoverConflictType value) {
+                                   neutron::BundlerMoverConflictType value) {
     switch (value) {
-      case electron::BundlerMoverConflictType::kExists:
+      case neutron::BundlerMoverConflictType::kExists:
         return gin::StringToV8(isolate, "exists");
-      case electron::BundlerMoverConflictType::kExistsAndRunning:
+      case neutron::BundlerMoverConflictType::kExistsAndRunning:
         return gin::StringToV8(isolate, "existsAndRunning");
       default:
         return v8::String::Empty(isolate);
@@ -326,7 +326,7 @@ bool IsApplicationAtPathRunning(NSString* bundlePath) {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 bool ElectronBundleMover::ShouldContinueMove(
     const BundlerMoverConflictType type,
@@ -416,7 +416,7 @@ bool ElectronBundleMover::Move(gin_helper::ErrorThrower thrower,
                              arguments:[NSArray
                                            arrayWithObject:destinationPath]]
             waitUntilExit];
-        electron::Browser::Get()->Quit();
+        neutron::Browser::Get()->Quit();
         return true;
       } else {
         // Check callback handler and get user choice for app trashing
@@ -462,7 +462,7 @@ bool ElectronBundleMover::Move(gin_helper::ErrorThrower thrower,
                                                                  nil]];
   }
 
-  electron::Browser::Get()->Quit();
+  neutron::Browser::Get()->Quit();
 
   return true;
 }
@@ -471,4 +471,4 @@ bool ElectronBundleMover::IsCurrentAppInApplicationsFolder() {
   return IsInApplicationsFolder([[NSBundle mainBundle] bundlePath]);
 }
 
-}  // namespace electron
+}  // namespace neutron

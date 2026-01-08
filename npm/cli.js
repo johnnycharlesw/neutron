@@ -2,14 +2,14 @@
 
 const proc = require('child_process');
 
-const electron = require('./');
+const neutron = require('./');
 
-const child = proc.spawn(electron, process.argv.slice(2), { stdio: 'inherit', windowsHide: false });
+const child = proc.spawn(neutron, process.argv.slice(2), { stdio: 'inherit', windowsHide: false });
 let childClosed = false;
 child.on('close', function (code, signal) {
   childClosed = true;
   if (code === null) {
-    console.error(electron, 'exited with signal', signal);
+    console.error(neutron, 'exited with signal', signal);
     process.exit(1);
   }
   process.exit(code);

@@ -7,7 +7,7 @@
 #include "base/command_line.h"
 #include "base/process/process.h"
 #include "base/process/process_metrics.h"
-#include "shell/common/api/electron_bindings.h"
+#include "shell/common/api/neutron_bindings.h"
 #include "shell/common/gin_helper/dictionary.h"
 #include "shell/common/node_includes.h"
 #include "shell/common/node_util.h"
@@ -24,13 +24,13 @@
 #include "third_party/blink/renderer/platform/context_lifecycle_observer.h"  // nogncheck
 #include "v8/include/v8-context.h"
 
-namespace electron::preload_realm {
+namespace neutron::preload_realm {
 
 namespace {
 
-static constexpr int kElectronContextEmbedderDataIndex =
+static constexpr int kNeutronContextEmbedderDataIndex =
     static_cast<int>(gin::kPerContextDataStartIndex) +
-    static_cast<int>(gin::kEmbedderElectron);
+    static_cast<int>(gin::kEmbedderNeutron);
 
 // This is a helper class to make the initiator ExecutionContext the owner
 // of a ShadowRealmGlobalScope and its ScriptState. When the initiator
@@ -45,7 +45,7 @@ class PreloadRealmLifetimeController
       blink::ScriptState* initiator_script_state,
       blink::ShadowRealmGlobalScope* shadow_realm_global_scope,
       blink::ScriptState* shadow_realm_script_state,
-      electron::ServiceWorkerData* service_worker_data)
+      neutron::ServiceWorkerData* service_worker_data)
       : initiator_script_state_(initiator_script_state),
         is_initiator_worker_or_worklet_(
             initiator_execution_context->IsWorkerOrWorkletGlobalScope()),
@@ -59,10 +59,10 @@ class PreloadRealmLifetimeController
     RegisterDebugger(initiator_execution_context);
 
     initiator_context()->SetAlignedPointerInEmbedderData(
-        kElectronContextEmbedderDataIndex, static_cast<void*>(this),
+        kNeutronContextEmbedderDataIndex, static_cast<void*>(this),
         v8::kEmbedderDataTypeTagDefault);
     realm_context()->SetAlignedPointerInEmbedderData(
-        kElectronContextEmbedderDataIndex, static_cast<void*>(this),
+        kNeutronContextEmbedderDataIndex, static_cast<void*>(this),
         v8::kEmbedderDataTypeTagDefault);
 
     metrics_ = base::ProcessMetrics::CreateCurrentProcessMetrics();
@@ -71,12 +71,12 @@ class PreloadRealmLifetimeController
 
   static PreloadRealmLifetimeController* From(v8::Local<v8::Context> context) {
     if (context->GetNumberOfEmbedderDataFields() <=
-        kElectronContextEmbedderDataIndex) {
+        kNeutronContextEmbedderDataIndex) {
       return nullptr;
     }
     auto* controller = static_cast<PreloadRealmLifetimeController*>(
         context->GetAlignedPointerFromEmbedderData(
-            kElectronContextEmbedderDataIndex,
+            kNeutronContextEmbedderDataIndex,
             v8::kEmbedderDataTypeTagDefault));
     CHECK(controller);
     return controller;
@@ -107,7 +107,7 @@ class PreloadRealmLifetimeController
                : nullptr;
   }
 
-  electron::ServiceWorkerData* service_worker_data() {
+  neutron::ServiceWorkerData* service_worker_data() {
     return service_worker_data_;
   }
 
@@ -115,7 +115,7 @@ class PreloadRealmLifetimeController
   void ContextDestroyed() override {
     v8::HandleScope handle_scope(realm_isolate());
     realm_context()->SetAlignedPointerInEmbedderData(
-        kElectronContextEmbedderDataIndex, nullptr,
+        kNeutronContextEmbedderDataIndex, nullptr,
         v8::kEmbedderDataTypeTagDefault);
 
     // See ShadowRealmGlobalScope::ContextDestroyed
@@ -153,7 +153,7 @@ class PreloadRealmLifetimeController
 
     // Override path to make preload realm easier to find in debugger.
     blink::KURL url_for_debugger(worker_context->Url());
-    url_for_debugger.SetPath("electron-preload-realm");
+    url_for_debugger.SetPath("neutron-preload-realm");
 
     debugger->ContextCreated(worker_context->GetThread(), url_for_debugger,
                              context);
@@ -177,7 +177,7 @@ class PreloadRealmLifetimeController
     gin_helper::Dictionary process = gin::Dictionary::CreateEmpty(isolate);
     b.Set("process", process);
 
-    ElectronBindings::BindProcess(isolate, &process, metrics_.get());
+    NeutronBindings::BindProcess(isolate, &process, metrics_.get());
 
     process.SetMethod("uptime", preload_utils::Uptime);
     process.Set("argv", base::CommandLine::ForCurrentProcess()->argv());
@@ -191,7 +191,7 @@ class PreloadRealmLifetimeController
 
     v8::LocalVector<v8::Value> preload_realm_bundle_args(isolate, {binding});
 
-    util::CompileAndCall(isolate, context, "electron/js2c/preload_realm_bundle",
+    util::CompileAndCall(isolate, context, "neutron/js2c/preload_realm_bundle",
                          &preload_realm_bundle_params,
                          &preload_realm_bundle_args);
   }
@@ -238,7 +238,7 @@ v8::MaybeLocal<v8::Context> GetPreloadRealmContext(
   return v8::MaybeLocal<v8::Context>();
 }
 
-electron::ServiceWorkerData* GetServiceWorkerData(
+neutron::ServiceWorkerData* GetServiceWorkerData(
     v8::Local<v8::Context> context) {
   auto* controller = PreloadRealmLifetimeController::From(context);
   return controller ? controller->service_worker_data() : nullptr;
@@ -247,7 +247,7 @@ electron::ServiceWorkerData* GetServiceWorkerData(
 void OnCreatePreloadableV8Context(
     v8::Isolate* const isolate,
     v8::Local<v8::Context> initiator_context,
-    electron::ServiceWorkerData* service_worker_data) {
+    neutron::ServiceWorkerData* service_worker_data) {
   blink::ScriptState* initiator_script_state =
       blink::ScriptState::MaybeFrom(isolate, initiator_context);
   DCHECK(initiator_script_state);
@@ -301,4 +301,4 @@ void OnCreatePreloadableV8Context(
       shadow_realm_global_scope, script_state, service_worker_data);
 }
 
-}  // namespace electron::preload_realm
+}  // namespace neutron::preload_realm

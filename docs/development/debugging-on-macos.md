@@ -23,8 +23,8 @@ You can also use [XCode for debugging](debugging-with-xcode.md) if you prefer a 
 * **.lldbinit**: Create or edit `~/.lldbinit` to allow Chromium code to be properly source-mapped.
 
    ```text
-   # e.g: ['~/electron/src/tools/lldb']
-   script sys.path[:0] = ['<...path/to/electron/src/tools/lldb>']
+   # e.g: ['~/neutron/src/tools/lldb']
+   script sys.path[:0] = ['<...path/to/neutron/src/tools/lldb>']
    script import lldbinit
    ```
 
@@ -67,7 +67,7 @@ The app will immediately be paused, since Electron sets the app's name on launch
 
 ```sh
 (lldb) run
-Process 25244 launched: '/Users/fr/Code/electron/out/Testing/Electron.app/Contents/MacOS/Electron' (x86_64)
+Process 25244 launched: '/Users/fr/Code/neutron/out/Testing/Electron.app/Contents/MacOS/Electron' (x86_64)
 Process 25244 stopped
 * thread #1: tid = 0x839a4c, 0x0000000100162db4 Electron Framework`atom::Browser::SetName(this=0x0000000108b14f20, name="Electron") + 20 at browser.cc:118, queue = 'com.apple.main-thread', stop reason = breakpoint 1.1
     frame #0: 0x0000000100162db4 Electron Framework`atom::Browser::SetName(this=0x0000000108b14f20, name="Electron") + 20 at browser.cc:118

@@ -7,7 +7,7 @@ your app's main script before the [ready][ready] event of the [app][app] module
 is emitted:
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315')
 app.commandLine.appendSwitch('host-rules', 'MAP * 127.0.0.1')
@@ -75,7 +75,7 @@ passing `--enable-logging`.
 
 Passing `--enable-logging` will result in logs being printed on stderr.
 Passing `--enable-logging=file` will result in logs being saved to the file
-specified by `--log-file=...`, or to `electron_debug.log` in the user-data
+specified by `--log-file=...`, or to `neutron_debug.log` in the user-data
 directory if `--log-file` is not specified.
 
 > [!NOTE]
@@ -140,15 +140,15 @@ Specifies the flags passed to the [V8 engine](https://v8.dev). In order to enabl
 this switch must be passed on startup.
 
 ```sh
-$ electron --js-flags="--harmony_proxies --harmony_collections" your-app
+$ neutron --js-flags="--harmony_proxies --harmony_collections" your-app
 ```
 
-Run `node --v8-options` or `electron --js-flags="--help"` in your terminal for the list of available flags.  These can be used to enable early-stage JavaScript features, or log and manipulate garbage collection, among other things.
+Run `node --v8-options` or `neutron --js-flags="--help"` in your terminal for the list of available flags.  These can be used to enable early-stage JavaScript features, or log and manipulate garbage collection, among other things.
 
 For example, to trace V8 optimization and deoptimization:
 
 ```sh
-$ electron --js-flags="--trace-opt --trace-deopt" your-app
+$ neutron --js-flags="--trace-opt --trace-deopt" your-app
 ```
 
 ### --lang
@@ -211,7 +211,7 @@ list of hosts. This flag has an effect only if used in tandem with
 For example:
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendSwitch('proxy-bypass-list', '<local>;*.google.com;*foo.com;1.2.3.4:5678')
 ```

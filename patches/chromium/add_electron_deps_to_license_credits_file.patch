@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Charles Kerr <charles@charleskerr.com>
 Date: Tue, 9 Aug 2022 12:35:36 -0500
-Subject: add electron deps to license credits file
+Subject: add neutron deps to license credits file
 
 Ensure that licenses for the dependencies introduced by Electron
 are included in `LICENSES.chromium.html`
@@ -14,11 +14,11 @@ index 7f22f02d2bc80abdb3be5191d55a1a6d00d1d0a7..8989fde2a7416100f238b0350fb7daf6
          "License": "Apache 2.0",
          "License File": ["//third_party/sample3/the_license"],
      },
-+    os.path.join('third_party', 'electron_node'): {
++    os.path.join('third_party', 'neutron_node'): {
 +        "Name": "Node.js",
 +        "URL": "https://github.com/nodejs/node",
 +        "License": "MIT",
-+        "License File": ["/third_party/electron_node/LICENSE"],
++        "License File": ["/third_party/neutron_node/LICENSE"],
 +    },
 +    os.path.join('third_party', 'squirrel.mac'): {
 +        "Name": "Squirrel",

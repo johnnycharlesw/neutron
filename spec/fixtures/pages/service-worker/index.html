@@ -1,5 +1,5 @@
 <script>
-  const ipcRenderer = require('electron').ipcRenderer;
+  const ipcRenderer = require('neutron').ipcRenderer;
   navigator.serviceWorker.register('service-worker.js', {scope: './'}).then(function() {
     if (navigator.serviceWorker.controller) {
       var xhr = new XMLHttpRequest();

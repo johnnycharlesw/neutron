@@ -20,7 +20,7 @@ namespace ui {
 class MenuModel;
 }
 
-namespace electron::gtkui {
+namespace neutron::gtkui {
 
 using MenuActivatedCallback = base::RepeatingCallback<void(GtkWidget*)>;
 
@@ -59,6 +59,6 @@ void BuildSubmenuFromModel(ui::MenuModel* model,
 // Sets the check mark, enabled/disabled state and dynamic labels on menu items.
 void SetMenuItemInfo(GtkWidget* widget, void* block_activation_ptr);
 
-}  // namespace electron::gtkui
+}  // namespace neutron::gtkui
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_GTK_MENU_UTIL_H_

@@ -3,7 +3,7 @@
 > Query and receive events from a sessions active service workers.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 Instances of the `ServiceWorkers` class are accessed by using `serviceWorkers` property of
 a `Session`.
@@ -11,7 +11,7 @@ a `Session`.
 For example:
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 
 // Get all service workers.
 console.log(session.defaultSession.serviceWorkers.getAllRunning())
@@ -108,7 +108,7 @@ Returns `Promise<ServiceWorkerMain>` - Resolves with the service worker when it'
 Starts the service worker or does nothing if already running.
 
 ```js
-const { app, session } = require('electron')
+const { app, session } = require('neutron')
 
 const { serviceWorkers } = session.defaultSession
 

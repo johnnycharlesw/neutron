@@ -2,14 +2,14 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "shell/browser/ui/cocoa/electron_native_widget_mac.h"
+#include "shell/browser/ui/cocoa/neutron_native_widget_mac.h"
 
 #include <string>
 
-#include "shell/browser/ui/cocoa/electron_ns_panel.h"
-#include "shell/browser/ui/cocoa/electron_ns_window.h"
+#include "shell/browser/ui/cocoa/neutron_ns_panel.h"
+#include "shell/browser/ui/cocoa/neutron_ns_window.h"
 
-namespace electron {
+namespace neutron {
 
 ElectronNativeWidgetMac::ElectronNativeWidgetMac(
     NativeWindowMac* shell,
@@ -33,4 +33,4 @@ NativeWidgetMacNSWindow* ElectronNativeWidgetMac::CreateNSWindow(
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

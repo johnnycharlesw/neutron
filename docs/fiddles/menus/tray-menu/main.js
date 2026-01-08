@@ -1,5 +1,5 @@
-const { app, BrowserWindow, Menu, Tray } = require('electron/main')
-const { nativeImage } = require('electron/common')
+const { app, BrowserWindow, Menu, Tray } = require('neutron/main')
+const { nativeImage } = require('neutron/common')
 
 // save a reference to the Tray object globally to avoid garbage collection
 let tray = null

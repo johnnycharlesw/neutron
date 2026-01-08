@@ -62,7 +62,7 @@ different output directory for GN, e.g. `out/Release-x86`, with different
 arguments.
 
 ```powershell
-$ gn gen out/Release-x86 --args="import(\"//electron/build/args/release.gn\") target_cpu=\"x86\""
+$ gn gen out/Release-x86 --args="import(\"//neutron/build/args/release.gn\") target_cpu=\"x86\""
 ```
 
 The other building steps are exactly the same.
@@ -106,7 +106,7 @@ PowerShell or VS2015 Command Prompt instead.
 
 ### cannot create directory at '...': Filename too long
 
-node.js has some [extremely long pathnames](https://github.com/electron/node/tree/electron/deps/npm/node_modules/libnpx/node_modules/yargs/node_modules/read-pkg-up/node_modules/read-pkg/node_modules/load-json-file/node_modules/parse-json/node_modules/error-ex/node_modules/is-arrayish), and by default git on windows doesn't handle long pathnames correctly (even though windows supports them). This should fix it:
+node.js has some [extremely long pathnames](https://github.com/neutron/node/tree/neutron/deps/npm/node_modules/libnpx/node_modules/yargs/node_modules/read-pkg-up/node_modules/read-pkg/node_modules/load-json-file/node_modules/parse-json/node_modules/error-ex/node_modules/is-arrayish), and by default git on windows doesn't handle long pathnames correctly (even though windows supports them). This should fix it:
 
 ```sh
 $ git config --system core.longpaths true

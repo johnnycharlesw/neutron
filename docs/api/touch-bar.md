@@ -2,7 +2,7 @@
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ## Class: TouchBar
 
@@ -86,7 +86,7 @@ Below is an example of a simple slot machine touch bar game with a button
 and some labels.
 
 ```js
-const { app, BrowserWindow, TouchBar } = require('electron')
+const { app, BrowserWindow, TouchBar } = require('neutron')
 
 const { TouchBarLabel, TouchBarButton, TouchBarSpacer } = TouchBar
 
@@ -196,7 +196,7 @@ app.whenReady().then(() => {
 To run the example above, you'll need to (assuming you've got a terminal open in the directory you want to run the example):
 
 1. Save the above file to your computer as `touchbar.js`
-2. Install Electron via `npm install electron`
-3. Run the example inside Electron: `./node_modules/.bin/electron touchbar.js`
+2. Install Electron via `npm install neutron`
+3. Run the example inside Electron: `./node_modules/.bin/neutron touchbar.js`
 
 You should then see a new Electron window and the app running in your touch bar (or touch bar emulator).

@@ -45,11 +45,11 @@
 namespace gin {
 
 template <>
-struct Converter<electron::NativeWindow::TitleBarStyle> {
+struct Converter<neutron::NativeWindow::TitleBarStyle> {
   static bool FromV8(v8::Isolate* isolate,
                      v8::Local<v8::Value> val,
-                     electron::NativeWindow::TitleBarStyle* out) {
-    using TitleBarStyle = electron::NativeWindow::TitleBarStyle;
+                     neutron::NativeWindow::TitleBarStyle* out) {
+    using TitleBarStyle = neutron::NativeWindow::TitleBarStyle;
     std::string title_bar_style;
     if (!ConvertFromV8(isolate, val, &title_bar_style))
       return false;
@@ -70,7 +70,7 @@ struct Converter<electron::NativeWindow::TitleBarStyle> {
 
 }  // namespace gin
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -142,7 +142,7 @@ void NativeWindow::InitFromOptions(const gin_helper::Dictionary& options) {
 
 #if BUILDFLAG(IS_WIN)
     // FIXME(felixrieseberg): Dirty, dirty workaround for
-    // https://github.com/electron/electron/issues/10862
+    // https://github.com/neutron/neutron/issues/10862
     // Somehow, we need to call `SetBounds` twice to get
     // usable results. The root cause is still unknown.
     SetPosition(gfx::Point{x, y});
@@ -678,7 +678,7 @@ int NativeWindow::NonClientHitTest(const gfx::Point& point) {
 #endif
 
   // This is to disable dragging in HTML5 full screen mode.
-  // Details: https://github.com/electron/electron/issues/41002
+  // Details: https://github.com/neutron/neutron/issues/41002
   if (widget()->IsFullscreen())
     return HTNOWHERE;
 
@@ -831,4 +831,4 @@ NativeWindowRelay::~NativeWindowRelay() = default;
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(NativeWindowRelay);
 
-}  // namespace electron
+}  // namespace neutron

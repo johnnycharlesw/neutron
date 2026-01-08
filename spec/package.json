@@ -1,19 +1,19 @@
 {
-  "name": "electron-test-main",
-  "productName": "Electron Test Main",
+  "name": "neutron-test-main",
+  "productName": "Neutron Test Main",
   "main": "index.js",
   "version": "0.1.0",
   "scripts": {
     "node-gyp-install": "node-gyp install"
   },
   "devDependencies": {
-    "@electron-ci/echo": "*",
-    "@electron-ci/external-ab": "*",
-    "@electron-ci/is-valid-window": "*",
-    "@electron-ci/osr-gpu": "*",
-    "@electron-ci/uv-dlopen": "*",
-    "@electron/fuses": "^1.8.0",
-    "@electron/packager": "^18.3.2",
+    "@neutron-ci/echo": "*",
+    "@neutron-ci/external-ab": "*",
+    "@neutron-ci/is-valid-window": "*",
+    "@neutron-ci/osr-gpu": "*",
+    "@neutron-ci/uv-dlopen": "*",
+    "@neutron/fuses": "^1.8.0",
+    "@neutron/packager": "^18.3.2",
     "@types/basic-auth": "^1.1.8",
     "@types/busboy": "^1.5.4",
     "@types/chai": "^4.3.19",

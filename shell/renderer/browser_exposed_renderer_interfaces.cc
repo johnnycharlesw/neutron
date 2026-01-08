@@ -8,7 +8,7 @@
 
 #include "base/functional/bind.h"
 #include "base/task/sequenced_task_runner.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "mojo/public/cpp/bindings/binder_map.h"
 #include "shell/renderer/renderer_client_base.h"
 
@@ -19,7 +19,7 @@
 namespace {
 #if BUILDFLAG(ENABLE_BUILTIN_SPELLCHECKER)
 void BindSpellChecker(
-    electron::RendererClientBase* client,
+    neutron::RendererClientBase* client,
     mojo::PendingReceiver<spellcheck::mojom::SpellChecker> receiver) {
   if (client->GetSpellCheck())
     client->GetSpellCheck()->BindReceiver(std::move(receiver));
@@ -28,8 +28,8 @@ void BindSpellChecker(
 
 }  // namespace
 
-void ExposeElectronRendererInterfacesToBrowser(
-    electron::RendererClientBase* client,
+void ExposeNeutronRendererInterfacesToBrowser(
+    neutron::RendererClientBase* client,
     mojo::BinderMap* binders) {
 #if BUILDFLAG(ENABLE_BUILTIN_SPELLCHECKER)
   binders->Add<spellcheck::mojom::SpellChecker>(

@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "printing/buildflags/buildflags.h"
 #include "shell/common/gin_helper/dictionary.h"
 #include "shell/common/node_includes.h"
@@ -54,4 +54,4 @@ void Initialize(v8::Local<v8::Object> exports,
 
 }  // namespace
 
-NODE_LINKED_BINDING_CONTEXT_AWARE(electron_common_features, Initialize)
+NODE_LINKED_BINDING_CONTEXT_AWARE(neutron_common_features, Initialize)

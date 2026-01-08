@@ -19,7 +19,7 @@ class RenderFrameHost;
 class WebContents;
 }  // namespace content
 
-namespace electron {
+namespace neutron {
 
 // This function returns the per-platform default printer's DPI.
 gfx::Size GetDefaultPrinterDPI(const std::u16string& device_name);
@@ -44,6 +44,6 @@ std::pair<std::string, std::u16string> GetDeviceNameToUse(
 // This function creates a task runner for use with printing tasks.
 scoped_refptr<base::TaskRunner> CreatePrinterHandlerTaskRunner();
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_PRINTING_PRINTING_UTILS_H_

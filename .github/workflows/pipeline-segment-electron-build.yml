@@ -62,7 +62,7 @@ on:
 permissions: {}
 
 concurrency:
-  group: electron-build-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ inputs.target-variant }}-${{ inputs.is-asan }}-${{ github.ref_protected == true && github.run_id || github.ref }}
+  group: neutron-build-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ inputs.target-variant }}-${{ inputs.is-asan }}-${{ github.ref_protected == true && github.run_id || github.ref }}
   cancel-in-progress: ${{ github.ref_protected != true }}
 
 env:
@@ -97,12 +97,12 @@ jobs:
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Setup SSH Debugging
       if: ${{ inputs.target-platform == 'macos' && (inputs.enable-ssh || env.ACTIONS_STEP_DEBUG == 'true') }}
-      uses: ./src/electron/.github/actions/ssh-debug
+      uses: ./src/neutron/.github/actions/ssh-debug
       with:
         tunnel: 'true'
       env:
@@ -113,7 +113,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Free up space (macOS)
       if: ${{ inputs.target-platform == 'macos' }}
-      uses: ./src/electron/.github/actions/free-space-macos
+      uses: ./src/neutron/.github/actions/free-space-macos
     - name: Check disk space after freeing up space
       if: ${{ inputs.target-platform == 'macos' }}
       run: df -h
@@ -123,9 +123,9 @@ jobs:
       with:
         node-version: 22.21.x
         cache: yarn
-        cache-dependency-path: src/electron/yarn.lock
+        cache-dependency-path: src/neutron/yarn.lock
     - name: Install Dependencies
-      uses: ./src/electron/.github/actions/install-dependencies
+      uses: ./src/neutron/.github/actions/install-dependencies
     - name: Install AZCopy
       if: ${{ inputs.target-platform == 'macos' }}
       run: brew install azcopy
@@ -145,32 +145,32 @@ jobs:
         fi
         echo "GN_EXTRA_ARGS=$GN_EXTRA_ARGS" >> $GITHUB_ENV
     - name: Set Chromium Git Cookie
-      uses: ./src/electron/.github/actions/set-chromium-cookie
+      uses: ./src/neutron/.github/actions/set-chromium-cookie
     - name: Install Build Tools
-      uses: ./src/electron/.github/actions/install-build-tools      
+      uses: ./src/neutron/.github/actions/install-build-tools      
     - name: Generate DEPS Hash
       run: |
-        node src/electron/script/generate-deps-hash.js
-        DEPSHASH=v1-src-cache-$(cat src/electron/.depshash)
+        node src/neutron/script/generate-deps-hash.js
+        DEPSHASH=v1-src-cache-$(cat src/neutron/.depshash)
         echo "DEPSHASH=$DEPSHASH" >> $GITHUB_ENV
         echo "CACHE_PATH=$DEPSHASH.tar" >> $GITHUB_ENV
     - name: Restore src cache via AZCopy
       if: ${{ inputs.target-platform != 'linux' }}
-      uses: ./src/electron/.github/actions/restore-cache-azcopy
+      uses: ./src/neutron/.github/actions/restore-cache-azcopy
       with:
         target-platform: ${{ inputs.target-platform }}
     - name: Restore src cache via AKS
       if: ${{ inputs.target-platform == 'linux' }}
-      uses: ./src/electron/.github/actions/restore-cache-aks
+      uses: ./src/neutron/.github/actions/restore-cache-aks
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Fix Sync
       if: ${{ inputs.target-platform != 'linux' }}
-      uses: ./src/electron/.github/actions/fix-sync
+      uses: ./src/neutron/.github/actions/fix-sync
       with:
         target-platform: ${{ inputs.target-platform }}
       env:
@@ -180,19 +180,19 @@ jobs:
         e init -f --root=$(pwd) --out=Default ${{ inputs.gn-build-type }} --import ${{ inputs.gn-build-type }} --target-cpu ${{ inputs.target-arch }} --remote-build siso
     - name: Run Electron Only Hooks
       run: |
-        e d gclient runhooks --spec="solutions=[{'name':'src/electron','url':None,'deps_file':'DEPS','custom_vars':{'process_deps':False},'managed':False}]"
+        e d gclient runhooks --spec="solutions=[{'name':'src/neutron','url':None,'deps_file':'DEPS','custom_vars':{'process_deps':False},'managed':False}]"
     - name: Regenerate DEPS Hash
       run: |
-        (cd src/electron && git checkout .) && node src/electron/script/generate-deps-hash.js
-        echo "DEPSHASH=$(cat src/electron/.depshash)" >> $GITHUB_ENV
+        (cd src/neutron && git checkout .) && node src/neutron/script/generate-deps-hash.js
+        echo "DEPSHASH=$(cat src/neutron/.depshash)" >> $GITHUB_ENV
     - name: Add CHROMIUM_BUILDTOOLS_PATH to env
       run: echo "CHROMIUM_BUILDTOOLS_PATH=$(pwd)/src/buildtools" >> $GITHUB_ENV
     - name: Free up space (macOS)
       if: ${{ inputs.target-platform == 'macos' }}
-      uses: ./src/electron/.github/actions/free-space-macos
+      uses: ./src/neutron/.github/actions/free-space-macos
     - name: Build Electron
       if: ${{ inputs.target-platform != 'macos' || (inputs.target-variant == 'all' || inputs.target-variant == 'darwin') }}
-      uses: ./src/electron/.github/actions/build-electron
+      uses: ./src/neutron/.github/actions/build-neutron
       with:
         target-arch: ${{ inputs.target-arch }}
         target-platform: ${{ inputs.target-platform }}
@@ -209,7 +209,7 @@ jobs:
         echo "GN_EXTRA_ARGS=$GN_EXTRA_ARGS" >> $GITHUB_ENV
     - name: Build Electron (MAS)
       if: ${{ inputs.target-platform == 'macos' && (inputs.target-variant == 'all' || inputs.target-variant == 'mas') }}
-      uses: ./src/electron/.github/actions/build-electron
+      uses: ./src/neutron/.github/actions/build-neutron
       with:
         target-arch: ${{ inputs.target-arch }}
         target-platform: ${{ inputs.target-platform }}

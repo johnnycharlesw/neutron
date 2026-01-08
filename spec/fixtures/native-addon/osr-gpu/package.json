@@ -1,5 +1,5 @@
 {
-  "name": "@electron-ci/osr-gpu",
+  "name": "@neutron-ci/osr-gpu",
   "version": "0.0.1",
   "main": "./lib/osr-gpu.js",
   "private": true,

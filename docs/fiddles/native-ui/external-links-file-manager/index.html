@@ -10,14 +10,14 @@
         Open external links and the file manager
       </h1>
       <h3>
-        The <code>shell</code> module in Electron allows you to access certain
+        The <code>shell</code> module in Neutron allows you to access certain
         native elements like the file manager and default web browser.
       </h3>
 
       <p>This module works in both the main and renderer process.</p>
       <p>
         Open the
-        <a href="https://www.electronjs.org/docs/latest/api/shell">
+        <a href="https://www.neutronjs.org/docs/latest/api/shell">
           full API documentation (opens in new window)
         </a>
         in your browser.
@@ -58,7 +58,7 @@
             of your app and in the user's default web browser.
           </p>
           <p>
-            When the demo button is clicked, the electron website will open in
+            When the demo button is clicked, the neutron website will open in
             your browser.
           </p>
           <p></p>
@@ -76,7 +76,7 @@
             <h5>Renderer Process</h5>
             <pre>
                 <code>
-const shell = require('electron').shell
+const shell = require('neutron').shell
 
 const links = document.querySelectorAll('a[href]')
 

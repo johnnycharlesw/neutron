@@ -6,8 +6,8 @@ Subject: command-ismediakey.patch
 Override MediaKeysListener::IsMediaKeycode and associated functions to also listen for
 Volume Up, Volume Down, and Mute.
 
-Also apply electron/electron@0f67b1866a9f00b852370e721affa4efda623f3a
-and electron/electron@d2368d2d3b3de9eec4cc32b6aaf035cc89921bf1 as
+Also apply neutron/neutron@0f67b1866a9f00b852370e721affa4efda623f3a
+and neutron/neutron@d2368d2d3b3de9eec4cc32b6aaf035cc89921bf1 as
 patches.
 
 diff --git a/content/browser/media/media_keys_listener_manager_impl.cc b/content/browser/media/media_keys_listener_manager_impl.cc

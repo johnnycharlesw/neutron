@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Charles Kerr <charles@charleskerr.com>
 Date: Thu, 17 Apr 2025 19:07:23 -0500
-Subject: refactor: patch electron PermissionTypes into blink
+Subject: refactor: patch neutron PermissionTypes into blink
 
 6387077: [PermissionOptions] Generalize PermissionRequestDescription | https://chromium-review.googlesource.com/c/chromium/src/+/6387077
 
@@ -218,7 +218,7 @@ index d88327a36321bc9370f7f3761487c6fc31b7f109..84080a87638fca1a82c9cfea7a2c53ed
 +    case PermissionName::FILE_SYSTEM:
 +      return "file-system";
 +    case PermissionName::ELECTRON_FULLSCREEN:
-+      return "electron-fullscreen";
++      return "neutron-fullscreen";
 +    case PermissionName::HID:
 +      return "hid";
 +    case PermissionName::OPEN_EXTERNAL:

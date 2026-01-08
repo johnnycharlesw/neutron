@@ -3,7 +3,7 @@
 > An instance of a Service Worker representing a version of a script for a given scope.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 ### Instance Methods
 

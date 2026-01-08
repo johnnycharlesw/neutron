@@ -42,7 +42,7 @@ index 7c319d7e9452a1a156795f63d7ad3fcbf21308ab..0d7f8f37b8dda38b9d7b40abd9239a2d
      "//build:ios_buildflags",
      "//build/config/compiler:compiler_buildflags",
      "//third_party/modp_b64",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
  
    # Used by metrics/crc32
@@ -54,7 +54,7 @@ index 4bf9a3c27e05c6635b2beb8e880b5b43dbed61b5..f328fbb49c45991f44a9c75325491d08
  #include "base/strings/string_split.h"
  #include "base/strings/string_util.h"
  #include "base/strings/sys_string_conversions.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
  namespace base {
  
@@ -88,7 +88,7 @@ index b63d58da9837ba4d1e4aff8f24f2cd977c5ed02d..8387fd7d2bcf8951b6cc024829c16d97
  #include "base/threading/scoped_blocking_call.h"
  #include "base/threading/thread_restrictions.h"
  #include "base/trace_event/trace_event.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
 +#if IS_MAS_BUILD()
 +#include <sys/syscall.h>
 +#endif
@@ -152,7 +152,7 @@ index e12c1d078147d956a1d9b1bc498c1b1d6fe7b974..233362259dc4e728ed37435e65041764
  
  #include "base/process/process_info.h"
  
-+#include "electron/mas.h"
++#include "neutron/mas.h"
 +
  #import <AppKit/AppKit.h>
  #include <unistd.h>
@@ -202,7 +202,7 @@ index caa0e420956a31be1bd744319a0e40a0e50b46cf..f19628cc0cdba39b232f55935e8eee97
  #include "base/strings/string_view_util.h"
  #include "build/branding_buildflags.h"
  #include "crypto/apple/keychain.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "third_party/abseil-cpp/absl/cleanup/cleanup.h"
  
  using crypto::apple::Keychain;
@@ -214,7 +214,7 @@ index 2d155f49248a24b5551cb93e010ac1a0c0f94261..23aa391aaf380f87310fb295277809f8
      deps += [
        "//components/os_crypt/common:keychain_password_mac",
        "//crypto:mock_apple_keychain",
-+      "//electron/build/config:generate_mas_config"
++      "//neutron/build/config:generate_mas_config"
      ]
    } else if (is_win) {
      sources += [ "os_crypt_win.cc" ]
@@ -226,7 +226,7 @@ index ba813851fde2660c21f99248a124161d2ac2ca07..c34f920e4a592b6798f5307c726bc34e
      "//components/crash/core/common",
      "//components/remote_cocoa/common:mojo",
      "//components/system_media_controls",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
      "//mojo/public/cpp/bindings",
      "//net",
      "//ui/accelerated_widget_mac",
@@ -238,7 +238,7 @@ index d5afd4be1ef4ac3fd1cfa7c09c667bc87b9a6b3a..4f005f2fe24ecfe1962fc64782fb7187
  #include "components/remote_cocoa/app_shim/native_widget_ns_window_bridge.h"
  #include "components/remote_cocoa/app_shim/native_widget_ns_window_host_helper.h"
  #include "components/system_media_controls/mac/remote_cocoa/system_media_controls_bridge.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "mojo/public/cpp/bindings/associated_remote.h"
  #include "mojo/public/cpp/bindings/self_owned_receiver.h"
  #include "ui/accelerated_widget_mac/window_resize_helper_mac.h"
@@ -278,7 +278,7 @@ index f7200edbe6059ac6d7ade0672852b52da7642a71..0cc5da96411b46eb39d0c01dfec59cb5
  #include "base/mac/mac_util.h"
  #include "components/remote_cocoa/app_shim/native_widget_ns_window_bridge.h"
  #include "components/remote_cocoa/common/native_widget_ns_window_host.mojom.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
 +#if !IS_MAS_BUILD()
  namespace {
@@ -328,7 +328,7 @@ index 3a815ebf505bd95fa7f6b61ba433d98fbfe20225..149de0175c2ec0e41e3ba40caad7019c
  
  #import "components/remote_cocoa/app_shim/native_widget_mac_frameless_nswindow.h"
  
-+#include "electron/mas.h"
++#include "neutron/mas.h"
 +
 +#if !IS_MAS_BUILD()
 +
@@ -363,7 +363,7 @@ index 020050de162705651b4eb8378880cd4eb017d46c..2d3554861a570271d6f9b9a2c8b1de53
  
  #include "base/apple/foundation_util.h"
  #include "components/remote_cocoa/app_shim/remote_cocoa_app_shim_export.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #import "ui/base/cocoa/command_dispatcher.h"
  
  namespace remote_cocoa {
@@ -391,7 +391,7 @@ index a474e70cf3c10405b6f94f129f5a7312bb81fd73..9463bd647a4d47ff3241579255966f5e
  #import "components/remote_cocoa/app_shim/views_nswindow_delegate.h"
  #import "components/remote_cocoa/app_shim/window_touch_bar_delegate.h"
  #include "components/remote_cocoa/common/native_widget_ns_window_host.mojom.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "ui/accessibility/platform/ax_platform_node.h"
  #import "ui/base/cocoa/user_interface_item_command_handler.h"
  #import "ui/base/cocoa/window_size_constants.h"
@@ -458,7 +458,7 @@ index 414874d84338ff12e707d52bc82483957d74d8ef..849da439a046aea133946572c7996485
  #import "components/remote_cocoa/app_shim/views_nswindow_delegate.h"
  #import "components/remote_cocoa/app_shim/window_move_loop.h"
  #include "components/remote_cocoa/common/native_widget_ns_window_host.mojom.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "mojo/public/cpp/bindings/self_owned_receiver.h"
  #include "net/cert/x509_util_apple.h"
  #include "ui/accelerated_widget_mac/window_resize_helper_mac.h"
@@ -483,7 +483,7 @@ index 42eb89bca0a2ea0785d21b6a72e5ece3d5859c21..b3499d99f684b0463c07656633447b7c
          "frame_sinks/external_begin_frame_source_mojo_mac.h",
        ]
      }
-+    deps += ["//electron/build/config:generate_mas_config"]
++    deps += ["//neutron/build/config:generate_mas_config"]
    }
  
    if (is_ios) {
@@ -491,7 +491,7 @@ index 42eb89bca0a2ea0785d21b6a72e5ece3d5859c21..b3499d99f684b0463c07656633447b7c
        "display_embedder/software_output_device_mac_unittest.mm",
      ]
      frameworks = [ "IOSurface.framework" ]
-+    deps += ["//electron/build/config:generate_mas_config"]
++    deps += ["//neutron/build/config:generate_mas_config"]
    }
  
    if (is_win) {
@@ -503,7 +503,7 @@ index 010c713090e5038dc90db131c8f621422d30c03b..20c35e887a0496ee609c077e3b0494bd
  #include "content/common/web_contents_ns_view_bridge.mojom.h"
  #include "content/public/browser/remote_cocoa.h"
  #include "content/public/browser/render_widget_host_view_mac_delegate.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "mojo/public/cpp/bindings/associated_receiver.h"
  #include "mojo/public/cpp/bindings/associated_remote.h"
  #include "mojo/public/cpp/bindings/pending_associated_receiver.h"
@@ -554,7 +554,7 @@ index 475314668b79e2c2670e9890f92a527d35a273c0..44df2e22b1fe8e6deeeb6f4b8568e96f
  #import "content/public/browser/render_widget_host_view_mac_delegate.h"
  #include "content/public/browser/scoped_accessibility_mode.h"
  #include "content/public/common/content_features.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "skia/ext/skia_utils_mac.h"
  #include "third_party/blink/public/common/features.h"
  #include "third_party/blink/public/mojom/input/input_handler.mojom.h"
@@ -588,7 +588,7 @@ index ba5fffc4feaee0fa6d1a15ccd3e084bc63e79b25..253d955e9d688df680ff045bc7fb97f8
      "//ui/webui/resources",
      "//v8",
      "//v8:v8_version",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
  
    public_deps = [
@@ -600,7 +600,7 @@ index d2372570b472f9bfbed8b49b9a2e12ffbc1c5f62..8e6e69a12d47d7f73dada6e0b48b635b
  #include "content/browser/renderer_host/text_input_manager.h"
  #include "content/common/content_export.h"
  #include "content/common/render_widget_host_ns_view.mojom.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "mojo/public/cpp/bindings/associated_receiver.h"
  #include "mojo/public/cpp/bindings/associated_remote.h"
  #include "third_party/blink/public/mojom/webshare/webshare.mojom.h"
@@ -634,7 +634,7 @@ index 0f7ae2664dd80c7b8d6d222278d9ed85e12f9047..6cd1d4cb2a61d1ec61aa7ecb8b30e8d6
  #include "content/public/browser/render_widget_host.h"
  #include "content/public/browser/web_contents.h"
  #include "content/public/common/page_visibility_state.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "media/base/media_switches.h"
  #include "skia/ext/platform_canvas.h"
  #include "skia/ext/skia_utils_mac.h"
@@ -709,7 +709,7 @@ index b6a912f16fa4af423c62186b403a6e6cb12c5d1b..cd65876fe4463d81afc8fa64ffbfd146
      "//ui/shell_dialogs",
      "//url",
      "//url/ipc:url_ipc",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
  
    defines = []
@@ -721,7 +721,7 @@ index ee387002e8dbb54ddeb1f61f1973560cc91bfb42..5a46859e916fd3510b7add5a6af7cea1
      "//ui/strings:auto_image_annotation_strings_grit",
      "//url",
      "//v8",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
    allow_circular_includes_from = []
  
@@ -733,7 +733,7 @@ index d4db3b179725cb96bcbd0f73db7d52ef8b7522db..703b0f56a61abac51961bfd918b7349b
  #import <Cocoa/Cocoa.h>
  
  #include "base/check_op.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "sandbox/mac/seatbelt.h"
  #include "sandbox/mac/system_services.h"
  
@@ -769,7 +769,7 @@ index a1068589ad844518038ee7bc15a3de9bc5cba525..1ff781c49f086ec8015c7d3c44567dbe
  #include <Cocoa/Cocoa.h>
  
  #include "base/strings/sys_string_conversions.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
 +#if !IS_MAS_BUILD()
  extern "C" {
@@ -803,7 +803,7 @@ index 61f85af05af80cdea9e9294dbadb04bf92cb3e19..fca09c791a9a6bbdf48dc9418bd85dfa
      "//url",
      "//url/mojom:url_mojom_gurl",
      "//v8",
-+    "//electron/build/config:generate_mas_config"
++    "//neutron/build/config:generate_mas_config"
    ]
  
    data_deps = [
@@ -812,7 +812,7 @@ index 61f85af05af80cdea9e9294dbadb04bf92cb3e19..fca09c791a9a6bbdf48dc9418bd85dfa
    # enable the diagnostic by removing this line.
    configs += [ "//build/config/compiler:no_exit_time_destructors" ]
 +
-+  deps += ["//electron/build/config:generate_mas_config"]
++  deps += ["//neutron/build/config:generate_mas_config"]
  }
  
  mojom("content_test_mojo_bindings") {
@@ -820,7 +820,7 @@ index 61f85af05af80cdea9e9294dbadb04bf92cb3e19..fca09c791a9a6bbdf48dc9418bd85dfa
      "//ui/shell_dialogs",
      "//ui/snapshot",
      "//ui/webui:test_support",
-+    "//electron/build/config:generate_mas_config"
++    "//neutron/build/config:generate_mas_config"
    ]
  
    if (!(is_chromeos && target_cpu == "arm64" && current_cpu == "arm")) {
@@ -828,7 +828,7 @@ index 61f85af05af80cdea9e9294dbadb04bf92cb3e19..fca09c791a9a6bbdf48dc9418bd85dfa
      "//ui/shell_dialogs",
      "//ui/webui:test_support",
      "//url",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
  
    if (is_chromeos) {
@@ -840,7 +840,7 @@ index 7a9360beb22370b61d80f8a84f6b1f96d2d77c3b..708c61c16e7baa9fcc2124722714d7d9
      "//ui/gl",
      "//ui/shell_dialogs",
      "//url",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
  
    if (is_mac) {
@@ -852,7 +852,7 @@ index 3504d7197bd3225b6b83d7e057f389d8327b9ff7..92547d8bc700f3139f4bbc77d621152e
        "CoreBluetooth.framework",
        "Foundation.framework",
      ]
-+    deps += ["//electron/build/config:generate_mas_config"]
++    deps += ["//neutron/build/config:generate_mas_config"]
    }
  
    if (is_mac) {
@@ -864,7 +864,7 @@ index f300e8d331057e894b43b74944e5052c39206844..4ff5277d550485cd79c5b5316d89c730
  #include "device/bluetooth/bluetooth_discovery_session_outcome.h"
  #include "device/bluetooth/bluetooth_socket_mac.h"
  #include "device/bluetooth/public/cpp/bluetooth_address.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
 +#if !IS_MAS_BUILD()
  extern "C" {
@@ -910,7 +910,7 @@ index 327c2a54f2977ec99885c8c50709129cd5dcd87f..67c1b8a68dec740d0230d6b2396234b9
          "QuartzCore.framework",
        ]
        defines += [ "GL_SILENCE_DEPRECATION" ]
-+      deps += ["//electron/build/config:generate_mas_config"]
++      deps += ["//neutron/build/config:generate_mas_config"]
      }
      if (is_ios) {
        sources += [ "image_transport_surface_ios.mm" ]
@@ -922,7 +922,7 @@ index 8b7a675d95ad36cbb9528bc5bc7ef05e5124e5a3..ed6a9a326b82b177059317dc4bc54b10
  #include <vector>
  
  #include "base/memory/weak_ptr.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "gpu/ipc/service/command_buffer_stub.h"
  #include "gpu/ipc/service/image_transport_surface.h"
  #include "ui/gfx/ca_layer_result.h"
@@ -944,7 +944,7 @@ index 9388ffac4f70746b04e533b51faf4f2d55ab3358..98f45dc973159b5823d8a0433dfd4bc6
        "CoreMedia.framework",
      ]
      weak_frameworks = [ "ScreenCaptureKit.framework" ]  # macOS 13.0
-+    deps += ["//electron/build/config:generate_mas_config"]
++    deps += ["//neutron/build/config:generate_mas_config"]
    }
  
    if (is_ios) {
@@ -956,7 +956,7 @@ index 686c7e9b126260720424cd72d91a3f27002c5af8..e181ff1b909d928a3aa3a913a267d01f
  #include "base/strings/sys_string_conversions.h"
  #include "base/time/time.h"
  #include "base/trace_event/trace_event.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "media/audio/apple/audio_manager_apple.h"
  #include "media/audio/apple/scoped_audio_unit.h"
  #include "media/base/audio_bus.h"
@@ -993,7 +993,7 @@ index 5ed1605df7339b504838dfd949772b47ed72a89f..07ccbd74e0835f20edfeef76d0e5e124
      ":mdns_client",
    ]
 +
-+  deps += ["//electron/build/config:generate_mas_config"]
++  deps += ["//neutron/build/config:generate_mas_config"]
  }
  
  # The standard API of net/dns.
@@ -1005,7 +1005,7 @@ index f863fceb0b35555e4c3bc334c0c082bb2bed2a97..1120297f383826523d9131a73eea7b95
  #include "base/threading/scoped_blocking_call.h"
  #include "base/time/time.h"
  #include "build/build_config.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "net/base/ip_endpoint.h"
  #include "net/dns/dns_config.h"
  #include "net/dns/dns_hosts.h"
@@ -1035,7 +1035,7 @@ index d145bdb3f879ae7e2d77f3b58fe7abd09d6f7255..8973f310aa62b59bc829e8e0f8ed068b
    libs = [ "sandbox" ]
    deps = [ ":seatbelt_export" ]
    defines = [ "SEATBELT_IMPLEMENTATION" ]
-+  deps += ["//electron/build/config:generate_mas_config"]
++  deps += ["//neutron/build/config:generate_mas_config"]
  }
  
  component("seatbelt_extension") {
@@ -1043,7 +1043,7 @@ index d145bdb3f879ae7e2d77f3b58fe7abd09d6f7255..8973f310aa62b59bc829e8e0f8ed068b
    libs = [ "sandbox" ]
    public_deps = [ "//base" ]
    defines = [ "SEATBELT_IMPLEMENTATION" ]
-+  deps += ["//electron/build/config:generate_mas_config"]
++  deps += ["//neutron/build/config:generate_mas_config"]
  }
  
  component("system_services") {
@@ -1051,7 +1051,7 @@ index d145bdb3f879ae7e2d77f3b58fe7abd09d6f7255..8973f310aa62b59bc829e8e0f8ed068b
    deps = [ ":seatbelt_export" ]
    public_deps = [ "//base" ]
    defines = [ "SEATBELT_IMPLEMENTATION" ]
-+  deps += ["//electron/build/config:generate_mas_config"]
++  deps += ["//neutron/build/config:generate_mas_config"]
  }
  
  source_set("sandbox_unittests") {
@@ -1063,7 +1063,7 @@ index 950cf7cfee4e11766dccf5c0bf3f15a8562f0f1e..a5adaaabdbbd91fedbc4cb679c865bc3
  #include <string>
  
  #include "build/build_config.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "sandbox/mac/sandbox_crash_message.h"
  
  #if defined(ARCH_CPU_X86_64)
@@ -1099,7 +1099,7 @@ index 0e6e650f88e6aadd46bec96a8b41768c37d7cc6a..a6830e3f886e408c254ccd1c2b1d5c15
  #include <string>
  #include <vector>
  
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "sandbox/mac/sandbox_logging.h"
  #include "sandbox/mac/seatbelt.h"
  
@@ -1129,7 +1129,7 @@ index e9321ba5fc0f1b24b2d990ecb27c8aaa1c8b970b..51df9671a507acd115f09a50c2d6e987
  
  #include "sandbox/mac/seatbelt.h"
  
-+#include "electron/mas.h"
++#include "neutron/mas.h"
 +
  #include <errno.h>
  #include <unistd.h>
@@ -1299,7 +1299,7 @@ index 79edca9ca521d1bc2ff343967348eb98039b292a..23f9410ee66024e2c6b0b6b2b356a67b
  #include "base/check.h"
  #include "base/memory/ptr_util.h"
  #include "base/notreached.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "sandbox/mac/seatbelt_extension_token.h"
  
 +#if !IS_MAS_BUILD()
@@ -1361,7 +1361,7 @@ index eb81a70e4d5d5cd3e6ae9b45f8cd1c795ea76c51..9921ccb10d3455600eddd85f77f10228
  #include <CoreFoundation/CoreFoundation.h>
  
  #include "base/apple/osstatus_logging.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
 +#if !IS_MAS_BUILD()
  extern "C" {
@@ -1402,7 +1402,7 @@ index 4dabfb153a0ef874b22ac958c39114fc78fbf009..40a0e30239ec74e9dfc5c3b16c81f580
      "//ui/gfx/geometry",
      "//ui/gfx/geometry:geometry_skia",
      "//ui/strings",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
  
    if (is_mac) {
@@ -1434,7 +1434,7 @@ index 0f8a6f75b7f01029adc2f5fd23559bacce19cf72..cf66c2f4f02a8e21cc83c3b7389fc515
      "//ui/gfx",
      "//ui/gfx/geometry",
      "//ui/gl",
-+    "//electron/build/config:generate_mas_config",
++    "//neutron/build/config:generate_mas_config",
    ]
  }
  
@@ -1446,7 +1446,7 @@ index d5f35d2ccfb21b231e235dbfae3eee96a488eb20..14592180823131ca87bc95300c8d9a82
  #include <queue>
  
  #include "base/containers/queue.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "ui/accelerated_widget_mac/accelerated_widget_mac_export.h"
  #include "ui/gfx/ca_layer_result.h"
  #include "ui/gfx/presentation_feedback.h"
@@ -1477,7 +1477,7 @@ index 5e50feb42b4a49b03a75b510bb3ddc269282aa2f..1519401a362530b7107eab17c28b6348
  #include "base/mac/mac_util.h"
  #include "base/task/single_thread_task_runner.h"
  #include "base/trace_event/trace_event.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "ui/accelerated_widget_mac/ca_renderer_layer_tree.h"
  #include "ui/base/cocoa/animation_utils.h"
  #include "ui/base/cocoa/remote_layer_api.h"
@@ -1519,7 +1519,7 @@ index dcf493d62990018040a3f84b6f875af737bd2214..3d1c4dcc9ee0bbfdac15f40d9c74e9f3
  #include "base/mac/mac_util.h"
  #include "base/trace_event/trace_event.h"
  #include "build/build_config.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "ui/base/cocoa/animation_utils.h"
  #include "ui/base/cocoa/remote_layer_api.h"
  #include "ui/gfx/geometry/dip_util.h"
@@ -1549,7 +1549,7 @@ index 54d483d6b3f1a56573e21b1f873b8dee8fc25a0f..33bc8c9ef097a907060ed347dca2ad46
          "AppKit.framework",
          "Foundation.framework",
        ]
-+      deps += ["//electron/build/config:generate_mas_config"]
++      deps += ["//neutron/build/config:generate_mas_config"]
      }
  
      if (is_ios) {
@@ -1561,7 +1561,7 @@ index 423fa6c7d4c9e1a17f0df2a7b1357c3424070f8e..b7e9a3ae2b5e004c670b20dff12e9bf8
  #include "base/task/single_thread_task_runner.h"
  #include "base/task/task_traits.h"
  #include "base/time/time.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "ui/accelerated_widget_mac/accelerated_widget_mac.h"
  #include "ui/accessibility/accessibility_features.h"
  #include "ui/accessibility/ax_role_properties.h"
@@ -1615,7 +1615,7 @@ index 6846060ef9622d8fc8d1d6c8da16e2f1b785e6bd..05c22db87e882b246bd7034e027cf149
  
  #include "base/apple/foundation_util.h"
  #include "base/strings/sys_string_conversions.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "ui/accessibility/ax_range.h"
  #include "ui/accessibility/platform/ax_platform_node.h"
  #include "ui/accessibility/platform/ax_platform_node_cocoa.h"
@@ -1659,7 +1659,7 @@ index fb8d813511df674326803084a8083da34e754308..a17afdfeb2c5fc29e13d299c41ddb1c9
  
 +  if (is_mac) {
 +    deps += [
-+      "//electron/build/config:generate_mas_config"
++      "//neutron/build/config:generate_mas_config"
 +    ]
 +  }
 +
@@ -1674,7 +1674,7 @@ index 3182458838aa96d34911280ab4c6c3aa4aa22d6d..6dc85c366b7e61c8bd0302e501c3223a
  #include <vector>
  
  #include "base/component_export.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
  // NSAccessibilityRemoteUIElement is a private class in AppKit.
  
@@ -1698,7 +1698,7 @@ index 59dc2f82214cfd883b6ebef3b0fb25af6387a9cd..912c5252d1b30d943a1552739b9eef9a
  
  #include "base/component_export.h"
  #include "build/build_config.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
  #if defined(__OBJC__)
  #import <Foundation/Foundation.h>
@@ -1727,7 +1727,7 @@ index 93e90c4eba9bc9b93d68e834eb6baabeb2d0ecf0..1b90f41d05f847a94adf2f4da827b1d0
  #include "ui/base/cocoa/remote_layer_api.h"
  
  #include "base/feature_list.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  
  #include <objc/runtime.h>
  
@@ -1766,7 +1766,7 @@ index 8a11735dd897617e374dfd03a9a0521473515b39..193ef1558cb937ad2e28f7cd8ae87e63
  
 +  if (is_mac) {
 +    deps += [
-+      "//electron/build/config:generate_mas_config"
++      "//neutron/build/config:generate_mas_config"
 +    ]
 +  }
 +
@@ -1781,7 +1781,7 @@ index bfffd0444b0711b201cedaddfd3edaa7b5d9220a..8cdae9f250d407d0c2d34ba7c0891b84
  #include "build/build_config.h"
  #include "components/device_event_log/device_event_log.h"
  #include "components/viz/common/resources/shared_image_format.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "ui/display/display.h"
  #include "ui/display/display_change_notifier.h"
  #include "ui/display/mac/screen_mac_headless.h"
@@ -1812,7 +1812,7 @@ index 2e19b81a109ab64982d36562fc4bf4cd19b5ea2e..2a5aa807cf363a7e27e2cc923f174333
        "CoreText.framework",
      ]
 +
-+    deps += ["//electron/build/config:generate_mas_config"]
++    deps += ["//neutron/build/config:generate_mas_config"]
    }
    if (is_ios) {
      sources += [
@@ -1824,7 +1824,7 @@ index bbe355cf69f160866188216cc274d75bd35603db..06ee100d7ea2e892dbf3c0b1adc96c50
  #include "base/numerics/safe_conversions.h"
  #include "base/strings/sys_string_conversions.h"
  #include "base/strings/utf_string_conversions.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "third_party/skia/include/ports/SkTypeface_mac.h"
  #include "ui/gfx/canvas.h"
  #include "ui/gfx/font.h"
@@ -1863,7 +1863,7 @@ index f29c5c32b06a5af32729934f7d79b8e0463d2a5d..70ad2e70c7f3947abd98d6aee71c9d0a
        "QuartzCore.framework",
      ]
 +
-+    deps += ["//electron/build/config:generate_mas_config"]
++    deps += ["//neutron/build/config:generate_mas_config"]
    }
  
    if (is_win) {
@@ -1871,7 +1871,7 @@ index f29c5c32b06a5af32729934f7d79b8e0463d2a5d..70ad2e70c7f3947abd98d6aee71c9d0a
      "//ui/base/mojom:ui_base_types",
    ]
  
-+  deps += ["//electron/build/config:generate_mas_config"]
++  deps += ["//neutron/build/config:generate_mas_config"]
 +
    if (is_win) {
      sources += [
@@ -1884,7 +1884,7 @@ index fdc7eb4e4c5e8338c725f7d317559b091d8b38fe..2239b085ac7fd87fe06aef1001551f8a
  #include "components/remote_cocoa/browser/scoped_cg_window_id.h"
  #include "components/remote_cocoa/common/native_widget_ns_window.mojom.h"
  #include "components/remote_cocoa/common/native_widget_ns_window_host.mojom.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "mojo/public/cpp/bindings/associated_receiver.h"
  #include "mojo/public/cpp/bindings/associated_remote.h"
  #include "ui/accelerated_widget_mac/accelerated_widget_mac.h"
@@ -1919,7 +1919,7 @@ index 5c0d4134c8205b018a4f71509879485a7f92bcf2..d2204fd2b737f7f3e146cb1be80c3be6
  #include "components/remote_cocoa/app_shim/native_widget_ns_window_bridge.h"
  #include "components/remote_cocoa/browser/ns_view_ids.h"
  #include "components/remote_cocoa/browser/window.h"
-+#include "electron/mas.h"
++#include "neutron/mas.h"
  #include "mojo/public/cpp/bindings/self_owned_associated_receiver.h"
  #include "ui/accelerated_widget_mac/window_resize_helper_mac.h"
  #include "ui/accessibility/accessibility_features.h"
@@ -2000,7 +2000,7 @@ index 50bb38a38dca67f9f393c48efe123f7dd7ca2594..2062e479581d63325de3c3398844acca
  
 +  if (is_mac) {
 +    deps += [
-+      "//electron/build/config:generate_mas_config",
++      "//neutron/build/config:generate_mas_config",
 +    ]
 +  }
 +

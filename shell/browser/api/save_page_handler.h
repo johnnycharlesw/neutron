@@ -20,7 +20,7 @@ namespace content {
 class WebContents;
 }
 
-namespace electron::api {
+namespace neutron::api {
 
 // A self-destroyed class for handling save page request.
 class SavePageHandler : private content::DownloadManager::Observer,
@@ -47,6 +47,6 @@ class SavePageHandler : private content::DownloadManager::Observer,
   gin_helper::Promise<void> promise_;
 };
 
-}  // namespace electron::api
+}  // namespace neutron::api
 
 #endif  // ELECTRON_SHELL_BROWSER_API_SAVE_PAGE_HANDLER_H_

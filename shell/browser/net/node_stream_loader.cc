@@ -11,7 +11,7 @@
 #include "shell/common/gin_converters/callback_converter.h"
 #include "shell/common/node_includes.h"
 
-namespace electron {
+namespace neutron {
 
 NodeStreamLoader::NodeStreamLoader(
     network::mojom::URLResponseHeadPtr head,
@@ -180,4 +180,4 @@ void NodeStreamLoader::On(const char* event, EventCallback callback) {
   // No more code below, as this class may destruct when subscribing.
 }
 
-}  // namespace electron
+}  // namespace neutron

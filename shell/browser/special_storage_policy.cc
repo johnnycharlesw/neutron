@@ -6,7 +6,7 @@
 
 #include "services/network/public/cpp/session_cookie_delete_predicate.h"
 
-namespace electron {
+namespace neutron {
 
 SpecialStoragePolicy::SpecialStoragePolicy() = default;
 
@@ -36,4 +36,4 @@ bool SpecialStoragePolicy::HasSessionOnlyOrigins() {
   return false;
 }
 
-}  // namespace electron
+}  // namespace neutron

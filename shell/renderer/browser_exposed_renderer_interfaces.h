@@ -9,14 +9,14 @@ namespace mojo {
 class BinderMap;
 }
 
-namespace electron {
+namespace neutron {
 class RendererClientBase;
 }
 
 class ChromeContentRendererClient;
 
-void ExposeElectronRendererInterfacesToBrowser(
-    electron::RendererClientBase* client,
+void ExposeNeutronRendererInterfacesToBrowser(
+    neutron::RendererClientBase* client,
     mojo::BinderMap* binders);
 
 #endif  // ELECTRON_SHELL_RENDERER_BROWSER_EXPOSED_RENDERER_INTERFACES_H_

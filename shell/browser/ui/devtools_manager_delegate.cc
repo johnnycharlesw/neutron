@@ -20,17 +20,17 @@
 #include "content/public/browser/navigation_entry.h"
 #include "content/public/common/content_switches.h"
 #include "content/public/common/url_constants.h"
-#include "electron/grit/electron_resources.h"
+#include "neutron/grit/neutron_resources.h"
 #include "net/base/net_errors.h"
 #include "net/socket/stream_socket.h"
 #include "net/socket/tcp_server_socket.h"
 #include "shell/browser/browser.h"
-#include "shell/browser/electron_browser_context.h"
-#include "shell/common/electron_paths.h"
+#include "shell/browser/neutron_browser_context.h"
+#include "shell/common/neutron_paths.h"
 #include "third_party/inspector_protocol/crdtp/dispatch.h"
 #include "ui/base/resource/resource_bundle.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -112,7 +112,7 @@ void DevToolsManagerDelegate::HandleCommand(
     // In theory, we should respond over the protocol saying that the
     // Browser.close was handled. But doing so requires instantiating the
     // protocol UberDispatcher and generating proper protocol handlers.
-    // Since we only have one method and it is supposed to close Electron,
+    // Since we only have one method and it is supposed to close Neutron,
     // we don't need to add this complexity. Should we decide to support
     // methods like Browser.setWindowBounds, we'll need to do it though.
     content::GetUIThreadTaskRunner({})->PostTask(
@@ -139,7 +139,7 @@ bool DevToolsManagerDelegate::HasBundledFrontendResources() {
 }
 
 content::BrowserContext* DevToolsManagerDelegate::GetDefaultBrowserContext() {
-  return ElectronBrowserContext::GetDefaultBrowserContext();
+  return NeutronBrowserContext::GetDefaultBrowserContext();
 }
 
-}  // namespace electron
+}  // namespace neutron

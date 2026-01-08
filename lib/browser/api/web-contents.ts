@@ -1,12 +1,12 @@
-import { openGuestWindow, makeWebPreferences, parseContentTypeFormat } from '@electron/internal/browser/guest-window-manager';
-import { IpcMainImpl } from '@electron/internal/browser/ipc-main-impl';
-import * as ipcMainUtils from '@electron/internal/browser/ipc-main-internal-utils';
-import { parseFeatures } from '@electron/internal/browser/parse-features-string';
-import * as deprecate from '@electron/internal/common/deprecate';
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
+import { openGuestWindow, makeWebPreferences, parseContentTypeFormat } from '@neutron/internal/browser/guest-window-manager';
+import { IpcMainImpl } from '@neutron/internal/browser/ipc-main-impl';
+import * as ipcMainUtils from '@neutron/internal/browser/ipc-main-internal-utils';
+import { parseFeatures } from '@neutron/internal/browser/parse-features-string';
+import * as deprecate from '@neutron/internal/common/deprecate';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
 
-import { app, session, webFrameMain, dialog } from 'electron/main';
-import type { BrowserWindowConstructorOptions, MessageBoxOptions, NavigationEntry } from 'electron/main';
+import { app, session, webFrameMain, dialog } from 'neutron/main';
+import type { BrowserWindowConstructorOptions, MessageBoxOptions, NavigationEntry } from 'neutron/main';
 
 import * as path from 'path';
 import * as url from 'url';
@@ -114,9 +114,9 @@ const isValidCustomPageSize = (width: number, height: number) => {
 };
 
 // JavaScript implementations of WebContents.
-const binding = process._linkedBinding('electron_browser_web_contents');
-const printing = process._linkedBinding('electron_browser_printing');
-const { WebContents } = binding as { WebContents: { prototype: Electron.WebContents } };
+const binding = process._linkedBinding('neutron_browser_web_contents');
+const printing = process._linkedBinding('neutron_browser_printing');
+const { WebContents } = binding as { WebContents: { prototype: Neutron.WebContents } };
 
 WebContents.prototype.postMessage = function (...args) {
   return this.mainFrame.postMessage(...args);
@@ -130,7 +130,7 @@ WebContents.prototype._sendInternal = function (channel, ...args) {
   return this.mainFrame._sendInternal(channel, ...args);
 };
 
-function getWebFrame (contents: Electron.WebContents, frame: number | [number, number]) {
+function getWebFrame (contents: Neutron.WebContents, frame: number | [number, number]) {
   if (typeof frame === 'number') {
     return webFrameMain.fromId(contents.mainFrame.processId, frame);
   } else if (Array.isArray(frame) && frame.length === 2 && frame.every(value => typeof value === 'number')) {
@@ -161,7 +161,7 @@ for (const method of webFrameMethods) {
   };
 }
 
-const waitTillCanExecuteJavaScript = async (webContents: Electron.WebContents) => {
+const waitTillCanExecuteJavaScript = async (webContents: Neutron.WebContents) => {
   if (webContents.getURL() && !webContents.isLoadingMainFrame()) return;
 
   return new Promise<void>((resolve) => {
@@ -339,7 +339,7 @@ WebContents.prototype.loadFile = function (filePath, options = {}) {
 
 type LoadError = { errorCode: number, errorDescription: string, url: string };
 
-function _awaitNextLoad (this: Electron.WebContents, navigationUrl: string) {
+function _awaitNextLoad (this: Neutron.WebContents, navigationUrl: string) {
   return new Promise<void>((resolve, reject) => {
     const resolveAndCleanup = () => {
       removeListeners();
@@ -362,7 +362,7 @@ function _awaitNextLoad (this: Electron.WebContents, navigationUrl: string) {
 
     let navigationStarted = false;
     let browserInitiatedInPageNavigation = false;
-    const navigationListener = (event: Electron.Event, url: string, isSameDocument: boolean, isMainFrame: boolean) => {
+    const navigationListener = (event: Neutron.Event, url: string, isSameDocument: boolean, isMainFrame: boolean) => {
       if (isMainFrame) {
         if (navigationStarted && !isSameDocument) {
           // the webcontents has started another unrelated navigation in the
@@ -380,7 +380,7 @@ function _awaitNextLoad (this: Electron.WebContents, navigationUrl: string) {
         navigationStarted = true;
       }
     };
-    const failListener = (event: Electron.Event, errorCode: number, errorDescription: string, validatedURL: string, isMainFrame: boolean) => {
+    const failListener = (event: Neutron.Event, errorCode: number, errorDescription: string, validatedURL: string, isMainFrame: boolean) => {
       if (!error && isMainFrame) {
         error = { errorCode, errorDescription, url: validatedURL };
       }
@@ -432,11 +432,11 @@ WebContents.prototype.loadURL = function (url, options) {
   return p;
 };
 
-WebContents.prototype.setWindowOpenHandler = function (handler: (details: Electron.HandlerDetails) => Electron.WindowOpenHandlerResponse) {
+WebContents.prototype.setWindowOpenHandler = function (handler: (details: Neutron.HandlerDetails) => Neutron.WindowOpenHandlerResponse) {
   this._windowOpenHandler = handler;
 };
 
-WebContents.prototype._callWindowOpenHandler = function (event: Electron.Event, details: Electron.HandlerDetails): {browserWindowConstructorOptions: BrowserWindowConstructorOptions | null, outlivesOpener: boolean, createWindow?: Electron.CreateWindowFunction} {
+WebContents.prototype._callWindowOpenHandler = function (event: Neutron.Event, details: Neutron.HandlerDetails): {browserWindowConstructorOptions: BrowserWindowConstructorOptions | null, outlivesOpener: boolean, createWindow?: Neutron.CreateWindowFunction} {
   const defaultResponse = {
     browserWindowConstructorOptions: null,
     outlivesOpener: false,
@@ -476,8 +476,8 @@ WebContents.prototype._callWindowOpenHandler = function (event: Electron.Event, 
   }
 };
 
-const commandLine = process._linkedBinding('electron_common_command_line');
-const environment = process._linkedBinding('electron_common_environment');
+const commandLine = process._linkedBinding('neutron_common_command_line');
+const environment = process._linkedBinding('neutron_common_environment');
 
 const loggingEnabled = () => {
   return environment.hasVar('ELECTRON_ENABLE_LOGGING') || commandLine.hasSwitch('enable-logging');
@@ -537,7 +537,7 @@ const consoleMessageDeprecated = deprecate.warnOnceMessage('\'console-message\' 
 WebContents.prototype._init = function () {
   const prefs = this.getLastWebPreferences() || {};
   if (!prefs.nodeIntegration && prefs.preload != null && prefs.sandbox == null) {
-    deprecate.log('The default sandbox option for windows without nodeIntegration is changing. Presently, by default, when a window has a preload script, it defaults to being unsandboxed. In Electron 20, this default will be changing, and all windows that have nodeIntegration: false (which is the default) will be sandboxed by default. If your preload script doesn\'t use Node, no action is needed. If your preload script does use Node, either refactor it to move Node usage to the main process, or specify sandbox: false in your WebPreferences.');
+    deprecate.log('The default sandbox option for windows without nodeIntegration is changing. Presently, by default, when a window has a preload script, it defaults to being unsandboxed. In Neutron 20, this default will be changing, and all windows that have nodeIntegration: false (which is the default) will be sandboxed by default. If your preload script doesn\'t use Node, no action is needed. If your preload script does use Node, either refactor it to move Node usage to the main process, or specify sandbox: false in your WebPreferences.');
   }
   // Read off the ID at construction time, so that it's accessible even after
   // the underlying C++ WebContents is destroyed.
@@ -602,11 +602,11 @@ WebContents.prototype._init = function () {
 
     // Log out a hint to help users better debug renderer crashes.
     if (loggingEnabled()) {
-      console.info(`Renderer process ${details.reason} - see https://www.electronjs.org/docs/tutorial/application-debugging for potential debugging information.`);
+      console.info(`Renderer process ${details.reason} - see https://www.neutronjs.org/docs/tutorial/application-debugging for potential debugging information.`);
     }
   });
 
-  this.on('-before-unload-fired', function (this: Electron.WebContents, event, proceed) {
+  this.on('-before-unload-fired', function (this: Neutron.WebContents, event, proceed) {
     const type = this.getType();
     // These are the "interactive" types, i.e. ones a user might be looking at.
     // All other types should ignore the "proceed" signal and unload
@@ -617,7 +617,7 @@ WebContents.prototype._init = function () {
   });
 
   // The devtools requests the webContents to reload.
-  this.on('devtools-reload-page', function (this: Electron.WebContents) {
+  this.on('devtools-reload-page', function (this: Neutron.WebContents) {
     this.reload();
   });
 
@@ -630,7 +630,7 @@ WebContents.prototype._init = function () {
             ...parseContentTypeFormat(postData)
           }
         : undefined;
-      const details: Electron.HandlerDetails = {
+      const details: Neutron.HandlerDetails = {
         url,
         frameName,
         features: rawFeatures,
@@ -664,7 +664,7 @@ WebContents.prototype._init = function () {
 
     let windowOpenOverriddenOptions: BrowserWindowConstructorOptions | null = null;
     let windowOpenOutlivesOpenerOption: boolean = false;
-    let createWindow: Electron.CreateWindowFunction | undefined;
+    let createWindow: Neutron.CreateWindowFunction | undefined;
 
     this.on('-will-add-new-contents', (event, url, frameName, rawFeatures, disposition, referrer, postData) => {
       const postBody = postData
@@ -673,7 +673,7 @@ WebContents.prototype._init = function () {
             ...parseContentTypeFormat(postData)
           }
         : undefined;
-      const details: Electron.HandlerDetails = {
+      const details: Neutron.HandlerDetails = {
         url,
         frameName,
         features: rawFeatures,
@@ -827,7 +827,7 @@ WebContents.prototype._init = function () {
   });
 
   // TODO(samuelmaddock): remove deprecated 'console-message' arguments
-  this.on('-console-message' as any, (event: Electron.Event<Electron.WebContentsConsoleMessageEventParams>) => {
+  this.on('-console-message' as any, (event: Neutron.Event<Neutron.WebContentsConsoleMessageEventParams>) => {
     const hasDeprecatedListener = this.listeners('console-message').some(listener => listener.length > 1);
     if (hasDeprecatedListener) {
       consoleMessageDeprecated();
@@ -835,7 +835,7 @@ WebContents.prototype._init = function () {
     this.emit('console-message', event, (event as any)._level, event.message, event.lineNumber, event.sourceId);
   });
 
-  this.on('-unresponsive' as any, (event: Electron.Event<any>) => {
+  this.on('-unresponsive' as any, (event: Neutron.Event<any>) => {
     const shouldEmit = !event.shouldIgnore && event.visible && event.rendererInitialized;
     if (shouldEmit) {
       this.emit('unresponsive', event);
@@ -878,7 +878,7 @@ WebContents.prototype._init = function () {
 };
 
 // Public APIs.
-export function create (options = {}): Electron.WebContents {
+export function create (options = {}): Neutron.WebContents {
   return new (WebContents as any)(options);
 }
 
@@ -886,7 +886,7 @@ export function fromId (id: number) {
   return binding.fromId(id);
 }
 
-export function fromFrame (frame: Electron.WebFrameMain) {
+export function fromFrame (frame: Neutron.WebFrameMain) {
   return binding.fromFrame(frame);
 }
 

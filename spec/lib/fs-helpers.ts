@@ -8,7 +8,7 @@ export async function copyApp (targetDir: string): Promise<string> {
   // On macOS we can just copy the app bundle, easier too because of symlinks
   if (process.platform === 'darwin') {
     const appBundlePath = path.resolve(process.execPath, '../../..');
-    const newPath = path.resolve(targetDir, 'Electron.app');
+    const newPath = path.resolve(targetDir, 'Neutron.app');
     cp.spawnSync('cp', ['-R', appBundlePath, path.dirname(newPath)]);
     return newPath;
   }
@@ -29,7 +29,7 @@ export async function copyApp (targetDir: string): Promise<string> {
 }
 
 export async function withTempDirectory (fn: (dir: string) => Promise<void>, autoCleanUp = true) {
-  const dir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'electron-update-spec-'));
+  const dir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'neutron-update-spec-'));
   try {
     await fn(dir);
   } finally {

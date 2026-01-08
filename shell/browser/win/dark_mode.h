@@ -13,11 +13,11 @@
 #undef WIN32_LEAN_AND_MEAN
 #endif
 
-namespace electron::win {
+namespace neutron::win {
 
 bool IsDarkModeSupported();
 void SetDarkModeForWindow(HWND hWnd);
 
-}  // namespace electron::win
+}  // namespace neutron::win
 
 #endif  // ELECTRON_SHELL_BROWSER_WIN_DARK_MODE_H_

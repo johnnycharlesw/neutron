@@ -1,4 +1,4 @@
-const { app, BrowserWindow, session } = require('electron');
+const { app, BrowserWindow, session } = require('neutron');
 
 const path = require('node:path');
 

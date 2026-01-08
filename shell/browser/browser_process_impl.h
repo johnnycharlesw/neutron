@@ -32,7 +32,7 @@ namespace printing {
 class PrintJobManager;
 }
 
-namespace electron {
+namespace neutron {
 class ResolveProxyHelper;
 }
 
@@ -59,7 +59,7 @@ class BrowserProcessImpl : public BrowserProcess {
   void PostMainMessageLoopRun();
   void SetSystemLocale(const std::string& locale);
   const std::string& GetSystemLocale() const;
-  electron::ResolveProxyHelper* GetResolveProxyHelper();
+  neutron::ResolveProxyHelper* GetResolveProxyHelper();
 
 #if BUILDFLAG(IS_LINUX)
   void SetLinuxStorageBackend(os_crypt::SelectedLinuxBackend selected_backend);
@@ -157,7 +157,7 @@ class BrowserProcessImpl : public BrowserProcess {
   embedder_support::OriginTrialsSettingsStorage origin_trials_settings_storage_;
 
   scoped_refptr<ValueMapPrefStore> in_memory_pref_store_;
-  scoped_refptr<electron::ResolveProxyHelper> resolve_proxy_helper_;
+  scoped_refptr<neutron::ResolveProxyHelper> resolve_proxy_helper_;
   std::unique_ptr<network::NetworkQualityTracker> network_quality_tracker_;
   std::unique_ptr<
       network::NetworkQualityTracker::RTTAndThroughputEstimatesObserver>

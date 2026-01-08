@@ -1,6 +1,6 @@
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   goBack: () => ipcRenderer.invoke('nav:back'),
   goForward: () => ipcRenderer.invoke('nav:forward'),
   canGoBack: () => ipcRenderer.invoke('nav:canGoBack'),

@@ -6,7 +6,7 @@
   <body>
     <webview src="./a.html"/>
     <script>
-      var {ipcRenderer} = require('electron')
+      var {ipcRenderer} = require('neutron')
       var wv = document.querySelector('webview')
       wv.addEventListener('dom-ready', () => {
         ipcRenderer.send('webview-dom-ready', wv.getWebContentsId())

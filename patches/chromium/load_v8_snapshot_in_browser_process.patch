@@ -1,11 +1,11 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@electronjs.org>
+From: John Kleinschmidt <jkleinsc@neutronjs.org>
 Date: Mon, 11 Oct 2021 14:08:06 -0400
 Subject: load v8 snapshot in browser process
 
 https://chromium-review.googlesource.com/c/chromium/src/+/3183394
 made a change to not load the v8 snapshot in the browser process,
-but due to the nature of electron, we need to load the v8 snapshot
+but due to the nature of neutron, we need to load the v8 snapshot
 in the browser process.
 
 diff --git a/content/app/content_main_runner_impl.cc b/content/app/content_main_runner_impl.cc

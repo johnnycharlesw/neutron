@@ -1,4 +1,4 @@
-const { app, ipcMain, BrowserWindow } = require('electron');
+const { app, ipcMain, BrowserWindow } = require('neutron');
 
 const http = require('node:http');
 const path = require('node:path');

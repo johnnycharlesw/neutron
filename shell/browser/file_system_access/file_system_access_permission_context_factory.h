@@ -11,7 +11,7 @@
 #include "components/keyed_service/content/browser_context_keyed_service_factory.h"
 #include "shell/browser/file_system_access/file_system_access_permission_context.h"
 
-namespace electron {
+namespace neutron {
 
 class FileSystemAccessPermissionContextFactory
     : public BrowserContextKeyedServiceFactory {
@@ -36,6 +36,6 @@ class FileSystemAccessPermissionContextFactory
       content::BrowserContext* context) const override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_FILE_SYSTEM_ACCESS_FILE_SYSTEM_ACCESS_PERMISSION_CONTEXT_FACTORY_H_

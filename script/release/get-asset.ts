@@ -6,7 +6,7 @@ import { ELECTRON_ORG, ElectronReleaseRepo } from './types';
 
 export async function getAssetContents (repo: ElectronReleaseRepo, assetId: number) {
   const octokit = new Octokit({
-    userAgent: 'electron-asset-fetcher',
+    userAgent: 'neutron-asset-fetcher',
     authStrategy: createGitHubTokenStrategy(repo)
   });
 

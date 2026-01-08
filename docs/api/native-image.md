@@ -21,7 +21,7 @@ For example, when creating a [Tray](../api/tray.md) or setting a [BrowserWindow]
 icon, you can either pass an image file path as a string:
 
 ```js title='Main Process'
-const { BrowserWindow, Tray } = require('electron')
+const { BrowserWindow, Tray } = require('neutron')
 
 const tray = new Tray('/Users/somebody/images/icon.png')
 const win = new BrowserWindow({ icon: '/Users/somebody/images/window.png' })
@@ -30,7 +30,7 @@ const win = new BrowserWindow({ icon: '/Users/somebody/images/window.png' })
 or generate a `NativeImage` instance from the same file:
 
 ```js title='Main Process'
-const { BrowserWindow, nativeImage, Tray } = require('electron')
+const { BrowserWindow, nativeImage, Tray } = require('neutron')
 
 const trayIcon = nativeImage.createFromPath('/Users/somebody/images/icon.png')
 const appIcon = nativeImage.createFromPath('/Users/somebody/images/window.png')
@@ -91,7 +91,7 @@ images/
 ```
 
 ```js title='Main Process'
-const { Tray } = require('electron')
+const { Tray } = require('neutron')
 
 const appTray = new Tray('/Users/somebody/images/icon.png')
 ```
@@ -155,7 +155,7 @@ This method returns an empty image if the `path` does not exist, cannot be read,
 a valid image.
 
 ```js
-const { nativeImage } = require('electron')
+const { nativeImage } = require('neutron')
 
 const image = nativeImage.createFromPath('/Users/somebody/images/icon.png')
 console.log(image)
@@ -244,7 +244,7 @@ where `'square.and.pencil'` is the symbol name from the
 > Natively wrap images such as tray, dock, and application icons.
 
 Process: [Main](../glossary.md#main-process), [Renderer](../glossary.md#renderer-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 ### Instance Methods
 
@@ -276,7 +276,7 @@ data.
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     description: "`nativeImage.toDataURL` will preserve PNG colorspace"
     breaking-changes-header: behavior-changed-nativeimagetodataurl-will-preserve-png-colorspace
 ```

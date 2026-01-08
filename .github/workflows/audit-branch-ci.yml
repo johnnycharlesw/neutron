@@ -26,7 +26,7 @@ jobs:
             .
             .github
             .yarn
-      - run: yarn workspaces focus @electron/gha-workflows
+      - run: yarn workspaces focus @neutron/gha-workflows
       - uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         id: audit-errors
         with:
@@ -36,7 +36,7 @@ jobs:
             chdir('${{ github.workspace }}/.github/workflows');
 
             const cache = require('@actions/cache');
-            const { ElectronVersions } = require('@electron/fiddle-core');
+            const { ElectronVersions } = require('@neutron/fiddle-core');
 
             const runsWithErrors = [];
 
@@ -49,8 +49,8 @@ jobs:
             for (const branch of ["main", ...branches]) {
               const latestCheckRuns = new Map();
               const allCheckRuns = await github.paginate(github.rest.checks.listForRef, {
-                owner: "electron",
-                repo: "electron",
+                owner: "neutron",
+                repo: "neutron",
                 ref: branch,
                 status: 'completed',
               });
@@ -72,8 +72,8 @@ jobs:
                 }
 
                 const annotations = (await github.rest.checks.listAnnotations({
-                  owner: "electron",
-                  repo: "electron",
+                  owner: "neutron",
+                  repo: "neutron",
                   check_run_id: checkRun.id,
                 })).data ?? [];
 

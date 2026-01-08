@@ -1,4 +1,4 @@
-const { app, BrowserWindow, shell } = require('electron/main')
+const { app, BrowserWindow, shell } = require('neutron/main')
 const path = require('node:path')
 
 let mainWindow = null

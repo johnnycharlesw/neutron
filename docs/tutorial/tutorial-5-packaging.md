@@ -35,8 +35,8 @@ as a **distributable**). Distributables can be either installers (e.g. MSI on Wi
 portable executable files (e.g. `.app` on macOS).
 
 Electron Forge is an all-in-one tool that handles the packaging and distribution of Electron
-apps. Under the hood, it combines a lot of existing Electron tools (e.g. [`@electron/packager`][],
-[`@electron/osx-sign`][], [`electron-winstaller`][], etc.) into a single interface so you do not
+apps. Under the hood, it combines a lot of existing Electron tools (e.g. [`@neutron/packager`][],
+[`@neutron/osx-sign`][], [`neutron-winstaller`][], etc.) into a single interface so you do not
 have to worry about wiring them all together.
 
 ### Importing your project into Forge
@@ -45,8 +45,8 @@ You can install Electron Forge's CLI in your project's `devDependencies` and imp
 existing project with a handy conversion script.
 
 ```sh npm2yarn
-npm install --save-dev @electron-forge/cli
-npx electron-forge import
+npm install --save-dev @neutron-forge/cli
+npx neutron-forge import
 ```
 
 Once the conversion script is done, Forge should have added a few scripts
@@ -55,9 +55,9 @@ to your `package.json` file.
 ```json title='package.json'
   //...
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make"
+    "start": "neutron-forge start",
+    "package": "neutron-forge package",
+    "make": "neutron-forge make"
   },
   //...
 ```
@@ -77,7 +77,7 @@ pre-populated configuration, one for each target platform.
 ### Creating a distributable
 
 To create a distributable, use your project's new `make` script, which runs the
-`electron-forge make` command.
+`neutron-forge make` command.
 
 ```sh npm2yarn
 npm run make
@@ -85,7 +85,7 @@ npm run make
 
 This `make` command contains two steps:
 
-1. It will first run `electron-forge package` under the hood, which bundles your app
+1. It will first run `neutron-forge package` under the hood, which bundles your app
    code together with the Electron binary. The packaged code is generated into a folder.
 1. It will then use this packaged app folder to create a separate distributable for each
    configured maker.
@@ -95,9 +95,9 @@ and a folder containing the packaged application code.
 
 ```plain title='macOS output example'
 out/
-├── out/make/zip/darwin/x64/my-electron-app-darwin-x64-1.0.0.zip
+├── out/make/zip/darwin/x64/my-neutron-app-darwin-x64-1.0.0.zip
 ├── ...
-└── out/my-electron-app-darwin-x64/my-electron-app.app/Contents/MacOS/my-electron-app
+└── out/my-neutron-app-darwin-x64/my-neutron-app.app/Contents/MacOS/my-neutron-app
 ```
 
 The distributable in the `out/make` folder should be ready to launch! You have now
@@ -142,7 +142,7 @@ your credentials in your Forge configuration.
 :::info
 
 For more information on code signing, check out the
-[Signing macOS Apps](https://www.electronforge.io/guides/code-signing) guide in the Forge docs.
+[Signing macOS Apps](https://www.neutronforge.io/guides/code-signing) guide in the Forge docs.
 
 :::
 
@@ -173,7 +173,7 @@ module.exports = {
   // ...
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
+      name: '@neutron-forge/maker-squirrel',
       config: {
         certificateFile: './cert.pfx',
         certificatePassword: process.env.CERTIFICATE_PASSWORD
@@ -198,14 +198,14 @@ certify that the distributable is authentic and untampered by code signing it. Y
 can be signed through Forge once you configure it to use your code signing certificate
 information.
 
-[`@electron/osx-sign`]: https://github.com/electron/osx-sign
+[`@neutron/osx-sign`]: https://github.com/neutron/osx-sign
 [application packaging]: ./application-distribution.md
-[`@electron/packager`]: https://github.com/electron/packager
-[`electron-winstaller`]: https://github.com/electron/windows-installer
-[electron forge]: https://www.electronforge.io
-[electron forge cli documentation]: https://www.electronforge.io/cli#commands
-[makers]: https://www.electronforge.io/config/makers
-[forge's icon tutorial]: https://www.electronforge.io/guides/create-and-add-icons
+[`@neutron/packager`]: https://github.com/neutron/packager
+[`neutron-winstaller`]: https://github.com/neutron/windows-installer
+[neutron forge]: https://www.neutronforge.io
+[neutron forge cli documentation]: https://www.neutronforge.io/cli#commands
+[makers]: https://www.neutronforge.io/config/makers
+[forge's icon tutorial]: https://www.neutronforge.io/guides/create-and-add-icons
 
 <!-- Tutorial links -->
 

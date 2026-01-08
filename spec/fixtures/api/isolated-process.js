@@ -1,3 +1,3 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('neutron');
 
 ipcRenderer.send('context-isolation', process.contextIsolated);

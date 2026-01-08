@@ -16,7 +16,7 @@ ScopedTemporaryFile::ScopedTemporaryFile() = default;
 
 ScopedTemporaryFile::~ScopedTemporaryFile() {
   if (!path_.empty()) {
-    electron::ScopedAllowBlockingForElectron allow_blocking;
+    neutron::ScopedAllowBlockingForNeutron allow_blocking;
     // On Windows it is very likely the file is already in use (because it is
     // mostly used for Node native modules), so deleting it now will halt the
     // program.
@@ -32,7 +32,7 @@ bool ScopedTemporaryFile::Init(const base::FilePath::StringType& ext) {
   if (!path_.empty())
     return true;
 
-  electron::ScopedAllowBlockingForElectron allow_blocking;
+  neutron::ScopedAllowBlockingForNeutron allow_blocking;
   if (!base::CreateTemporaryFile(&path_))
     return false;
 
@@ -61,7 +61,7 @@ bool ScopedTemporaryFile::InitFromFile(
   if (!Init(ext))
     return false;
 
-  electron::ScopedAllowBlockingForElectron allow_blocking;
+  neutron::ScopedAllowBlockingForNeutron allow_blocking;
   std::vector<uint8_t> buf(size);
   if (!src->ReadAndCheck(offset, buf))
     return false;

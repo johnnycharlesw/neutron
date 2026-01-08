@@ -7,7 +7,7 @@
 
 #include "third_party/blink/renderer/platform/bindings/dom_wrapper_world.h"  // nogncheck
 
-namespace electron {
+namespace neutron {
 
 enum WorldIDs : int32_t {
   MAIN_WORLD_ID = 0,
@@ -25,6 +25,6 @@ enum WorldIDs : int32_t {
       blink::IsolatedWorldId::kEmbedderWorldIdLimit - 1
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_WORLD_IDS_H_

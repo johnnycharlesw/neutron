@@ -13,7 +13,7 @@ namespace content {
 class BrowserContext;
 }
 
-namespace electron {
+namespace neutron {
 
 class DevToolsManagerDelegate : public content::DevToolsManagerDelegate {
  public:
@@ -40,6 +40,6 @@ class DevToolsManagerDelegate : public content::DevToolsManagerDelegate {
   content::BrowserContext* GetDefaultBrowserContext() override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_DEVTOOLS_MANAGER_DELEGATE_H_

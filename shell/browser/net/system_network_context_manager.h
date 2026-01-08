@@ -14,7 +14,7 @@
 #include "services/network/public/mojom/network_service.mojom-forward.h"
 #include "services/network/public/mojom/url_loader_factory.mojom-forward.h"
 
-namespace electron {
+namespace neutron {
 network::mojom::HttpAuthDynamicParamsPtr CreateHttpAuthDynamicParams();
 }
 

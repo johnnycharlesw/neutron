@@ -11,10 +11,10 @@
 #include "base/memory/raw_ptr.h"
 #include "base/memory/weak_ptr.h"
 #include "content/public/browser/bluetooth_chooser.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "third_party/abseil-cpp/absl/container/flat_hash_map.h"
 
-namespace electron {
+namespace neutron {
 
 class BluetoothChooser : public content::BluetoothChooser {
  public:
@@ -54,6 +54,6 @@ class BluetoothChooser : public content::BluetoothChooser {
   base::WeakPtrFactory<BluetoothChooser> weak_ptr_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_LIB_BLUETOOTH_CHOOSER_H_

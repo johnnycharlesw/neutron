@@ -15,7 +15,7 @@ namespace gin_helper {
 // gin_helper::Wrappable object in the C++ heap because strong references from
 // C++ to V8 can cause memory leaks. Copied from
 // https://chromium-review.googlesource.com/c/chromium/src/+/6734440 Should be
-// removed once https://github.com/electron/electron/issues/47922 is complete.
+// removed once https://github.com/neutron/neutron/issues/47922 is complete.
 template <typename T>
 class Handle {
  public:

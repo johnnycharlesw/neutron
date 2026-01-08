@@ -1,6 +1,6 @@
-import * as deprecate from '@electron/internal/common/deprecate';
+import * as deprecate from '@neutron/internal/common/deprecate';
 
-const { systemPreferences } = process._linkedBinding('electron_browser_system_preferences');
+const { systemPreferences } = process._linkedBinding('neutron_browser_system_preferences');
 
 if ('getEffectiveAppearance' in systemPreferences) {
   const nativeEAGetter = systemPreferences.getEffectiveAppearance;

@@ -24,7 +24,7 @@ using Microsoft::WRL::Make;
 using Microsoft::WRL::RuntimeClass;
 using Microsoft::WRL::RuntimeClassFlags;
 
-namespace electron {
+namespace neutron {
 
 class ScopedHString;
 
@@ -150,6 +150,6 @@ class ToastEventHandler : public RuntimeClass<RuntimeClassFlags<ClassicCom>,
   base::WeakPtr<Notification> notification_;  // weak ref.
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_WIN_WINDOWS_TOAST_NOTIFICATION_H_

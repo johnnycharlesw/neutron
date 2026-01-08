@@ -14,7 +14,7 @@
 
 class StatusIconLinuxDbus;
 
-namespace electron {
+namespace neutron {
 
 class StatusIconGtk;
 
@@ -26,7 +26,7 @@ class TrayIconLinux : public TrayIcon, public ui::StatusIconLinux::Delegate {
   // TrayIcon:
   void SetImage(const gfx::Image& image) override;
   void SetToolTip(const std::string& tool_tip) override;
-  void SetContextMenu(raw_ptr<ElectronMenuModel> menu_model) override;
+  void SetContextMenu(raw_ptr<NeutronMenuModel> menu_model) override;
 
   // ui::StatusIconLinux::Delegate
   void OnClick() override;
@@ -55,6 +55,6 @@ class TrayIconLinux : public TrayIcon, public ui::StatusIconLinux::Delegate {
   raw_ptr<ui::MenuModel> menu_model_ = nullptr;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_TRAY_ICON_LINUX_H_

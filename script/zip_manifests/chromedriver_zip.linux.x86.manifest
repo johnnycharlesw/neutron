@@ -1,5 +1,5 @@
 chromedriver
 chromedriver.debug
-gen/electron/buildflags/buildflags.h
+gen/neutron/buildflags/buildflags.h
 LICENSE
 LICENSES.chromium.html

@@ -79,7 +79,7 @@ function getDepotToolsEnv (): NodeJS.ProcessEnv {
 
   const checkForBuildTools = () => {
     const result = childProcess.spawnSync(
-      'electron-build-tools',
+      'neutron-build-tools',
       ['show', 'env', '--json'],
       { shell: true }
     );

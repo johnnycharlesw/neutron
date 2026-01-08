@@ -10,7 +10,7 @@
 
 using content::BrowserThread;
 
-namespace electron {
+namespace neutron {
 
 MediaCaptureDevicesDispatcher* MediaCaptureDevicesDispatcher::GetInstance() {
   static base::NoDestructor<MediaCaptureDevicesDispatcher> instance;
@@ -57,4 +57,4 @@ MediaCaptureDevicesDispatcher::GetPreferredVideoDeviceForBrowserContext(
   return video_devices.front();
 }
 
-}  // namespace electron
+}  // namespace neutron

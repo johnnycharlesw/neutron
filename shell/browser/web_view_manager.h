@@ -9,7 +9,7 @@
 #include "base/memory/raw_ptr.h"
 #include "content/public/browser/browser_plugin_guest_manager.h"
 
-namespace electron {
+namespace neutron {
 
 class WebViewManager : public content::BrowserPluginGuestManager {
  public:
@@ -40,6 +40,6 @@ class WebViewManager : public content::BrowserPluginGuestManager {
   base::flat_map<int, WebContentsWithEmbedder> web_contents_embedder_map_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WEB_VIEW_MANAGER_H_

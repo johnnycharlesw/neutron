@@ -62,8 +62,8 @@ into end users' hands.
 
 <!-- Link labels -->
 
-[discord]: https://discord.gg/electronjs
-[github]: https://github.com/electron/website/issues/new
+[discord]: https://discord.gg/neutronjs
+[github]: https://github.com/neutron/website/issues/new
 [how-to]: ./examples.md
 
 <!-- Tutorial links -->

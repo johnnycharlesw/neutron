@@ -15,7 +15,7 @@ namespace ui {
 struct AXNodeData;
 }
 
-namespace electron {
+namespace neutron {
 
 // Special button that used by menu bar to show submenus.
 class SubmenuButton : public views::MenuButton {
@@ -59,6 +59,6 @@ class SubmenuButton : public views::MenuButton {
   SkColor background_color_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_SUBMENU_BUTTON_H_

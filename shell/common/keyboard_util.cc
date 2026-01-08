@@ -10,7 +10,7 @@
 #include "third_party/blink/public/common/input/web_input_event.h"
 #include "ui/events/event_constants.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -284,4 +284,4 @@ ui::KeyboardCode KeyboardCodeFromStr(const std::string_view str,
   return code;
 }
 
-}  // namespace electron
+}  // namespace neutron

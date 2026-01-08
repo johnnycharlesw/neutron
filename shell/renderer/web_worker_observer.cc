@@ -10,13 +10,13 @@
 #include "base/no_destructor.h"
 #include "base/strings/strcat.h"
 #include "base/threading/thread_local.h"
-#include "shell/common/api/electron_bindings.h"
+#include "shell/common/api/neutron_bindings.h"
 #include "shell/common/gin_helper/event_emitter_caller.h"
 #include "shell/common/node_bindings.h"
 #include "shell/common/node_includes.h"
 #include "shell/common/node_util.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -41,8 +41,8 @@ WebWorkerObserver* WebWorkerObserver::Create() {
 WebWorkerObserver::WebWorkerObserver()
     : node_bindings_(
           NodeBindings::Create(NodeBindings::BrowserEnvironment::kWorker)),
-      electron_bindings_(
-          std::make_unique<ElectronBindings>(node_bindings_->uv_loop())) {}
+      neutron_bindings_(
+          std::make_unique<NeutronBindings>(node_bindings_->uv_loop())) {}
 
 WebWorkerObserver::~WebWorkerObserver() = default;
 
@@ -90,8 +90,8 @@ void WebWorkerObserver::WorkerScriptReadyForEvaluation(
   // We do not want to crash Web Workers on unhandled rejections.
   env->options()->unhandled_rejections = "warn-with-error-code";
 
-  // Add Electron extended APIs.
-  electron_bindings_->BindTo(env->isolate(), env->process_object());
+  // Add Neutron extended APIs.
+  neutron_bindings_->BindTo(env->isolate(), env->process_object());
 
   // Load everything.
   node_bindings_->LoadEnvironment(env.get());
@@ -121,11 +121,11 @@ void WebWorkerObserver::ContextWillDestroy(v8::Local<v8::Context> context) {
                   [env](auto const& item) { return item.get() == env; });
   }
 
-  // ElectronBindings is tracking node environments.
-  electron_bindings_->EnvironmentDestroyed(env);
+  // NeutronBindings is tracking node environments.
+  neutron_bindings_->EnvironmentDestroyed(env);
 
   if (lazy_tls->Get())
     lazy_tls->Set(nullptr);
 }
 
-}  // namespace electron
+}  // namespace neutron

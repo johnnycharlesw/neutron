@@ -3,12 +3,12 @@
 > Manipulate the command line arguments for your app that Chromium reads
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 The following example shows how to check if the `--disable-gpu` flag is set.
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.hasSwitch('disable-gpu')
 ```
@@ -31,7 +31,7 @@ Append a switch (with optional `value`) to Chromium's command line.
 > control Chromium's behavior.
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315')
 ```
@@ -46,7 +46,7 @@ correctly. Switches will precede arguments regardless of appending order.
 If you're appending an argument like `--switch=value`, consider using `appendSwitch('switch', 'value')` instead.
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendArgument('--enable-experimental-web-platform-features')
 ```
@@ -62,7 +62,7 @@ app.commandLine.appendArgument('--enable-experimental-web-platform-features')
 Returns `boolean` - Whether the command-line switch is present.
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315')
 const hasPort = app.commandLine.hasSwitch('remote-debugging-port')
@@ -80,7 +80,7 @@ meant to be used for application-specific command line arguments. For the
 latter, please use `process.argv`.
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315')
 const portValue = app.commandLine.getSwitchValue('remote-debugging-port')
@@ -97,7 +97,7 @@ console.log(portValue) // '8315'
 Removes the specified switch from Chromium's command line.
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315')
 console.log(app.commandLine.hasSwitch('remote-debugging-port')) // true

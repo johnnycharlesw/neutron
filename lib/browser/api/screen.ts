@@ -1,8 +1,8 @@
 import { EventEmitter } from 'events';
 
-const { createScreen } = process._linkedBinding('electron_browser_screen');
+const { createScreen } = process._linkedBinding('neutron_browser_screen');
 
-let _screen: Electron.Screen;
+let _screen: Neutron.Screen;
 
 const createScreenIfNeeded = () => {
   if (_screen === undefined) {
@@ -15,7 +15,7 @@ const createScreenIfNeeded = () => {
 // side-effecting and calling createScreen upon import of this module, instead
 // we export a proxy which lazily calls createScreen on first access.
 export default new Proxy({}, {
-  get: (target, property: keyof Electron.Screen) => {
+  get: (target, property: keyof Neutron.Screen) => {
     createScreenIfNeeded();
     const value = _screen[property];
     if (typeof value === 'function') {

@@ -55,7 +55,7 @@ a web page in a separate renderer process. You can interact with this web conten
 from the main process using the window's [`webContents`][web-contents] object.
 
 ```js title='main.js'
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ width: 800, height: 1500 })
 win.loadURL('https://github.com')
@@ -158,7 +158,7 @@ A preload script can be attached to the main process in the `BrowserWindow` cons
 `webPreferences` option.
 
 ```js title='main.js'
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 // ...
 const win = new BrowserWindow({
   webPreferences: {
@@ -194,7 +194,7 @@ Instead, use the [`contextBridge`][context-bridge] module to accomplish this
 securely:
 
 ```js title='preload.js'
-const { contextBridge } = require('electron')
+const { contextBridge } = require('neutron')
 
 contextBridge.exposeInMainWorld('myAPI', {
   desktop: true
@@ -234,16 +234,16 @@ there is need to fork a child process from the main process.
 Electron's npm package also exports subpaths that contain a subset of
 Electron's TypeScript type definitions.
 
-- `electron/main` includes types for all main process modules.
-- `electron/renderer` includes types for all renderer process modules.
-- `electron/common` includes types for modules that can run in main and renderer processes.
+- `neutron/main` includes types for all main process modules.
+- `neutron/renderer` includes types for all renderer process modules.
+- `neutron/common` includes types for modules that can run in main and renderer processes.
 
 These aliases have no impact on runtime, but can be used for typechecking
 and autocomplete.
 
 ```js title="Usage example"
-const { shell } = require('electron/common')
-const { app } = require('electron/main')
+const { shell } = require('neutron/common')
+const { app } = require('neutron/main')
 ```
 
 [window-mdn]: https://developer.mozilla.org/en-US/docs/Web/API/Window

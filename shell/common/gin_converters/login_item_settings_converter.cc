@@ -14,9 +14,9 @@
 namespace gin {
 
 #if BUILDFLAG(IS_WIN)
-bool Converter<electron::LaunchItem>::FromV8(v8::Isolate* isolate,
+bool Converter<neutron::LaunchItem>::FromV8(v8::Isolate* isolate,
                                              v8::Local<v8::Value> val,
-                                             electron::LaunchItem* out) {
+                                             neutron::LaunchItem* out) {
   gin_helper::Dictionary dict;
   if (!ConvertFromV8(isolate, val, &dict))
     return false;
@@ -29,9 +29,9 @@ bool Converter<electron::LaunchItem>::FromV8(v8::Isolate* isolate,
   return true;
 }
 
-v8::Local<v8::Value> Converter<electron::LaunchItem>::ToV8(
+v8::Local<v8::Value> Converter<neutron::LaunchItem>::ToV8(
     v8::Isolate* isolate,
-    electron::LaunchItem val) {
+    neutron::LaunchItem val) {
   auto dict = gin_helper::Dictionary::CreateEmpty(isolate);
   dict.Set("name", val.name);
   dict.Set("path", val.path);
@@ -42,10 +42,10 @@ v8::Local<v8::Value> Converter<electron::LaunchItem>::ToV8(
 }
 #endif
 
-bool Converter<electron::LoginItemSettings>::FromV8(
+bool Converter<neutron::LoginItemSettings>::FromV8(
     v8::Isolate* isolate,
     v8::Local<v8::Value> val,
-    electron::LoginItemSettings* out) {
+    neutron::LoginItemSettings* out) {
   gin_helper::Dictionary dict;
   if (!ConvertFromV8(isolate, val, &dict))
     return false;
@@ -64,9 +64,9 @@ bool Converter<electron::LoginItemSettings>::FromV8(
   return true;
 }
 
-v8::Local<v8::Value> Converter<electron::LoginItemSettings>::ToV8(
+v8::Local<v8::Value> Converter<neutron::LoginItemSettings>::ToV8(
     v8::Isolate* isolate,
-    electron::LoginItemSettings val) {
+    neutron::LoginItemSettings val) {
   auto dict = gin_helper::Dictionary::CreateEmpty(isolate);
 #if BUILDFLAG(IS_WIN)
   dict.Set("launchItems", val.launch_items);

@@ -38,7 +38,7 @@
 #include "services/device/public/cpp/geolocation/geolocation_system_permission_manager.h"
 #include "services/network/public/cpp/network_switches.h"
 #include "shell/browser/net/resolve_proxy_helper.h"
-#include "shell/common/electron_paths.h"
+#include "shell/common/neutron_paths.h"
 #include "shell/common/thread_restrictions.h"
 
 #if BUILDFLAG(ENABLE_PRINTING)
@@ -126,9 +126,9 @@ void BrowserProcessImpl::PostEarlyInitialization() {
   // Only use a persistent prefs store when cookie encryption is enabled as that
   // is the only key that needs it
   base::FilePath prefs_path;
-  CHECK(base::PathService::Get(electron::DIR_SESSION_DATA, &prefs_path));
+  CHECK(base::PathService::Get(neutron::DIR_SESSION_DATA, &prefs_path));
   prefs_path = prefs_path.Append(FILE_PATH_LITERAL("Local State"));
-  electron::ScopedAllowBlockingForElectron allow_blocking;
+  neutron::ScopedAllowBlockingForNeutron allow_blocking;
   scoped_refptr<JsonPrefStore> user_pref_store =
       base::MakeRefCounted<JsonPrefStore>(prefs_path);
   user_pref_store->ReadPrefs();
@@ -335,9 +335,9 @@ const std::string& BrowserProcessImpl::GetSystemLocale() const {
   return system_locale_;
 }
 
-electron::ResolveProxyHelper* BrowserProcessImpl::GetResolveProxyHelper() {
+neutron::ResolveProxyHelper* BrowserProcessImpl::GetResolveProxyHelper() {
   if (!resolve_proxy_helper_) {
-    resolve_proxy_helper_ = base::MakeRefCounted<electron::ResolveProxyHelper>(
+    resolve_proxy_helper_ = base::MakeRefCounted<neutron::ResolveProxyHelper>(
         nullptr /* browser_context */);
   }
   return resolve_proxy_helper_.get();

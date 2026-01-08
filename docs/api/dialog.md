@@ -7,7 +7,7 @@ Process: [Main](../glossary.md#main-process)
 An example of showing a dialog to select multiple files:
 
 ```js
-const { dialog } = require('electron')
+const { dialog } = require('neutron')
 
 console.log(dialog.showOpenDialog({ properties: ['openFile', 'multiSelections'] }))
 ```

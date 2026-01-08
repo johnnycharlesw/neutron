@@ -1,4 +1,4 @@
-import { app, BrowserWindow, BrowserView, dialog, ipcMain, OnBeforeSendHeadersListenerDetails, net, protocol, screen, webContents, webFrameMain, session, systemPreferences, WebContents, WebFrameMain } from 'electron/main';
+import { app, BrowserWindow, BrowserView, dialog, ipcMain, OnBeforeSendHeadersListenerDetails, net, protocol, screen, webContents, webFrameMain, session, systemPreferences, WebContents, WebFrameMain } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -86,7 +86,7 @@ describe('BrowserWindow module', () => {
   });
 
   describe('garbage collection', () => {
-    const v8Util = process._linkedBinding('electron_common_v8_util');
+    const v8Util = process._linkedBinding('neutron_common_v8_util');
     afterEach(closeAllWindows);
 
     it('window does not get garbage collected when opened', async () => {
@@ -1366,7 +1366,7 @@ describe('BrowserWindow module', () => {
     });
 
     // TODO(RaisinTen): Make this work on Windows too.
-    // Refs: https://github.com/electron/electron/issues/20464.
+    // Refs: https://github.com/neutron/neutron/issues/20464.
     ifdescribe(process.platform !== 'win32')('BrowserWindow.blur()', () => {
       it('removes focus from window', async () => {
         {
@@ -1686,7 +1686,7 @@ describe('BrowserWindow module', () => {
       it('doesn\'t change bounds when maximum size is set', () => {
         w.setMenu(null);
         w.setMaximumSize(400, 400);
-        // Without https://github.com/electron/electron/pull/29101
+        // Without https://github.com/neutron/neutron/pull/29101
         // following call would shrink the window to 384x361.
         // There would be also DCHECK in resize_utils.cc on
         // debug build.
@@ -3047,7 +3047,7 @@ describe('BrowserWindow module', () => {
       const w = new BrowserWindow({ show: false, webPreferences: { webviewTag: true } });
       w.loadURL('data:text/html,<webview src="data:text/html,hi"></webview>');
       // NOTE(nornagon): Waiting for 'did-attach-webview' is a workaround for
-      // https://github.com/electron/electron/issues/25413, and is not integral
+      // https://github.com/neutron/neutron/issues/25413, and is not integral
       // to the test.
       const p = once(w.webContents, 'did-attach-webview');
       const [, webviewContents] = await once(app, 'web-contents-created') as [any, WebContents];
@@ -3865,7 +3865,7 @@ describe('BrowserWindow module', () => {
         const pageUrl = 'file://' + htmlPath;
         const answer = once(ipcMain, 'answer');
         w.loadURL(pageUrl);
-        const [, { url, frameName, options }] = await once(w.webContents, 'did-create-window') as [BrowserWindow, Electron.DidCreateWindowDetails];
+        const [, { url, frameName, options }] = await once(w.webContents, 'did-create-window') as [BrowserWindow, Neutron.DidCreateWindowDetails];
         const expectedUrl = process.platform === 'win32'
           ? 'file:///' + htmlPath.replaceAll('\\', '/')
           : pageUrl;
@@ -4503,7 +4503,7 @@ describe('BrowserWindow module', () => {
 
       w.loadFile(path.join(fixtures, 'pages', 'visibilitychange.html'));
       if (process.platform === 'darwin') {
-        // See https://github.com/electron/electron/issues/8664
+        // See https://github.com/neutron/neutron/issues/8664
         await once(w, 'show');
       }
       w.hide();
@@ -4523,7 +4523,7 @@ describe('BrowserWindow module', () => {
       });
       w.loadFile(path.join(fixtures, 'pages', 'visibilitychange.html'));
       if (process.platform === 'darwin') {
-        // See https://github.com/electron/electron/issues/8664
+        // See https://github.com/neutron/neutron/issues/8664
         await once(w, 'show');
       }
       w.hide();
@@ -4810,7 +4810,7 @@ describe('BrowserWindow module', () => {
        * the path. To perform this task, chromium requires that the path is one
        * of the browser controlled paths, refs https://chromium-review.googlesource.com/c/chromium/src/+/3774416
        */
-      const tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'electron-mhtml-save-'));
+      const tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'neutron-mhtml-save-'));
       const savePageMHTMLPath = path.join(tmpDir, 'save_page.html');
       const w = new BrowserWindow({ show: false });
       await w.loadFile(path.join(fixtures, 'pages', 'save_page', 'index.html'));
@@ -4867,7 +4867,7 @@ describe('BrowserWindow module', () => {
 
     // TODO(zcbenz):
     // This test does not run on Linux CI. See:
-    // https://github.com/electron/electron/issues/28699
+    // https://github.com/neutron/neutron/issues/28699
     ifit(process.platform === 'linux' && !process.env.CI)('should bring a minimized maximized window back to maximized state', async () => {
       const w = new BrowserWindow({});
       const maximize = once(w, 'maximize');
@@ -4921,7 +4921,7 @@ describe('BrowserWindow module', () => {
     });
 
     // TODO(dsanders11): Enable once minimize event works on Linux again.
-    //                   See https://github.com/electron/electron/issues/28699
+    //                   See https://github.com/neutron/neutron/issues/28699
     ifit(process.platform !== 'linux')('should not restore a minimized window', async () => {
       const w = new BrowserWindow();
       const minimize = once(w, 'minimize');
@@ -4963,7 +4963,7 @@ describe('BrowserWindow module', () => {
   describe('setFullScreen(false)', () => {
     afterEach(closeAllWindows);
 
-    // only applicable to windows: https://github.com/electron/electron/issues/6036
+    // only applicable to windows: https://github.com/neutron/neutron/issues/6036
     ifdescribe(process.platform === 'win32')('on windows', () => {
       it('should restore a normal visible window from a fullscreen startup state', async () => {
         const w = new BrowserWindow({ show: false });
@@ -5575,7 +5575,7 @@ describe('BrowserWindow module', () => {
 
         it('can be changed', () => {
           const w = new BrowserWindow({ show: false });
-          expect(w.title).to.eql('Electron Test Main');
+          expect(w.title).to.eql('Neutron Test Main');
           w.title = 'NEW TITLE';
           expect(w.title).to.eql('NEW TITLE');
         });
@@ -5589,7 +5589,7 @@ describe('BrowserWindow module', () => {
 
         it('can be changed', () => {
           const w = new BrowserWindow({ show: false });
-          expect(w.getTitle()).to.eql('Electron Test Main');
+          expect(w.getTitle()).to.eql('Neutron Test Main');
           w.setTitle('NEW TITLE');
           expect(w.getTitle()).to.eql('NEW TITLE');
         });
@@ -6040,7 +6040,7 @@ describe('BrowserWindow module', () => {
       });
     });
 
-    // fullscreen events are dispatched eagerly and twiddling things too fast can confuse poor Electron
+    // fullscreen events are dispatched eagerly and twiddling things too fast can confuse poor Neutron
 
     ifdescribe(process.platform === 'darwin')('kiosk state', () => {
       describe('with properties', () => {
@@ -6463,7 +6463,7 @@ describe('BrowserWindow module', () => {
     afterEach(closeAllWindows);
     it('returns valid handle', () => {
       const w = new BrowserWindow({ show: false });
-      const isValidWindow = require('@electron-ci/is-valid-window');
+      const isValidWindow = require('@neutron-ci/is-valid-window');
       expect(isValidWindow(w.getNativeWindowHandle())).to.be.true('is valid window');
     });
   });
@@ -6522,7 +6522,7 @@ describe('BrowserWindow module', () => {
 
     afterEach(closeAllWindows);
 
-    it('separates the page context from the Electron/preload context', async () => {
+    it('separates the page context from the Neutron/preload context', async () => {
       const iw = new BrowserWindow({
         show: false,
         webPreferences: {
@@ -6562,7 +6562,7 @@ describe('BrowserWindow module', () => {
       const [, window] = await browserWindowCreated;
       expect(window.webContents.getLastWebPreferences()!.contextIsolation).to.be.true('contextIsolation');
     });
-    it('separates the page context from the Electron/preload context with sandbox on', async () => {
+    it('separates the page context from the Neutron/preload context with sandbox on', async () => {
       const ws = new BrowserWindow({
         show: false,
         webPreferences: {
@@ -6716,7 +6716,7 @@ describe('BrowserWindow module', () => {
     afterEach(closeAllWindows);
 
     it('creates offscreen window with correct size', async () => {
-      const paint = once(w.webContents, 'paint') as Promise<[any, Electron.Rectangle, Electron.NativeImage]>;
+      const paint = once(w.webContents, 'paint') as Promise<[any, Neutron.Rectangle, Neutron.NativeImage]>;
       w.loadFile(path.join(fixtures, 'api', 'offscreen-rendering.html'));
       const [, , data] = await paint;
       expect(data.constructor.name).to.equal('NativeImage');
@@ -6747,7 +6747,7 @@ describe('BrowserWindow module', () => {
 
     describe('window.webContents.isPainting()', () => {
       it('returns whether is currently painting', async () => {
-        const paint = once(w.webContents, 'paint') as Promise<[any, Electron.Rectangle, Electron.NativeImage]>;
+        const paint = once(w.webContents, 'paint') as Promise<[any, Neutron.Rectangle, Neutron.NativeImage]>;
         w.loadFile(path.join(fixtures, 'api', 'offscreen-rendering.html'));
         await paint;
         expect(w.webContents.isPainting()).to.be.true('isPainting');
@@ -6774,7 +6774,7 @@ describe('BrowserWindow module', () => {
         w.webContents.stopPainting();
         w.webContents.startPainting();
 
-        await once(w.webContents, 'paint') as [any, Electron.Rectangle, Electron.NativeImage];
+        await once(w.webContents, 'paint') as [any, Neutron.Rectangle, Neutron.NativeImage];
         expect(w.webContents.isPainting()).to.be.true('isPainting');
       });
     });
@@ -6782,13 +6782,13 @@ describe('BrowserWindow module', () => {
     describe('frameRate APIs', () => {
       it('has default frame rate (function)', async () => {
         w.loadFile(path.join(fixtures, 'api', 'offscreen-rendering.html'));
-        await once(w.webContents, 'paint') as [any, Electron.Rectangle, Electron.NativeImage];
+        await once(w.webContents, 'paint') as [any, Neutron.Rectangle, Neutron.NativeImage];
         expect(w.webContents.getFrameRate()).to.equal(60);
       });
 
       it('has default frame rate (property)', async () => {
         w.loadFile(path.join(fixtures, 'api', 'offscreen-rendering.html'));
-        await once(w.webContents, 'paint') as [any, Electron.Rectangle, Electron.NativeImage];
+        await once(w.webContents, 'paint') as [any, Neutron.Rectangle, Neutron.NativeImage];
         expect(w.webContents.frameRate).to.equal(60);
       });
 
@@ -6799,7 +6799,7 @@ describe('BrowserWindow module', () => {
 
         w.webContents.setFrameRate(30);
 
-        await once(w.webContents, 'paint') as [any, Electron.Rectangle, Electron.NativeImage];
+        await once(w.webContents, 'paint') as [any, Neutron.Rectangle, Neutron.NativeImage];
         expect(w.webContents.getFrameRate()).to.equal(30);
       });
 
@@ -6810,7 +6810,7 @@ describe('BrowserWindow module', () => {
 
         w.webContents.frameRate = 30;
 
-        await once(w.webContents, 'paint') as [any, Electron.Rectangle, Electron.NativeImage];
+        await once(w.webContents, 'paint') as [any, Neutron.Rectangle, Neutron.NativeImage];
         expect(w.webContents.frameRate).to.equal(30);
       });
     });

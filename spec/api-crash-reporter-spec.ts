@@ -1,4 +1,4 @@
-import { app } from 'electron/main';
+import { app } from 'neutron/main';
 
 import * as Busboy from 'busboy';
 import { expect } from 'chai';
@@ -31,13 +31,13 @@ type CrashInfo = {
   globalParam: 'globalValue' | undefined
   addedThenRemoved: 'to-be-removed' | undefined
   longParam: string | undefined
-  'electron.v8-fatal.location': string | undefined
-  'electron.v8-fatal.message': string | undefined
+  'neutron.v8-fatal.location': string | undefined
+  'neutron.v8-fatal.message': string | undefined
 }
 
 function checkCrash (expectedProcessType: string, fields: CrashInfo) {
-  expect(String(fields.prod)).to.equal('Electron', 'prod');
-  expect(String(fields.ver)).to.equal(process.versions.electron, 'ver');
+  expect(String(fields.prod)).to.equal('Neutron', 'prod');
+  expect(String(fields.ver)).to.equal(process.versions.neutron, 'ver');
   expect(String(fields.ptype)).to.equal(expectedProcessType, 'ptype');
   expect(String(fields.process_type)).to.equal(expectedProcessType, 'process_type');
   expect(String(fields.platform)).to.equal(process.platform, 'platform');
@@ -255,7 +255,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
         const { port, waitForCrash } = await startServer();
 
         await remotely((port: number) => {
-          require('electron').crashReporter.start({
+          require('neutron').crashReporter.start({
             submitURL: `http://127.0.0.1:${port}`,
             compress: false,
             ignoreSystemCrashHandler: true
@@ -263,18 +263,18 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
         }, [port]);
 
         remotely(() => {
-          const { BrowserWindow } = require('electron');
+          const { BrowserWindow } = require('neutron');
           const bw = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
           bw.loadURL('about:blank');
-          bw.webContents.executeJavaScript('process._linkedBinding(\'electron_common_v8_util\').triggerFatalErrorForTesting()');
+          bw.webContents.executeJavaScript('process._linkedBinding(\'neutron_common_v8_util\').triggerFatalErrorForTesting()');
         });
 
         const crash = await waitForCrash();
-        expect(crash.prod).to.equal('Electron');
-        expect(crash._productName).to.equal('electron-test-remote-control');
+        expect(crash.prod).to.equal('Neutron');
+        expect(crash._productName).to.equal('neutron-test-remote-control');
         expect(crash.process_type).to.equal('renderer');
-        expect(crash['electron.v8-fatal.location']).to.equal('v8::Context::New()');
-        expect(crash['electron.v8-fatal.message']).to.equal('Circular extension dependency');
+        expect(crash['neutron.v8-fatal.location']).to.equal('v8::Context::New()');
+        expect(crash['neutron.v8-fatal.message']).to.equal('Circular extension dependency');
       });
     });
   });
@@ -295,7 +295,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
       const { port, waitForCrash } = await startServer();
       const { remotely } = await startRemoteControlApp();
       remotely((port: number) => {
-        require('electron').crashReporter.start({
+        require('neutron').crashReporter.start({
           submitURL: `http://127.0.0.1:${port}`,
           compress: false,
           ignoreSystemCrashHandler: true,
@@ -312,7 +312,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
       const { port, waitForCrash } = await startServer();
       const { remotely } = await startRemoteControlApp();
       remotely((port: number, kKeyLengthMax: number) => {
-        require('electron').crashReporter.start({
+        require('neutron').crashReporter.start({
           submitURL: `http://127.0.0.1:${port}`,
           compress: false,
           ignoreSystemCrashHandler: true,
@@ -322,7 +322,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
             'not-long': 'not-long-value'
           }
         });
-        require('electron').crashReporter.addExtraParameter('c'.repeat(kKeyLengthMax + 10), 'value');
+        require('neutron').crashReporter.addExtraParameter('c'.repeat(kKeyLengthMax + 10), 'value');
         setTimeout().then(() => process.crash());
       }, port, kKeyLengthMax);
       const crash = await waitForCrash();
@@ -386,9 +386,9 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
     it('returns an array of reports', async () => {
       const { remotely } = await startRemoteControlApp();
       await remotely(() => {
-        require('electron').crashReporter.start({ submitURL: 'http://127.0.0.1' });
+        require('neutron').crashReporter.start({ submitURL: 'http://127.0.0.1' });
       });
-      const reports = await remotely(() => require('electron').crashReporter.getUploadedReports());
+      const reports = await remotely(() => require('neutron').crashReporter.getUploadedReports());
       expect(reports).to.be.an('array');
     });
   });
@@ -400,7 +400,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
       const { port, waitForCrash } = await startServer();
 
       // 0. clear the crash reports directory.
-      const dir = await remotely(() => require('electron').app.getPath('crashDumps'));
+      const dir = await remotely(() => require('neutron').app.getPath('crashDumps'));
       try {
         fs.rmdirSync(dir, { recursive: true });
         fs.mkdirSync(dir);
@@ -408,7 +408,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
 
       // 1. start the crash reporter.
       await remotely((port: number) => {
-        require('electron').crashReporter.start({
+        require('neutron').crashReporter.start({
           submitURL: `http://127.0.0.1:${port}`,
           compress: false,
           ignoreSystemCrashHandler: true
@@ -416,7 +416,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
       }, [port]);
       // 2. generate a crash in the renderer.
       remotely(() => {
-        const { BrowserWindow } = require('electron');
+        const { BrowserWindow } = require('neutron');
         const bw = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         bw.loadURL('about:blank');
         bw.webContents.executeJavaScript('process.crash()');
@@ -424,7 +424,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
       await waitForCrash();
       // 3. get the crash from getLastCrashReport.
       const firstReport = await repeatedly(
-        () => remotely(() => require('electron').crashReporter.getLastCrashReport())
+        () => remotely(() => require('neutron').crashReporter.getLastCrashReport())
       );
       expect(firstReport).to.not.be.null();
       expect(firstReport.date).to.be.an.instanceOf(Date);
@@ -436,30 +436,30 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
     it('returns all of the current parameters', async () => {
       const { remotely } = await startRemoteControlApp();
       await remotely(() => {
-        require('electron').crashReporter.start({
+        require('neutron').crashReporter.start({
           submitURL: 'http://127.0.0.1',
           extra: { extra1: 'hi' }
         });
       });
-      const parameters = await remotely(() => require('electron').crashReporter.getParameters());
+      const parameters = await remotely(() => require('neutron').crashReporter.getParameters());
       expect(parameters).to.have.property('extra1', 'hi');
     });
 
     it('reflects added and removed parameters', async () => {
       const { remotely } = await startRemoteControlApp();
       await remotely(() => {
-        require('electron').crashReporter.start({ submitURL: 'http://127.0.0.1' });
-        require('electron').crashReporter.addExtraParameter('hello', 'world');
+        require('neutron').crashReporter.start({ submitURL: 'http://127.0.0.1' });
+        require('neutron').crashReporter.addExtraParameter('hello', 'world');
       });
       {
-        const parameters = await remotely(() => require('electron').crashReporter.getParameters());
+        const parameters = await remotely(() => require('neutron').crashReporter.getParameters());
         expect(parameters).to.have.property('hello', 'world');
       }
 
-      await remotely(() => { require('electron').crashReporter.removeExtraParameter('hello'); });
+      await remotely(() => { require('neutron').crashReporter.removeExtraParameter('hello'); });
 
       {
-        const parameters = await remotely(() => require('electron').crashReporter.getParameters());
+        const parameters = await remotely(() => require('neutron').crashReporter.getParameters());
         expect(parameters).not.to.have.property('hello');
       }
     });
@@ -467,12 +467,12 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
     it('can be called in the renderer', async () => {
       const { remotely } = await startRemoteControlApp();
       const rendererParameters = await remotely(async () => {
-        const { crashReporter, BrowserWindow } = require('electron');
+        const { crashReporter, BrowserWindow } = require('neutron');
         crashReporter.start({ submitURL: 'http://' });
         const bw = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         bw.loadURL('about:blank');
-        await bw.webContents.executeJavaScript('require(\'electron\').crashReporter.addExtraParameter(\'hello\', \'world\')');
-        return bw.webContents.executeJavaScript('require(\'electron\').crashReporter.getParameters()');
+        await bw.webContents.executeJavaScript('require(\'neutron\').crashReporter.addExtraParameter(\'hello\', \'world\')');
+        return bw.webContents.executeJavaScript('require(\'neutron\').crashReporter.getParameters()');
       });
       expect(rendererParameters).to.deep.equal({ hello: 'world' });
     });
@@ -509,7 +509,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
         });
       } else if (processType === 'renderer') {
         return remotely(() => {
-          const { BrowserWindow } = require('electron');
+          const { BrowserWindow } = require('neutron');
           const bw = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
           bw.loadURL('about:blank');
           bw.webContents.executeJavaScript('process.crash()');
@@ -517,14 +517,14 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
       } else if (processType === 'sandboxed-renderer') {
         const preloadPath = path.join(__dirname, 'fixtures', 'apps', 'crash', 'sandbox-preload.js');
         return remotely((preload: string) => {
-          const { BrowserWindow } = require('electron');
+          const { BrowserWindow } = require('neutron');
           const bw = new BrowserWindow({ show: false, webPreferences: { sandbox: true, preload, contextIsolation: false } });
           bw.loadURL('about:blank');
         }, preloadPath);
       } else if (processType === 'node') {
         const crashScriptPath = path.join(__dirname, 'fixtures', 'apps', 'crash', 'node-crash.js');
         return remotely((crashScriptPath: string) => {
-          const { app } = require('electron');
+          const { app } = require('neutron');
           const childProcess = require('node:child_process');
           const version = app.getVersion();
           const url = 'http://127.0.0.1';
@@ -541,7 +541,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
         it('stores crashes in the crash dump directory when uploadToServer: false', async () => {
           const { remotely } = await startRemoteControlApp();
           const crashesDir = await remotely(() => {
-            const { crashReporter, app } = require('electron');
+            const { crashReporter, app } = require('neutron');
             crashReporter.start({ submitURL: 'http://127.0.0.1', uploadToServer: false, ignoreSystemCrashHandler: true });
             return app.getPath('crashDumps');
           });
@@ -562,7 +562,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
           const { remotely } = await startRemoteControlApp();
           const crashesDir = path.join(app.getPath('temp'), uuid.v4());
           const remoteCrashesDir = await remotely((crashesDir: string) => {
-            const { crashReporter, app } = require('electron');
+            const { crashReporter, app } = require('neutron');
             app.setPath('crashDumps', crashesDir);
             crashReporter.start({ submitURL: 'http://127.0.0.1', uploadToServer: false, ignoreSystemCrashHandler: true });
             return app.getPath('crashDumps');
@@ -589,7 +589,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
     it('requires that the submitURL option be specified', async () => {
       const { remotely } = await startRemoteControlApp();
       await expect(remotely(() => {
-        const { crashReporter } = require('electron');
+        const { crashReporter } = require('neutron');
         crashReporter.start({} as any);
       })).to.be.rejectedWith('submitURL must be specified when uploadToServer is true');
     });
@@ -597,7 +597,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
     it('allows the submitURL option to be omitted when uploadToServer is false', async () => {
       const { remotely } = await startRemoteControlApp();
       await expect(remotely(() => {
-        const { crashReporter } = require('electron');
+        const { crashReporter } = require('neutron');
         crashReporter.start({ uploadToServer: false } as any);
       })).to.be.fulfilled();
     });
@@ -605,7 +605,7 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
     it('can be called twice', async () => {
       const { remotely } = await startRemoteControlApp();
       await expect(remotely(() => {
-        const { crashReporter } = require('electron');
+        const { crashReporter } = require('neutron');
         crashReporter.start({ submitURL: 'http://127.0.0.1' });
         crashReporter.start({ submitURL: 'http://127.0.0.1' });
       })).to.be.fulfilled();
@@ -616,25 +616,25 @@ ifdescribe(!isLinuxOnArm && !process.mas && !process.env.DISABLE_CRASH_REPORTER_
     it('returns true when uploadToServer is set to true (by default)', async () => {
       const { remotely } = await startRemoteControlApp();
 
-      await remotely(() => { require('electron').crashReporter.start({ submitURL: 'http://127.0.0.1' }); });
-      const uploadToServer = await remotely(() => require('electron').crashReporter.getUploadToServer());
+      await remotely(() => { require('neutron').crashReporter.start({ submitURL: 'http://127.0.0.1' }); });
+      const uploadToServer = await remotely(() => require('neutron').crashReporter.getUploadToServer());
       expect(uploadToServer).to.be.true();
     });
 
     it('returns false when uploadToServer is set to false in init', async () => {
       const { remotely } = await startRemoteControlApp();
-      await remotely(() => { require('electron').crashReporter.start({ submitURL: 'http://127.0.0.1', uploadToServer: false }); });
-      const uploadToServer = await remotely(() => require('electron').crashReporter.getUploadToServer());
+      await remotely(() => { require('neutron').crashReporter.start({ submitURL: 'http://127.0.0.1', uploadToServer: false }); });
+      const uploadToServer = await remotely(() => require('neutron').crashReporter.getUploadToServer());
       expect(uploadToServer).to.be.false();
     });
 
     it('is updated by setUploadToServer', async () => {
       const { remotely } = await startRemoteControlApp();
-      await remotely(() => { require('electron').crashReporter.start({ submitURL: 'http://127.0.0.1' }); });
-      await remotely(() => { require('electron').crashReporter.setUploadToServer(false); });
-      expect(await remotely(() => require('electron').crashReporter.getUploadToServer())).to.be.false();
-      await remotely(() => { require('electron').crashReporter.setUploadToServer(true); });
-      expect(await remotely(() => require('electron').crashReporter.getUploadToServer())).to.be.true();
+      await remotely(() => { require('neutron').crashReporter.start({ submitURL: 'http://127.0.0.1' }); });
+      await remotely(() => { require('neutron').crashReporter.setUploadToServer(false); });
+      expect(await remotely(() => require('neutron').crashReporter.getUploadToServer())).to.be.false();
+      await remotely(() => { require('neutron').crashReporter.setUploadToServer(true); });
+      expect(await remotely(() => require('neutron').crashReporter.getUploadToServer())).to.be.true();
     });
   });
 

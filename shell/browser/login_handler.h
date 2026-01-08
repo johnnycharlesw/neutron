@@ -17,7 +17,7 @@ namespace gin {
 class Arguments;
 }
 
-namespace electron {
+namespace neutron {
 
 // Handles HTTP basic auth.
 class LoginHandler : public content::LoginDelegate {
@@ -61,6 +61,6 @@ class LoginHandler : public content::LoginDelegate {
   base::WeakPtrFactory<LoginHandler> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_LOGIN_HANDLER_H_

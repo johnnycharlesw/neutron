@@ -11,10 +11,10 @@
 namespace gin {
 
 template <>
-struct Converter<electron::OffscreenSharedTextureValue> {
+struct Converter<neutron::OffscreenSharedTextureValue> {
   static v8::Local<v8::Value> ToV8(
       v8::Isolate* isolate,
-      const electron::OffscreenSharedTextureValue& val);
+      const neutron::OffscreenSharedTextureValue& val);
 };
 
 }  // namespace gin

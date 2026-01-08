@@ -10,7 +10,7 @@
 #include "base/command_line.h"
 #include "content/public/common/content_switches.h"
 
-namespace electron {
+namespace neutron {
 
 std::string GetProcessType() {
   auto* command_line = base::CommandLine::ForCurrentProcess();
@@ -37,4 +37,4 @@ bool IsZygoteProcess() {
   return result;
 }
 
-}  // namespace electron
+}  // namespace neutron

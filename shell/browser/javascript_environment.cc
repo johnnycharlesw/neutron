@@ -22,13 +22,13 @@
 #include "shell/common/gin_helper/cleaned_up_at_exit.h"
 #include "shell/common/node_includes.h"
 #include "third_party/blink/public/common/switches.h"
-#include "third_party/electron_node/src/node_wasm_web_api.h"
+#include "third_party/neutron_node/src/node_wasm_web_api.h"
 
 namespace {
 v8::Isolate* g_isolate;
 }
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -161,4 +161,4 @@ void JavascriptEnvironment::DestroyMicrotasksRunner() {
   base::CurrentThread::Get()->RemoveTaskObserver(microtasks_runner_.get());
 }
 
-}  // namespace electron
+}  // namespace neutron

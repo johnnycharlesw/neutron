@@ -61,7 +61,7 @@ events, you can call the [win.setIgnoreMouseEvents(ignore)][ignore-mouse-events]
 API:
 
 ```js title='main.js'
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 win.setIgnoreMouseEvents(true)
@@ -75,7 +75,7 @@ optional parameter can be used to forward mouse move messages to the web page,
 allowing events such as `mouseleave` to be emitted:
 
 ```js title='main.js'
-const { BrowserWindow, ipcMain } = require('electron')
+const { BrowserWindow, ipcMain } = require('neutron')
 
 const path = require('node:path')
 

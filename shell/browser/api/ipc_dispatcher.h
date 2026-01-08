@@ -20,7 +20,7 @@
 #include "shell/common/v8_util.h"
 #include "v8/include/cppgc/macros.h"
 
-namespace electron {
+namespace neutron {
 
 // Handles dispatching IPCs to JS.
 // See ipc-dispatch.ts for JS listeners.
@@ -32,14 +32,14 @@ class IpcDispatcher {
   void Message(v8::Local<v8::Object> event,
                const std::string& channel,
                blink::CloneableMessage args) {
-    TRACE_EVENT1("electron", "IpcDispatcher::Message", "channel", channel);
+    TRACE_EVENT1("neutron", "IpcDispatcher::Message", "channel", channel);
     emitter()->EmitWithoutEvent("-ipc-message", event, channel, args);
   }
 
   void Invoke(v8::Local<v8::Object> event,
               const std::string& channel,
               blink::CloneableMessage arguments) {
-    TRACE_EVENT1("electron", "IpcDispatcher::Invoke", "channel", channel);
+    TRACE_EVENT1("neutron", "IpcDispatcher::Invoke", "channel", channel);
     emitter()->EmitWithoutEvent("-ipc-invoke", event, channel,
                                 std::move(arguments));
   }
@@ -47,14 +47,14 @@ class IpcDispatcher {
   void ReceivePostMessage(v8::Local<v8::Object> event,
                           const std::string& channel,
                           blink::TransferableMessage message) {
-    TRACE_EVENT1("electron", "IpcDispatcher::ReceivePostMessage", "channel",
+    TRACE_EVENT1("neutron", "IpcDispatcher::ReceivePostMessage", "channel",
                  channel);
     v8::Isolate* isolate = JavascriptEnvironment::GetIsolate();
     v8::HandleScope handle_scope(isolate);
     auto wrapped_ports =
         MessagePort::EntanglePorts(isolate, std::move(message.ports));
     v8::Local<v8::Value> message_value =
-        electron::DeserializeV8Value(isolate, message);
+        neutron::DeserializeV8Value(isolate, message);
     emitter()->EmitWithoutEvent("-ipc-ports", event, channel, message_value,
                                 std::move(wrapped_ports));
   }
@@ -62,7 +62,7 @@ class IpcDispatcher {
   void MessageSync(v8::Local<v8::Object> event,
                    const std::string& channel,
                    blink::CloneableMessage arguments) {
-    TRACE_EVENT1("electron", "IpcDispatcher::MessageSync", "channel", channel);
+    TRACE_EVENT1("neutron", "IpcDispatcher::MessageSync", "channel", channel);
     emitter()->EmitWithoutEvent("-ipc-message-sync", event, channel,
                                 std::move(arguments));
   }
@@ -70,7 +70,7 @@ class IpcDispatcher {
   void MessageHost(v8::Local<v8::Object> event,
                    const std::string& channel,
                    blink::CloneableMessage arguments) {
-    TRACE_EVENT1("electron", "IpcDispatcher::MessageHost", "channel", channel);
+    TRACE_EVENT1("neutron", "IpcDispatcher::MessageHost", "channel", channel);
     emitter()->EmitWithoutEvent("-ipc-message-host", event, channel,
                                 std::move(arguments));
   }
@@ -82,6 +82,6 @@ class IpcDispatcher {
   }
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_API_IPC_DISPATCHER_H_

@@ -1,4 +1,4 @@
-import { ipcMain, net, protocol, session, WebContents, webContents } from 'electron/main';
+import { ipcMain, net, protocol, session, WebContents, webContents } from 'neutron/main';
 
 import { expect } from 'chai';
 import * as WebSocket from 'ws';
@@ -76,7 +76,7 @@ describe('webRequest module', () => {
   let contents: WebContents;
   // NB. sandbox: true is used because it makes navigations much (~8x) faster.
   before(async () => {
-    contents = (webContents as typeof ElectronInternal.WebContents).create({ sandbox: true });
+    contents = (webContents as typeof NeutronInternal.WebContents).create({ sandbox: true });
     // const w = new BrowserWindow({webPreferences: {sandbox: true}})
     // contents = w.webContents
     await contents.loadFile(path.join(fixturesPath, 'pages', 'fetch.html'));
@@ -92,7 +92,7 @@ describe('webRequest module', () => {
       ses.webRequest.onBeforeRequest(null);
     });
 
-    const cancel = (details: Electron.OnBeforeRequestListenerDetails, callback: (response: Electron.CallbackResponse) => void) => {
+    const cancel = (details: Neutron.OnBeforeRequestListenerDetails, callback: (response: Neutron.CallbackResponse) => void) => {
       callback({ cancel: true });
     };
 
@@ -146,27 +146,27 @@ describe('webRequest module', () => {
     });
 
     it('can filter URLs and types', async () => {
-      const filter1: Electron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], types: ['xhr'] };
+      const filter1: Neutron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], types: ['xhr'] };
       ses.webRequest.onBeforeRequest(filter1, cancel);
       const { data } = await ajax(`${defaultURL}nofilter/test`);
       expect(data).to.equal('/nofilter/test');
       await expect(ajax(`${defaultURL}filter/test`)).to.eventually.be.rejected();
 
-      const filter2: Electron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], types: ['stylesheet'] };
+      const filter2: Neutron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], types: ['stylesheet'] };
       ses.webRequest.onBeforeRequest(filter2, cancel);
       expect((await ajax(`${defaultURL}nofilter/test`)).data).to.equal('/nofilter/test');
       expect((await ajax(`${defaultURL}filter/test`)).data).to.equal('/filter/test');
     });
 
     it('can filter URLs, excludeUrls and types', async () => {
-      const filter1: Electron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], excludeUrls: [defaultURL + 'exclude/*'], types: ['xhr'] };
+      const filter1: Neutron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], excludeUrls: [defaultURL + 'exclude/*'], types: ['xhr'] };
       ses.webRequest.onBeforeRequest(filter1, cancel);
 
       expect((await ajax(`${defaultURL}nofilter/test`)).data).to.equal('/nofilter/test');
       expect((await ajax(`${defaultURL}exclude/test`)).data).to.equal('/exclude/test');
       await expect(ajax(`${defaultURL}filter/test`)).to.eventually.be.rejected();
 
-      const filter2: Electron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], excludeUrls: [defaultURL + 'exclude/*'], types: ['stylesheet'] };
+      const filter2: Neutron.WebRequestFilter = { urls: [defaultURL + 'filter/*'], excludeUrls: [defaultURL + 'exclude/*'], types: ['stylesheet'] };
       ses.webRequest.onBeforeRequest(filter2, cancel);
       expect((await ajax(`${defaultURL}nofilter/test`)).data).to.equal('/nofilter/test');
       expect((await ajax(`${defaultURL}filter/test`)).data).to.equal('/filter/test');
@@ -249,7 +249,7 @@ describe('webRequest module', () => {
       defer(() => {
         session.defaultSession.setCertificateVerifyProc(null);
       });
-      const contents = (webContents as typeof ElectronInternal.WebContents).create({ sandbox: true });
+      const contents = (webContents as typeof NeutronInternal.WebContents).create({ sandbox: true });
       defer(() => contents.close());
       await contents.loadURL(http2URL);
 
@@ -280,7 +280,7 @@ describe('webRequest module', () => {
       defer(() => {
         session.defaultSession.setCertificateVerifyProc(null);
       });
-      const contents = (webContents as typeof ElectronInternal.WebContents).create({ sandbox: true });
+      const contents = (webContents as typeof NeutronInternal.WebContents).create({ sandbox: true });
       defer(() => contents.close());
       await contents.loadURL(http2URL);
 
@@ -458,7 +458,7 @@ describe('webRequest module', () => {
 
     it('can inject Proxy-Authorization header for net module requests', async () => {
       // Proxy-Authorization is normally rejected by Chromium's network service
-      // for security reasons. However, for Electron's trusted net module,
+      // for security reasons. However, for Neutron's trusted net module,
       // webRequest.onBeforeSendHeaders should be able to inject it via the
       // TrustedHeaderClient code path.
       const proxyAuthValue = 'Basic test-credentials';
@@ -732,7 +732,7 @@ describe('webRequest module', () => {
         }
       });
 
-      const contents = (webContents as typeof ElectronInternal.WebContents).create({
+      const contents = (webContents as typeof NeutronInternal.WebContents).create({
         session: ses,
         nodeIntegration: true,
         webSecurity: false,
@@ -793,7 +793,7 @@ describe('webRequest module', () => {
       const { port } = await listen(authServer);
       const ses = session.fromPartition(`WebRequestWSAuth-${Date.now()}`);
 
-      const contents = (webContents as typeof ElectronInternal.WebContents).create({
+      const contents = (webContents as typeof NeutronInternal.WebContents).create({
         session: ses,
         sandbox: true
       });

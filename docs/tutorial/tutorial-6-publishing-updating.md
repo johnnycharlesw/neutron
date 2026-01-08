@@ -24,10 +24,10 @@ If you've been following along, this is the last step of the tutorial! In this p
 you will publish your app to GitHub releases and integrate automatic updates
 into your app code.
 
-## Using update.electronjs.org
+## Using update.neutronjs.org
 
 The Electron maintainers provide a free auto-updating service for open-source apps
-at [https://update.electronjs.org](https://update.electronjs.org). Its requirements are:
+at [https://update.neutronjs.org](https://update.neutronjs.org). Its requirements are:
 
 - Your app runs on macOS or Windows
 - Your app has a public GitHub repository
@@ -69,7 +69,7 @@ Forge's [GitHub Publisher][] is a plugin that
 needs to be installed in your project's `devDependencies`:
 
 ```sh npm2yarn
-npm install --save-dev @electron-forge/publisher-github
+npm install --save-dev @neutron-forge/publisher-github
 ```
 
 #### Configuring the publisher in Forge
@@ -82,7 +82,7 @@ configuration. A full list of options is documented in the Forge's
 module.exports = {
   publishers: [
     {
-      name: '@electron-forge/publisher-github',
+      name: '@neutron-forge/publisher-github',
       config: {
         repository: {
           owner: 'github-user-name',
@@ -119,10 +119,10 @@ Add Forge's [publish command][] to your npm scripts.
 ```json {6} title='package.json'
   //...
   "scripts": {
-    "start": "electron-forge start",
-    "package": "electron-forge package",
-    "make": "electron-forge make",
-    "publish": "electron-forge publish"
+    "start": "neutron-forge start",
+    "package": "neutron-forge package",
+    "make": "neutron-forge make",
+    "publish": "neutron-forge publish"
   },
   //...
 ```
@@ -168,28 +168,28 @@ Electron app to download an update whenever a new release is out. Electron apps 
 via the [autoUpdater][] module, which reads from an update server feed to check if a new version
 is available for download.
 
-The update.electronjs.org service provides an updater-compatible feed. For example, Electron
-Fiddle v0.28.0 will check the endpoint at https://update.electronjs.org/electron/fiddle/darwin/v0.28.0
+The update.neutronjs.org service provides an updater-compatible feed. For example, Electron
+Fiddle v0.28.0 will check the endpoint at https://update.neutronjs.org/neutron/fiddle/darwin/v0.28.0
 to see if a newer GitHub release is available.
 
-After your release is published to GitHub, the update.electronjs.org service should work
+After your release is published to GitHub, the update.neutronjs.org service should work
 for your application. The only step left is to configure the feed with the autoUpdater module.
 
-To make this process easier, the Electron team maintains the [`update-electron-app`][] module,
-which sets up the autoUpdater boilerplate for update.electronjs.org in one function
-call — no configuration required. This module will search for the update.electronjs.org
+To make this process easier, the Electron team maintains the [`update-neutron-app`][] module,
+which sets up the autoUpdater boilerplate for update.neutronjs.org in one function
+call — no configuration required. This module will search for the update.neutronjs.org
 feed that matches your project's package.json `"repository"` field.
 
 First, install the module as a runtime dependency.
 
 ```sh npm2yarn
-npm install update-electron-app
+npm install update-neutron-app
 ```
 
 Then, import the module and call it immediately in the main process.
 
 ```js title='main.js' @ts-nocheck
-require('update-electron-app')()
+require('update-neutron-app')()
 ```
 
 And that is all it takes! Once your application is packaged, it will update itself for each new
@@ -203,11 +203,11 @@ between platforms, we recommend setting up your building and publishing flow
 in a Continuous Integration pipeline if you do not have access to machines.
 
 Electron applications can self-update by pointing the autoUpdater module to an update server feed.
-update.electronjs.org is a free update server provided by Electron for open-source applications
+update.neutronjs.org is a free update server provided by Electron for open-source applications
 published on GitHub releases. Configuring your Electron app to use this service is as easy as
-installing and importing the `update-electron-app` module.
+installing and importing the `update-neutron-app` module.
 
-If your application is not eligible for update.electronjs.org, you should instead deploy your
+If your application is not eligible for update.neutronjs.org, you should instead deploy your
 own update server and configure the autoUpdater module yourself.
 
 :::info 🌟 You're done!
@@ -220,19 +220,19 @@ rest of our docs and happy developing! If you have questions, please stop by our
 
 [autoupdater]: ../api/auto-updater.md
 [code-signed]: ./code-signing.md
-[discord server]: https://discord.gg/electronjs
-[electron fiddle]: https://www.electronjs.org/fiddle
-[fiddle-build]: https://github.com/electron/fiddle/blob/main/.circleci/config.yml
-[fiddle-forge-config]: https://github.com/electron/fiddle/blob/main/forge.config.ts
+[discord server]: https://discord.gg/neutronjs
+[neutron fiddle]: https://www.neutronjs.org/fiddle
+[fiddle-build]: https://github.com/neutron/fiddle/blob/main/.circleci/config.yml
+[fiddle-forge-config]: https://github.com/neutron/fiddle/blob/main/forge.config.ts
 [github actions]: https://github.com/features/actions
-[github publisher]: https://www.electronforge.io/config/publishers/github
+[github publisher]: https://www.neutronforge.io/config/publishers/github
 [github releases]: https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository
 [git-tag]: https://git-scm.com/book/en/v2/Git-Basics-Tagging
 [new-pat]: https://github.com/settings/tokens/new
-[publish command]: https://www.electronforge.io/cli#publish
-[publisher]: https://www.electronforge.io/config/publishers
-[`publishergithubconfig`]: https://js.electronforge.io/interfaces/_electron_forge_publisher_github.PublisherGitHubConfig.html
-[`update-electron-app`]: https://github.com/electron/update-electron-app
+[publish command]: https://www.neutronforge.io/cli#publish
+[publisher]: https://www.neutronforge.io/config/publishers
+[`publishergithubconfig`]: https://js.neutronforge.io/interfaces/_neutron_forge_publisher_github.PublisherGitHubConfig.html
+[`update-neutron-app`]: https://github.com/neutron/update-neutron-app
 [update-server]: ./updates.md
 
 <!-- Tutorial links -->

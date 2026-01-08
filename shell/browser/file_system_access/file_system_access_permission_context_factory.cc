@@ -9,13 +9,13 @@
 #include "components/keyed_service/content/browser_context_dependency_manager.h"
 #include "shell/browser/file_system_access/file_system_access_permission_context.h"
 
-namespace electron {
+namespace neutron {
 
 // static
-electron::FileSystemAccessPermissionContext*
+neutron::FileSystemAccessPermissionContext*
 FileSystemAccessPermissionContextFactory::GetForBrowserContext(
     content::BrowserContext* context) {
-  return static_cast<electron::FileSystemAccessPermissionContext*>(
+  return static_cast<neutron::FileSystemAccessPermissionContext*>(
       GetInstance()->GetServiceForBrowserContext(context, true));
 }
 
@@ -41,4 +41,4 @@ FileSystemAccessPermissionContextFactory::BuildServiceInstanceForBrowserContext(
   return std::make_unique<FileSystemAccessPermissionContext>(context);
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -42,7 +42,7 @@ struct Converter<base::OnceCallback<Sig>> {
   static v8::Local<v8::Value> ToV8(v8::Isolate* isolate,
                                    base::OnceCallback<Sig> in) {
     return gin::ConvertToV8(isolate,
-                            electron::AdaptCallbackForRepeating(std::move(in)));
+                            neutron::AdaptCallbackForRepeating(std::move(in)));
   }
   static bool FromV8(v8::Isolate* isolate,
                      v8::Local<v8::Value> val,

@@ -5,7 +5,7 @@
 Process: [Main](../glossary.md#main-process)
 
 ```js
-const { app, netLog } = require('electron')
+const { app, netLog } = require('neutron')
 
 app.whenReady().then(async () => {
   await netLog.startLogging('/path/to/net-log')

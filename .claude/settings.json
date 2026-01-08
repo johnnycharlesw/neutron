@@ -10,7 +10,7 @@
       "Bash(git show:*)",
       "Bash(e patches:*)",
       "Bash(e sync:*)",
-      "Skill(electron-chromium-upgrade)",
+      "Skill(neutron-chromium-upgrade)",
       "Read(*)",
       "Bash(echo:*)",
       "Bash(e build:*)",

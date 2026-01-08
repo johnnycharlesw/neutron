@@ -29,9 +29,9 @@
 #include "base/win/win_util.h"
 #include "base/win/windows_version.h"
 #include "chrome/browser/icon_manager.h"
-#include "electron/electron_version.h"
+#include "neutron/neutron_version.h"
 #include "shell/browser/badging/badge_manager.h"
-#include "shell/browser/electron_browser_main_parts.h"
+#include "shell/browser/neutron_browser_main_parts.h"
 #include "shell/browser/javascript_environment.h"
 #include "shell/browser/ui/message_box.h"
 #include "shell/browser/ui/win/jump_list.h"
@@ -53,7 +53,7 @@
 #include "ui/events/keycodes/keyboard_code_conversion_win.h"
 #include "ui/strings/grit/ui_strings.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -251,7 +251,7 @@ std::unique_ptr<FileVersionInfo> FetchFileVersionInfo() {
   base::FilePath path;
 
   if (base::PathService::Get(base::FILE_EXE, &path)) {
-    electron::ScopedAllowBlockingForElectron allow_blocking;
+    neutron::ScopedAllowBlockingForNeutron allow_blocking;
     return FileVersionInfo::CreateFileVersionInfo(path);
   }
   return {};
@@ -271,7 +271,7 @@ void GetFileIcon(const base::FilePath& path,
   base::FilePath normalized_path = path.NormalizePathSeparators();
   IconLoader::IconSize icon_size = IconLoader::IconSize::LARGE;
 
-  auto* icon_manager = ElectronBrowserMainParts::Get()->GetIconManager();
+  auto* icon_manager = NeutronBrowserMainParts::Get()->GetIconManager();
   gfx::Image* icon =
       icon_manager->LookupIconFromFilepath(normalized_path, icon_size, 1.0f);
   if (icon) {
@@ -353,7 +353,7 @@ void Browser::ClearRecentDocuments() {
 }
 
 std::vector<std::string> Browser::GetRecentDocuments() {
-  ScopedAllowBlockingForElectron allow_blocking;
+  ScopedAllowBlockingForNeutron allow_blocking;
   std::vector<std::string> docs;
 
   PWSTR recent_path_ptr = nullptr;
@@ -380,7 +380,7 @@ std::vector<std::string> Browser::GetRecentDocuments() {
 }
 
 void Browser::SetAppUserModelID(const std::wstring& name) {
-  electron::SetAppUserModelID(name);
+  neutron::SetAppUserModelID(name);
 }
 
 bool Browser::SetUserTasks(const std::vector<UserTask>& tasks) {
@@ -743,7 +743,7 @@ PCWSTR Browser::GetAppUserModelID() {
 std::string Browser::GetExecutableFileVersion() const {
   base::FilePath path;
   if (base::PathService::Get(base::FILE_EXE, &path)) {
-    ScopedAllowBlockingForElectron allow_blocking;
+    ScopedAllowBlockingForNeutron allow_blocking;
     std::unique_ptr<FileVersionInfo> version_info = FetchFileVersionInfo();
     return base::UTF16ToUTF8(version_info->product_version());
   }
@@ -804,14 +804,14 @@ void Browser::ShowAboutPanel() {
 
   if ((str = dict.FindString("iconPath"))) {
     base::FilePath path = base::FilePath::FromUTF8Unsafe(*str);
-    electron::util::PopulateImageSkiaRepsFromPath(&image, path);
+    neutron::util::PopulateImageSkiaRepsFromPath(&image, path);
   }
 
-  electron::MessageBoxSettings settings = {};
+  neutron::MessageBoxSettings settings = {};
   settings.message = aboutMessage;
   settings.icon = image;
-  settings.type = electron::MessageBoxType::kInformation;
-  electron::ShowMessageBox(settings,
+  settings.type = neutron::MessageBoxType::kInformation;
+  neutron::ShowMessageBox(settings,
                            base::BindOnce([](int, bool) { /* do nothing. */ }));
 }
 
@@ -819,4 +819,4 @@ void Browser::SetAboutPanelOptions(base::Value::Dict options) {
   about_panel_options_ = std::move(options);
 }
 
-}  // namespace electron
+}  // namespace neutron

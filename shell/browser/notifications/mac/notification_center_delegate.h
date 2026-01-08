@@ -9,17 +9,17 @@
 
 #include "base/memory/raw_ptr.h"
 
-namespace electron {
+namespace neutron {
 class NotificationPresenterMac;
 }
 
 @interface NotificationCenterDelegate
     : NSObject <NSUserNotificationCenterDelegate> {
  @private
-  raw_ptr<electron::NotificationPresenterMac> presenter_;
+  raw_ptr<neutron::NotificationPresenterMac> presenter_;
 }
 - (instancetype)initWithPresenter:
-    (electron::NotificationPresenterMac*)presenter;
+    (neutron::NotificationPresenterMac*)presenter;
 @end
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_MAC_NOTIFICATION_CENTER_DELEGATE_H_

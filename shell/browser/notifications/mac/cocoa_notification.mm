@@ -19,7 +19,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-namespace electron {
+namespace neutron {
 
 CocoaNotification::CocoaNotification(NotificationDelegate* delegate,
                                      NotificationPresenter* presenter)
@@ -44,7 +44,7 @@ void CocoaNotification::Show(const NotificationOptions& options) {
   [notification_ setInformativeText:base::SysUTF16ToNSString(options.msg)];
   [notification_ setIdentifier:identifier];
 
-  if (electron::debug_notifications) {
+  if (neutron::debug_notifications) {
     LOG(INFO) << "Notification created (" << [identifier UTF8String] << ")";
   }
 
@@ -170,7 +170,7 @@ void CocoaNotification::NotificationDismissed() {
 }
 
 void CocoaNotification::LogAction(const char* action) {
-  if (electron::debug_notifications && notification_) {
+  if (neutron::debug_notifications && notification_) {
     NSString* identifier = [notification_ valueForKey:@"identifier"];
     DCHECK(identifier);
     LOG(INFO) << "Notification " << action << " (" << [identifier UTF8String]
@@ -178,4 +178,4 @@ void CocoaNotification::LogAction(const char* action) {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -10,10 +10,10 @@
 namespace gin {
 
 template <>
-struct Converter<electron::BluetoothChooser::DeviceInfo> {
+struct Converter<neutron::BluetoothChooser::DeviceInfo> {
   static v8::Local<v8::Value> ToV8(
       v8::Isolate* isolate,
-      const electron::BluetoothChooser::DeviceInfo& val) {
+      const neutron::BluetoothChooser::DeviceInfo& val) {
     auto dict = gin_helper::Dictionary::CreateEmpty(isolate);
     dict.Set("deviceName", val.device_name);
     dict.Set("deviceId", val.device_id);
@@ -23,7 +23,7 @@ struct Converter<electron::BluetoothChooser::DeviceInfo> {
 
 }  // namespace gin
 
-namespace electron {
+namespace neutron {
 
 BluetoothChooser::BluetoothChooser(api::WebContents* contents,
                                    const EventHandler& event_handler)
@@ -129,13 +129,13 @@ void BluetoothChooser::OnDeviceChosen(const std::string& device_id) {
   }
 }
 
-std::vector<electron::BluetoothChooser::DeviceInfo>
+std::vector<neutron::BluetoothChooser::DeviceInfo>
 BluetoothChooser::GetDeviceList() {
-  std::vector<electron::BluetoothChooser::DeviceInfo> vec;
+  std::vector<neutron::BluetoothChooser::DeviceInfo> vec;
   vec.reserve(device_id_to_name_map_.size());
   for (const auto& [device_id, device_name] : device_id_to_name_map_)
     vec.emplace_back(device_id, device_name);
   return vec;
 }
 
-}  // namespace electron
+}  // namespace neutron

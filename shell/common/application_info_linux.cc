@@ -10,7 +10,7 @@
 #include <string>
 
 #include "base/logging.h"
-#include "electron/electron_version.h"
+#include "neutron/neutron_version.h"
 #include "shell/common/platform_util.h"
 
 namespace {
@@ -26,7 +26,7 @@ GDesktopAppInfo* get_desktop_app_info() {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 std::string GetApplicationName() {
   // attempt #1: the string set in app.setName()
@@ -44,7 +44,7 @@ std::string GetApplicationName() {
     }
   }
 
-  // attempt #3: Electron's name
+  // attempt #3: Neutron's name
   if (ret.empty()) {
     ret = ELECTRON_PRODUCT_NAME;
   }
@@ -72,4 +72,4 @@ std::string GetApplicationVersion() {
   return ret;
 }
 
-}  // namespace electron
+}  // namespace neutron

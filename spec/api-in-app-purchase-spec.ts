@@ -1,4 +1,4 @@
-import { inAppPurchase } from 'electron/main';
+import { inAppPurchase } from 'neutron/main';
 
 import { expect } from 'chai';
 

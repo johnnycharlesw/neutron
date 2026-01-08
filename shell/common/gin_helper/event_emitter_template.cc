@@ -6,7 +6,7 @@
 
 #include "gin/converter.h"
 #include "gin/per_isolate_data.h"
-#include "shell/browser/api/electron_api_event_emitter.h"
+#include "shell/browser/api/neutron_api_event_emitter.h"
 #include "v8/include/v8-function.h"
 #include "v8/include/v8-template.h"
 
@@ -25,7 +25,7 @@ v8::Local<v8::FunctionTemplate> GetEventEmitterTemplate(v8::Isolate* isolate) {
     v8::Local<v8::Function> func = tmpl->GetFunction(context).ToLocalChecked();
 
     v8::Local<v8::Object> eventemitter_prototype =
-        electron::GetEventEmitterPrototype(isolate);
+        neutron::GetEventEmitterPrototype(isolate);
 
     v8::Local<v8::Value> func_prototype;
     CHECK(func->Get(context, gin::StringToSymbol(isolate, "prototype"))

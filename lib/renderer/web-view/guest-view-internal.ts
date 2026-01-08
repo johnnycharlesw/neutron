@@ -1,8 +1,8 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import { ipcRendererInternal } from '@electron/internal/renderer/ipc-renderer-internal';
-import * as ipcRendererUtils from '@electron/internal/renderer/ipc-renderer-internal-utils';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import { ipcRendererInternal } from '@neutron/internal/renderer/ipc-renderer-internal';
+import * as ipcRendererUtils from '@neutron/internal/renderer/ipc-renderer-internal-utils';
 
-const { mainFrame: webFrame } = process._linkedBinding('electron_renderer_web_frame');
+const { mainFrame: webFrame } = process._linkedBinding('neutron_renderer_web_frame');
 
 export interface GuestViewDelegate {
   dispatchEvent (eventName: string, props: Record<string, any>): void;

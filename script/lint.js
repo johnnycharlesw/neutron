@@ -284,7 +284,7 @@ const LINTERS = [{
   ignoreRoots: ['.claude', '.git', '.github/workflows/node_modules', 'node_modules', 'spec/node_modules', 'spec/fixtures/native-addon'],
   test: filename => filename.endsWith('.md'),
   run: async (opts, filenames) => {
-    const { getCodeBlocks } = await import('@electron/lint-roller/dist/lib/markdown.js');
+    const { getCodeBlocks } = await import('@neutron/lint-roller/dist/lib/markdown.js');
     let errors = false;
 
     // Run markdownlint on all Markdown files
@@ -329,7 +329,7 @@ const LINTERS = [{
           // Ensure non-empty content in fiddle code blocks matches the file content
           if (codeBlock.lang === 'fiddle' && codeBlock.value.trim() !== '') {
             // This is copied and adapted from the website repo:
-            // https://github.com/electron/website/blob/62a55ca0dd14f97339e1a361b5418d2f11c34a75/src/transformers/fiddle-embedder.ts#L89C6-L101
+            // https://github.com/neutron/website/blob/62a55ca0dd14f97339e1a361b5418d2f11c34a75/src/transformers/fiddle-embedder.ts#L89C6-L101
             const parseFiddleEmbedOptions = (
               optStrings
             ) => {

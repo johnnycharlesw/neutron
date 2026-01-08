@@ -9,7 +9,7 @@
 
 #include "base/memory/raw_ptr.h"
 #include "base/memory/weak_ptr.h"
-#include "electron/shell/common/api/api.mojom.h"
+#include "neutron/shell/common/api/api.mojom.h"
 #include "mojo/public/cpp/bindings/associated_receiver.h"
 #include "mojo/public/cpp/bindings/associated_remote.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
@@ -18,10 +18,10 @@
 #include "v8/include/v8-context.h"
 #include "v8/include/v8-forward.h"
 
-namespace electron {
+namespace neutron {
 
 // Per ServiceWorker data in worker thread.
-class ServiceWorkerData : public mojom::ElectronRenderer {
+class ServiceWorkerData : public mojom::NeutronRenderer {
  public:
   ServiceWorkerData(blink::WebServiceWorkerContextProxy* proxy,
                     int64_t service_worker_version_id,
@@ -39,7 +39,7 @@ class ServiceWorkerData : public mojom::ElectronRenderer {
 
   blink::WebServiceWorkerContextProxy* proxy() const { return proxy_; }
 
-  // mojom::ElectronRenderer
+  // mojom::NeutronRenderer
   void Message(bool internal,
                const std::string& channel,
                blink::CloneableMessage arguments) override;
@@ -49,8 +49,8 @@ class ServiceWorkerData : public mojom::ElectronRenderer {
                         TakeHeapSnapshotCallback callback) override;
 
  private:
-  void OnElectronRendererRequest(
-      mojo::PendingAssociatedReceiver<mojom::ElectronRenderer> receiver);
+  void OnNeutronRendererRequest(
+      mojo::PendingAssociatedReceiver<mojom::NeutronRenderer> receiver);
 
   raw_ptr<blink::WebServiceWorkerContextProxy> proxy_;
   const int64_t service_worker_version_id_;
@@ -59,11 +59,11 @@ class ServiceWorkerData : public mojom::ElectronRenderer {
   raw_ptr<v8::Isolate> isolate_;
   v8::Global<v8::Context> v8_context_;
 
-  mojo::AssociatedReceiver<mojom::ElectronRenderer> receiver_{this};
+  mojo::AssociatedReceiver<mojom::NeutronRenderer> receiver_{this};
 
   base::WeakPtrFactory<ServiceWorkerData> weak_ptr_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_RENDERER_SERVICE_WORKER_DATA_H_

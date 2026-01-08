@@ -6,7 +6,7 @@
 
 #include <memory>
 
-namespace electron {
+namespace neutron {
 
 EventDisabler::EventDisabler() = default;
 
@@ -24,4 +24,4 @@ ui::EventRewriteStatus EventDisabler::NextDispatchEvent(
   return ui::EVENT_REWRITE_CONTINUE;
 }
 
-}  // namespace electron
+}  // namespace neutron

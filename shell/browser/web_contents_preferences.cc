@@ -19,7 +19,7 @@
 #include "content/public/common/content_switches.h"
 #include "net/base/filename_util.h"
 #include "sandbox/policy/switches.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/native_window.h"
 #include "shell/browser/session_preferences.h"
 #include "shell/common/color_util.h"
@@ -73,7 +73,7 @@ struct Converter<blink::mojom::V8CacheOptions> {
 
 }  // namespace gin
 
-namespace electron {
+namespace neutron {
 
 namespace {
 std::vector<WebContentsPreferences*>& Instances() {
@@ -94,7 +94,7 @@ WebContentsPreferences::WebContentsPreferences(
   // If this is a <webview> tag, and the embedder is offscreen-rendered, then
   // this WebContents is also offscreen-rendered.
   if (auto* api_web_contents = api::WebContents::From(web_contents_)) {
-    if (electron::api::WebContents* embedder = api_web_contents->embedder()) {
+    if (neutron::api::WebContents* embedder = api_web_contents->embedder()) {
       auto* embedder_preferences =
           WebContentsPreferences::From(embedder->web_contents());
       if (embedder_preferences && embedder_preferences->IsOffscreen()) {
@@ -441,7 +441,7 @@ void WebContentsPreferences::OverrideWebkitPrefs(
   if (default_encoding_)
     prefs->default_encoding = *default_encoding_;
 
-  // Run Electron APIs and preload script in isolated world
+  // Run Neutron APIs and preload script in isolated world
   prefs->context_isolation = context_isolation_;
   prefs->is_webview = is_webview_;
 
@@ -449,7 +449,7 @@ void WebContentsPreferences::OverrideWebkitPrefs(
   // Webview `document.visibilityState` tracks window visibility so we need
   // to let it know if the window happens to be hidden right now.
   if (auto* api_web_contents = api::WebContents::From(web_contents_)) {
-    if (electron::api::WebContents* embedder = api_web_contents->embedder()) {
+    if (neutron::api::WebContents* embedder = api_web_contents->embedder()) {
       if (auto* relay =
               NativeWindowRelay::FromWebContents(embedder->web_contents())) {
         if (auto* window = relay->GetNativeWindow()) {
@@ -482,4 +482,4 @@ void WebContentsPreferences::OverrideWebkitPrefs(
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(WebContentsPreferences);
 
-}  // namespace electron
+}  // namespace neutron

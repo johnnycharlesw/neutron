@@ -4,7 +4,7 @@
 	"service": "buildtools",
 	"onCreateCommand": ".devcontainer/on-create-command.sh",
 	"updateContentCommand": ".devcontainer/update-content-command.sh",
-	"workspaceFolder": "/workspaces/gclient/src/electron",
+	"workspaceFolder": "/workspaces/gclient/src/neutron",
 	"forwardPorts": [6080, 5901],
 	"portsAttributes": {
 		"6080": {
@@ -34,10 +34,10 @@
 				"surajbarkale.ninja",
 				"ms-vscode.cpptools",
 				"mutantdino.resourcemonitor",
-				"dsanders11.vscode-electron-build-tools",
+				"dsanders11.vscode-neutron-build-tools",
 				"dbaeumer.vscode-eslint",
 				"shakram02.bash-beautify",
-				"marshallofsound.gnls-electron"
+				"marshallofsound.gnls-neutron"
 			],
 			"settings": {
 				"editor.tabSize": 2,

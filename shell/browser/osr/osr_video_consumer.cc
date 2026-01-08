@@ -32,7 +32,7 @@ media::VideoPixelFormat GetTargetPixelFormatFromOption(
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 OffScreenVideoConsumer::OffScreenVideoConsumer(
     OffScreenRenderWidgetHostView* view,
@@ -205,4 +205,4 @@ void OffScreenVideoConsumer::OnFrameCaptured(
   callback_.Run(*update_rect, bitmap, {});
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -21,17 +21,17 @@ import {
   systemPreferences,
   webContents,
   TouchBar
-} from 'electron/main';
+} from 'neutron/main';
 
-import { clipboard, crashReporter, nativeImage, shell } from 'electron/common';
+import { clipboard, crashReporter, nativeImage, shell } from 'neutron/common';
 import * as path from 'node:path';
 
 // Quick start
-// https://github.com/electron/electron/blob/main/docs/tutorial/quick-start.md
+// https://github.com/neutron/neutron/blob/main/docs/tutorial/quick-start.md
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the javascript object is GCed.
-let mainWindow: Electron.BrowserWindow = null;
+let mainWindow: Neutron.BrowserWindow = null;
 
 // Quit when all windows are closed.
 app.on('window-all-closed', () => {
@@ -48,7 +48,7 @@ if (!gotLock) {
   process.exit(0);
 }
 
-// This method will be called when Electron has done everything
+// This method will be called when Neutron has done everything
 // initialization and ready for creating browser windows.
 app.whenReady().then(() => {
   // Create the browser window.
@@ -182,21 +182,21 @@ app.getLocale();
 app.addRecentDocument('/Users/USERNAME/Desktop/work.type');
 app.clearRecentDocuments();
 const dockMenu = Menu.buildFromTemplate([
-  <Electron.MenuItemConstructorOptions> {
+  <Neutron.MenuItemConstructorOptions> {
     label: 'New Window',
     click: () => {
       console.log('New Window');
     }
   },
-  <Electron.MenuItemConstructorOptions> {
+  <Neutron.MenuItemConstructorOptions> {
     label: 'New Window with Settings',
     submenu: [
-      <Electron.MenuItemConstructorOptions> { label: 'Basic' },
-      <Electron.MenuItemConstructorOptions> { label: 'Pro' }
+      <Neutron.MenuItemConstructorOptions> { label: 'Basic' },
+      <Neutron.MenuItemConstructorOptions> { label: 'Pro' }
     ]
   },
-  <Electron.MenuItemConstructorOptions> { label: 'New Command...' },
-  <Electron.MenuItemConstructorOptions> {
+  <Neutron.MenuItemConstructorOptions> { label: 'New Command...' },
+  <Neutron.MenuItemConstructorOptions> {
     label: 'Edit',
     submenu: [
       {
@@ -240,7 +240,7 @@ app.dock?.setIcon('/path/to/icon.png');
 app.setBadgeCount(app.getBadgeCount() + 1);
 
 app.setUserTasks([
-  <Electron.Task> {
+  <Neutron.Task> {
     program: process.execPath,
     arguments: '--new-window',
     iconPath: process.execPath,
@@ -324,9 +324,9 @@ app.setAboutPanelOptions({
 });
 
 // Online/Offline Event Detection
-// https://github.com/electron/electron/blob/main/docs/tutorial/online-offline-events.md
+// https://github.com/neutron/neutron/blob/main/docs/tutorial/online-offline-events.md
 
-let onlineStatusWindow: Electron.BrowserWindow;
+let onlineStatusWindow: Neutron.BrowserWindow;
 
 app.whenReady().then(() => {
   onlineStatusWindow = new BrowserWindow({ width: 0, height: 0, show: false, vibrancy: 'sidebar' });
@@ -348,14 +348,14 @@ app.whenReady().then(() => {
 });
 
 // Supported command line switches
-// https://github.com/electron/electron/blob/main/docs/api/command-line-switches.md
+// https://github.com/neutron/neutron/blob/main/docs/api/command-line-switches.md
 
 app.commandLine.appendSwitch('remote-debugging-port', '8315');
 app.commandLine.appendSwitch('host-resolver-rules', 'MAP * 127.0.0.1');
 app.commandLine.appendSwitch('vmodule', 'console=0');
 
 // systemPreferences
-// https://github.com/electron/electron/blob/main/docs/api/system-preferences.md
+// https://github.com/neutron/neutron/blob/main/docs/api/system-preferences.md
 
 const browserOptions = {
   width: 1000,
@@ -402,7 +402,7 @@ if (browserOptions.transparent) {
 }
 
 // app
-// https://github.com/electron/electron/blob/main/docs/api/app.md
+// https://github.com/neutron/neutron/blob/main/docs/api/app.md
 
 app.on('certificate-error', function (event, webContents, url, error, certificate, callback) {
   if (url === 'https://github.com') {
@@ -447,7 +447,7 @@ app.on('gpu-process-crashed', () => {});
 app.on('renderer-process-crashed', () => {});
 
 // auto-updater
-// https://github.com/electron/electron/blob/main/docs/api/auto-updater.md
+// https://github.com/neutron/neutron/blob/main/docs/api/auto-updater.md
 
 autoUpdater.setFeedURL({
   url: 'http://mycompany.com/myapp/latest?version=' + app.getVersion(),
@@ -468,7 +468,7 @@ autoUpdater.on('update-downloaded', (event, releaseNotes, releaseName, releaseDa
 });
 
 // BrowserWindow
-// https://github.com/electron/electron/blob/main/docs/api/browser-window.md
+// https://github.com/neutron/neutron/blob/main/docs/api/browser-window.md
 
 let win3 = new BrowserWindow({ width: 800, height: 600, show: false });
 win3.on('closed', () => {
@@ -494,7 +494,7 @@ window.setVibrancy('popover');
 window.setIcon('/path/to/icon');
 
 // content-tracing
-// https://github.com/electron/electron/blob/main/docs/api/content-tracing.md
+// https://github.com/neutron/neutron/blob/main/docs/api/content-tracing.md
 
 const options = {
   categoryFilter: '*',
@@ -511,7 +511,7 @@ contentTracing.startRecording(options).then(() => {
 });
 
 // dialog
-// https://github.com/electron/electron/blob/main/docs/api/dialog.md
+// https://github.com/neutron/neutron/blob/main/docs/api/dialog.md
 
 // variant without browserWindow
 dialog.showOpenDialogSync({
@@ -550,7 +550,7 @@ dialog.showMessageBox(win3, { message: 'test', type: 'foo' });
 dialog.showMessageBoxSync(win3, { message: 'test', type: 'foo' });
 
 // desktopCapturer
-// https://github.com/electron/electron/blob/main/docs/api/desktop-capturer.md
+// https://github.com/neutron/neutron/blob/main/docs/api/desktop-capturer.md
 
 ipcMain.handle('get-sources', (event, options) => desktopCapturer.getSources(options));
 
@@ -559,7 +559,7 @@ desktopCapturer.getSources({ types: ['window', 'screen'] });
 desktopCapturer.getSources({ types: ['unknown'] });
 
 // global-shortcut
-// https://github.com/electron/electron/blob/main/docs/api/global-shortcut.md
+// https://github.com/neutron/neutron/blob/main/docs/api/global-shortcut.md
 
 // Register a 'ctrl+x' shortcut listener.
 const ret = globalShortcut.register('ctrl+x', () => {
@@ -577,7 +577,7 @@ globalShortcut.unregister('ctrl+x');
 globalShortcut.unregisterAll();
 
 // ipcMain
-// https://github.com/electron/electron/blob/main/docs/api/ipc-main.md
+// https://github.com/neutron/neutron/blob/main/docs/api/ipc-main.md
 
 ipcMain.handle('ping-pong', (event, arg: any) => {
   console.log(arg); // prints "ping"
@@ -604,17 +604,17 @@ const winWindows = new BrowserWindow({
 console.log(winWindows.id);
 
 // menu-item
-// https://github.com/electron/electron/blob/main/docs/api/menu-item.md
+// https://github.com/neutron/neutron/blob/main/docs/api/menu-item.md
 
 const menuItem = new MenuItem({});
 
 menuItem.label = 'Hello World!';
-menuItem.click = (passedMenuItem: Electron.MenuItem, browserWindow: Electron.BrowserWindow) => {
+menuItem.click = (passedMenuItem: Neutron.MenuItem, browserWindow: Neutron.BrowserWindow) => {
   console.log('click', passedMenuItem, browserWindow);
 };
 
 // menu
-// https://github.com/electron/electron/blob/main/docs/api/menu.md
+// https://github.com/neutron/neutron/blob/main/docs/api/menu.md
 
 let menu = new Menu();
 menu.append(new MenuItem({ label: 'MenuItem1', click: () => { console.log('item 1 clicked'); } }));
@@ -628,12 +628,12 @@ const pos = screen.getCursorScreenPoint();
 menu.popup({ x: pos.x, y: pos.y });
 
 // main.js
-const template = <Electron.MenuItemConstructorOptions[]> [
+const template = <Neutron.MenuItemConstructorOptions[]> [
   {
-    label: 'Electron',
+    label: 'Neutron',
     submenu: [
       {
-        label: 'About Electron',
+        label: 'About Neutron',
         role: 'about'
       },
       {
@@ -648,7 +648,7 @@ const template = <Electron.MenuItemConstructorOptions[]> [
         type: 'separator'
       },
       {
-        label: 'Hide Electron',
+        label: 'Hide Neutron',
         accelerator: 'Command+H',
         role: 'hide'
       },
@@ -863,7 +863,7 @@ Menu.buildFromTemplate([
 ]);
 
 // net
-// https://github.com/electron/electron/blob/main/docs/api/net.md
+// https://github.com/neutron/neutron/blob/main/docs/api/net.md
 
 app.whenReady().then(() => {
   const request = net.request('https://github.com');
@@ -909,7 +909,7 @@ app.whenReady().then(() => {
 });
 
 // power-monitor
-// https://github.com/electron/electron/blob/main/docs/api/power-monitor.md
+// https://github.com/neutron/neutron/blob/main/docs/api/power-monitor.md
 
 app.whenReady().then(() => {
   powerMonitor.on('suspend', () => {
@@ -927,7 +927,7 @@ app.whenReady().then(() => {
 });
 
 // power-save-blocker
-// https://github.com/electron/electron/blob/main/docs/api/power-save-blocker.md
+// https://github.com/neutron/neutron/blob/main/docs/api/power-save-blocker.md
 
 const id = powerSaveBlocker.start('prevent-display-sleep');
 console.log(powerSaveBlocker.isStarted(id));
@@ -936,7 +936,7 @@ const stopped = powerSaveBlocker.stop(id);
 console.log(`The powerSaveBlocker is ${stopped ? 'stopped' : 'not stopped'}`);
 
 // protocol
-// https://github.com/electron/electron/blob/main/docs/api/protocol.md
+// https://github.com/neutron/neutron/blob/main/docs/api/protocol.md
 
 app.whenReady().then(() => {
   protocol.registerSchemesAsPrivileged([{ scheme: 'https', privileges: { standard: true, allowServiceWorkers: true } }]);
@@ -964,9 +964,9 @@ app.whenReady().then(() => {
 });
 
 // tray
-// https://github.com/electron/electron/blob/main/docs/api/tray.md
+// https://github.com/neutron/neutron/blob/main/docs/api/tray.md
 
-let appIcon: Electron.Tray = null;
+let appIcon: Neutron.Tray = null;
 app.whenReady().then(() => {
   appIcon = new Tray('/path/to/my/icon');
   const contextMenu = Menu.buildFromTemplate([
@@ -1007,7 +1007,7 @@ app.whenReady().then(() => {
 });
 
 // clipboard
-// https://github.com/electron/electron/blob/main/docs/api/clipboard.md
+// https://github.com/neutron/neutron/blob/main/docs/api/clipboard.md
 
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
@@ -1027,7 +1027,7 @@ clipboard.write({
 });
 
 // crash-reporter
-// https://github.com/electron/electron/blob/main/docs/api/crash-reporter.md
+// https://github.com/neutron/neutron/blob/main/docs/api/crash-reporter.md
 
 crashReporter.start({
   productName: 'YourName',
@@ -1043,7 +1043,7 @@ console.log(crashReporter.getLastCrashReport());
 console.log(crashReporter.getUploadedReports());
 
 // nativeImage
-// https://github.com/electron/electron/blob/main/docs/api/native-image.md
+// https://github.com/neutron/neutron/blob/main/docs/api/native-image.md
 
 const appIcon2 = new Tray('/Users/somebody/images/icon.png');
 appIcon2.destroy();
@@ -1070,9 +1070,9 @@ image2.resize({ quality: 'good' });
 image2.resize({ quality: 'bad' });
 
 // process
-// https://github.com/electron/electron/blob/main/docs/api/process.md
+// https://github.com/neutron/neutron/blob/main/docs/api/process.md
 
-console.log(process.versions.electron);
+console.log(process.versions.neutron);
 console.log(process.versions.chrome);
 console.log(process.type);
 console.log(process.resourcesPath);
@@ -1084,7 +1084,7 @@ process.hang();
 process.setFdLimit(8192);
 
 // screen
-// https://github.com/electron/electron/blob/main/docs/api/screen.md
+// https://github.com/neutron/neutron/blob/main/docs/api/screen.md
 
 app.whenReady().then(() => {
   const size = screen.getPrimaryDisplay().workAreaSize;
@@ -1122,7 +1122,7 @@ app.whenReady().then(() => {
 });
 
 // shell
-// https://github.com/electron/electron/blob/main/docs/api/shell.md
+// https://github.com/neutron/neutron/blob/main/docs/api/shell.md
 
 shell.showItemInFolder('/home/user/Desktop/test.txt');
 shell.trashItem('/home/user/Desktop/test.txt').then(() => {});
@@ -1140,7 +1140,7 @@ shell.beep();
 shell.writeShortcutLink('/home/user/Desktop/shortcut.lnk', 'update', shell.readShortcutLink('/home/user/Desktop/shortcut.lnk'));
 
 // cookies
-// https://github.com/electron/electron/blob/main/docs/api/cookies.md
+// https://github.com/neutron/neutron/blob/main/docs/api/cookies.md
 {
   // Query all cookies.
   session.defaultSession.cookies.get({})
@@ -1170,7 +1170,7 @@ shell.writeShortcutLink('/home/user/Desktop/shortcut.lnk', 'update', shell.readS
 }
 
 // session
-// https://github.com/electron/electron/blob/main/docs/api/session.md
+// https://github.com/neutron/neutron/blob/main/docs/api/session.md
 
 session.defaultSession.clearStorageData({ storages: ['cookies', 'filesystem'] });
 session.defaultSession.clearStorageData({ storages: ['localstorage', 'indexdb', 'serviceworkers'] });
@@ -1193,7 +1193,7 @@ session.defaultSession.on('will-download', (event, item, webContents) => {
 // In the main process.
 session.defaultSession.on('will-download', (event, item, webContents) => {
   console.log('will-download', webContents.id);
-  // Set the save path, making Electron not to prompt a save dialog.
+  // Set the save path, making Neutron not to prompt a save dialog.
   item.setSavePath('/tmp/save.pdf');
   console.log(item.getSavePath());
   console.log(item.getMimeType());
@@ -1262,7 +1262,7 @@ session.defaultSession.allowNTLMCredentialsForDomains('*');
 
 // Modify the user agent for all requests to the following urls.
 const filter = {
-  urls: ['https://*.github.com/*', '*://electron.github.io']
+  urls: ['https://*.github.com/*', '*://neutron.github.io']
 };
 
 session.defaultSession.webRequest.onBeforeSendHeaders(filter, function (details: any, callback: any) {
@@ -1279,7 +1279,7 @@ app.whenReady().then(function () {
 });
 
 // webContents
-// https://github.com/electron/electron/blob/main/docs/api/web-contents.md
+// https://github.com/neutron/neutron/blob/main/docs/api/web-contents.md
 
 console.log(webContents.getAllWebContents());
 console.log(webContents.getFocusedWebContents());
@@ -1324,7 +1324,7 @@ win4.webContents.on('context-menu', (event, params) => {
 });
 
 // TouchBar
-// https://github.com/electron/electron/blob/main/docs/api/touch-bar.md
+// https://github.com/neutron/neutron/blob/main/docs/api/touch-bar.md
 
 const touchBar = new TouchBar({
   items: [

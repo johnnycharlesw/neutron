@@ -43,10 +43,10 @@ To help manage these patch sets, we provide two tools: `git-import-patches` and 
 #### Adding a new patch
 
 ```bash
-$ cd src/third_party/electron_node
+$ cd src/third_party/neutron_node
 $ vim some/code/file.cc
 $ git commit
-$ ../../electron/script/git-export-patches -o ../../electron/patches/node
+$ ../../neutron/script/git-export-patches -o ../../neutron/patches/node
 ```
 
 > [!NOTE]
@@ -63,7 +63,7 @@ $ git log
 # Find the commit sha of the patch you want to edit.
 $ git commit --fixup [COMMIT_SHA]
 $ git rebase --autosquash -i [COMMIT_SHA]^
-$ ../electron/script/git-export-patches -o ../electron/patches/v8
+$ ../neutron/script/git-export-patches -o ../neutron/patches/v8
 ```
 
 Note that the `^` symbol [can cause trouble on Windows](https://stackoverflow.com/questions/14203952/git-reset-asks-more/14204318#14204318). The workaround is to either quote it `"[COMMIT_SHA]^"` or avoid it `[COMMIT_SHA]~1`.
@@ -71,12 +71,12 @@ Note that the `^` symbol [can cause trouble on Windows](https://stackoverflow.co
 #### Removing a patch
 
 ```bash
-$ vim src/electron/patches/node/.patches
+$ vim src/neutron/patches/node/.patches
 # Delete the line with the name of the patch you want to remove
-$ cd src/third_party/electron_node
+$ cd src/third_party/neutron_node
 $ git reset --hard refs/patches/upstream-head
-$ ../../electron/script/git-import-patches ../../electron/patches/node
-$ ../../electron/script/git-export-patches -o ../../electron/patches/node
+$ ../../neutron/script/git-import-patches ../../neutron/patches/node
+$ ../../neutron/script/git-export-patches -o ../../neutron/patches/node
 ```
 
 Note that `git-import-patches` will mark the commit that was `HEAD` when it was run as `refs/patches/upstream-head`. This lets you keep track of which commits are from Electron patches (those that come after `refs/patches/upstream-head`) and which commits are in upstream (those before `refs/patches/upstream-head`).
@@ -86,11 +86,11 @@ Note that `git-import-patches` will mark the commit that was `HEAD` when it was 
 When updating an upstream dependency, patches may fail to apply cleanly. Often, the conflict can be resolved automatically by git with a 3-way merge. You can instruct `git-import-patches` to use the 3-way merge algorithm by passing the `-3` argument:
 
 ```bash
-$ cd src/third_party/electron_node
+$ cd src/third_party/neutron_node
 # If the patch application failed midway through, you can reset it with:
 $ git am --abort
 # And then retry with 3-way merge:
-$ ../../electron/script/git-import-patches -3 ../../electron/patches/node
+$ ../../neutron/script/git-import-patches -3 ../../neutron/patches/node
 ```
 
 If `git-import-patches -3` encounters a merge conflict that it can't resolve automatically, it will pause and allow you to resolve the conflict manually. Once you have resolved the conflict, `git add` the resolved files and continue to apply the rest of the patches by running `git am --continue`.

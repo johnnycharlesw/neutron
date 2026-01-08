@@ -20,12 +20,12 @@
 #include "services/network/public/cpp/resource_request.h"
 #include "services/network/public/mojom/network_context.mojom.h"
 #include "services/network/public/mojom/websocket.mojom.h"
-#include "shell/browser/api/electron_api_web_request.h"
+#include "shell/browser/api/neutron_api_web_request.h"
 #include "url/gurl.h"
 #include "url/origin.h"
 #include "v8/include/cppgc/persistent.h"
 
-namespace electron {
+namespace neutron {
 
 // A ProxyingWebSocket proxies a WebSocket connection and dispatches
 // WebRequest API events.
@@ -163,6 +163,6 @@ class ProxyingWebSocket : public network::mojom::WebSocketHandshakeClient,
   base::WeakPtrFactory<ProxyingWebSocket> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_PROXYING_WEBSOCKET_H_

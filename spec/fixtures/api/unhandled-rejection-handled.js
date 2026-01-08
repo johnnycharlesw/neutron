@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 const handleUnhandledRejection = (reason) => {
   console.error(`Unhandled Rejection: ${reason.stack}`);

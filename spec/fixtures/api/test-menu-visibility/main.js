@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('neutron');
 
 let win;
 // This test uses "app.once('ready')" while the |test-menu-null| test uses

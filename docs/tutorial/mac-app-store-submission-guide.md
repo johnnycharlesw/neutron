@@ -11,7 +11,7 @@ This guide provides information on:
 To sign Electron apps, the following tools must be installed first:
 
 * Xcode 11 or above.
-* The [@electron/osx-sign][] npm module.
+* The [@neutron/osx-sign][] npm module.
 
 You also have to register an Apple Developer account and join the
 [Apple Developer Program][developer-program].
@@ -103,13 +103,13 @@ Apps submitted to the Mac App Store must run under Apple's
 the App Sandbox. The standard darwin build of Electron will fail to launch
 when run under App Sandbox.
 
-When signing the app with `@electron/osx-sign`, it will automatically add the
+When signing the app with `@neutron/osx-sign`, it will automatically add the
 necessary entitlements to your app's entitlements.
 
 <details>
-<summary>Extra steps without `electron-osx-sign`</summary>
+<summary>Extra steps without `neutron-osx-sign`</summary>
 
-If you are signing your app without using `@electron/osx-sign`, you must ensure
+If you are signing your app without using `@neutron/osx-sign`, you must ensure
 the app bundle's entitlements have at least following keys:
 
 ```xml title='entitlements.plist'
@@ -159,9 +159,9 @@ your Apple Developer account's Team ID as its value:
 </plist>
 ```
 
-When using `@electron/osx-sign` the `ElectronTeamID` key will be added
+When using `@neutron/osx-sign` the `ElectronTeamID` key will be added
 automatically by extracting the Team ID from the certificate's name. You may
-need to manually add this key if `@electron/osx-sign` could not find the correct
+need to manually add this key if `@neutron/osx-sign` could not find the correct
 Team ID.
 </details>
 
@@ -169,10 +169,10 @@ Team ID.
 
 To sign an app that can run on your development machine, you must sign it with
 the "Apple Development" certificate and pass the provisioning profile to
-`@electron/osx-sign`.
+`@neutron/osx-sign`.
 
 ```js @ts-nocheck
-const { signAsync } = require('@electron/osx-sign')
+const { signAsync } = require('@neutron/osx-sign')
 
 signAsync({
   app: '/path/to/your.app',
@@ -181,7 +181,7 @@ signAsync({
 })
 ```
 
-If you are signing without `@electron/osx-sign`, you must place the provisioning
+If you are signing without `@neutron/osx-sign`, you must place the provisioning
 profile to `YourApp.app/Contents/embedded.provisionprofile`.
 
 The signed app can only run on the machines that registered by the provisioning
@@ -195,7 +195,7 @@ the "Apple Distribution" certificate. Note that apps signed with this
 certificate will not run anywhere, unless it is downloaded from Mac App Store.
 
 ```js @ts-nocheck
-const { signAsync } = require('@electron/osx-sign')
+const { signAsync } = require('@neutron/osx-sign')
 
 signAsync({
   app: 'path/to/your.app',
@@ -261,10 +261,10 @@ A full list of entitlements is available in the [App Sandbox][app-sandboxing]
 documentation, but below are a few entitlements you might need for your
 MAS app.
 
-With `@electron/osx-sign`, you can set custom entitlements per file as such:
+With `@neutron/osx-sign`, you can set custom entitlements per file as such:
 
 ```js @ts-nocheck
-const { signAsync } = require('@electron/osx-sign')
+const { signAsync } = require('@neutron/osx-sign')
 
 function getEntitlementsForFile (filePath) {
   if (filePath.startsWith('my-path-1')) {
@@ -356,7 +356,7 @@ Electron uses following cryptographic algorithms:
 * RIPEMD - [ISO/IEC 10118-3](https://webstore.ansi.org/RecordDetail.aspx?sku=ISO%2FIEC%2010118-3:2004)
 
 [developer-program]: https://developer.apple.com/support/compare-memberships/
-[@electron/osx-sign]: https://github.com/electron/osx-sign
+[@neutron/osx-sign]: https://github.com/neutron/osx-sign
 [app-sandboxing]: https://developer.apple.com/documentation/security/app_sandbox
 [submitting-your-app]: https://help.apple.com/xcode/mac/current/#/dev067853c94
 [create-record]: https://developer.apple.com/help/app-store-connect/create-an-app-record/add-a-new-app

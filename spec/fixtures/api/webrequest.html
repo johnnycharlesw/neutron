@@ -1,7 +1,7 @@
 <script>
   var url = new URL(location.href)
   const port = new URLSearchParams(url.search).get("port")
-  const ipcRenderer = require('electron').ipcRenderer
+  const ipcRenderer = require('neutron').ipcRenderer
   let count = 0
   function checkFinish() {
     count++

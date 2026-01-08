@@ -8,18 +8,18 @@ This module cannot be used until the `ready` event of the `app`
 module is emitted.
 
 ```js
-const { BaseWindow, WebContentsView } = require('electron')
+const { BaseWindow, WebContentsView } = require('neutron')
 
 const win = new BaseWindow({ width: 800, height: 400 })
 
 const view1 = new WebContentsView()
 win.contentView.addChildView(view1)
-view1.webContents.loadURL('https://electronjs.org')
+view1.webContents.loadURL('https://neutronjs.org')
 view1.setBounds({ x: 0, y: 0, width: 400, height: 400 })
 
 const view2 = new WebContentsView()
 win.contentView.addChildView(view2)
-view2.webContents.loadURL('https://github.com/electron/electron')
+view2.webContents.loadURL('https://github.com/neutron/neutron')
 view2.setBounds({ x: 400, y: 0, width: 400, height: 400 })
 ```
 
@@ -35,7 +35,7 @@ Process: [Main](../glossary.md#main-process)
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### `new WebContentsView([options])`
 
@@ -56,10 +56,10 @@ A `WebContents` property containing a reference to the displayed `WebContents`.
 Use this to interact with the `WebContents`, for instance to load a URL.
 
 ```js
-const { WebContentsView } = require('electron')
+const { WebContentsView } = require('neutron')
 
 const view = new WebContentsView()
-view.webContents.loadURL('https://electronjs.org/')
+view.webContents.loadURL('https://neutronjs.org/')
 ```
 
 [event-emitter]: https://nodejs.org/api/events.html#events_class_eventemitter

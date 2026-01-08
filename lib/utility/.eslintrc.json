@@ -4,16 +4,16 @@
       "error",
       {
         "paths": [
-          "electron",
-          "electron/renderer"
+          "neutron",
+          "neutron/renderer"
         ],
         "patterns": [
           "./*",
           "../*",
-          "@electron/internal/isolated_renderer/*",
-          "@electron/internal/renderer/*",
-          "@electron/internal/sandboxed_worker/*",
-          "@electron/internal/worker/*"
+          "@neutron/internal/isolated_renderer/*",
+          "@neutron/internal/renderer/*",
+          "@neutron/internal/sandboxed_worker/*",
+          "@neutron/internal/worker/*"
         ]
       }
     ]

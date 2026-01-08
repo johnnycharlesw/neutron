@@ -1,10 +1,10 @@
-const binding = process._linkedBinding('electron_renderer_context_bridge');
+const binding = process._linkedBinding('neutron_renderer_context_bridge');
 
 const checkContextIsolationEnabled = () => {
   if (!process.contextIsolated) throw new Error('contextBridge API can only be used when contextIsolation is enabled');
 };
 
-const contextBridge: Electron.ContextBridge = {
+const contextBridge: Neutron.ContextBridge = {
   exposeInMainWorld: (key, api) => {
     checkContextIsolationEnabled();
     return binding.exposeAPIInWorld(0, key, api);

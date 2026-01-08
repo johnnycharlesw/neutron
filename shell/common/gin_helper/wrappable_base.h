@@ -65,7 +65,7 @@ class WrappableBase {
 };
 
 // Copied from https://chromium-review.googlesource.com/c/chromium/src/+/6799157
-// Will be removed as part of https://github.com/electron/electron/issues/47922
+// Will be removed as part of https://github.com/neutron/neutron/issues/47922
 class DeprecatedWrappableBase {
  public:
   DeprecatedWrappableBase(const DeprecatedWrappableBase&) = delete;

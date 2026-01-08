@@ -27,7 +27,7 @@
 #include "ui/color/color_provider.h"
 #include "ui/color/color_provider_utils.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 GURL GetThemeUrl(const std::string& path) {
@@ -217,4 +217,4 @@ void ThemeDataSource::SendColorsCss(
   std::move(callback).Run(
       base::MakeRefCounted<base::RefCountedString>(std::move(css_string)));
 }
-}  // namespace electron
+}  // namespace neutron

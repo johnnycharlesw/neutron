@@ -81,7 +81,7 @@ abstract class TouchBarItem<ConfigType> extends EventEmitter {
   }
 }
 
-class TouchBarButton extends TouchBarItem<Electron.TouchBarButtonConstructorOptions> implements Electron.TouchBarButton {
+class TouchBarButton extends TouchBarItem<Neutron.TouchBarButtonConstructorOptions> implements Neutron.TouchBarButton {
   @ImmutableProperty(() => 'button')
     type!: string;
 
@@ -95,10 +95,10 @@ class TouchBarButton extends TouchBarItem<Electron.TouchBarButtonConstructorOpti
     backgroundColor!: string;
 
   @LiveProperty<TouchBarButton>(config => config.icon)
-    icon!: Electron.NativeImage;
+    icon!: Neutron.NativeImage;
 
   @LiveProperty<TouchBarButton>(config => config.iconPosition)
-    iconPosition!: Electron.TouchBarButton['iconPosition'];
+    iconPosition!: Neutron.TouchBarButton['iconPosition'];
 
   @LiveProperty<TouchBarButton>(config => typeof config.enabled !== 'boolean' ? true : config.enabled)
     enabled!: boolean;
@@ -107,7 +107,7 @@ class TouchBarButton extends TouchBarItem<Electron.TouchBarButtonConstructorOpti
     onInteraction!: Function | null;
 }
 
-class TouchBarColorPicker extends TouchBarItem<Electron.TouchBarColorPickerConstructorOptions> implements Electron.TouchBarColorPicker {
+class TouchBarColorPicker extends TouchBarItem<Neutron.TouchBarColorPickerConstructorOptions> implements Neutron.TouchBarColorPicker {
   @ImmutableProperty(() => 'colorpicker')
     type!: string;
 
@@ -126,7 +126,7 @@ class TouchBarColorPicker extends TouchBarItem<Electron.TouchBarColorPickerConst
     onInteraction!: Function | null;
 }
 
-class TouchBarGroup extends TouchBarItem<Electron.TouchBarGroupConstructorOptions> implements Electron.TouchBarGroup {
+class TouchBarGroup extends TouchBarItem<Neutron.TouchBarGroupConstructorOptions> implements Neutron.TouchBarGroup {
   @ImmutableProperty(() => 'group')
     type!: string;
 
@@ -145,7 +145,7 @@ class TouchBarGroup extends TouchBarItem<Electron.TouchBarGroupConstructorOption
   onInteraction = null;
 }
 
-class TouchBarLabel extends TouchBarItem<Electron.TouchBarLabelConstructorOptions> implements Electron.TouchBarLabel {
+class TouchBarLabel extends TouchBarItem<Neutron.TouchBarLabelConstructorOptions> implements Neutron.TouchBarLabel {
   @ImmutableProperty(() => 'label')
     type!: string;
 
@@ -161,7 +161,7 @@ class TouchBarLabel extends TouchBarItem<Electron.TouchBarLabelConstructorOption
   onInteraction = null;
 }
 
-class TouchBarPopover extends TouchBarItem<Electron.TouchBarPopoverConstructorOptions> implements Electron.TouchBarPopover {
+class TouchBarPopover extends TouchBarItem<Neutron.TouchBarPopoverConstructorOptions> implements Neutron.TouchBarPopover {
   @ImmutableProperty(() => 'popover')
     type!: string;
 
@@ -169,7 +169,7 @@ class TouchBarPopover extends TouchBarItem<Electron.TouchBarPopoverConstructorOp
     label!: string;
 
   @LiveProperty<TouchBarPopover>(config => config.icon)
-    icon!: Electron.NativeImage;
+    icon!: Neutron.NativeImage;
 
   @LiveProperty<TouchBarPopover>(config => config.showCloseButton)
     showCloseButton!: boolean;
@@ -189,7 +189,7 @@ class TouchBarPopover extends TouchBarItem<Electron.TouchBarPopoverConstructorOp
   onInteraction = null;
 }
 
-class TouchBarSlider extends TouchBarItem<Electron.TouchBarSliderConstructorOptions> implements Electron.TouchBarSlider {
+class TouchBarSlider extends TouchBarItem<Neutron.TouchBarSliderConstructorOptions> implements Neutron.TouchBarSlider {
   @ImmutableProperty(() => 'slider')
     type!: string;
 
@@ -214,31 +214,31 @@ class TouchBarSlider extends TouchBarItem<Electron.TouchBarSliderConstructorOpti
     onInteraction!: Function | null;
 }
 
-class TouchBarSpacer extends TouchBarItem<Electron.TouchBarSpacerConstructorOptions> implements Electron.TouchBarSpacer {
+class TouchBarSpacer extends TouchBarItem<Neutron.TouchBarSpacerConstructorOptions> implements Neutron.TouchBarSpacer {
   @ImmutableProperty(() => 'spacer')
     type!: string;
 
   @ImmutableProperty<TouchBarSpacer>(config => config.size)
-    size!: Electron.TouchBarSpacer['size'];
+    size!: Neutron.TouchBarSpacer['size'];
 
   onInteraction = null;
 }
 
-class TouchBarSegmentedControl extends TouchBarItem<Electron.TouchBarSegmentedControlConstructorOptions> implements Electron.TouchBarSegmentedControl {
+class TouchBarSegmentedControl extends TouchBarItem<Neutron.TouchBarSegmentedControlConstructorOptions> implements Neutron.TouchBarSegmentedControl {
   @ImmutableProperty(() => 'segmented_control')
     type!: string;
 
   @LiveProperty<TouchBarSegmentedControl>(config => config.segmentStyle)
-    segmentStyle!: Electron.TouchBarSegmentedControl['segmentStyle'];
+    segmentStyle!: Neutron.TouchBarSegmentedControl['segmentStyle'];
 
   @LiveProperty<TouchBarSegmentedControl>(config => config.segments || [])
-    segments!: Electron.SegmentedControlSegment[];
+    segments!: Neutron.SegmentedControlSegment[];
 
   @LiveProperty<TouchBarSegmentedControl>(config => config.selectedIndex)
     selectedIndex!: number;
 
   @LiveProperty<TouchBarSegmentedControl>(config => config.mode)
-    mode!: Electron.TouchBarSegmentedControl['mode'];
+    mode!: Neutron.TouchBarSegmentedControl['mode'];
 
   @ImmutableProperty<TouchBarSegmentedControl>(({ change: onChange }, setInternalProp) => typeof onChange === 'function'
     ? (details: { selectedIndex: number, isSelected: boolean }) => {
@@ -249,24 +249,24 @@ class TouchBarSegmentedControl extends TouchBarItem<Electron.TouchBarSegmentedCo
     onInteraction!: Function | null;
 }
 
-class TouchBarScrubber extends TouchBarItem<Electron.TouchBarScrubberConstructorOptions> implements Electron.TouchBarScrubber {
+class TouchBarScrubber extends TouchBarItem<Neutron.TouchBarScrubberConstructorOptions> implements Neutron.TouchBarScrubber {
   @ImmutableProperty(() => 'scrubber')
     type!: string;
 
   @LiveProperty<TouchBarScrubber>(config => config.items)
-    items!: Electron.ScrubberItem[];
+    items!: Neutron.ScrubberItem[];
 
   @LiveProperty<TouchBarScrubber>(config => config.selectedStyle || null)
-    selectedStyle!: Electron.TouchBarScrubber['selectedStyle'];
+    selectedStyle!: Neutron.TouchBarScrubber['selectedStyle'];
 
   @LiveProperty<TouchBarScrubber>(config => config.overlayStyle || null)
-    overlayStyle!: Electron.TouchBarScrubber['overlayStyle'];
+    overlayStyle!: Neutron.TouchBarScrubber['overlayStyle'];
 
   @LiveProperty<TouchBarScrubber>(config => config.showArrowButtons || false)
     showArrowButtons!: boolean;
 
   @LiveProperty<TouchBarScrubber>(config => config.mode || 'free')
-    mode!: Electron.TouchBarScrubber['mode'];
+    mode!: Neutron.TouchBarScrubber['mode'];
 
   @LiveProperty<TouchBarScrubber>(config => typeof config.continuous === 'undefined' ? true : config.continuous)
     continuous!: boolean;
@@ -283,16 +283,16 @@ class TouchBarScrubber extends TouchBarItem<Electron.TouchBarScrubberConstructor
     onInteraction!: Function | null;
 }
 
-class TouchBarOtherItemsProxy extends TouchBarItem<null> implements Electron.TouchBarOtherItemsProxy {
+class TouchBarOtherItemsProxy extends TouchBarItem<null> implements Neutron.TouchBarOtherItemsProxy {
   @ImmutableProperty(() => 'other_items_proxy') type!: string;
   onInteraction = null;
 }
 
 const escapeItemSymbol = Symbol('escape item');
 
-class TouchBar extends EventEmitter implements Electron.TouchBar {
+class TouchBar extends EventEmitter implements Neutron.TouchBar {
   // Bind a touch bar to a window
-  static _setOnWindow (touchBar: TouchBar | Electron.TouchBarConstructorOptions['items'], window: Electron.BaseWindow) {
+  static _setOnWindow (touchBar: TouchBar | Neutron.TouchBarConstructorOptions['items'], window: Neutron.BaseWindow) {
     if (window._touchBar != null) {
       window._touchBar._removeFromWindow(window);
     }
@@ -312,7 +312,7 @@ class TouchBar extends EventEmitter implements Electron.TouchBar {
   private items = new Map<string, TouchBarItem<any>>();
   orderedItems: TouchBarItem<any>[] = [];
 
-  constructor (options: Electron.TouchBarConstructorOptions) {
+  constructor (options: Neutron.TouchBarConstructorOptions) {
     super();
 
     if (options == null) {
@@ -391,7 +391,7 @@ class TouchBar extends EventEmitter implements Electron.TouchBar {
     return this[escapeItemSymbol];
   }
 
-  _addToWindow (window: Electron.BaseWindow) {
+  _addToWindow (window: Neutron.BaseWindow) {
     const { id } = window;
 
     // Already added to window
@@ -404,7 +404,7 @@ class TouchBar extends EventEmitter implements Electron.TouchBar {
     };
     this.on('change', changeListener);
 
-    const escapeItemListener = (item: Electron.TouchBarItemType | null) => {
+    const escapeItemListener = (item: Neutron.TouchBarItemType | null) => {
       window._setEscapeTouchBarItem(item ?? {});
     };
     this.on('escape-item-change', escapeItemListener);
@@ -447,7 +447,7 @@ class TouchBar extends EventEmitter implements Electron.TouchBar {
     escapeItemListener(this.escapeItem);
   }
 
-  _removeFromWindow (window: Electron.BaseWindow) {
+  _removeFromWindow (window: Neutron.BaseWindow) {
     const removeListeners = this.windowListeners.get(window.id);
     if (removeListeners != null) removeListeners();
   }

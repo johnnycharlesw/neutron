@@ -17,7 +17,7 @@
 #include "ui/views/widget/widget.h"
 #include "url/gurl.h"
 
-namespace electron {
+namespace neutron {
 
 void DragFileItems(const std::vector<base::FilePath>& files,
                    const gfx::Image& icon,
@@ -48,4 +48,4 @@ void DragFileItems(const std::vector<base::FilePath>& files,
           ui::mojom::DragEventSource::kMouse);
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -4,16 +4,16 @@
 
 #include "shell/browser/protocol_registry.h"
 
-#include "electron/fuses.h"
-#include "shell/browser/electron_browser_context.h"
+#include "neutron/fuses.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/net/asar/asar_url_loader_factory.h"
 
-namespace electron {
+namespace neutron {
 
 // static
 ProtocolRegistry* ProtocolRegistry::FromBrowserContext(
     content::BrowserContext* context) {
-  return static_cast<ElectronBrowserContext*>(context)->protocol_registry();
+  return static_cast<NeutronBrowserContext*>(context)->protocol_registry();
 }
 
 ProtocolRegistry::ProtocolRegistry() = default;
@@ -23,7 +23,7 @@ ProtocolRegistry::~ProtocolRegistry() = default;
 void ProtocolRegistry::RegisterURLLoaderFactories(
     content::ContentBrowserClient::NonNetworkURLLoaderFactoryMap* factories,
     bool allow_file_access) {
-  if (electron::fuses::IsGrantFileProtocolExtraPrivilegesEnabled()) {
+  if (neutron::fuses::IsGrantFileProtocolExtraPrivilegesEnabled()) {
     auto file_factory = factories->find(url::kFileScheme);
     if (file_factory != factories->end()) {
       // If Chromium already allows file access then replace the url factory to
@@ -41,7 +41,7 @@ void ProtocolRegistry::RegisterURLLoaderFactories(
   }
 
   for (const auto& it : handlers_) {
-    factories->emplace(it.first, ElectronURLLoaderFactory::Create(
+    factories->emplace(it.first, NeutronURLLoaderFactory::Create(
                                      it.second.first, it.second.second));
   }
 }
@@ -50,13 +50,13 @@ mojo::PendingRemote<network::mojom::URLLoaderFactory>
 ProtocolRegistry::CreateNonNetworkNavigationURLLoaderFactory(
     const std::string& scheme) {
   if (scheme == url::kFileScheme) {
-    if (electron::fuses::IsGrantFileProtocolExtraPrivilegesEnabled()) {
+    if (neutron::fuses::IsGrantFileProtocolExtraPrivilegesEnabled()) {
       return AsarURLLoaderFactory::Create();
     }
   } else {
     auto handler = handlers_.find(scheme);
     if (handler != handlers_.end()) {
-      return ElectronURLLoaderFactory::Create(handler->second.first,
+      return NeutronURLLoaderFactory::Create(handler->second.first,
                                               handler->second.second);
     }
   }
@@ -97,4 +97,4 @@ const HandlersMap::mapped_type* ProtocolRegistry::FindIntercepted(
   return iter != std::end(map) ? &iter->second : nullptr;
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -11,7 +11,7 @@
 #include "mojo/public/cpp/bindings/receiver_set.h"
 #include "services/network/public/mojom/url_loader_network_service_observer.mojom.h"
 
-namespace electron {
+namespace neutron {
 
 class URLLoaderNetworkObserver
     : public network::mojom::URLLoaderNetworkServiceObserver {
@@ -87,6 +87,6 @@ class URLLoaderNetworkObserver
   base::WeakPtrFactory<URLLoaderNetworkObserver> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_URL_LOADER_NETWORK_OBSERVER_H_

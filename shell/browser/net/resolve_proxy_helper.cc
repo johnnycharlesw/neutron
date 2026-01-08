@@ -13,14 +13,14 @@
 #include "net/base/network_anonymization_key.h"
 #include "net/proxy_resolution/proxy_info.h"
 #include "services/network/public/mojom/network_context.mojom.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/net/system_network_context_manager.h"
 
 using content::BrowserThread;
 
-namespace electron {
+namespace neutron {
 
-ResolveProxyHelper::ResolveProxyHelper(ElectronBrowserContext* browser_context)
+ResolveProxyHelper::ResolveProxyHelper(NeutronBrowserContext* browser_context)
     : browser_context_(browser_context) {}
 
 ResolveProxyHelper::~ResolveProxyHelper() {
@@ -107,4 +107,4 @@ ResolveProxyHelper::PendingRequest&
 ResolveProxyHelper::PendingRequest::operator=(
     ResolveProxyHelper::PendingRequest&& pending_request) noexcept = default;
 
-}  // namespace electron
+}  // namespace neutron

@@ -30,12 +30,12 @@ const env = {
 env.PATH = `${env.PATH}${path.delimiter}${DEPOT_TOOLS}`;
 
 const gnCheckDirs = [
-  '//electron:electron_lib',
-  '//electron:electron_app',
-  '//electron/shell/common:mojo',
-  '//electron/shell/common:plugin',
-  '//electron:testing_build',
-  '//electron:release_build'
+  '//neutron:neutron_lib',
+  '//neutron:neutron_app',
+  '//neutron/shell/common:mojo',
+  '//neutron/shell/common:plugin',
+  '//neutron:testing_build',
+  '//neutron:release_build'
 ];
 
 for (const dir of gnCheckDirs) {

@@ -25,13 +25,13 @@
 #include "chrome/common/chrome_version.h"
 #include "content/public/common/content_paths.h"
 #include "content/public/renderer/render_frame.h"
-#include "electron/buildflags/buildflags.h"
-#include "electron/electron_version.h"
-#include "electron/fuses.h"
-#include "electron/mas.h"
-#include "shell/browser/api/electron_api_app.h"
-#include "shell/common/api/electron_bindings.h"
-#include "shell/common/electron_command_line.h"
+#include "neutron/buildflags/buildflags.h"
+#include "neutron/neutron_version.h"
+#include "neutron/fuses.h"
+#include "neutron/mas.h"
+#include "shell/browser/api/neutron_api_app.h"
+#include "shell/common/api/neutron_bindings.h"
+#include "shell/common/neutron_command_line.h"
 #include "shell/common/gin_converters/callback_converter.h"
 #include "shell/common/gin_converters/file_path_converter.h"
 #include "shell/common/gin_helper/dictionary.h"
@@ -48,75 +48,75 @@
 #include "third_party/blink/public/web/web_local_frame.h"
 #include "third_party/blink/renderer/bindings/core/v8/referrer_script_info.h"  // nogncheck
 #include "third_party/blink/renderer/bindings/core/v8/v8_initializer.h"  // nogncheck
-#include "third_party/electron_node/src/debug_utils.h"
-#include "third_party/electron_node/src/module_wrap.h"
+#include "third_party/neutron_node/src/debug_utils.h"
+#include "third_party/neutron_node/src/module_wrap.h"
 
 #if !IS_MAS_BUILD()
 #include "shell/common/crash_keys.h"
 #endif
 
 #define ELECTRON_BROWSER_BINDINGS(V)      \
-  V(electron_browser_app)                 \
-  V(electron_browser_auto_updater)        \
-  V(electron_browser_content_tracing)     \
-  V(electron_browser_crash_reporter)      \
-  V(electron_browser_desktop_capturer)    \
-  V(electron_browser_dialog)              \
-  V(electron_browser_event_emitter)       \
-  V(electron_browser_global_shortcut)     \
-  V(electron_browser_image_view)          \
-  V(electron_browser_in_app_purchase)     \
-  V(electron_browser_menu)                \
-  V(electron_browser_message_port)        \
-  V(electron_browser_native_theme)        \
-  V(electron_browser_notification)        \
-  V(electron_browser_power_monitor)       \
-  V(electron_browser_power_save_blocker)  \
-  V(electron_browser_protocol)            \
-  V(electron_browser_printing)            \
-  V(electron_browser_push_notifications)  \
-  V(electron_browser_safe_storage)        \
-  V(electron_browser_service_worker_main) \
-  V(electron_browser_session)             \
-  V(electron_browser_screen)              \
-  V(electron_browser_system_preferences)  \
-  V(electron_browser_base_window)         \
-  V(electron_browser_tray)                \
-  V(electron_browser_utility_process)     \
-  V(electron_browser_view)                \
-  V(electron_browser_web_contents)        \
-  V(electron_browser_web_contents_view)   \
-  V(electron_browser_web_frame_main)      \
-  V(electron_browser_web_view_manager)    \
-  V(electron_browser_window)              \
-  V(electron_common_net)
+  V(neutron_browser_app)                 \
+  V(neutron_browser_auto_updater)        \
+  V(neutron_browser_content_tracing)     \
+  V(neutron_browser_crash_reporter)      \
+  V(neutron_browser_desktop_capturer)    \
+  V(neutron_browser_dialog)              \
+  V(neutron_browser_event_emitter)       \
+  V(neutron_browser_global_shortcut)     \
+  V(neutron_browser_image_view)          \
+  V(neutron_browser_in_app_purchase)     \
+  V(neutron_browser_menu)                \
+  V(neutron_browser_message_port)        \
+  V(neutron_browser_native_theme)        \
+  V(neutron_browser_notification)        \
+  V(neutron_browser_power_monitor)       \
+  V(neutron_browser_power_save_blocker)  \
+  V(neutron_browser_protocol)            \
+  V(neutron_browser_printing)            \
+  V(neutron_browser_push_notifications)  \
+  V(neutron_browser_safe_storage)        \
+  V(neutron_browser_service_worker_main) \
+  V(neutron_browser_session)             \
+  V(neutron_browser_screen)              \
+  V(neutron_browser_system_preferences)  \
+  V(neutron_browser_base_window)         \
+  V(neutron_browser_tray)                \
+  V(neutron_browser_utility_process)     \
+  V(neutron_browser_view)                \
+  V(neutron_browser_web_contents)        \
+  V(neutron_browser_web_contents_view)   \
+  V(neutron_browser_web_frame_main)      \
+  V(neutron_browser_web_view_manager)    \
+  V(neutron_browser_window)              \
+  V(neutron_common_net)
 
 #define ELECTRON_COMMON_BINDINGS(V)   \
-  V(electron_common_asar)             \
-  V(electron_common_clipboard)        \
-  V(electron_common_command_line)     \
-  V(electron_common_crashpad_support) \
-  V(electron_common_environment)      \
-  V(electron_common_features)         \
-  V(electron_common_native_image)     \
-  V(electron_common_shared_texture)   \
-  V(electron_common_shell)            \
-  V(electron_common_v8_util)
+  V(neutron_common_asar)             \
+  V(neutron_common_clipboard)        \
+  V(neutron_common_command_line)     \
+  V(neutron_common_crashpad_support) \
+  V(neutron_common_environment)      \
+  V(neutron_common_features)         \
+  V(neutron_common_native_image)     \
+  V(neutron_common_shared_texture)   \
+  V(neutron_common_shell)            \
+  V(neutron_common_v8_util)
 
 #define ELECTRON_RENDERER_BINDINGS(V) \
-  V(electron_renderer_web_utils)      \
-  V(electron_renderer_context_bridge) \
-  V(electron_renderer_crash_reporter) \
-  V(electron_renderer_ipc)            \
-  V(electron_renderer_web_frame)
+  V(neutron_renderer_web_utils)      \
+  V(neutron_renderer_context_bridge) \
+  V(neutron_renderer_crash_reporter) \
+  V(neutron_renderer_ipc)            \
+  V(neutron_renderer_web_frame)
 
 #define ELECTRON_UTILITY_BINDINGS(V)     \
-  V(electron_browser_event_emitter)      \
-  V(electron_browser_system_preferences) \
-  V(electron_common_net)                 \
-  V(electron_utility_parent_port)
+  V(neutron_browser_event_emitter)      \
+  V(neutron_browser_system_preferences) \
+  V(neutron_common_net)                 \
+  V(neutron_utility_parent_port)
 
-#define ELECTRON_TESTING_BINDINGS(V) V(electron_common_testing)
+#define ELECTRON_TESTING_BINDINGS(V) V(neutron_common_testing)
 
 // This is used to load built-in bindings. Instead of using
 // __attribute__((constructor)), we call the _register_<modname>
@@ -168,8 +168,8 @@ void V8FatalErrorCallback(const char* location, const char* message) {
   LOG(ERROR) << "Fatal error in V8: " << location << " " << message;
 
 #if !IS_MAS_BUILD()
-  electron::crash_keys::SetCrashKey("electron.v8-fatal.message", message);
-  electron::crash_keys::SetCrashKey("electron.v8-fatal.location", location);
+  neutron::crash_keys::SetCrashKey("neutron.v8-fatal.message", message);
+  neutron::crash_keys::SetCrashKey("neutron.v8-fatal.location", location);
 #endif
 
   volatile int* zero = nullptr;
@@ -190,13 +190,13 @@ void V8OOMErrorCallback(const char* location, const v8::OOMDetails& details) {
   }
 
 #if !IS_MAS_BUILD()
-  electron::crash_keys::SetCrashKey("electron.v8-oom.is_heap_oom",
+  neutron::crash_keys::SetCrashKey("neutron.v8-oom.is_heap_oom",
                                     std::to_string(details.is_heap_oom));
   if (location) {
-    electron::crash_keys::SetCrashKey("electron.v8-oom.location", location);
+    neutron::crash_keys::SetCrashKey("neutron.v8-oom.location", location);
   }
   if (details.detail) {
-    electron::crash_keys::SetCrashKey("electron.v8-oom.detail", details.detail);
+    neutron::crash_keys::SetCrashKey("neutron.v8-oom.detail", details.detail);
   }
 #endif
 
@@ -208,7 +208,7 @@ bool AllowWasmCodeGenerationCallback(v8::Local<v8::Context> context,
   // If we're running with contextIsolation enabled in the renderer process,
   // fall back to Blink's logic.
   if (node::Environment::GetCurrent(context) == nullptr) {
-    if (!electron::IsRendererProcess())
+    if (!neutron::IsRendererProcess())
       return false;
     return blink::V8Initializer::WasmCodeGenerationCheckCallback(context,
                                                                  source);
@@ -227,13 +227,13 @@ static ESMHandlerPlatform SelectESMHandlerPlatform(
     v8::Local<v8::Context> context,
     v8::Local<v8::Data> raw_host_defined_options) {
   if (node::Environment::GetCurrent(context) == nullptr) {
-    if (electron::IsBrowserProcess() || electron::IsUtilityProcess())
+    if (neutron::IsBrowserProcess() || neutron::IsUtilityProcess())
       return ESMHandlerPlatform::kNone;
 
     return ESMHandlerPlatform::kBlink;
   }
 
-  if (!electron::IsRendererProcess())
+  if (!neutron::IsRendererProcess())
     return ESMHandlerPlatform::kNodeJS;
 
   blink::WebLocalFrame* frame = blink::WebLocalFrame::FrameForContext(context);
@@ -247,7 +247,7 @@ static ESMHandlerPlatform SelectESMHandlerPlatform(
   // fall back to Blink's logic when the frame is not in the isolated world.
   if (prefs.context_isolation) {
     return frame->GetScriptContextWorldId(context) ==
-                   electron::WorldIDs::ISOLATED_WORLD_ID
+                   neutron::WorldIDs::ISOLATED_WORLD_ID
                ? ESMHandlerPlatform::kNodeJS
                : ESMHandlerPlatform::kBlink;
   }
@@ -311,13 +311,13 @@ void HostInitializeImportMetaObject(v8::Local<v8::Context> context,
                                     v8::Local<v8::Object> meta) {
   node::Environment* env = node::Environment::GetCurrent(context);
   if (env == nullptr) {
-    if (electron::IsBrowserProcess() || electron::IsUtilityProcess())
+    if (neutron::IsBrowserProcess() || neutron::IsUtilityProcess())
       return;
     return blink::V8Initializer::HostGetImportMetaProperties(context, module,
                                                              meta);
   }
 
-  if (electron::IsRendererProcess()) {
+  if (neutron::IsRendererProcess()) {
     // If the module is created by Node.js, use Node.js' handling.
     if (env != nullptr) {
       ModuleWrap* wrap = ModuleWrap::GetFromModule(env, module);
@@ -330,7 +330,7 @@ void HostInitializeImportMetaObject(v8::Local<v8::Context> context,
     blink::WebLocalFrame* frame =
         blink::WebLocalFrame::FrameForContext(context);
     if (!frame || frame->GetScriptContextWorldId(context) !=
-                      electron::WorldIDs::ISOLATED_WORLD_ID) {
+                      neutron::WorldIDs::ISOLATED_WORLD_ID) {
       return blink::V8Initializer::HostGetImportMetaProperties(context, module,
                                                                meta);
     }
@@ -348,7 +348,7 @@ v8::ModifyCodeGenerationFromStringsResult ModifyCodeGenerationFromStrings(
     // No node environment means we're in the renderer process, either in a
     // sandboxed renderer or in an unsandboxed renderer with context isolation
     // enabled.
-    if (!electron::IsRendererProcess()) {
+    if (!neutron::IsRendererProcess()) {
       NOTREACHED();
     }
     return blink::V8Initializer::CodeGenerationCheckCallbackInMainThread(
@@ -361,7 +361,7 @@ v8::ModifyCodeGenerationFromStringsResult ModifyCodeGenerationFromStrings(
 
   // If we're in the renderer with contextIsolation disabled, ask blink first
   // (for CSP), and iff that allows codegen, delegate to node.
-  if (electron::IsRendererProcess()) {
+  if (neutron::IsRendererProcess()) {
     v8::ModifyCodeGenerationFromStringsResult result =
         blink::V8Initializer::CodeGenerationCheckCallbackInMainThread(
             context, source, is_code_like);
@@ -432,10 +432,10 @@ bool IsAllowedOption(const std::string_view option) {
       });
 
   if (debug_options.contains(option))
-    return electron::fuses::IsNodeCliInspectEnabled();
+    return neutron::fuses::IsNodeCliInspectEnabled();
 
   if (unpacked_options.contains(option))
-    return !electron::api::App::IsPackaged();
+    return !neutron::api::App::IsPackaged();
 
   return options.contains(option);
 }
@@ -459,20 +459,20 @@ void SetNodeOptions(base::Environment* env) {
   });
 
   if (env->HasVar("NODE_EXTRA_CA_CERTS")) {
-    if (!electron::fuses::IsNodeOptionsEnabled()) {
+    if (!neutron::fuses::IsNodeOptionsEnabled()) {
       LOG(WARNING) << "NODE_OPTIONS ignored due to disabled nodeOptions fuse.";
       env->UnSetVar("NODE_EXTRA_CA_CERTS");
     }
   }
 
   if (env->HasVar("NODE_OPTIONS")) {
-    if (electron::fuses::IsNodeOptionsEnabled()) {
+    if (neutron::fuses::IsNodeOptionsEnabled()) {
       std::string result_options;
       std::string options = env->GetVar("NODE_OPTIONS").value();
       const std::vector<std::string_view> parts = base::SplitStringPiece(
           options, " ", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
 
-      bool is_packaged_app = electron::api::App::IsPackaged();
+      bool is_packaged_app = neutron::api::App::IsPackaged();
 
       for (const std::string_view part : parts) {
         // Strip off values passed to individual NODE_OPTIONs
@@ -485,9 +485,9 @@ void SetNodeOptions(base::Environment* env) {
           continue;
         } else if (disallowed.contains(option)) {
           // Remove NODE_OPTIONS specifically disallowed for use in Node.js
-          // through Electron owing to constraints like BoringSSL.
+          // through Neutron owing to constraints like BoringSSL.
           LOG(ERROR) << "The NODE_OPTION " << option
-                     << " is not supported in Electron";
+                     << " is not supported in Neutron";
           continue;
         }
         result_options.append(part);
@@ -505,7 +505,7 @@ void SetNodeOptions(base::Environment* env) {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -547,12 +547,12 @@ NodeBindings::~NodeBindings() {
 node::IsolateData* NodeBindings::isolate_data(
     v8::Local<v8::Context> context) const {
   if (context->GetNumberOfEmbedderDataFields() <=
-      kElectronContextEmbedderDataIndex) {
+      kNeutronContextEmbedderDataIndex) {
     return nullptr;
   }
   auto* isolate_data = static_cast<node::IsolateData*>(
       context->GetAlignedPointerFromEmbedderData(
-          kElectronContextEmbedderDataIndex, v8::kEmbedderDataTypeTagDefault));
+          kNeutronContextEmbedderDataIndex, v8::kEmbedderDataTypeTagDefault));
   CHECK(isolate_data);
   CHECK(isolate_data->event_loop());
   return isolate_data;
@@ -608,7 +608,7 @@ std::vector<std::string> NodeBindings::ParseNodeCliFlags() {
   // process name owing to src/node_options-inl.h#L286-L290 but this is
   // redundant and so should be refactored upstream.
   args.reserve(argv.size() + 1);
-  args.emplace_back("electron");
+  args.emplace_back("neutron");
 
   for (const auto& arg : argv) {
 #if BUILDFLAG(IS_WIN)
@@ -634,16 +634,16 @@ std::vector<std::string> NodeBindings::ParseNodeCliFlags() {
 
 void NodeBindings::Initialize(v8::Isolate* const isolate,
                               v8::Local<v8::Context> context) {
-  TRACE_EVENT0("electron", "NodeBindings::Initialize");
+  TRACE_EVENT0("neutron", "NodeBindings::Initialize");
   // Open node's error reporting system for browser process.
 
 #if BUILDFLAG(IS_LINUX)
   // Get real command line in renderer process forked by zygote.
   if (browser_env_ != BrowserEnvironment::kBrowser)
-    ElectronCommandLine::InitializeFromCommandLine();
+    NeutronCommandLine::InitializeFromCommandLine();
 #endif
 
-  // Explicitly register electron's builtin bindings.
+  // Explicitly register neutron's builtin bindings.
   RegisterBuiltinBindings();
 
   auto env = base::Environment::Create();
@@ -748,7 +748,7 @@ std::shared_ptr<node::Environment> NodeBindings::CreateEnvironment(
             isolate,
             gin::ConvertToV8(isolate, "appSearchPaths").As<v8::String>()),
         gin::ConvertToV8(isolate,
-                         electron::fuses::IsOnlyLoadAppFromAsarEnabled()
+                         neutron::fuses::IsOnlyLoadAppFromAsarEnabled()
                              ? app_asar_search_paths
                              : search_paths));
     context->Global()->SetPrivate(
@@ -757,16 +757,16 @@ std::shared_ptr<node::Environment> NodeBindings::CreateEnvironment(
             isolate, gin::ConvertToV8(isolate, "appSearchPathsOnlyLoadASAR")
                          .As<v8::String>()),
         gin::ConvertToV8(isolate,
-                         electron::fuses::IsOnlyLoadAppFromAsarEnabled()));
+                         neutron::fuses::IsOnlyLoadAppFromAsarEnabled()));
   }
 
-  std::string init_script = "electron/js2c/" + process_type + "_init";
+  std::string init_script = "neutron/js2c/" + process_type + "_init";
 
   args.insert(args.begin() + 1, init_script);
 
   auto* isolate_data = node::CreateIsolateData(isolate, uv_loop_, platform);
   isolate_data->max_young_gen_size = max_young_generation_size;
-  context->SetAlignedPointerInEmbedderData(kElectronContextEmbedderDataIndex,
+  context->SetAlignedPointerInEmbedderData(kNeutronContextEmbedderDataIndex,
                                            static_cast<void*>(isolate_data),
                                            v8::kEmbedderDataTypeTagDefault);
 
@@ -783,19 +783,19 @@ std::shared_ptr<node::Environment> NodeBindings::CreateEnvironment(
     // We also avoid overriding globals like setImmediate, clearImmediate
     // queueMicrotask etc during the bootstrap phase of Node.js
     // for processes that already have these defined by DOM.
-    // Check //third_party/electron_node/lib/internal/bootstrap/node.js
+    // Check //third_party/neutron_node/lib/internal/bootstrap/node.js
     // for the list of overrides on globalThis.
     env_flags |= node::EnvironmentFlags::kNoBrowserGlobals |
                  node::EnvironmentFlags::kNoCreateInspector;
   }
 
-  if (!electron::fuses::IsNodeCliInspectEnabled()) {
+  if (!neutron::fuses::IsNodeCliInspectEnabled()) {
     // If --inspect and friends are disabled we also shouldn't listen for
     // SIGUSR1
     env_flags |= node::EnvironmentFlags::kNoStartDebugSignalHandler;
   }
 
-  node::Environment* env = electron::util::CreateEnvironment(
+  node::Environment* env = neutron::util::CreateEnvironment(
       isolate, static_cast<node::IsolateData*>(isolate_data), context, args,
       exec_args, static_cast<node::EnvironmentFlags::Flags>(env_flags),
       process_type);
@@ -889,11 +889,11 @@ std::shared_ptr<node::Environment> NodeBindings::CreateEnvironment(
                       context = v8::Global<v8::Context>{isolate, context}](
                          node::Environment* nenv) mutable {
     // When `isolate_data` was created above, a pointer to it was kept
-    // in context's embedder_data[kElectronContextEmbedderDataIndex].
+    // in context's embedder_data[kNeutronContextEmbedderDataIndex].
     // Since we're about to free `isolate_data`, clear that entry
     v8::HandleScope handle_scope{isolate};
     context.Get(isolate)->SetAlignedPointerInEmbedderData(
-        kElectronContextEmbedderDataIndex, nullptr,
+        kNeutronContextEmbedderDataIndex, nullptr,
         v8::kEmbedderDataTypeTagDefault);
     context.Reset();
 
@@ -912,7 +912,7 @@ std::shared_ptr<node::Environment> NodeBindings::CreateEnvironment(
     std::optional<base::RepeatingCallback<void()>> on_app_code_ready) {
   return CreateEnvironment(
       isolate, context, platform, max_young_generation_size,
-      ElectronCommandLine::AsUtf8(), {}, on_app_code_ready);
+      NeutronCommandLine::AsUtf8(), {}, on_app_code_ready);
 }
 
 void NodeBindings::LoadEnvironment(node::Environment* env) {
@@ -1079,9 +1079,9 @@ void OnNodePreload(node::Environment* env,
       env->isolate(), {node::FIXED_ONE_BYTE_STRING(env->isolate(), "process"),
                        node::FIXED_ONE_BYTE_STRING(env->isolate(), "require")});
   v8::LocalVector<v8::Value> bundle_args(env->isolate(), {process, require});
-  electron::util::CompileAndCall(env->isolate(), env->context(),
-                                 "electron/js2c/node_init", &bundle_params,
+  neutron::util::CompileAndCall(env->isolate(), env->context(),
+                                 "neutron/js2c/node_init", &bundle_params,
                                  &bundle_args);
 }
 
-}  // namespace electron
+}  // namespace neutron

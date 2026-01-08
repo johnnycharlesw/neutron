@@ -36,7 +36,7 @@ To start a debugging session, open up PowerShell/CMD and execute your debug
 build of Electron, using the application to open as a parameter.
 
 ```powershell
-$ ./out/Testing/electron.exe ~/my-electron-app/
+$ ./out/Testing/neutron.exe ~/my-neutron-app/
 ```
 
 ### Setting Breakpoints

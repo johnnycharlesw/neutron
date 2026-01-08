@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron/main';
+import { BrowserWindow } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -23,7 +23,7 @@ describe('webUtils module', () => {
       });
       defer(() => w.close());
       await w.loadFile(path.resolve(fixtures, 'pages', 'file-input.html'));
-      const pathFromWebUtils = await w.webContents.executeJavaScript('require("electron").webUtils.getPathForFile(new Blob([1, 2, 3]))');
+      const pathFromWebUtils = await w.webContents.executeJavaScript('require("neutron").webUtils.getPathForFile(new Blob([1, 2, 3]))');
       expect(pathFromWebUtils).to.equal('');
     });
 
@@ -47,7 +47,7 @@ describe('webUtils module', () => {
           files: [__filename],
           nodeId: inputNodeId
         });
-        const pathFromWebUtils = await w.webContents.executeJavaScript('require("electron").webUtils.getPathForFile(document.querySelector("input").files[0])');
+        const pathFromWebUtils = await w.webContents.executeJavaScript('require("neutron").webUtils.getPathForFile(document.querySelector("input").files[0])');
         expect(pathFromWebUtils).to.equal(__filename);
       } finally {
         debug.detach();

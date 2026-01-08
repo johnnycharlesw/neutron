@@ -6,9 +6,9 @@ const {
   getSystemIdleTime,
   getCurrentThermalState,
   isOnBatteryPower
-} = process._linkedBinding('electron_browser_power_monitor');
+} = process._linkedBinding('neutron_browser_power_monitor');
 
-class PowerMonitor extends EventEmitter implements Electron.PowerMonitor {
+class PowerMonitor extends EventEmitter implements Neutron.PowerMonitor {
   constructor () {
     super();
     // Don't start the event source until both a) the app is ready and b)

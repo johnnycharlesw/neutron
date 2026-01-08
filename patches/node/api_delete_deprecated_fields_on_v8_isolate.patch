@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@electronjs.org>
+From: John Kleinschmidt <jkleinsc@neutronjs.org>
 Date: Wed, 5 Nov 2025 12:50:16 -0500
 Subject: Delete deprecated fields on v8::Isolate
 

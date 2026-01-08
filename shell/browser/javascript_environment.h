@@ -17,7 +17,7 @@ class Environment;
 class MultiIsolatePlatform;
 }  // namespace node
 
-namespace electron {
+namespace neutron {
 
 class MicrotasksRunner;
 // Manage the V8 isolate and context automatically.
@@ -58,6 +58,6 @@ class JavascriptEnvironment {
   std::unique_ptr<MicrotasksRunner> microtasks_runner_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_JAVASCRIPT_ENVIRONMENT_H_

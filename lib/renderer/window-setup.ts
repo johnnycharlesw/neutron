@@ -1,6 +1,6 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import { internalContextBridge } from '@electron/internal/renderer/api/context-bridge';
-import { ipcRendererInternal } from '@electron/internal/renderer/ipc-renderer-internal';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import { internalContextBridge } from '@neutron/internal/renderer/api/context-bridge';
+import { ipcRendererInternal } from '@neutron/internal/renderer/ipc-renderer-internal';
 
 const { contextIsolationEnabled } = internalContextBridge;
 
@@ -26,7 +26,7 @@ export const windowSetup = (isWebView: boolean, isHiddenPage: boolean) => {
     //
     // Note that this results in duplicate visibilitychange events (since
     // Chromium also fires them) and potentially incorrect visibility change.
-    // We should reconsider this decision for Electron 2.0.
+    // We should reconsider this decision for Neutron 2.0.
     let cachedVisibilityState = isHiddenPage ? 'hidden' : 'visible';
 
     // Subscribe to visibilityState changes.

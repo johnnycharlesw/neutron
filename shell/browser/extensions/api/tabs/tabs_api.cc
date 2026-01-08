@@ -26,7 +26,7 @@
 #include "extensions/common/mojom/host_id.mojom.h"
 #include "extensions/common/permissions/permissions_data.h"
 #include "extensions/common/switches.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/native_window.h"
 #include "shell/browser/web_contents_zoom_controller.h"
 #include "shell/browser/window_list.h"
@@ -35,7 +35,7 @@
 #include "third_party/blink/public/common/page/page_zoom.h"
 #include "url/gurl.h"
 
-using electron::WebContentsZoomController;
+using neutron::WebContentsZoomController;
 
 namespace extensions {
 
@@ -121,7 +121,7 @@ ExecuteCodeFunction::InitResult ExecuteCodeInTabFunction::Init() {
   }
 
   if (tab_id == -1) {
-    // There's no useful concept of a "default tab" in Electron.
+    // There's no useful concept of a "default tab" in Neutron.
     // TODO(nornagon): we could potentially kick this to an event to allow the
     // app to decide what "default tab" means for them?
     return set_init_result(VALIDATION_FAILURE);
@@ -138,7 +138,7 @@ bool ExecuteCodeInTabFunction::CanExecuteScriptOnPage(std::string* error) {
   // If |tab_id| is specified, look for the tab. Otherwise default to selected
   // tab in the current window.
   CHECK_GE(execute_tab_id_, 0);
-  auto* contents = electron::api::WebContents::FromID(execute_tab_id_);
+  auto* contents = neutron::api::WebContents::FromID(execute_tab_id_);
   if (!contents) {
     return false;
   }
@@ -191,7 +191,7 @@ bool ExecuteCodeInTabFunction::CanExecuteScriptOnPage(std::string* error) {
 
 ScriptExecutor* ExecuteCodeInTabFunction::GetScriptExecutor(
     std::string* error) {
-  auto* contents = electron::api::WebContents::FromID(execute_tab_id_);
+  auto* contents = neutron::api::WebContents::FromID(execute_tab_id_);
   if (!contents)
     return nullptr;
   return contents->script_executor();
@@ -228,7 +228,7 @@ ExtensionFunction::ResponseAction TabsReloadFunction::Run() {
   }
 
   int tab_id = params->tab_id ? *params->tab_id : -1;
-  auto* contents = electron::api::WebContents::FromID(tab_id);
+  auto* contents = neutron::api::WebContents::FromID(tab_id);
   if (!contents)
     return RespondNow(Error("No such tab"));
 
@@ -270,8 +270,8 @@ ExtensionFunction::ResponseAction TabsQueryFunction::Run() {
 
   // Filter out webContents that don't belong to the current browser context.
   auto* bc = browser_context();
-  auto all_contents = electron::api::WebContents::GetWebContentsList();
-  all_contents.remove_if([&bc](electron::api::WebContents* wc) {
+  auto all_contents = neutron::api::WebContents::GetWebContentsList();
+  all_contents.remove_if([&bc](neutron::api::WebContents* wc) {
     return (bc != wc->web_contents()->GetBrowserContext());
   });
 
@@ -335,7 +335,7 @@ ExtensionFunction::ResponseAction TabsGetFunction::Run() {
   EXTENSION_FUNCTION_VALIDATE(params);
   int tab_id = params->tab_id;
 
-  auto* contents = electron::api::WebContents::FromID(tab_id);
+  auto* contents = neutron::api::WebContents::FromID(tab_id);
   if (!contents)
     return RespondNow(Error("No such tab"));
 
@@ -367,7 +367,7 @@ ExtensionFunction::ResponseAction TabsSetZoomFunction::Run() {
   EXTENSION_FUNCTION_VALIDATE(params);
 
   int tab_id = params->tab_id ? *params->tab_id : -1;
-  auto* contents = electron::api::WebContents::FromID(tab_id);
+  auto* contents = neutron::api::WebContents::FromID(tab_id);
   if (!contents)
     return RespondNow(Error("No such tab"));
 
@@ -394,7 +394,7 @@ ExtensionFunction::ResponseAction TabsGetZoomFunction::Run() {
   EXTENSION_FUNCTION_VALIDATE(params);
 
   int tab_id = params->tab_id ? *params->tab_id : -1;
-  auto* contents = electron::api::WebContents::FromID(tab_id);
+  auto* contents = neutron::api::WebContents::FromID(tab_id);
   if (!contents)
     return RespondNow(Error("No such tab"));
 
@@ -410,7 +410,7 @@ ExtensionFunction::ResponseAction TabsGetZoomSettingsFunction::Run() {
   EXTENSION_FUNCTION_VALIDATE(params);
 
   int tab_id = params->tab_id ? *params->tab_id : -1;
-  auto* contents = electron::api::WebContents::FromID(tab_id);
+  auto* contents = neutron::api::WebContents::FromID(tab_id);
   if (!contents)
     return RespondNow(Error("No such tab"));
 
@@ -434,7 +434,7 @@ ExtensionFunction::ResponseAction TabsSetZoomSettingsFunction::Run() {
   EXTENSION_FUNCTION_VALIDATE(params);
 
   int tab_id = params->tab_id ? *params->tab_id : -1;
-  auto* contents = electron::api::WebContents::FromID(tab_id);
+  auto* contents = neutron::api::WebContents::FromID(tab_id);
   if (!contents)
     return RespondNow(Error("No such tab"));
 
@@ -610,7 +610,7 @@ ExtensionFunction::ResponseAction TabsUpdateFunction::Run() {
   EXTENSION_FUNCTION_VALIDATE(params);
 
   int tab_id = params->tab_id ? *params->tab_id : -1;
-  auto* contents = electron::api::WebContents::FromID(tab_id);
+  auto* contents = neutron::api::WebContents::FromID(tab_id);
   if (!contents)
     return RespondNow(Error("No such tab"));
 
@@ -682,7 +682,7 @@ ExtensionFunction::ResponseValue TabsUpdateFunction::GetResult() {
 
   tabs::Tab tab;
 
-  auto* api_web_contents = electron::api::WebContents::From(web_contents_);
+  auto* api_web_contents = neutron::api::WebContents::From(web_contents_);
   tab.id = (api_web_contents ? api_web_contents->ID() : -1);
 
   // "title" and "url" properties are considered privileged data and can

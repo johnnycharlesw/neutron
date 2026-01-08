@@ -19,7 +19,7 @@
 class SkBitmap;
 class SkCanvas;
 
-namespace electron {
+namespace neutron {
 
 class LayeredWindowUpdater : public viz::mojom::LayeredWindowUpdater {
  public:
@@ -83,6 +83,6 @@ class OffScreenHostDisplayClient : public viz::HostDisplayClient {
   bool active_ = false;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_OSR_OSR_HOST_DISPLAY_CLIENT_H_

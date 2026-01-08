@@ -1,4 +1,4 @@
-import { autoUpdater } from 'electron/main';
+import { autoUpdater } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -23,7 +23,7 @@ ifdescribe(!process.mas)('autoUpdater module', function () {
     });
 
     ifit(process.platform === 'win32')('correctly fetches the previously set FeedURL', function () {
-      const updateURL = 'https://fake-update.electron.io';
+      const updateURL = 'https://fake-update.neutron.io';
       autoUpdater.setFeedURL({ url: updateURL });
       expect(autoUpdater.getFeedURL()).to.equal(updateURL);
     });
@@ -32,7 +32,7 @@ ifdescribe(!process.mas)('autoUpdater module', function () {
   describe('setFeedURL', function () {
     ifdescribe(process.platform === 'win32' || process.platform === 'darwin')('on Mac or Windows', () => {
       it('sets url successfully using old (url, headers) syntax', () => {
-        const url = 'http://electronjs.org';
+        const url = 'http://neutronjs.org';
         try {
           (autoUpdater.setFeedURL as any)(url, { header: 'val' });
         } catch { /* ignore */ }

@@ -20,7 +20,7 @@ class FilePath;
 class PrefService;
 class PrefRegistrySimple;
 
-namespace electron {
+namespace neutron {
 
 // A class to manage per-partition default and per-host zoom levels.
 // It implements an interface between the content/ zoom
@@ -60,6 +60,6 @@ class ZoomLevelDelegate : public content::ZoomLevelDelegate {
   std::string partition_key_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_ZOOM_LEVEL_DELEGATE_H_

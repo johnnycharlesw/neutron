@@ -8,7 +8,7 @@
 #include <string>
 
 #include "base/memory/raw_ptr.h"
-#include "shell/browser/ui/electron_menu_model.h"
+#include "shell/browser/ui/neutron_menu_model.h"
 #include "ui/base/glib/scoped_gsignal.h"
 #include "ui/gfx/native_ui_types.h"
 #include "ui/gfx/x/xproto.h"
@@ -20,7 +20,7 @@ namespace ui {
 class Accelerator;
 }
 
-namespace electron {
+namespace neutron {
 
 // Controls the Mac style menu bar on Unity.
 //
@@ -45,7 +45,7 @@ class GlobalMenuBarX11 {
   // Creates the object path for DbusmenuServer which is attached to |window|.
   static std::string GetPathForWindow(x11::Window window);
 
-  void SetMenu(ElectronMenuModel* menu_model);
+  void SetMenu(NeutronMenuModel* menu_model);
   bool IsServerStarted() const;
 
   // Called by NativeWindow when it show/hides.
@@ -57,7 +57,7 @@ class GlobalMenuBarX11 {
   void InitServer(x11::Window window);
 
   // Create a menu from menu model.
-  void BuildMenuFromModel(ElectronMenuModel* model, DbusmenuMenuitem* parent);
+  void BuildMenuFromModel(NeutronMenuModel* model, DbusmenuMenuitem* parent);
 
   // Sets the accelerator for |item|.
   void RegisterAccelerator(DbusmenuMenuitem* item,
@@ -72,6 +72,6 @@ class GlobalMenuBarX11 {
   std::vector<ScopedGSignal> signals_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_GLOBAL_MENU_BAR_X11_H_

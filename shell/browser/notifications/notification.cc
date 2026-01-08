@@ -8,7 +8,7 @@
 #include "shell/browser/notifications/notification_delegate.h"
 #include "shell/browser/notifications/notification_presenter.h"
 
-namespace electron {
+namespace neutron {
 
 const bool debug_notifications =
     base::Environment::Create()->HasVar("ELECTRON_DEBUG_NOTIFICATIONS");
@@ -59,4 +59,4 @@ void Notification::Destroy() {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

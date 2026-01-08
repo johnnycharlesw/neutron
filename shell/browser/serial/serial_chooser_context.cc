@@ -15,14 +15,14 @@
 #include "content/public/browser/device_service.h"
 #include "content/public/browser/web_contents.h"
 #include "mojo/public/cpp/bindings/pending_remote.h"
-#include "shell/browser/api/electron_api_session.h"
-#include "shell/browser/electron_browser_context.h"
-#include "shell/browser/electron_permission_manager.h"
+#include "shell/browser/api/neutron_api_session.h"
+#include "shell/browser/neutron_browser_context.h"
+#include "shell/browser/neutron_permission_manager.h"
 #include "shell/browser/web_contents_permission_helper.h"
 #include "shell/common/gin_converters/frame_converter.h"
 #include "shell/common/gin_converters/serial_port_info_converter.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -71,7 +71,7 @@ base::Value PortInfoToValue(const device::mojom::SerialPortInfo& port) {
 
 }  // namespace
 
-SerialChooserContext::SerialChooserContext(ElectronBrowserContext* context)
+SerialChooserContext::SerialChooserContext(NeutronBrowserContext* context)
     : browser_context_(context) {}
 
 SerialChooserContext::~SerialChooserContext() {
@@ -90,7 +90,7 @@ void SerialChooserContext::GrantPortPermission(
   port_info_.try_emplace(port.token, port.Clone());
 
   if (CanStorePersistentEntry(port)) {
-    auto* permission_manager = static_cast<ElectronPermissionManager*>(
+    auto* permission_manager = static_cast<NeutronPermissionManager*>(
         browser_context_->GetPermissionControllerDelegate());
     permission_manager->GrantDevicePermission(blink::PermissionType::SERIAL,
                                               origin, PortInfoToValue(port),
@@ -121,7 +121,7 @@ bool SerialChooserContext::HasPortPermission(
   if (!CanStorePersistentEntry(port))
     return false;
 
-  auto* permission_manager = static_cast<ElectronPermissionManager*>(
+  auto* permission_manager = static_cast<NeutronPermissionManager*>(
       browser_context_->GetPermissionControllerDelegate());
   return permission_manager->CheckDevicePermission(
       blink::PermissionType::SERIAL, origin, PortInfoToValue(port),
@@ -134,7 +134,7 @@ void SerialChooserContext::RevokePortPermissionWebInitiated(
     content::RenderFrameHost* render_frame_host) {
   auto it = port_info_.find(token);
   if (it != port_info_.end()) {
-    auto* permission_manager = static_cast<ElectronPermissionManager*>(
+    auto* permission_manager = static_cast<NeutronPermissionManager*>(
         browser_context_->GetPermissionControllerDelegate());
     permission_manager->RevokeDevicePermission(
         blink::PermissionType::SERIAL, origin, PortInfoToValue(*it->second),
@@ -282,4 +282,4 @@ void SerialChooserContext::OnPortManagerConnectionError() {
   port_info_.clear();
   ephemeral_ports_.clear();
 }
-}  // namespace electron
+}  // namespace neutron

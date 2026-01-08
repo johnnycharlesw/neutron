@@ -1,11 +1,11 @@
-import { fetchWithSession } from '@electron/internal/browser/api/net-fetch';
-import { addIpcDispatchListeners } from '@electron/internal/browser/ipc-dispatch';
-import * as deprecate from '@electron/internal/common/deprecate';
+import { fetchWithSession } from '@neutron/internal/browser/api/net-fetch';
+import { addIpcDispatchListeners } from '@neutron/internal/browser/ipc-dispatch';
+import * as deprecate from '@neutron/internal/common/deprecate';
 
-import { net } from 'electron/main';
+import { net } from 'neutron/main';
 
-const { fromPartition, fromPath, Session } = process._linkedBinding('electron_browser_session');
-const { isDisplayMediaSystemPickerAvailable } = process._linkedBinding('electron_browser_desktop_capturer');
+const { fromPartition, fromPath, Session } = process._linkedBinding('neutron_browser_session');
+const { isDisplayMediaSystemPickerAvailable } = process._linkedBinding('neutron_browser_desktop_capturer');
 
 // Fake video window that activates the native system picker
 // This is used to get around the need for a screen/window
@@ -77,34 +77,34 @@ Session.prototype.setPreloads = function (preloads) {
     type: 'frame',
     filePath,
     _deprecated: true
-  }) as Electron.PreloadScriptRegistration).forEach(script => {
+  }) as Neutron.PreloadScriptRegistration).forEach(script => {
     this.registerPreloadScript(script);
   });
 };
 
 Session.prototype.getAllExtensions = deprecate.moveAPI(
-  function (this: Electron.Session) {
+  function (this: Neutron.Session) {
     return this.extensions.getAllExtensions();
   },
   'session.getAllExtensions',
   'session.extensions.getAllExtensions'
 );
 Session.prototype.getExtension = deprecate.moveAPI(
-  function (this: Electron.Session, extensionId) {
+  function (this: Neutron.Session, extensionId) {
     return this.extensions.getExtension(extensionId);
   },
   'session.getExtension',
   'session.extensions.getExtension'
 );
 Session.prototype.loadExtension = deprecate.moveAPI(
-  function (this: Electron.Session, path, options) {
+  function (this: Neutron.Session, path, options) {
     return this.extensions.loadExtension(path, options);
   },
   'session.loadExtension',
   'session.extensions.loadExtension'
 );
 Session.prototype.removeExtension = deprecate.moveAPI(
-  function (this: Electron.Session, extensionId) {
+  function (this: Neutron.Session, extensionId) {
     return this.extensions.removeExtension(extensionId);
   },
   'session.removeExtension',

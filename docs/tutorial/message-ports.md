@@ -89,7 +89,7 @@ to a different renderer. This allows renderers to send messages to each other
 without needing to use the main process as an in-between.
 
 ```js title='main.js (Main Process)'
-const { BrowserWindow, app, MessageChannelMain } = require('electron')
+const { BrowserWindow, app, MessageChannelMain } = require('neutron')
 
 app.whenReady().then(async () => {
   // create the windows.
@@ -126,14 +126,14 @@ app.whenReady().then(async () => {
 Then, in your preload scripts you receive the port through IPC and set up the
 listeners.
 
-```js title='preloadMain.js and preloadSecondary.js (Preload scripts)' @ts-window-type={electronMessagePort:MessagePort}
-const { ipcRenderer } = require('electron')
+```js title='preloadMain.js and preloadSecondary.js (Preload scripts)' @ts-window-type={neutronMessagePort:MessagePort}
+const { ipcRenderer } = require('neutron')
 
 ipcRenderer.on('port', e => {
   // port received, make it globally available.
-  window.electronMessagePort = e.ports[0]
+  window.neutronMessagePort = e.ports[0]
 
-  window.electronMessagePort.onmessage = messageEvent => {
+  window.neutronMessagePort.onmessage = messageEvent => {
     // handle message
   }
 })
@@ -144,13 +144,13 @@ to use `contextIsolation` and set up specific contextBridge calls for each of yo
 expected messages, but for the simplicity of this example we don't. You can find an
 example of context isolation further down this page at [Communicating directly between the main process and the main world of a context-isolated page](#communicating-directly-between-the-main-process-and-the-main-world-of-a-context-isolated-page)
 
-That means window.electronMessagePort is globally available and you can call
+That means window.neutronMessagePort is globally available and you can call
 `postMessage` on it from anywhere in your app to send a message to the other
 renderer.
 
-```js title='renderer.js (Renderer Process)' @ts-window-type={electronMessagePort:MessagePort}
+```js title='renderer.js (Renderer Process)' @ts-window-type={neutronMessagePort:MessagePort}
 // elsewhere in your code to send a message to the other renderers message handler
-window.electronMessagePort.postMessage('ping')
+window.neutronMessagePort.postMessage('ping')
 ```
 
 ### Worker process
@@ -160,7 +160,7 @@ You want the app page to be able to communicate directly with the worker
 process, without the performance overhead of relaying via the main process.
 
 ```js title='main.js (Main Process)'
-const { BrowserWindow, app, ipcMain, MessageChannelMain } = require('electron')
+const { BrowserWindow, app, ipcMain, MessageChannelMain } = require('neutron')
 
 app.whenReady().then(async () => {
   // The worker process is a hidden BrowserWindow, so that it will have access
@@ -196,7 +196,7 @@ app.whenReady().then(async () => {
 
 ```html  title='worker.html'
 <script>
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 const doWork = (input) => {
   // Something cpu-intensive.
@@ -219,7 +219,7 @@ ipcRenderer.on('new-client', (event) => {
 
 ```html  title='app.html'
 <script>
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 // We request that the main process sends us a channel we can use to
 // communicate with the worker.
@@ -302,7 +302,7 @@ world. Sometimes you want to deliver messages to the main world directly,
 without having to step through the isolated world.
 
 ```js title='main.js (Main Process)'
-const { BrowserWindow, app, MessageChannelMain } = require('electron')
+const { BrowserWindow, app, MessageChannelMain } = require('neutron')
 
 const path = require('node:path')
 
@@ -338,7 +338,7 @@ app.whenReady().then(async () => {
 ```
 
 ```js title='preload.js (Preload Script)'
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 // We need to wait until the main world is ready to receive the message before
 // sending the port. We create this promise in the preload so it's guaranteed

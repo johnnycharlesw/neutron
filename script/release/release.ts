@@ -137,40 +137,40 @@ function assetsForVersion (version: string, validatingRelease: boolean) {
     `chromedriver-${version}-win32-ia32.zip`,
     `chromedriver-${version}-win32-x64.zip`,
     `chromedriver-${version}-win32-arm64.zip`,
-    `electron-${version}-darwin-x64-dsym.tar.xz`,
-    `electron-${version}-darwin-x64-dsym-snapshot.zip`,
-    `electron-${version}-darwin-x64-symbols.zip`,
-    `electron-${version}-darwin-x64.zip`,
-    `electron-${version}-darwin-arm64-dsym.tar.xz`,
-    `electron-${version}-darwin-arm64-dsym-snapshot.zip`,
-    `electron-${version}-darwin-arm64-symbols.zip`,
-    `electron-${version}-darwin-arm64.zip`,
-    `electron-${version}-linux-arm64-symbols.zip`,
-    `electron-${version}-linux-arm64.zip`,
-    `electron-${version}-linux-armv7l-symbols.zip`,
-    `electron-${version}-linux-armv7l.zip`,
-    `electron-${version}-linux-x64-debug.zip`,
-    `electron-${version}-linux-x64-symbols.zip`,
-    `electron-${version}-linux-x64.zip`,
-    `electron-${version}-mas-x64-dsym.tar.xz`,
-    `electron-${version}-mas-x64-dsym-snapshot.zip`,
-    `electron-${version}-mas-x64-symbols.zip`,
-    `electron-${version}-mas-x64.zip`,
-    `electron-${version}-mas-arm64-dsym.tar.xz`,
-    `electron-${version}-mas-arm64-dsym-snapshot.zip`,
-    `electron-${version}-mas-arm64-symbols.zip`,
-    `electron-${version}-mas-arm64.zip`,
-    `electron-${version}-win32-ia32-pdb.zip`,
-    `electron-${version}-win32-ia32-symbols.zip`,
-    `electron-${version}-win32-ia32.zip`,
-    `electron-${version}-win32-x64-pdb.zip`,
-    `electron-${version}-win32-x64-symbols.zip`,
-    `electron-${version}-win32-x64.zip`,
-    `electron-${version}-win32-arm64-pdb.zip`,
-    `electron-${version}-win32-arm64-symbols.zip`,
-    `electron-${version}-win32-arm64.zip`,
-    'electron-api.json',
-    'electron.d.ts',
+    `neutron-${version}-darwin-x64-dsym.tar.xz`,
+    `neutron-${version}-darwin-x64-dsym-snapshot.zip`,
+    `neutron-${version}-darwin-x64-symbols.zip`,
+    `neutron-${version}-darwin-x64.zip`,
+    `neutron-${version}-darwin-arm64-dsym.tar.xz`,
+    `neutron-${version}-darwin-arm64-dsym-snapshot.zip`,
+    `neutron-${version}-darwin-arm64-symbols.zip`,
+    `neutron-${version}-darwin-arm64.zip`,
+    `neutron-${version}-linux-arm64-symbols.zip`,
+    `neutron-${version}-linux-arm64.zip`,
+    `neutron-${version}-linux-armv7l-symbols.zip`,
+    `neutron-${version}-linux-armv7l.zip`,
+    `neutron-${version}-linux-x64-debug.zip`,
+    `neutron-${version}-linux-x64-symbols.zip`,
+    `neutron-${version}-linux-x64.zip`,
+    `neutron-${version}-mas-x64-dsym.tar.xz`,
+    `neutron-${version}-mas-x64-dsym-snapshot.zip`,
+    `neutron-${version}-mas-x64-symbols.zip`,
+    `neutron-${version}-mas-x64.zip`,
+    `neutron-${version}-mas-arm64-dsym.tar.xz`,
+    `neutron-${version}-mas-arm64-dsym-snapshot.zip`,
+    `neutron-${version}-mas-arm64-symbols.zip`,
+    `neutron-${version}-mas-arm64.zip`,
+    `neutron-${version}-win32-ia32-pdb.zip`,
+    `neutron-${version}-win32-ia32-symbols.zip`,
+    `neutron-${version}-win32-ia32.zip`,
+    `neutron-${version}-win32-x64-pdb.zip`,
+    `neutron-${version}-win32-x64-symbols.zip`,
+    `neutron-${version}-win32-x64.zip`,
+    `neutron-${version}-win32-arm64-pdb.zip`,
+    `neutron-${version}-win32-arm64-symbols.zip`,
+    `neutron-${version}-win32-arm64.zip`,
+    'neutron-api.json',
+    'neutron.d.ts',
     'hunspell_dictionaries.zip',
     'libcxx_headers.zip',
     'libcxxabi_headers.zip',
@@ -197,9 +197,9 @@ function assetsForVersion (version: string, validatingRelease: boolean) {
     `mksnapshot-${version}-win32-ia32.zip`,
     `mksnapshot-${version}-win32-x64.zip`,
     `mksnapshot-${version}-win32-arm64-x64.zip`,
-    `electron-${version}-win32-ia32-toolchain-profile.zip`,
-    `electron-${version}-win32-x64-toolchain-profile.zip`,
-    `electron-${version}-win32-arm64-toolchain-profile.zip`
+    `neutron-${version}-win32-ia32-toolchain-profile.zip`,
+    `neutron-${version}-win32-x64-toolchain-profile.zip`,
+    `neutron-${version}-win32-arm64-toolchain-profile.zip`
   ];
   if (!validatingRelease) {
     patterns.push('SHASUMS256.txt');
@@ -226,7 +226,7 @@ const cloudStoreFilePaths = (version: string) => [
 ];
 
 function azRemoteFilesForVersion (version: string) {
-  const azCDN = 'https://artifacts.electronjs.org/headers/';
+  const azCDN = 'https://artifacts.neutronjs.org/headers/';
   const versionPrefix = `${azCDN}dist/${version}/`;
   return cloudStoreFilePaths(version).map((filePath) => ({
     file: filePath,
@@ -249,7 +249,7 @@ function runScript (scriptName: string, scriptArgs: string[], cwd?: string) {
 }
 
 function uploadNodeShasums () {
-  console.log('Uploading Node SHASUMS file to artifacts.electronjs.org.');
+  console.log('Uploading Node SHASUMS file to artifacts.neutronjs.org.');
   const scriptPath = join(
     ELECTRON_DIR,
     'script',
@@ -259,12 +259,12 @@ function uploadNodeShasums () {
   );
   runScript(scriptPath, ['-v', pkgVersion]);
   console.log(
-    `${pass} Done uploading Node SHASUMS file to artifacts.electronjs.org.`
+    `${pass} Done uploading Node SHASUMS file to artifacts.neutronjs.org.`
   );
 }
 
 function uploadIndexJson () {
-  console.log('Uploading index.json to artifacts.electronjs.org.');
+  console.log('Uploading index.json to artifacts.neutronjs.org.');
   const scriptPath = join(
     ELECTRON_DIR,
     'script',
@@ -273,11 +273,11 @@ function uploadIndexJson () {
     'upload-index-json.py'
   );
   runScript(scriptPath, [pkgVersion]);
-  console.log(`${pass} Done uploading index.json to artifacts.electronjs.org.`);
+  console.log(`${pass} Done uploading index.json to artifacts.neutronjs.org.`);
 }
 
 async function mergeShasums (pkgVersion: string) {
-  // Download individual checksum files for Electron zip files from artifact storage,
+  // Download individual checksum files for Neutron zip files from artifact storage,
   // concatenate them, and upload to GitHub.
 
   const connectionString = process.env.ELECTRON_ARTIFACTS_BLOB_STORAGE;
@@ -343,7 +343,7 @@ async function uploadShasumFile (
   fileName: string,
   releaseId: number
 ) {
-  const uploadUrl = `https://uploads.github.com/repos/electron/${targetRepo}/releases/${releaseId}/assets{?name,label}`;
+  const uploadUrl = `https://uploads.github.com/repos/neutron/${targetRepo}/releases/${releaseId}/assets{?name,label}`;
   return octokit.repos
     .uploadReleaseAsset({
       url: uploadUrl,
@@ -543,7 +543,7 @@ async function verifyShasumsForRemoteFiles (
   const shaSum1File = remoteFilesToHash.find(
     ({ file }) => file === SHASUM_1_FILENAME
   )!;
-  // Used for both node.js artifact uploads and normal electron artifacts
+  // Used for both node.js artifact uploads and normal neutron artifacts
   const shaSum256File = remoteFilesToHash.find(
     ({ file }) => file === SHASUM_256_FILENAME
   )!;

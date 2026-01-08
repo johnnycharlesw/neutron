@@ -16,7 +16,7 @@ runs:
         git config --global core.longpaths true
       fi
       export BUILD_TOOLS_SHA=a5d9f9052dcc36ee88bef5c8b13acbefd87b7d8d
-      npm i -g @electron/build-tools
+      npm i -g @neutron/build-tools
       # Update depot_tools to ensure python
       e d update_depot_tools
       e auto-update disable
@@ -25,8 +25,8 @@ runs:
       if [ "$(expr substr $(uname -s) 1 10)" == "MSYS_NT-10" ]; then
         e d cipd.bat --version
         cp "C:\Python311\python.exe" "C:\Python311\python3.exe"
-        echo "C:\Users\ContainerAdministrator\.electron_build_tools\third_party\depot_tools" >> $GITHUB_PATH
+        echo "C:\Users\ContainerAdministrator\.neutron_build_tools\third_party\depot_tools" >> $GITHUB_PATH
       else
-        echo "$HOME/.electron_build_tools/third_party/depot_tools" >> $GITHUB_PATH
-        echo "$HOME/.electron_build_tools/third_party/depot_tools/python-bin" >> $GITHUB_PATH
+        echo "$HOME/.neutron_build_tools/third_party/depot_tools" >> $GITHUB_PATH
+        echo "$HOME/.neutron_build_tools/third_party/depot_tools/python-bin" >> $GITHUB_PATH
       fi

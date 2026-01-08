@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Tue, 9 Jan 2024 11:18:28 +1300
 Subject: build: on windows provide clang wrapper as toolchain input
 

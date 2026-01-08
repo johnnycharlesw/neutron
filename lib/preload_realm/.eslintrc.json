@@ -4,13 +4,13 @@
       "error",
       {
         "paths": [
-          "electron",
-          "electron/main"
+          "neutron",
+          "neutron/main"
         ],
         "patterns": [
           "./*",
           "../*",
-          "@electron/internal/browser/*"
+          "@neutron/internal/browser/*"
         ]
       }
     ]

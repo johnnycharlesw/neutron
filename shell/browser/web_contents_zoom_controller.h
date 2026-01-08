@@ -12,7 +12,7 @@
 #include "content/public/browser/web_contents_observer.h"
 #include "content/public/browser/web_contents_user_data.h"
 
-namespace electron {
+namespace neutron {
 
 class WebContentsZoomObserver;
 
@@ -147,6 +147,6 @@ class WebContentsZoomController
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WEB_CONTENTS_ZOOM_CONTROLLER_H_

@@ -7,7 +7,7 @@ Process: [Main](../glossary.md#main-process)
 For example, when registering for push notifications via Apple push notification services (APNS):
 
 ```js
-const { pushNotifications, Notification } = require('electron')
+const { pushNotifications, Notification } = require('neutron')
 
 pushNotifications.registerForAPNSNotifications().then((token) => {
   // forward token to your remote notification server

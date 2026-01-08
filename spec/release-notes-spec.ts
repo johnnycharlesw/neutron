@@ -150,7 +150,7 @@ describe('release notes', () => {
   // in the PR body after a PR's been merged and the maintainers have moved on.
   // So instead always use the release-clerk PR comment
   it('uses the release-clerk text', async function () {
-    // realText source: ${fixtureDir}/electron-electron-issue-21891-comments
+    // realText source: ${fixtureDir}/neutron-neutron-issue-21891-comments
     const realText = 'Added GUID parameter to Tray API to avoid system tray icon demotion on Windows';
     const testCommit = new Commit('89eb309d0b22bd4aec058ffaf983e81e56a5c378', 'feat: lole u got troled hard (#21891)');
     const version = 'v9.0.0';

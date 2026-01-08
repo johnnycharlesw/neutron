@@ -9,14 +9,14 @@
 #include <string_view>
 
 #include "base/memory/raw_ptr.h"
-#include "shell/browser/ui/electron_menu_model.h"
+#include "shell/browser/ui/neutron_menu_model.h"
 #include "ui/base/accelerators/accelerator.h"
 
 namespace accelerator_util {
 
 typedef struct {
   size_t position;
-  raw_ptr<electron::ElectronMenuModel> model;
+  raw_ptr<neutron::NeutronMenuModel> model;
 } MenuItem;
 typedef std::map<ui::Accelerator, MenuItem> AcceleratorTable;
 
@@ -26,7 +26,7 @@ bool StringToAccelerator(std::string_view shortcut,
 
 // Generate a table that contains menu model's accelerators and command ids.
 void GenerateAcceleratorTable(AcceleratorTable* table,
-                              electron::ElectronMenuModel* model);
+                              neutron::NeutronMenuModel* model);
 
 // Trigger command from the accelerators table.
 bool TriggerAcceleratorTableCommand(AcceleratorTable* table,

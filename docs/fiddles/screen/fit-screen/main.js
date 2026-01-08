@@ -1,9 +1,9 @@
 // Retrieve information about screen size, displays, cursor position, etc.
 //
 // For more info, see:
-// https://www.electronjs.org/docs/latest/api/screen
+// https://www.neutronjs.org/docs/latest/api/screen
 
-const { app, BrowserWindow, screen } = require('electron/main')
+const { app, BrowserWindow, screen } = require('neutron/main')
 
 let mainWindow = null
 
@@ -13,5 +13,5 @@ app.whenReady().then(() => {
   const { width, height } = primaryDisplay.workAreaSize
 
   mainWindow = new BrowserWindow({ width, height })
-  mainWindow.loadURL('https://electronjs.org')
+  mainWindow.loadURL('https://neutronjs.org')
 })

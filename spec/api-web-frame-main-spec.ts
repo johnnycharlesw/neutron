@@ -1,4 +1,4 @@
-import { BrowserWindow, WebFrameMain, webFrameMain, ipcMain, app, WebContents } from 'electron/main';
+import { BrowserWindow, WebFrameMain, webFrameMain, ipcMain, app, WebContents } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -444,7 +444,7 @@ describe('webFrameMain module', () => {
       });
 
       // Persist frame references so WebFrameMain is initialized for each
-      const frames: Electron.WebFrameMain[] = [];
+      const frames: Neutron.WebFrameMain[] = [];
       w.webContents.on('frame-created', (_event, details) => {
         console.log('frame-created');
         frames.push(details.frame!);
@@ -537,7 +537,7 @@ describe('webFrameMain module', () => {
   describe('"frame-created" event', () => {
     it('emits when the main frame is created', async () => {
       const w = new BrowserWindow({ show: false });
-      const promise = once(w.webContents, 'frame-created') as Promise<[any, Electron.FrameCreatedDetails]>;
+      const promise = once(w.webContents, 'frame-created') as Promise<[any, Neutron.FrameCreatedDetails]>;
       w.webContents.loadFile(path.join(subframesPath, 'frame.html'));
       const [, details] = await promise;
       expect(details.frame).to.equal(w.webContents.mainFrame);
@@ -545,7 +545,7 @@ describe('webFrameMain module', () => {
 
     it('emits when nested frames are created', async () => {
       const w = new BrowserWindow({ show: false });
-      const promise = emittedNTimes(w.webContents, 'frame-created', 2) as Promise<[any, Electron.FrameCreatedDetails][]>;
+      const promise = emittedNTimes(w.webContents, 'frame-created', 2) as Promise<[any, Neutron.FrameCreatedDetails][]>;
       w.webContents.loadFile(path.join(subframesPath, 'frame-container.html'));
       const [[, mainDetails], [, nestedDetails]] = await promise;
       expect(mainDetails.frame).to.equal(w.webContents.mainFrame);

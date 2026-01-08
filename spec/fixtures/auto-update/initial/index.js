@@ -3,7 +3,7 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-const { autoUpdater } = require('electron');
+const { autoUpdater } = require('neutron');
 
 const feedUrl = process.argv[1];
 

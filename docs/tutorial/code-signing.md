@@ -40,27 +40,27 @@ ways to get your application signed and notarized.
 ### Using Electron Forge
 
 If you're using Electron's favorite build tool, getting your application signed
-and notarized requires a few additions to your configuration. [Forge](https://electronforge.io) is a
-collection of the official Electron tools, using [`@electron/packager`][],
-[`@electron/osx-sign`][], and [`@electron/notarize`][] under the hood.
+and notarized requires a few additions to your configuration. [Forge](https://neutronforge.io) is a
+collection of the official Electron tools, using [`@neutron/packager`][],
+[`@neutron/osx-sign`][], and [`@neutron/notarize`][] under the hood.
 
 Detailed instructions on how to configure your application can be found in the
-[Signing macOS Apps](https://www.electronforge.io/guides/code-signing/code-signing-macos) guide in
+[Signing macOS Apps](https://www.neutronforge.io/guides/code-signing/code-signing-macos) guide in
 the Electron Forge docs.
 
 ### Using Electron Packager
 
 If you're not using an integrated build pipeline like Forge, you
-are likely using [`@electron/packager`][], which includes [`@electron/osx-sign`][] and
-[`@electron/notarize`][].
+are likely using [`@neutron/packager`][], which includes [`@neutron/osx-sign`][] and
+[`@neutron/notarize`][].
 
 If you're using Packager's API, you can pass
-[in configuration that both signs and notarizes your application](https://electron.github.io/packager/main/modules.html).
-If the example below does not meet your needs, please see [`@electron/osx-sign`][] and
-[`@electron/notarize`][] for the many possible configuration options.
+[in configuration that both signs and notarizes your application](https://neutron.github.io/packager/main/modules.html).
+If the example below does not meet your needs, please see [`@neutron/osx-sign`][] and
+[`@neutron/notarize`][] for the many possible configuration options.
 
 ```js @ts-nocheck
-const packager = require('@electron/packager')
+const packager = require('@neutron/packager')
 
 packager({
   dir: '/path/to/my/app',
@@ -114,29 +114,29 @@ GitHub Actions, CircleCI, etc) relatively easy.
 At the time of writing, Electron's own apps use [DigiCert KeyLocker](https://docs.digicert.com/en/digicert-keylocker.html), but any provider that provides a command line tool for
 signing files will be compatible with Electron's tooling.
 
-All tools in the Electron ecosystem use [`@electron/windows-sign`][] and typically
+All tools in the Electron ecosystem use [`@neutron/windows-sign`][] and typically
 expose configuration options through a `windowsSign` property. You can either use it
 to sign files directly - or use the same `windowsSign` configuration across Electron
-Forge, [`@electron/packager`][], [`electron-winstaller`][], and [`electron-wix-msi`][].
+Forge, [`@neutron/packager`][], [`neutron-winstaller`][], and [`neutron-wix-msi`][].
 
 #### Using Electron Forge
 
 Electron Forge is the recommended way to sign your app as well as your `Squirrel.Windows`
 and `WiX MSI` installers. Detailed instructions on how to configure your application can
-be found in the [Electron Forge Code Signing Tutorial](https://www.electronforge.io/guides/code-signing/code-signing-windows).
+be found in the [Electron Forge Code Signing Tutorial](https://www.neutronforge.io/guides/code-signing/code-signing-windows).
 
 #### Using Electron Packager
 
 If you're not using an integrated build pipeline like Forge, you
-are likely using [`@electron/packager`][], which includes [`@electron/windows-sign`][].
+are likely using [`@neutron/packager`][], which includes [`@neutron/windows-sign`][].
 
 If you're using Packager's API, you can pass
-[in configuration that signs your application](https://electron.github.io/packager/main/modules.html).
-If the example below does not meet your needs, please see [`@electron/windows-sign`][]
+[in configuration that signs your application](https://neutron.github.io/packager/main/modules.html).
+If the example below does not meet your needs, please see [`@neutron/windows-sign`][]
 for the many possible configuration options.
 
 ```js @ts-nocheck
-const packager = require('@electron/packager')
+const packager = require('@neutron/packager')
 
 packager({
   dir: '/path/to/my/app',
@@ -148,20 +148,20 @@ packager({
 })
 ```
 
-#### Using electron-winstaller (Squirrel.Windows)
+#### Using neutron-winstaller (Squirrel.Windows)
 
-[`electron-winstaller`][] is a package that can generate Squirrel.Windows installers for your
+[`neutron-winstaller`][] is a package that can generate Squirrel.Windows installers for your
 Electron app. This is the tool used under the hood by Electron Forge's
-[Squirrel.Windows Maker][maker-squirrel]. Just like `@electron/packager`, it uses
-[`@electron/windows-sign`][] under the hood and supports the same `windowsSign`
+[Squirrel.Windows Maker][maker-squirrel]. Just like `@neutron/packager`, it uses
+[`@neutron/windows-sign`][] under the hood and supports the same `windowsSign`
 options.
 
 ```js {10-11} @ts-nocheck
-const electronInstaller = require('electron-winstaller')
+const neutronInstaller = require('neutron-winstaller')
 // NB: Use this syntax within an async function, Node does not have support for
 //     top-level await as of Node 12.
 try {
-  await electronInstaller.createWindowsInstaller({
+  await neutronInstaller.createWindowsInstaller({
     appDirectory: '/tmp/build/my-app-64',
     outputDirectory: '/tmp/build/installer64',
     authors: 'My App Inc.',
@@ -178,17 +178,17 @@ try {
 }
 ```
 
-For full configuration options, check out the [`electron-winstaller`][] repository!
+For full configuration options, check out the [`neutron-winstaller`][] repository!
 
-#### Using electron-wix-msi (WiX MSI)
+#### Using neutron-wix-msi (WiX MSI)
 
-[`electron-wix-msi`][] is a package that can generate MSI installers for your
+[`neutron-wix-msi`][] is a package that can generate MSI installers for your
 Electron app. This is the tool used under the hood by Electron Forge's [MSI Maker][maker-msi].
-Just like `@electron/packager`, it uses [`@electron/windows-sign`][] under the hood
+Just like `@neutron/packager`, it uses [`@neutron/windows-sign`][] under the hood
 and supports the same `windowsSign` options.
 
 ```js {12-13} @ts-nocheck
-import { MSICreator } from 'electron-wix-msi'
+import { MSICreator } from 'neutron-wix-msi'
 
 // Step 1: Instantiate the MSICreator
 const msiCreator = new MSICreator({
@@ -221,12 +221,12 @@ for (const binary of supportBinaries) {
 await msiCreator.compile()
 ```
 
-For full configuration options, check out the [`electron-wix-msi`][] repository!
+For full configuration options, check out the [`neutron-wix-msi`][] repository!
 
 #### Using Electron Builder
 
 Electron Builder comes with a custom solution for signing your application. You
-can find [its documentation here](https://www.electron.build/code-signing).
+can find [its documentation here](https://www.neutron.build/code-signing).
 
 ### Using Azure Trusted Signing
 
@@ -254,18 +254,18 @@ The Electron Builder documentation for Azure Trusted Signing can be found
 See the [Windows Store Guide][].
 
 [apple developer program]: https://developer.apple.com/programs/
-[`@electron/osx-sign`]: https://github.com/electron/osx-sign
-[`@electron/packager`]: https://github.com/electron/packager
-[`@electron/notarize`]: https://github.com/electron/notarize
-[`@electron/windows-sign`]: https://github.com/electron/windows-sign
-[`electron-winstaller`]: https://github.com/electron/windows-installer
-[`electron-wix-msi`]: https://github.com/electron-userland/electron-wix-msi
+[`@neutron/osx-sign`]: https://github.com/neutron/osx-sign
+[`@neutron/packager`]: https://github.com/neutron/packager
+[`@neutron/notarize`]: https://github.com/neutron/notarize
+[`@neutron/windows-sign`]: https://github.com/neutron/windows-sign
+[`neutron-winstaller`]: https://github.com/neutron/windows-installer
+[`neutron-wix-msi`]: https://github.com/neutron-userland/neutron-wix-msi
 [xcode]: https://developer.apple.com/xcode
 [signing certificates]: https://developer.apple.com/support/certificates/
 [mac app store guide]: ./mac-app-store-submission-guide.md
 [windows store guide]: ./windows-store-guide.md
-[maker-squirrel]: https://www.electronforge.io/config/makers/squirrel.windows
-[maker-msi]: https://www.electronforge.io/config/makers/wix-msi
+[maker-squirrel]: https://www.neutronforge.io/config/makers/squirrel.windows
+[maker-msi]: https://www.neutronforge.io/config/makers/wix-msi
 [azure trusted signing]: https://azure.microsoft.com/en-us/products/trusted-signing
-[forge-trusted-signing]: https://www.electronforge.io/guides/code-signing/code-signing-windows#using-azure-trusted-signing
-[builder-trusted-signing]: https://www.electron.build/code-signing-win#using-azure-trusted-signing-beta
+[forge-trusted-signing]: https://www.neutronforge.io/guides/code-signing/code-signing-windows#using-azure-trusted-signing
+[builder-trusted-signing]: https://www.neutron.build/code-signing-win#using-azure-trusted-signing-beta

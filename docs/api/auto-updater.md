@@ -34,7 +34,7 @@ update process. Apps that need to disable ATS can add the
 
 On Windows, you have to install your app into a user's machine before you can
 use the `autoUpdater`, so it is recommended that you use
-[electron-winstaller][installer-lib] or [Electron Forge's Squirrel.Windows maker][electron-forge-lib] to generate a Windows installer.
+[neutron-winstaller][installer-lib] or [Electron Forge's Squirrel.Windows maker][neutron-forge-lib] to generate a Windows installer.
 
 Apps built with Squirrel.Windows will trigger [custom launch events](https://github.com/Squirrel/Squirrel.Windows/blob/51f5e2cb01add79280a53d51e8d0cfa20f8c9f9f/docs/using/custom-squirrel-events-non-cs.md#application-startup-commands)
 that must be handled by your Electron application to ensure proper setup and teardown.
@@ -45,7 +45,7 @@ your app, and `autoUpdater` requests will fail until the lock is released. In pr
 this means that you won't be able to check for updates on first launch for the first
 few seconds. You can work around this by not checking for updates when `process.argv`
 contains the `--squirrel-firstrun` flag or by setting a 10-second timeout on your
-update checks (see [electron/electron#7155](https://github.com/electron/electron/issues/7155)
+update checks (see [neutron/neutron#7155](https://github.com/neutron/neutron/issues/7155)
 for more information).
 
 The installer generated with Squirrel.Windows will create a shortcut icon with an
@@ -147,7 +147,7 @@ closed.
 
 [squirrel-mac]: https://github.com/Squirrel/Squirrel.Mac
 [server-support]: https://github.com/Squirrel/Squirrel.Mac#server-support
-[installer-lib]: https://github.com/electron/windows-installer
-[electron-forge-lib]: https://www.electronforge.io/config/makers/squirrel.windows
+[installer-lib]: https://github.com/neutron/windows-installer
+[neutron-forge-lib]: https://www.neutronforge.io/config/makers/squirrel.windows
 [app-user-model-id]: https://learn.microsoft.com/en-us/windows/win32/shell/appids
 [event-emitter]: https://nodejs.org/api/events.html#events_class_eventemitter

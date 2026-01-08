@@ -1,5 +1,5 @@
-import { NativeImage, nativeImage } from 'electron/common';
-import { BrowserWindow } from 'electron/main';
+import { NativeImage, nativeImage } from 'neutron/common';
+import { BrowserWindow } from 'neutron/main';
 
 import { AssertionError, expect } from 'chai';
 
@@ -118,7 +118,7 @@ async function pageCaptureTestRecipe (
   }
 }
 
-describe('-electron-corner-smoothing', () => {
+describe('-neutron-corner-smoothing', () => {
   afterEach(async () => {
     await closeAllWindows();
   });

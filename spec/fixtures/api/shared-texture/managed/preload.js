@@ -1,5 +1,5 @@
-const { sharedTexture } = require('electron');
-const { ipcRenderer, contextBridge } = require('electron/renderer');
+const { sharedTexture } = require('neutron');
+const { ipcRenderer, contextBridge } = require('neutron/renderer');
 
 contextBridge.exposeInMainWorld('textures', {
   onSharedTexture: (cb) => {

@@ -265,7 +265,7 @@ your long-running tasks, but also includes a small number of performance traps.
 [worker threads][worker-threads], consider moving them to the BrowserWindow, or
 (as a last resort) spawn a dedicated process.
 
-2. Avoid using the synchronous IPC and the `@electron/remote` module as much
+2. Avoid using the synchronous IPC and the `@neutron/remote` module as much
 as possible. While there are legitimate use cases, it is far too easy to
 unknowingly block the UI thread.
 
@@ -431,7 +431,7 @@ If you build your own menu or use a frameless window without native menu, you sh
 
 #### How?
 
-Call `Menu.setApplicationMenu(null)` before `app.on("ready")`. This will prevent Electron from setting a default menu. See also https://github.com/electron/electron/issues/35512 for a related discussion.
+Call `Menu.setApplicationMenu(null)` before `app.on("ready")`. This will prevent Electron from setting a default menu. See also https://github.com/neutron/neutron/issues/35512 for a related discussion.
 
 [security]: ./security.md
 [chrome-devtools-tutorial]: https://developer.chrome.com/docs/devtools/performance/

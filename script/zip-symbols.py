@@ -6,11 +6,11 @@ import os
 import sys
 
 from lib.config import PLATFORM
-from lib.util import scoped_cwd, get_electron_version, make_zip, make_tar_xz, \
-                     get_electron_branding, get_out_dir, execute
+from lib.util import scoped_cwd, get_neutron_version, make_zip, make_tar_xz, \
+                     get_neutron_branding, get_out_dir, execute
 
-ELECTRON_VERSION = get_electron_version()
-PROJECT_NAME = get_electron_branding()['project_name']
+ELECTRON_VERSION = get_neutron_version()
+PROJECT_NAME = get_neutron_branding()['project_name']
 OUT_DIR = get_out_dir()
 
 def main():

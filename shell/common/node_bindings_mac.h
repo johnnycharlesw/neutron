@@ -7,7 +7,7 @@
 
 #include "shell/common/node_bindings.h"
 
-namespace electron {
+namespace neutron {
 
 class NodeBindingsMac : public NodeBindings {
  public:
@@ -18,6 +18,6 @@ class NodeBindingsMac : public NodeBindings {
   void PollEvents() override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_NODE_BINDINGS_MAC_H_

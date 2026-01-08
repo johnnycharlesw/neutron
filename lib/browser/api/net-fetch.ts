@@ -1,6 +1,6 @@
-import { allowAnyProtocol } from '@electron/internal/common/api/net-client-request';
+import { allowAnyProtocol } from '@neutron/internal/common/api/net-client-request';
 
-import { ClientRequestConstructorOptions, ClientRequest, IncomingMessage, Session as SessionT } from 'electron/main';
+import { ClientRequestConstructorOptions, ClientRequest, IncomingMessage, Session as SessionT } from 'neutron/main';
 
 import { Readable, Writable, isReadable } from 'stream';
 

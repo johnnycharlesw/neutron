@@ -17,7 +17,7 @@ Notification objects created using this module do not appear unless their `show(
 method is called.
 
 ```js title='Main Process'
-const { Notification } = require('electron')
+const { Notification } = require('neutron')
 
 const NOTIFICATION_TITLE = 'Basic Notification'
 const NOTIFICATION_BODY = 'Notification from the Main process'
@@ -31,7 +31,7 @@ new Notification({
 Here's a full example that you can open with Electron Fiddle:
 
 ```fiddle docs/fiddles/features/notifications/main
-const { app, BrowserWindow, Notification } = require('electron/main')
+const { app, BrowserWindow, Notification } = require('neutron/main')
 
 function createWindow () {
   const win = new BrowserWindow({
@@ -101,7 +101,7 @@ For notifications on Windows, your Electron app needs to have a Start Menu short
 [AppUserModelID][app-user-model-id] and a corresponding [ToastActivatorCLSID][toast-activator-clsid].
 
 Electron attempts to automate the work around the AppUserModelID and ToastActivatorCLSID. When
-Electron is used together with Squirrel.Windows (e.g. if you're using electron-winstaller),
+Electron is used together with Squirrel.Windows (e.g. if you're using neutron-winstaller),
 [shortcuts will automatically be set correctly][squirrel-events].
 
 In production, Electron will also detect that Squirrel was used and will automatically call
@@ -111,7 +111,7 @@ to call [`app.setAppUserModelId()`][set-app-user-model-id] yourself.
 :::info Notifications in development
 
 To quickly bootstrap notifications during development, adding
-`node_modules\electron\dist\electron.exe` to your Start Menu also does the
+`node_modules\neutron\dist\neutron.exe` to your Start Menu also does the
 trick. Navigate to the file in Explorer, right-click and 'Pin to Start Menu'.
 Then, call `app.setAppUserModelId(process.execPath)` in the main process to see notifications.
 
@@ -123,12 +123,12 @@ Windows also allow for advanced notifications with custom templates, images, and
 elements.
 
 To send those notifications from the main process, you can use the userland module
-[`electron-windows-notifications`](https://github.com/felixrieseberg/electron-windows-notifications),
+[`neutron-windows-notifications`](https://github.com/felixrieseberg/neutron-windows-notifications),
 which uses native Node addons to send `ToastNotification` and `TileNotification` objects.
 
-While notifications including buttons work with `electron-windows-notifications`,
+While notifications including buttons work with `neutron-windows-notifications`,
 handling replies requires the use of
-[`electron-windows-interactive-notifications`](https://github.com/felixrieseberg/electron-windows-interactive-notifications),
+[`neutron-windows-interactive-notifications`](https://github.com/felixrieseberg/neutron-windows-interactive-notifications),
 which helps with registering the required COM components and calling your
 Electron app with the entered user data.
 
@@ -164,7 +164,7 @@ including Cinnamon, Enlightenment, Unity, GNOME, and KDE.
 [notification-spec]: https://specifications.freedesktop.org/notification-spec/notification-spec-latest.html
 [app-user-model-id]: https://learn.microsoft.com/en-us/windows/win32/shell/appids
 [set-app-user-model-id]: ../api/app.md#appsetappusermodelidid-windows
-[squirrel-events]: https://github.com/electron/windows-installer/blob/main/README.md#handling-squirrel-events
+[squirrel-events]: https://github.com/neutron/windows-installer/blob/main/README.md#handling-squirrel-events
 [toast-activator-clsid]: https://learn.microsoft.com/en-us/windows/win32/properties/props-system-appusermodel-toastactivatorclsid
 [apple-notification-guidelines]: https://developer.apple.com/design/human-interface-guidelines/notifications
 [windows-notification-state]: https://github.com/felixrieseberg/windows-notification-state

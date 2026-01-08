@@ -12,11 +12,11 @@ describe('cpp heap', () => {
         const { getCppHeapStatistics } = require('node:v8');
         const heapStatsBefore = getCppHeapStatistics('brief');
         {
-          const { app } = require('electron');
+          const { app } = require('neutron');
           console.log(app.name);
         }
         {
-          const { app } = require('electron');
+          const { app } = require('neutron');
           console.log(app.dock);
         }
         const heapStatsAfter = getCppHeapStatistics('brief');
@@ -31,8 +31,8 @@ describe('cpp heap', () => {
         const { recordState } = require(heap);
         const { containsRetainingPath } = require(snapshotHelper);
         const state = recordState();
-        return containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Electron / App']);
-      }, path.join(__dirname, '../../third_party/electron_node/test/common/heap'),
+        return containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Neutron / App']);
+      }, path.join(__dirname, '../../third_party/neutron_node/test/common/heap'),
       path.join(__dirname, 'lib', 'heapsnapshot-helpers.js'));
       expect(result).to.equal(true);
     });
@@ -42,7 +42,7 @@ describe('cpp heap', () => {
     it('should record as node in heap snapshot', async () => {
       const { remotely } = await startRemoteControlApp(['--expose-internals']);
       const result = await remotely(async (heap: string, snapshotHelper: string) => {
-        const { session, BrowserWindow } = require('electron');
+        const { session, BrowserWindow } = require('neutron');
         const { once } = require('node:events');
         const assert = require('node:assert');
         const { recordState } = require(heap);
@@ -66,12 +66,12 @@ describe('cpp heap', () => {
         const isClosed = once(w, 'closed');
         w.destroy();
         await isClosed;
-        const numSessions = containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Electron / Session'], {
+        const numSessions = containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Neutron / Session'], {
           occurrences: 4
         });
-        const canTraceJSReferences = containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Electron / Session', 'Cookies']);
+        const canTraceJSReferences = containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Neutron / Session', 'Cookies']);
         return numSessions && canTraceJSReferences;
-      }, path.join(__dirname, '../../third_party/electron_node/test/common/heap'),
+      }, path.join(__dirname, '../../third_party/neutron_node/test/common/heap'),
       path.join(__dirname, 'lib', 'heapsnapshot-helpers.js'));
       expect(result).to.equal(true);
     });
@@ -81,7 +81,7 @@ describe('cpp heap', () => {
     it('should record as node in heap snapshot', async () => {
       const { remotely } = await startRemoteControlApp(['--expose-internals']);
       const result = await remotely(async (heap: string, snapshotHelper: string) => {
-        const { BrowserWindow } = require('electron');
+        const { BrowserWindow } = require('neutron');
         const { once } = require('node:events');
         const { recordState } = require(heap);
         const { containsRetainingPath } = require(snapshotHelper);
@@ -94,10 +94,10 @@ describe('cpp heap', () => {
         const isClosed = once(w, 'closed');
         w.destroy();
         await isClosed;
-        const eventNativeStackReference = containsRetainingPath(state.snapshot, ['C++ native stack roots', 'Electron / Event']);
-        const noPersistentReference = !containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Electron / Event']);
+        const eventNativeStackReference = containsRetainingPath(state.snapshot, ['C++ native stack roots', 'Neutron / Event']);
+        const noPersistentReference = !containsRetainingPath(state.snapshot, ['C++ Persistent roots', 'Neutron / Event']);
         return eventNativeStackReference && noPersistentReference;
-      }, path.join(__dirname, '../../third_party/electron_node/test/common/heap'),
+      }, path.join(__dirname, '../../third_party/neutron_node/test/common/heap'),
       path.join(__dirname, 'lib', 'heapsnapshot-helpers.js'));
       expect(result).to.equal(true);
     });

@@ -20,9 +20,9 @@ class AddressList;
 struct ResolveErrorInfo;
 }  // namespace net
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserContext;
+class NeutronBrowserContext;
 
 class ResolveHostFunction
     : public base::RefCountedThreadSafe<ResolveHostFunction>,
@@ -31,7 +31,7 @@ class ResolveHostFunction
   using ResolveHostCallback = base::OnceCallback<
       void(int64_t, const std::optional<net::AddressList>& resolved_addresses)>;
 
-  explicit ResolveHostFunction(ElectronBrowserContext* browser_context,
+  explicit ResolveHostFunction(NeutronBrowserContext* browser_context,
                                std::string host,
                                network::mojom::ResolveHostParametersPtr params,
                                ResolveHostCallback callback);
@@ -61,12 +61,12 @@ class ResolveHostFunction
   mojo::Receiver<network::mojom::ResolveHostClient> receiver_{this};
 
   // Weak Ref
-  raw_ptr<ElectronBrowserContext> browser_context_;
+  raw_ptr<NeutronBrowserContext> browser_context_;
   std::string host_;
   network::mojom::ResolveHostParametersPtr params_;
   ResolveHostCallback callback_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_RESOLVE_HOST_FUNCTION_H_

@@ -45,9 +45,9 @@ class Dictionary;
 class PersistentDictionary;
 }  // namespace gin_helper
 
-namespace electron {
+namespace neutron {
 
-class ElectronMenuModel;
+class NeutronMenuModel;
 class BackgroundThrottlingSource;
 
 #if BUILDFLAG(IS_MAC)
@@ -195,7 +195,7 @@ class NativeWindow : public base::SupportsUserData,
   virtual bool IsContentProtected() const = 0;
   virtual void SetFocusable(bool focusable) {}
   virtual bool IsFocusable() const;
-  virtual void SetMenu(ElectronMenuModel* menu) {}
+  virtual void SetMenu(NeutronMenuModel* menu) {}
   virtual void SetParentWindow(NativeWindow* parent);
   virtual content::DesktopMediaID GetDesktopMediaID() const = 0;
   virtual gfx::NativeView GetNativeView() const = 0;
@@ -491,7 +491,7 @@ class NativeWindow : public base::SupportsUserData,
   // The "titleBarStyle" option.
   const TitleBarStyle title_bar_style_;
 
-  // Whether window has standard frame, but it's drawn by Electron (the client
+  // Whether window has standard frame, but it's drawn by Neutron (the client
   // application) instead of the OS. Currently only has meaning on Linux for
   // Wayland hosts.
   const bool has_client_frame_ = PlatformHasClientFrame();
@@ -570,6 +570,6 @@ class NativeWindowRelay
   base::WeakPtr<NativeWindow> native_window_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NATIVE_WINDOW_H_

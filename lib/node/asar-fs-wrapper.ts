@@ -6,7 +6,7 @@ import * as util from 'util';
 import type * as Crypto from 'crypto';
 import type * as os from 'os';
 
-const asar = process._linkedBinding('electron_common_asar');
+const asar = process._linkedBinding('neutron_common_asar');
 
 const Module = require('module') as NodeJS.ModuleInternal;
 
@@ -1241,7 +1241,7 @@ export const wrapFsWithAsar = (fs: Record<string, any>) => {
   const overrideChildProcess = (childProcess: Record<string, any>) => {
     // Executing a command string containing a path to an asar archive
     // confuses `childProcess.execFile`, which is internally called by
-    // `childProcess.{exec,execSync}`, causing Electron to consider the full
+    // `childProcess.{exec,execSync}`, causing Neutron to consider the full
     // command as a single path to an archive.
     const { exec, execSync } = childProcess;
     childProcess.exec = invokeWithNoAsar(exec);

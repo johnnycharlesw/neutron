@@ -13,7 +13,7 @@ when the content finishes loading.
 Note that `ImageView` is experimental and may be changed or removed in the future.
 
 ```js
-const { BaseWindow, ImageView, nativeImage, WebContentsView } = require('electron')
+const { BaseWindow, ImageView, nativeImage, WebContentsView } = require('neutron')
 
 const path = require('node:path')
 
@@ -30,7 +30,7 @@ webContentsView.webContents.once('did-finish-load', () => {
   // Now that the WebContentsView has loaded, swap out the "splash screen" ImageView
   win.setContentView(webContentsView)
 })
-webContentsView.webContents.loadURL('https://electronjs.org')
+webContentsView.webContents.loadURL('https://neutronjs.org')
 ```
 
 ## Class: ImageView extends `View`
@@ -45,7 +45,7 @@ Process: [Main](../glossary.md#main-process)
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### `new ImageView()` _Experimental_
 

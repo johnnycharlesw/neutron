@@ -5,10 +5,10 @@
 #ifndef ELECTRON_SHELL_APP_NODE_MAIN_H_
 #define ELECTRON_SHELL_APP_NODE_MAIN_H_
 
-namespace electron {
+namespace neutron {
 
 int NodeMain();
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_APP_NODE_MAIN_H_

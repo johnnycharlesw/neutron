@@ -12,7 +12,7 @@
 
 #include "gin/converter.h"
 #include "services/device/public/mojom/usb_device.mojom-forward.h"
-#include "shell/browser/electron_permission_manager.h"
+#include "shell/browser/neutron_permission_manager.h"
 #include "shell/common/gin_converters/std_converter.h"
 #include "third_party/abseil-cpp/absl/container/inlined_vector.h"
 
@@ -29,10 +29,10 @@ static auto constexpr ClassMapping =
          {device::mojom::kUsbWirelessClass, "wireless"}}};
 
 template <>
-struct Converter<electron::ElectronPermissionManager::USBProtectedClasses> {
+struct Converter<neutron::NeutronPermissionManager::USBProtectedClasses> {
   static v8::Local<v8::Value> ToV8(
       v8::Isolate* isolate,
-      const electron::ElectronPermissionManager::USBProtectedClasses& classes) {
+      const neutron::NeutronPermissionManager::USBProtectedClasses& classes) {
     absl::InlinedVector<std::string_view, ClassMapping.size()> class_strings;
     for (const auto& itr : classes) {
       for (const auto& [usb_class, name] : ClassMapping) {
@@ -46,7 +46,7 @@ struct Converter<electron::ElectronPermissionManager::USBProtectedClasses> {
   static bool FromV8(
       v8::Isolate* isolate,
       v8::Local<v8::Value> val,
-      electron::ElectronPermissionManager::USBProtectedClasses* out) {
+      neutron::NeutronPermissionManager::USBProtectedClasses* out) {
     std::vector<std::string> class_strings;
     if (ConvertFromV8(isolate, val, &class_strings)) {
       out->reserve(std::size(class_strings));

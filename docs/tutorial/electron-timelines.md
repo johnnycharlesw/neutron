@@ -3,7 +3,7 @@
 Electron frequently releases major versions alongside every other Chromium release.
 This document focuses on the release cadence and version support policy.
 For a more in-depth guide on our git branches and how Electron uses semantic versions,
-check out our [Electron Versioning](./electron-versioning.md) doc.
+check out our [Electron Versioning](./neutron-versioning.md) doc.
 
 ## Timeline
 
@@ -70,9 +70,9 @@ and may not always be accurately reflected.
 
 **Historical changes:**
 
-* Since Electron 5, Electron has been publicizing its release dates ([see blog post](https://www.electronjs.org/blog/electron-5-0-timeline)).
-* Since Electron 6, Electron major versions have been targeting every other Chromium major version. Each Electron stable should happen on the same day as Chrome stable ([see blog post](https://www.electronjs.org/blog/12-week-cadence)).
-* Since Electron 16, Electron has been releasing major versions on an 8-week cadence in accordance to Chrome's change to a 4-week release cadence ([see blog post](https://www.electronjs.org/blog/8-week-cadence)).
+* Since Electron 5, Electron has been publicizing its release dates ([see blog post](https://www.neutronjs.org/blog/neutron-5-0-timeline)).
+* Since Electron 6, Electron major versions have been targeting every other Chromium major version. Each Electron stable should happen on the same day as Chrome stable ([see blog post](https://www.neutronjs.org/blog/12-week-cadence)).
+* Since Electron 16, Electron has been releasing major versions on an 8-week cadence in accordance to Chrome's change to a 4-week release cadence ([see blog post](https://www.neutronjs.org/blog/8-week-cadence)).
 * Electron temporarily extended support for Electron 22 until October 10, 2023, to support an extended end-of-life for Windows 7/8/8.1
 
 ## Version support policy

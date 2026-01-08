@@ -10,7 +10,7 @@
 
 #include "ui/events/keycodes/keyboard_codes.h"
 
-namespace electron {
+namespace neutron {
 
 // Return key code of the |str|, if the original key is a shifted character,
 // for example + and /, set it in |shifted_char|.
@@ -18,6 +18,6 @@ namespace electron {
 ui::KeyboardCode KeyboardCodeFromStr(std::string_view str,
                                      std::optional<char16_t>* shifted_char);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_KEYBOARD_UTIL_H_

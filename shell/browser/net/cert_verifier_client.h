@@ -10,7 +10,7 @@
 #include "net/cert/x509_certificate.h"
 #include "services/network/public/mojom/network_context.mojom.h"
 
-namespace electron {
+namespace neutron {
 
 struct VerifyRequestParams {
   std::string hostname;
@@ -47,6 +47,6 @@ class CertVerifierClient : public network::mojom::CertVerifierClient {
   CertVerifyProc cert_verify_proc_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_CERT_VERIFIER_CLIENT_H_

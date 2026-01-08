@@ -1,4 +1,4 @@
-import { net, protocol } from 'electron/main';
+import { net, protocol } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -16,12 +16,12 @@ describe('net module custom protocols', () => {
   });
 
   it('can make requests to custom protocols', async () => {
-    protocol.registerStringProtocol('electron-test', (req, cb) => { cb('hello ' + req.url); });
+    protocol.registerStringProtocol('neutron-test', (req, cb) => { cb('hello ' + req.url); });
     defer(() => {
-      protocol.unregisterProtocol('electron-test');
+      protocol.unregisterProtocol('neutron-test');
     });
-    const body = await net.fetch('electron-test://foo').then(r => r.text());
-    expect(body).to.equal('hello electron-test://foo');
+    const body = await net.fetch('neutron-test://foo').then(r => r.text());
+    expect(body).to.equal('hello neutron-test://foo');
   });
 
   it('runs through intercept handlers', async () => {
@@ -43,41 +43,41 @@ describe('net module custom protocols', () => {
   });
 
   it('can be redirected', async () => {
-    protocol.interceptStringProtocol('file', (req, cb) => { cb({ statusCode: 302, headers: { location: 'electron-test://bar' } }); });
+    protocol.interceptStringProtocol('file', (req, cb) => { cb({ statusCode: 302, headers: { location: 'neutron-test://bar' } }); });
     defer(() => {
       protocol.uninterceptProtocol('file');
     });
-    protocol.registerStringProtocol('electron-test', (req, cb) => { cb('hello ' + req.url); });
+    protocol.registerStringProtocol('neutron-test', (req, cb) => { cb('hello ' + req.url); });
     defer(() => {
-      protocol.unregisterProtocol('electron-test');
+      protocol.unregisterProtocol('neutron-test');
     });
     const body = await net.fetch('file://foo').then(r => r.text());
-    expect(body).to.equal('hello electron-test://bar');
+    expect(body).to.equal('hello neutron-test://bar');
   });
 
   it('should not follow redirect when redirect: error', async () => {
-    protocol.registerStringProtocol('electron-test', (req, cb) => {
-      if (/redirect/.test(req.url)) return cb({ statusCode: 302, headers: { location: 'electron-test://bar' } });
+    protocol.registerStringProtocol('neutron-test', (req, cb) => {
+      if (/redirect/.test(req.url)) return cb({ statusCode: 302, headers: { location: 'neutron-test://bar' } });
       cb('hello ' + req.url);
     });
     defer(() => {
-      protocol.unregisterProtocol('electron-test');
+      protocol.unregisterProtocol('neutron-test');
     });
-    await expect(net.fetch('electron-test://redirect', { redirect: 'error' })).to.eventually.be.rejectedWith('Attempted to redirect, but redirect policy was \'error\'');
+    await expect(net.fetch('neutron-test://redirect', { redirect: 'error' })).to.eventually.be.rejectedWith('Attempted to redirect, but redirect policy was \'error\'');
   });
 
   it('a 307 redirected POST request preserves the body', async () => {
     const bodyData = 'Hello World!';
     let postedBodyData: any;
-    protocol.registerStringProtocol('electron-test', async (req, cb) => {
-      if (/redirect/.test(req.url)) return cb({ statusCode: 307, headers: { location: 'electron-test://bar' } });
+    protocol.registerStringProtocol('neutron-test', async (req, cb) => {
+      if (/redirect/.test(req.url)) return cb({ statusCode: 307, headers: { location: 'neutron-test://bar' } });
       postedBodyData = req.uploadData![0].bytes.toString();
       cb('hello ' + req.url);
     });
     defer(() => {
-      protocol.unregisterProtocol('electron-test');
+      protocol.unregisterProtocol('neutron-test');
     });
-    const response = await net.fetch('electron-test://redirect', {
+    const response = await net.fetch('neutron-test://redirect', {
       method: 'POST',
       body: bodyData
     });

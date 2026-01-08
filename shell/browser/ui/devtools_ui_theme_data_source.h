@@ -7,7 +7,7 @@
 
 #include "content/public/browser/url_data_source.h"
 
-namespace electron {
+namespace neutron {
 // A ThemeDataSource implementation that handles devtools://theme/
 // requests.
 class ThemeDataSource : public content::URLDataSource {
@@ -32,5 +32,5 @@ class ThemeDataSource : public content::URLDataSource {
                      content::URLDataSource::GotDataCallback callback);
 };
 
-}  // namespace electron
+}  // namespace neutron
 #endif  // ELECTRON_SHELL_BROWSER_UI_DEVTOOLS_UI_THEME_DATA_SOURCE_H_

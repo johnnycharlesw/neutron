@@ -1,6 +1,6 @@
 # Breaking Changes
 
-Breaking changes will be documented here, and deprecation warnings added to JS code where possible, at least [one major version](tutorial/electron-versioning.md#semver) before the change is made.
+Breaking changes will be documented here, and deprecation warnings added to JS code where possible, at least [one major version](tutorial/neutron-versioning.md#semver) before the change is made.
 
 ### Types of Breaking Changes
 
@@ -16,7 +16,7 @@ This document uses the following convention to categorize breaking changes:
 
 ### Behavior Changed: PDFs no longer create a separate WebContents
 
-Previously, PDF resources created a separate guest [WebContents](https://www.electronjs.org/docs/latest/api/web-contents) for rendering. Now, PDFs are rendered within the same WebContents instead. If you have code to detect PDF resources, use the [frame tree](https://www.electronjs.org/docs/latest/api/web-frame-main) instead of WebContents.
+Previously, PDF resources created a separate guest [WebContents](https://www.neutronjs.org/docs/latest/api/web-contents) for rendering. Now, PDFs are rendered within the same WebContents instead. If you have code to detect PDF resources, use the [frame tree](https://www.neutronjs.org/docs/latest/api/web-frame-main) instead of WebContents.
 
 Under the hood, Chromium [enabled](https://chromium-review.googlesource.com/c/chromium/src/+/7239572) a feature that changes PDFs to use out-of-process iframes (OOPIFs) instead of the `MimeHandlerViewGuest` extension.
 
@@ -26,7 +26,7 @@ Under the hood, Chromium [enabled](https://chromium-review.googlesource.com/c/ch
 
 Using the `clipboard` API directly in the renderer process is deprecated.
 If you want to call this API from a renderer process, place the API call in
-your preload script and expose it using the [contextBridge](https://www.electronjs.org/docs/latest/api/context-bridge) API.
+your preload script and expose it using the [contextBridge](https://www.neutronjs.org/docs/latest/api/context-bridge) API.
 
 ### Behavior Changed: MacOS dSYM files now compressed with tar.xz
 
@@ -123,7 +123,7 @@ This brings the behavior of `process.exit()` in line with Node.js behavior.
 
 Please refer to the
 [Node.js docs](https://nodejs.org/docs/latest-v22.x/api/process.html#processexitcode) and
-[PR #45690](https://github.com/electron/electron/pull/45690) to understand the potential
+[PR #45690](https://github.com/neutron/neutron/pull/45690) to understand the potential
 implications of that, e.g., when calling `console.log()` before `process.exit()`.
 
 ### Behavior Changed: WebUSB and WebSerial Blocklist Support
@@ -218,7 +218,7 @@ https://learn.microsoft.com/en-us/windows/win32/dwm/composition-ovw#disabling-dw
 
 After an [upstream change](https://chromium-review.googlesource.com/c/chromium/src/+/6310469), GTK 4 is now the default when running GNOME.
 
-In rare cases, this may cause some applications or configurations to [error](https://github.com/electron/electron/issues/46538) with the following message:
+In rare cases, this may cause some applications or configurations to [error](https://github.com/neutron/neutron/issues/46538) with the following message:
 
 ```stderr
 Gtk-ERROR **: 11:30:38.382: GTK 2/3 symbols detected. Using GTK 2/3 and GTK 4 in the same process is not supported
@@ -227,10 +227,10 @@ Gtk-ERROR **: 11:30:38.382: GTK 2/3 symbols detected. Using GTK 2/3 and GTK 4 in
 Affected users can work around this by specifying the `gtk-version` command-line flag:
 
 ```shell
-$ electron --gtk-version=3   # or --gtk-version=2
+$ neutron --gtk-version=3   # or --gtk-version=2
 ```
 
-The same can be done with the [`app.commandLine.appendSwitch`](https://www.electronjs.org/docs/latest/api/command-line#commandlineappendswitchswitch-value) function.
+The same can be done with the [`app.commandLine.appendSwitch`](https://www.neutronjs.org/docs/latest/api/command-line#commandlineappendswitchswitch-value) function.
 
 ## Planned Breaking API Changes (35.0)
 
@@ -242,7 +242,7 @@ supported when using portal file chooser dialogs unless the portal
 backend is version 4 or higher. The `--xdg-portal-required-version`
 [command-line switch](api/command-line-switches.md#--xdg-portal-required-versionversion)
 can be used to force a required version for your application.
-See [#44426](https://github.com/electron/electron/pull/44426) for more details.
+See [#44426](https://github.com/neutron/neutron/pull/44426) for more details.
 
 ### Deprecated: `getFromVersionID` on `session.serviceWorkers`
 
@@ -415,7 +415,7 @@ Due to changes made upstream, both
 minimum version. Developers using native node modules should build their
 modules with `--std=c++20` rather than `--std=c++17`. Images using gcc9 or
 lower may need to update to gcc10 in order to compile. See
-[#43555](https://github.com/electron/electron/pull/43555) for more details.
+[#43555](https://github.com/neutron/neutron/pull/43555) for more details.
 
 ### Deprecated: `systemPreferences.accessibilityDisplayShouldReduceTransparency`
 
@@ -446,12 +446,12 @@ alert(`Uploaded file path was: ${file.path}`)
 // After (renderer)
 
 const file = document.querySelector('input[type=file]').files[0]
-electron.showFilePath(file)
+neutron.showFilePath(file)
 
 // (preload)
-const { contextBridge, webUtils } = require('electron')
+const { contextBridge, webUtils } = require('neutron')
 
-contextBridge.exposeInMainWorld('electron', {
+contextBridge.exposeInMainWorld('neutron', {
   showFilePath (file) {
     // It's best not to expose the full file path to the web content if
     // possible.
@@ -494,7 +494,7 @@ If you have a directory called `databases` in the directory returned by
 `app.getPath('userData')`, it will be deleted when Electron 32 is first run.
 The `databases` directory was used by WebSQL, which was removed in Electron 31.
 Chromium now performs a cleanup that deletes this directory. See
-[issue #45396](https://github.com/electron/electron/issues/45396).
+[issue #45396](https://github.com/neutron/neutron/issues/45396).
 
 ## Planned Breaking API Changes (31.0)
 
@@ -513,7 +513,7 @@ See [crbug.com/332584706](https://issues.chromium.org/issues/332584706) for more
 
 ### Behavior Changed: `window.flashFrame(bool)` will flash dock icon continuously on macOS
 
-This brings the behavior to parity with Windows and Linux. Prior behavior: The first `flashFrame(true)` bounces the dock icon only once (using the [NSInformationalRequest](https://developer.apple.com/documentation/appkit/nsrequestuserattentiontype/nsinformationalrequest) level) and `flashFrame(false)` does nothing. New behavior: Flash continuously until `flashFrame(false)` is called. This uses the [NSCriticalRequest](https://developer.apple.com/documentation/appkit/nsrequestuserattentiontype/nscriticalrequest) level instead. To explicitly use `NSInformationalRequest` to cause a single dock icon bounce, it is still possible to use [`dock.bounce('informational')`](https://www.electronjs.org/docs/latest/api/dock#dockbouncetype-macos).
+This brings the behavior to parity with Windows and Linux. Prior behavior: The first `flashFrame(true)` bounces the dock icon only once (using the [NSInformationalRequest](https://developer.apple.com/documentation/appkit/nsrequestuserattentiontype/nsinformationalrequest) level) and `flashFrame(false)` does nothing. New behavior: Flash continuously until `flashFrame(false)` is called. This uses the [NSCriticalRequest](https://developer.apple.com/documentation/appkit/nsrequestuserattentiontype/nscriticalrequest) level instead. To explicitly use `NSInformationalRequest` to cause a single dock icon bounce, it is still possible to use [`dock.bounce('informational')`](https://www.neutronjs.org/docs/latest/api/dock#dockbouncetype-macos).
 
 ## Planned Breaking API Changes (30.0)
 
@@ -912,12 +912,12 @@ protocol.handle('some-protocol', () => {
 ```js
 // Deprecated in Electron 25
 protocol.registerHttpProtocol('some-protocol', () => {
-  callback({ url: 'https://electronjs.org' })
+  callback({ url: 'https://neutronjs.org' })
 })
 
 // Replace with
 protocol.handle('some-protocol', () => {
-  return net.fetch('https://electronjs.org')
+  return net.fetch('https://neutronjs.org')
 })
 ```
 
@@ -1014,13 +1014,13 @@ nativeImage.createThumbnailFromPath(imagePath, size).then(result => {
 
 The implementation of draggable regions (using the CSS property `-webkit-app-region: drag`) has changed on macOS to bring it in line with Windows and Linux. Previously, when a region with `-webkit-app-region: no-drag` overlapped a region with `-webkit-app-region: drag`, the `no-drag` region would always take precedence on macOS, regardless of CSS layering. That is, if a `drag` region was above a `no-drag` region, it would be ignored. Beginning in Electron 23, a `drag` region on top of a `no-drag` region will correctly cause the region to be draggable.
 
-Additionally, the `customButtonsOnHover` BrowserWindow property previously created a draggable region which ignored the `-webkit-app-region` CSS property. This has now been fixed (see [#37210](https://github.com/electron/electron/issues/37210#issuecomment-1440509592) for discussion).
+Additionally, the `customButtonsOnHover` BrowserWindow property previously created a draggable region which ignored the `-webkit-app-region` CSS property. This has now been fixed (see [#37210](https://github.com/neutron/neutron/issues/37210#issuecomment-1440509592) for discussion).
 
 As a result, if your app uses a frameless window with draggable regions on macOS, the regions which are draggable in your app may change in Electron 23.
 
 ### Removed: Windows 7 / 8 / 8.1 support
 
-[Windows 7, Windows 8, and Windows 8.1 are no longer supported](https://www.electronjs.org/blog/windows-7-to-8-1-deprecation-notice). Electron follows the planned Chromium deprecation policy, which will [deprecate Windows 7 support beginning in Chromium 109](https://support.google.com/chrome/thread/185534985/sunsetting-support-for-windows-7-8-8-1-in-early-2023?hl=en).
+[Windows 7, Windows 8, and Windows 8.1 are no longer supported](https://www.neutronjs.org/blog/windows-7-to-8-1-deprecation-notice). Electron follows the planned Chromium deprecation policy, which will [deprecate Windows 7 support beginning in Chromium 109](https://support.google.com/chrome/thread/185534985/sunsetting-support-for-windows-7-8-8-1-in-early-2023?hl=en).
 
 Older versions of Electron will continue to run on these operating systems, but Windows 10 or later will be required to run Electron v23.0.0 and higher.
 
@@ -1171,7 +1171,7 @@ mainWindow.webContents.on('did-attach-webview', (event, wc) => {
 })
 
 // preload.js
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 ipcRenderer.on('webview-new-window', (e, webContentsId, details) => {
   console.log('webview-new-window', webContentsId, details)
   document.getElementById('webview').dispatchEvent(new Event('new-window'))
@@ -1213,7 +1213,7 @@ win.webContents.on('input-event', (_, event) => {
 
 The V8 memory cage has been enabled, which has implications for native modules
 which wrap non-V8 memory with `ArrayBuffer` or `Buffer`. See the
-[blog post about the V8 memory cage](https://www.electronjs.org/blog/v8-memory-cage) for
+[blog post about the V8 memory cage](https://www.neutronjs.org/blog/v8-memory-cage) for
 more details.
 
 ### API Changed: `webContents.printToPDF()`
@@ -1243,7 +1243,7 @@ address changes upstream that made our previous implementation untenable and rif
 
 ```js
 // Main process
-const { webContents } = require('electron')
+const { webContents } = require('neutron')
 
 webContents.printToPDF({
   landscape: true,
@@ -1338,7 +1338,7 @@ If you need this functionality, it can be replaced as follows:
 
 ```js
 // Main process
-const { ipcMain, desktopCapturer } = require('electron')
+const { ipcMain, desktopCapturer } = require('neutron')
 
 ipcMain.handle(
   'DESKTOP_CAPTURER_GET_SOURCES',
@@ -1348,7 +1348,7 @@ ipcMain.handle(
 
 ```js
 // Renderer process
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 const desktopCapturer = {
   getSources: (opts) => ipcRenderer.invoke('DESKTOP_CAPTURER_GET_SOURCES', opts)
@@ -1423,19 +1423,19 @@ console.log(app.runningUnderARM64Translation)
 
 The `remote` module was deprecated in Electron 12, and will be removed in
 Electron 14. It is replaced by the
-[`@electron/remote`](https://github.com/electron/remote) module.
+[`@neutron/remote`](https://github.com/neutron/remote) module.
 
 ```js
 // Deprecated in Electron 12:
-const { BrowserWindow } = require('electron').remote
+const { BrowserWindow } = require('neutron').remote
 ```
 
 ```js
 // Replace with:
-const { BrowserWindow } = require('@electron/remote')
+const { BrowserWindow } = require('@neutron/remote')
 
 // In the main process:
-require('@electron/remote/main').initialize()
+require('@neutron/remote/main').initialize()
 ```
 
 ### Removed: `app.allowRendererProcessReuse`
@@ -1443,7 +1443,7 @@ require('@electron/remote/main').initialize()
 The `app.allowRendererProcessReuse` property will be removed as part of our plan to
 more closely align with Chromium's process model for security, performance and maintainability.
 
-For more detailed information see [#18397](https://github.com/electron/electron/issues/18397).
+For more detailed information see [#18397](https://github.com/neutron/neutron/issues/18397).
 
 ### Removed: Browser Window Affinity
 
@@ -1451,7 +1451,7 @@ The `affinity` option when constructing a new `BrowserWindow` will be removed
 as part of our plan to more closely align with Chromium's process model for security,
 performance and maintainability.
 
-For more detailed information see [#18397](https://github.com/electron/electron/issues/18397).
+For more detailed information see [#18397](https://github.com/neutron/neutron/issues/18397).
 
 ### API Changed: `window.open()`
 
@@ -1665,7 +1665,7 @@ We [recommend having contextIsolation enabled](tutorial/security.md#3-enable-con
 Another implication is that `require()` cannot be used in the renderer process unless
 `nodeIntegration` is `true` and `contextIsolation` is `false`.
 
-For more details see: https://github.com/electron/electron/issues/23506
+For more details see: https://github.com/neutron/neutron/issues/23506
 
 ### Removed: `crashReporter.getCrashesDirectory()`
 
@@ -1693,7 +1693,7 @@ process:
 
 They should be called only from the main process.
 
-See [#23265](https://github.com/electron/electron/pull/23265) for more details.
+See [#23265](https://github.com/neutron/neutron/pull/23265) for more details.
 
 ### Default Changed: `crashReporter.start({ compress: true })`
 
@@ -1710,19 +1710,19 @@ options.
 
 The `remote` module is deprecated in Electron 12, and will be removed in
 Electron 14. It is replaced by the
-[`@electron/remote`](https://github.com/electron/remote) module.
+[`@neutron/remote`](https://github.com/neutron/remote) module.
 
 ```js
 // Deprecated in Electron 12:
-const { BrowserWindow } = require('electron').remote
+const { BrowserWindow } = require('neutron').remote
 ```
 
 ```js
 // Replace with:
-const { BrowserWindow } = require('@electron/remote')
+const { BrowserWindow } = require('@neutron/remote')
 
 // In the main process:
-require('@electron/remote/main').initialize()
+require('@neutron/remote/main').initialize()
 ```
 
 ### Deprecated: `shell.moveItemToTrash()`
@@ -1745,7 +1745,7 @@ The experimental APIs `BrowserView.{destroy, fromId, fromWebContents, getAllView
 have now been removed. Additionally, the `id` property of `BrowserView`
 has also been removed.
 
-For more detailed information, see [#23578](https://github.com/electron/electron/pull/23578).
+For more detailed information, see [#23578](https://github.com/neutron/neutron/pull/23578).
 
 ## Planned Breaking API Changes (10.0)
 
@@ -1792,7 +1792,7 @@ renderer are `addExtraParameter`, `removeExtraParameter` and `getParameters`.
 
 All above methods remain non-deprecated when called from the main process.
 
-See [#23265](https://github.com/electron/electron/pull/23265) for more details.
+See [#23265](https://github.com/neutron/neutron/pull/23265) for more details.
 
 ### Deprecated: `crashReporter.start({ compress: false })`
 
@@ -1815,7 +1815,7 @@ const w = new BrowserWindow({
 })
 ```
 
-We [recommend moving away from the remote module](https://medium.com/@nornagon/electrons-remote-module-considered-harmful-70d69500f31).
+We [recommend moving away from the remote module](https://medium.com/@nornagon/neutrons-remote-module-considered-harmful-70d69500f31).
 
 ### `protocol.unregisterProtocol`
 
@@ -1887,7 +1887,7 @@ If this impacts you, you can temporarily set `app.allowRendererProcessReuse` to 
 to revert to the old behavior.  This flag will only be an option until Electron 11 so
 you should plan to update your native modules to be context aware.
 
-For more detailed information see [#18397](https://github.com/electron/electron/issues/18397).
+For more detailed information see [#18397](https://github.com/neutron/neutron/issues/18397).
 
 ### Deprecated: `BrowserWindow` extension APIs
 
@@ -1938,7 +1938,7 @@ This API, which was deprecated in Electron 8.0, is now removed.
 // Removed in Electron 9.0
 webview.getWebContents()
 // Replace with
-const { remote } = require('electron')
+const { remote } = require('neutron')
 remote.webContents.fromId(webview.getWebContentsId())
 ```
 
@@ -1969,7 +1969,7 @@ error.
 ### API Changed: `shell.openItem` is now `shell.openPath`
 
 The `shell.openItem` API has been replaced with an asynchronous `shell.openPath` API.
-You can see the original API proposal and reasoning [here](https://github.com/electron/governance/blob/main/wg-api/spec-documents/shell-openitem.md).
+You can see the original API proposal and reasoning [here](https://github.com/neutron/governance/blob/main/wg-api/spec-documents/shell-openitem.md).
 
 ## Planned Breaking API Changes (8.0)
 
@@ -2035,7 +2035,7 @@ and security implications. Therefore its usage should be explicit.
 // Deprecated
 webview.getWebContents()
 // Replace with
-const { remote } = require('electron')
+const { remote } = require('neutron')
 remote.webContents.fromId(webview.getWebContentsId())
 ```
 
@@ -2043,7 +2043,7 @@ However, it is recommended to avoid using the `remote` module altogether.
 
 ```js
 // main
-const { ipcMain, webContents } = require('electron')
+const { ipcMain, webContents } = require('neutron')
 
 const getGuestForWebContents = (webContentsId, contents) => {
   const guest = webContents.fromId(webContentsId)
@@ -2062,7 +2062,7 @@ ipcMain.handle('openDevTools', (event, webContentsId) => {
 })
 
 // renderer
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 ipcRenderer.invoke('openDevTools', webview.getWebContentsId())
 ```
@@ -2132,9 +2132,9 @@ This is the URL specified as `disturl` in a `.npmrc` file or as the `--dist-url`
 command line flag when building native Node modules.  Both will be supported for
 the foreseeable future but it is recommended that you switch.
 
-Deprecated: https://atom.io/download/electron
+Deprecated: https://atom.io/download/neutron
 
-Replace with: https://electronjs.org/headers
+Replace with: https://neutronjs.org/headers
 
 ### API Changed: `session.clearAuthCache()` no longer accepts options
 
@@ -2231,46 +2231,46 @@ In Electron 7, all deprecated callback-based APIs are now removed.
 
 These functions now only return Promises:
 
-* `app.getFileIcon()` [#15742](https://github.com/electron/electron/pull/15742)
-* `app.dock.show()` [#16904](https://github.com/electron/electron/pull/16904)
-* `contentTracing.getCategories()` [#16583](https://github.com/electron/electron/pull/16583)
-* `contentTracing.getTraceBufferUsage()` [#16600](https://github.com/electron/electron/pull/16600)
-* `contentTracing.startRecording()` [#16584](https://github.com/electron/electron/pull/16584)
-* `contentTracing.stopRecording()` [#16584](https://github.com/electron/electron/pull/16584)
-* `contents.executeJavaScript()` [#17312](https://github.com/electron/electron/pull/17312)
-* `cookies.flushStore()` [#16464](https://github.com/electron/electron/pull/16464)
-* `cookies.get()` [#16464](https://github.com/electron/electron/pull/16464)
-* `cookies.remove()` [#16464](https://github.com/electron/electron/pull/16464)
-* `cookies.set()` [#16464](https://github.com/electron/electron/pull/16464)
-* `debugger.sendCommand()` [#16861](https://github.com/electron/electron/pull/16861)
-* `dialog.showCertificateTrustDialog()` [#17181](https://github.com/electron/electron/pull/17181)
-* `inAppPurchase.getProducts()` [#17355](https://github.com/electron/electron/pull/17355)
-* `inAppPurchase.purchaseProduct()`[#17355](https://github.com/electron/electron/pull/17355)
-* `netLog.stopLogging()` [#16862](https://github.com/electron/electron/pull/16862)
-* `session.clearAuthCache()` [#17259](https://github.com/electron/electron/pull/17259)
-* `session.clearCache()`  [#17185](https://github.com/electron/electron/pull/17185)
-* `session.clearHostResolverCache()` [#17229](https://github.com/electron/electron/pull/17229)
-* `session.clearStorageData()` [#17249](https://github.com/electron/electron/pull/17249)
-* `session.getBlobData()` [#17303](https://github.com/electron/electron/pull/17303)
-* `session.getCacheSize()`  [#17185](https://github.com/electron/electron/pull/17185)
-* `session.resolveProxy()` [#17222](https://github.com/electron/electron/pull/17222)
-* `session.setProxy()`  [#17222](https://github.com/electron/electron/pull/17222)
-* `shell.openExternal()` [#16176](https://github.com/electron/electron/pull/16176)
-* `webContents.loadFile()` [#15855](https://github.com/electron/electron/pull/15855)
-* `webContents.loadURL()` [#15855](https://github.com/electron/electron/pull/15855)
-* `webContents.hasServiceWorker()` [#16535](https://github.com/electron/electron/pull/16535)
-* `webContents.printToPDF()` [#16795](https://github.com/electron/electron/pull/16795)
-* `webContents.savePage()` [#16742](https://github.com/electron/electron/pull/16742)
-* `webFrame.executeJavaScript()` [#17312](https://github.com/electron/electron/pull/17312)
-* `webFrame.executeJavaScriptInIsolatedWorld()` [#17312](https://github.com/electron/electron/pull/17312)
-* `webviewTag.executeJavaScript()` [#17312](https://github.com/electron/electron/pull/17312)
-* `win.capturePage()` [#15743](https://github.com/electron/electron/pull/15743)
+* `app.getFileIcon()` [#15742](https://github.com/neutron/neutron/pull/15742)
+* `app.dock.show()` [#16904](https://github.com/neutron/neutron/pull/16904)
+* `contentTracing.getCategories()` [#16583](https://github.com/neutron/neutron/pull/16583)
+* `contentTracing.getTraceBufferUsage()` [#16600](https://github.com/neutron/neutron/pull/16600)
+* `contentTracing.startRecording()` [#16584](https://github.com/neutron/neutron/pull/16584)
+* `contentTracing.stopRecording()` [#16584](https://github.com/neutron/neutron/pull/16584)
+* `contents.executeJavaScript()` [#17312](https://github.com/neutron/neutron/pull/17312)
+* `cookies.flushStore()` [#16464](https://github.com/neutron/neutron/pull/16464)
+* `cookies.get()` [#16464](https://github.com/neutron/neutron/pull/16464)
+* `cookies.remove()` [#16464](https://github.com/neutron/neutron/pull/16464)
+* `cookies.set()` [#16464](https://github.com/neutron/neutron/pull/16464)
+* `debugger.sendCommand()` [#16861](https://github.com/neutron/neutron/pull/16861)
+* `dialog.showCertificateTrustDialog()` [#17181](https://github.com/neutron/neutron/pull/17181)
+* `inAppPurchase.getProducts()` [#17355](https://github.com/neutron/neutron/pull/17355)
+* `inAppPurchase.purchaseProduct()`[#17355](https://github.com/neutron/neutron/pull/17355)
+* `netLog.stopLogging()` [#16862](https://github.com/neutron/neutron/pull/16862)
+* `session.clearAuthCache()` [#17259](https://github.com/neutron/neutron/pull/17259)
+* `session.clearCache()`  [#17185](https://github.com/neutron/neutron/pull/17185)
+* `session.clearHostResolverCache()` [#17229](https://github.com/neutron/neutron/pull/17229)
+* `session.clearStorageData()` [#17249](https://github.com/neutron/neutron/pull/17249)
+* `session.getBlobData()` [#17303](https://github.com/neutron/neutron/pull/17303)
+* `session.getCacheSize()`  [#17185](https://github.com/neutron/neutron/pull/17185)
+* `session.resolveProxy()` [#17222](https://github.com/neutron/neutron/pull/17222)
+* `session.setProxy()`  [#17222](https://github.com/neutron/neutron/pull/17222)
+* `shell.openExternal()` [#16176](https://github.com/neutron/neutron/pull/16176)
+* `webContents.loadFile()` [#15855](https://github.com/neutron/neutron/pull/15855)
+* `webContents.loadURL()` [#15855](https://github.com/neutron/neutron/pull/15855)
+* `webContents.hasServiceWorker()` [#16535](https://github.com/neutron/neutron/pull/16535)
+* `webContents.printToPDF()` [#16795](https://github.com/neutron/neutron/pull/16795)
+* `webContents.savePage()` [#16742](https://github.com/neutron/neutron/pull/16742)
+* `webFrame.executeJavaScript()` [#17312](https://github.com/neutron/neutron/pull/17312)
+* `webFrame.executeJavaScriptInIsolatedWorld()` [#17312](https://github.com/neutron/neutron/pull/17312)
+* `webviewTag.executeJavaScript()` [#17312](https://github.com/neutron/neutron/pull/17312)
+* `win.capturePage()` [#15743](https://github.com/neutron/neutron/pull/15743)
 
 These functions now have two forms, synchronous and Promise-based asynchronous:
 
-* `dialog.showMessageBox()`/`dialog.showMessageBoxSync()` [#17298](https://github.com/electron/electron/pull/17298)
-* `dialog.showOpenDialog()`/`dialog.showOpenDialogSync()` [#16973](https://github.com/electron/electron/pull/16973)
-* `dialog.showSaveDialog()`/`dialog.showSaveDialogSync()` [#17054](https://github.com/electron/electron/pull/17054)
+* `dialog.showMessageBox()`/`dialog.showMessageBoxSync()` [#17298](https://github.com/neutron/neutron/pull/17298)
+* `dialog.showOpenDialog()`/`dialog.showOpenDialogSync()` [#16973](https://github.com/neutron/neutron/pull/16973)
+* `dialog.showSaveDialog()`/`dialog.showSaveDialogSync()` [#17054](https://github.com/neutron/neutron/pull/17054)
 
 ## Planned Breaking API Changes (6.0)
 
@@ -2283,13 +2283,13 @@ win.setMenu(null)
 win.removeMenu()
 ```
 
-### API Changed: `electron.screen` in the renderer process should be accessed via `remote`
+### API Changed: `neutron.screen` in the renderer process should be accessed via `remote`
 
 ```js
 // Deprecated
-require('electron').screen
+require('neutron').screen
 // Replace with
-require('electron').remote.screen
+require('neutron').remote.screen
 ```
 
 ### API Changed: `require()`ing node builtins in sandboxed renderers no longer implicitly loads the `remote` version
@@ -2298,22 +2298,22 @@ require('electron').remote.screen
 // Deprecated
 require('child_process')
 // Replace with
-require('electron').remote.require('child_process')
+require('neutron').remote.require('child_process')
 
 // Deprecated
 require('fs')
 // Replace with
-require('electron').remote.require('fs')
+require('neutron').remote.require('fs')
 
 // Deprecated
 require('os')
 // Replace with
-require('electron').remote.require('os')
+require('neutron').remote.require('os')
 
 // Deprecated
 require('path')
 // Replace with
-require('electron').remote.require('path')
+require('neutron').remote.require('path')
 ```
 
 ### Deprecated: `powerMonitor.querySystemIdleState` replaced with `powerMonitor.getSystemIdleState`
@@ -2491,7 +2491,7 @@ See the [native module guide](./tutorial/using-native-node-modules.md) for more.
 
 ### Removed: IA32 Linux support
 
-Electron 18 will no longer run on 32-bit Linux systems. See [discontinuing support for 32-bit Linux](https://www.electronjs.org/blog/linux-32bit-support) for more information.
+Electron 18 will no longer run on 32-bit Linux systems. See [discontinuing support for 32-bit Linux](https://www.neutronjs.org/blog/linux-32bit-support) for more information.
 
 ## Breaking API Changes (3.0)
 
@@ -2679,7 +2679,7 @@ command line flag when building native Node modules.
 
 Deprecated: https://atom.io/download/atom-shell
 
-Replace with: https://atom.io/download/electron
+Replace with: https://atom.io/download/neutron
 
 ## Breaking API Changes (2.0)
 
@@ -2721,7 +2721,7 @@ nativeImage.toJPEG()
 
 ### `process`
 
-* `process.versions.electron` and `process.version.chrome` will be made
+* `process.versions.neutron` and `process.version.chrome` will be made
   read-only properties for consistency with the other `process.versions`
   properties set by Node.
 
@@ -2755,8 +2755,8 @@ webview.setVisualZoomLevelLimits(1, 2)
 ### Duplicate ARM Assets
 
 Each Electron release includes two identical ARM builds with slightly different
-filenames, like `electron-v1.7.3-linux-arm.zip` and
-`electron-v1.7.3-linux-armv7l.zip`. The asset with the `v7l` prefix was added
+filenames, like `neutron-v1.7.3-linux-arm.zip` and
+`neutron-v1.7.3-linux-armv7l.zip`. The asset with the `v7l` prefix was added
 to clarify to users which ARM version it supports, and to disambiguate it from
 future armv6l and arm64 assets that may be produced.
 
@@ -2765,6 +2765,6 @@ setups that may be consuming it. Starting at 2.0, the unprefixed file will
 no longer be published.
 
 For details, see
-[6986](https://github.com/electron/electron/pull/6986)
+[6986](https://github.com/neutron/neutron/pull/6986)
 and
-[7189](https://github.com/electron/electron/pull/7189).
+[7189](https://github.com/neutron/neutron/pull/7189).

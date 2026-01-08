@@ -1,6 +1,6 @@
 // Verifies that objects contained in custom snapshot are accessible in Electron.
 
-const { app } = require('electron');
+const { app } = require('neutron');
 
 app.whenReady().then(() => {
   let returnCode = 0;

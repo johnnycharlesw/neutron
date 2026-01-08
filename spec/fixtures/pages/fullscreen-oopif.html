@@ -1,5 +1,5 @@
 <script>
-    const { webFrame, ipcRenderer } = require('electron')
+    const { webFrame, ipcRenderer } = require('neutron')
 
     document.addEventListener('fullscreenchange', () => {
         ipcRenderer.send('fullscreenChange', webFrame.frameToken)

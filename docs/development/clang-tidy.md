@@ -15,7 +15,7 @@ from. A typical usage would be:
 With no filenames provided, all C/C++/Objective-C files will be checked.
 You can provide a list of files to be checked by passing the filenames after
 the options:
-`npm run lint:clang-tidy --out-dir ../out/Testing shell/browser/api/electron_api_app.cc`
+`npm run lint:clang-tidy --out-dir ../out/Testing shell/browser/api/neutron_api_app.cc`
 
 While `clang-tidy` has a
 [long list](https://clang.llvm.org/extra/clang-tidy/checks/list.html)

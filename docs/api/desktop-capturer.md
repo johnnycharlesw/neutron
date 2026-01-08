@@ -10,7 +10,7 @@ title is `Electron`:
 
 ```js
 // main.js
-const { app, BrowserWindow, desktopCapturer, session } = require('electron')
+const { app, BrowserWindow, desktopCapturer, session } = require('neutron')
 
 app.whenReady().then(() => {
   const mainWindow = new BrowserWindow()

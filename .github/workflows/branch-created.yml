@@ -35,7 +35,7 @@ jobs:
         if: ${{ steps.check-major-version.outputs.MAJOR }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: electron/electron
+          GH_REPO: neutron/neutron
           MAJOR: ${{ steps.check-major-version.outputs.MAJOR }}
           NUM_SUPPORTED_VERSIONS: 3
         run: |
@@ -68,11 +68,11 @@ jobs:
           done
       - name: Generate GitHub App token
         if: ${{ steps.check-major-version.outputs.MAJOR }}
-        uses: electron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
+        uses: neutron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
         id: generate-token
         with:
           creds: ${{ secrets.RELEASE_BOARD_GH_APP_CREDS }}
-          org: electron
+          org: neutron
       - name: Generate Release Project Board Metadata
         if: ${{ steps.check-major-version.outputs.MAJOR }}
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
@@ -103,13 +103,13 @@ jobs:
           # public: true
           # TODO - Enable once GitHub doesn't require overly broad, read
           #        and write permission for repo "Contents" to link
-          # link-to-repository: electron/electron
+          # link-to-repository: neutron/neutron
           template-view: ${{ steps.generate-project-metadata.outputs.template-view }}
           title: ${{ steps.generate-project-metadata.outputs.major }}-x-y
           token: ${{ steps.generate-token.outputs.token }}
       - name: Dump Release Project Board Contents
         if: ${{ steps.check-major-version.outputs.MAJOR }}
-        run: gh project item-list ${{ steps.create-release-board.outputs.number }} --owner electron --format json | jq
+        run: gh project item-list ${{ steps.create-release-board.outputs.number }} --owner neutron --format json | jq
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
       - name: Find Previous Release Project Board

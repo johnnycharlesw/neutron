@@ -13,10 +13,10 @@ namespace v8 {
 class Isolate;
 }
 
-namespace electron {
+namespace neutron {
 
 bool TakeHeapSnapshot(v8::Isolate* isolate, base::File* file);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_HEAP_SNAPSHOT_H_

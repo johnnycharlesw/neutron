@@ -4,7 +4,7 @@ Welcome to the Codespaces Electron Developer Environment.
 
 ## Quick Start
 
-Upon creation of your codespace you should have [build tools](https://github.com/electron/build-tools) installed and an initialized gclient checkout of Electron.  In order to build electron you'll need to run the following command.
+Upon creation of your codespace you should have [build tools](https://github.com/neutron/build-tools) installed and an initialized gclient checkout of Electron.  In order to build neutron you'll need to run the following command.
 
 ```bash
 e build
@@ -14,15 +14,15 @@ The initial build will take ~8 minutes.  Incremental builds are substantially qu
 
 ## Directory Structure
 
-Codespaces doesn't lean very well into gclient based checkouts, the directory structure is slightly strange.  There are two locations for the `electron` checkout that both map to the same files under the hood.
+Codespaces doesn't lean very well into gclient based checkouts, the directory structure is slightly strange.  There are two locations for the `neutron` checkout that both map to the same files under the hood.
 
 ```graphql
 # Primary gclient checkout container
 /workspaces/gclient/*
   └─ src/* - # Chromium checkout
-     └─ electron - # Electron checkout
+     └─ neutron - # Electron checkout
 # Symlinked Electron checkout (identical to the above)
-/workspaces/electron
+/workspaces/neutron
 ```
 
 ## Reclient

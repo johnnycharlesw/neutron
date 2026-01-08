@@ -1,7 +1,7 @@
-const { contextBridge } = require('electron/renderer')
+const { contextBridge } = require('neutron/renderer')
 
 contextBridge.exposeInMainWorld('versions', {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron
+  neutron: () => process.versions.neutron
 })

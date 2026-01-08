@@ -24,7 +24,7 @@
 #include "ui/gfx/scoped_canvas.h"
 #include "ui/views/accessibility/view_accessibility.h"
 
-namespace electron {
+namespace neutron {
 
 WinCaptionButton::WinCaptionButton(PressedCallback callback,
                                    WinFrameView* frame_view,
@@ -223,4 +223,4 @@ void WinCaptionButton::PaintSymbol(gfx::Canvas* canvas) {
 BEGIN_METADATA(WinCaptionButton)
 END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

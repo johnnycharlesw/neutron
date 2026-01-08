@@ -1,4 +1,4 @@
-import { app, session, BrowserWindow, net, ipcMain, Session, webFrameMain, WebFrameMain } from 'electron/main';
+import { app, session, BrowserWindow, net, ipcMain, Session, webFrameMain, WebFrameMain } from 'neutron/main';
 
 import * as auth from 'basic-auth';
 import { expect } from 'chai';
@@ -33,7 +33,7 @@ describe('session module', () => {
 
   describe('session.fromPath(path)', () => {
     it('returns storage path of a session which was created with an absolute path', () => {
-      const tmppath = require('electron').app.getPath('temp');
+      const tmppath = require('neutron').app.getPath('temp');
       const ses = session.fromPath(tmppath);
       expect(ses.storagePath).to.equal(tmppath);
     });
@@ -261,7 +261,7 @@ describe('session module', () => {
   });
 
   describe('domain matching', () => {
-    let testSession: Electron.Session;
+    let testSession: Neutron.Session;
 
     beforeEach(() => {
       testSession = session.fromPartition(`cookies-domain-test-${Date.now()}`);
@@ -273,7 +273,7 @@ describe('session module', () => {
     });
 
     // Helper to set a cookie and then test if it's retrieved with a domain filter
-    async function testDomainMatching (setCookieOpts: Electron.CookiesSetDetails,
+    async function testDomainMatching (setCookieOpts: Neutron.CookiesSetDetails,
       domain: string,
       expectMatch: boolean) {
       await testSession.cookies.set(setCookieOpts);
@@ -508,7 +508,7 @@ describe('session module', () => {
       //   frameOrigin: 'https://compression-dictionary-transport-threejs-demo.glitch.me',
       //   topFrameSite: 'https://compression-dictionary-transport-threejs-demo.glitch.me'
       // })
-      const sharedDictionaryInfo = await runApp('getSharedDictionaryInfo') as Electron.SharedDictionaryInfo[];
+      const sharedDictionaryInfo = await runApp('getSharedDictionaryInfo') as Neutron.SharedDictionaryInfo[];
 
       expect(sharedDictionaryInfo).to.have.lengthOf(1);
       expect(sharedDictionaryInfo[0].match).to.not.be.undefined();
@@ -553,7 +553,7 @@ describe('session module', () => {
       });
       const url = (await listen(downloadServer)).url;
 
-      const downloadPrevented: Promise<{itemUrl: string, itemFilename: string, item: Electron.DownloadItem}> = new Promise(resolve => {
+      const downloadPrevented: Promise<{itemUrl: string, itemFilename: string, item: Neutron.DownloadItem}> = new Promise(resolve => {
         w.webContents.session.once('will-download', function (e, item) {
           e.preventDefault();
           resolve({ itemUrl: item.getURL(), itemFilename: item.getFilename(), item });
@@ -575,7 +575,7 @@ describe('session module', () => {
     let customSession: Session;
     const protocol = session.defaultSession.protocol;
     const handler = (ignoredError: any, callback: Function) => {
-      callback({ data: '<script>require(\'electron\').ipcRenderer.send(\'hello\')</script>', mimeType: 'text/html' });
+      callback({ data: '<script>require(\'neutron\').ipcRenderer.send(\'hello\')</script>', mimeType: 'text/html' });
     };
 
     beforeEach(async () => {
@@ -615,13 +615,13 @@ describe('session module', () => {
 
   describe('ses.setProxy(options)', () => {
     let server: http.Server;
-    let customSession: Electron.Session;
+    let customSession: Neutron.Session;
     let created = false;
 
     beforeEach(async () => {
       customSession = session.fromPartition('proxyconfig');
       if (!created) {
-        // Work around for https://github.com/electron/electron/issues/26166 to
+        // Work around for https://github.com/neutron/neutron/issues/26166 to
         // reduce flake
         await setTimeout(100);
         created = true;
@@ -756,7 +756,7 @@ describe('session module', () => {
   });
 
   describe('ses.resolveHost(host)', () => {
-    let customSession: Electron.Session;
+    let customSession: Neutron.Session;
 
     beforeEach(async () => {
       customSession = session.fromPartition('resolvehost');
@@ -1084,7 +1084,7 @@ describe('session module', () => {
     const isPathEqual = (path1: string, path2: string) => {
       return path.relative(path1, path2) === '';
     };
-    const assertDownload = (state: string, item: Electron.DownloadItem, isCustom = false) => {
+    const assertDownload = (state: string, item: Neutron.DownloadItem, isCustom = false) => {
       expect(state).to.equal('completed');
       expect(item.getFilename()).to.equal('mock.pdf');
       expect(path.isAbsolute(item.savePath)).to.equal(true);
@@ -1138,7 +1138,7 @@ describe('session module', () => {
 
         const { port } = await listen(server);
 
-        const downloadDone: Promise<Electron.DownloadItem> = new Promise((resolve) => {
+        const downloadDone: Promise<Neutron.DownloadItem> = new Promise((resolve) => {
           session.defaultSession.once('will-download', (e, item) => {
             item.savePath = downloadFilePath;
             item.on('done', () => {
@@ -1200,7 +1200,7 @@ describe('session module', () => {
 
         const { port } = await listen(server);
 
-        const downloadFailed: Promise<Electron.DownloadItem> = new Promise((resolve) => {
+        const downloadFailed: Promise<Neutron.DownloadItem> = new Promise((resolve) => {
           session.defaultSession.once('will-download', (_, item) => {
             item.savePath = downloadFilePath;
             item.on('done', (e, state) => {
@@ -1263,7 +1263,7 @@ describe('session module', () => {
         const { port } = await listen(server);
 
         const w = new BrowserWindow({ show: false });
-        const downloadDone: Promise<Electron.DownloadItem> = new Promise((resolve) => {
+        const downloadDone: Promise<Neutron.DownloadItem> = new Promise((resolve) => {
           w.webContents.session.once('will-download', (e, item) => {
             item.savePath = downloadFilePath;
             item.on('done', () => {
@@ -1292,7 +1292,7 @@ describe('session module', () => {
       it('can perform a download with referer header', async () => {
         const server = http.createServer((req, res) => {
           const { referer } = req.headers;
-          if (!referer || !referer.startsWith('http://www.electronjs.org')) {
+          if (!referer || !referer.startsWith('http://www.neutronjs.org')) {
             res.statusCode = 403;
             res.end();
           } else {
@@ -1308,7 +1308,7 @@ describe('session module', () => {
         const { port } = await listen(server);
 
         const w = new BrowserWindow({ show: false });
-        const downloadDone: Promise<Electron.DownloadItem> = new Promise((resolve) => {
+        const downloadDone: Promise<Neutron.DownloadItem> = new Promise((resolve) => {
           w.webContents.session.once('will-download', (e, item) => {
             item.savePath = downloadFilePath;
             item.on('done', () => {
@@ -1323,7 +1323,7 @@ describe('session module', () => {
           headers: {
             // Setting a Referer header with HTTPS scheme while the download URL's
             // scheme is HTTP might lead to download failure.
-            referer: 'http://www.electronjs.org'
+            referer: 'http://www.neutronjs.org'
           }
         });
 
@@ -1366,7 +1366,7 @@ describe('session module', () => {
         const { port } = await listen(server);
 
         const w = new BrowserWindow({ show: false });
-        const downloadFailed: Promise<Electron.DownloadItem> = new Promise((resolve) => {
+        const downloadFailed: Promise<Neutron.DownloadItem> = new Promise((resolve) => {
           w.webContents.session.once('will-download', (_, item) => {
             item.savePath = downloadFilePath;
             item.on('done', (e, state) => {
@@ -1492,7 +1492,7 @@ describe('session module', () => {
           webview.src = `file://${fixtures}/api/blank.html`;
           document.body.appendChild(webview);
         }
-        const done: Promise<[string, Electron.DownloadItem]> = new Promise(resolve => {
+        const done: Promise<[string, Neutron.DownloadItem]> = new Promise(resolve => {
           w.webContents.session.once('will-download', function (e, item) {
             item.savePath = downloadFilePath;
             item.on('done', function (e, state) {
@@ -1544,7 +1544,7 @@ describe('session module', () => {
       try {
         const { url } = await listen(rangeServer);
         const w = new BrowserWindow({ show: false });
-        const downloadCancelled: Promise<Electron.DownloadItem> = new Promise((resolve) => {
+        const downloadCancelled: Promise<Neutron.DownloadItem> = new Promise((resolve) => {
           w.webContents.session.once('will-download', function (e, item) {
             item.setSavePath(downloadFilePath);
             item.on('done', function () {
@@ -1567,7 +1567,7 @@ describe('session module', () => {
           lastModified: item.getLastModifiedTime(),
           eTag: item.getETag()
         };
-        const downloadResumed: Promise<Electron.DownloadItem> = new Promise((resolve) => {
+        const downloadResumed: Promise<Neutron.DownloadItem> = new Promise((resolve) => {
           w.webContents.session.once('will-download', function (e, item) {
             expect(item.getState()).to.equal('interrupted');
             item.setSavePath(downloadFilePath);
@@ -1629,11 +1629,11 @@ describe('session module', () => {
         cb(`<html><script>(${remote})()</script></html>`);
       });
 
-      const result = once(require('electron').ipcMain, 'message');
+      const result = once(require('neutron').ipcMain, 'message');
 
       function remote () {
         (navigator as any).requestMIDIAccess({ sysex: true }).then(() => {}, (err: any) => {
-          require('electron').ipcRenderer.send('message', err.name);
+          require('neutron').ipcRenderer.send('message', err.name);
         });
       }
 
@@ -1692,7 +1692,7 @@ describe('session module', () => {
       });
       const ses = w.webContents.session;
       const loadUrl = 'https://myfakesite/';
-      let handlerDetails : Electron.PermissionCheckHandlerHandlerDetails;
+      let handlerDetails : Neutron.PermissionCheckHandlerHandlerDetails;
 
       ses.protocol.interceptStringProtocol('https', (req, cb) => {
         cb('<html><script>console.log(\'test\');</script></html>');
@@ -1728,7 +1728,7 @@ describe('session module', () => {
       });
       const ses = w.webContents.session;
       const loadUrl = 'https://myfakesite/';
-      let handlerDetails : Electron.PermissionCheckHandlerHandlerDetails;
+      let handlerDetails : Neutron.PermissionCheckHandlerHandlerDetails;
 
       ses.protocol.interceptStringProtocol('https', (req, cb) => {
         cb('<html><script>console.log(\'test\');</script></html>');
@@ -1854,7 +1854,7 @@ describe('session module', () => {
         session.defaultSession.setCodeCachePath('');
       }).to.throw('Absolute path must be provided to store code cache.');
       expect(() => {
-        session.defaultSession.setCodeCachePath(path.join(app.getPath('userData'), 'electron-test-code-cache'));
+        session.defaultSession.setCodeCachePath(path.join(app.getPath('userData'), 'neutron-test-code-cache'));
       }).to.not.throw();
     });
   });

@@ -30,8 +30,8 @@
 #include "content/public/browser/web_contents.h"
 #include "net/base/filename_util.h"
 #include "net/base/mime_util.h"
-#include "shell/browser/api/electron_api_web_contents.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/native_window.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "ui/shell_dialogs/select_file_policy.h"
@@ -379,7 +379,7 @@ void FileSelectHelper::GetSanitizedFilenameOnUIThread(
   if (AbortIfWebContentsDestroyed())
     return;
 
-  auto* browser_context = static_cast<electron::ElectronBrowserContext*>(
+  auto* browser_context = static_cast<neutron::NeutronBrowserContext*>(
       render_frame_host_->GetProcess()->GetBrowserContext());
   base::FilePath default_file_path =
       browser_context->prefs()
@@ -418,7 +418,7 @@ void FileSelectHelper::RunFileChooserOnUIThread(
       NOTREACHED();
   }
 
-  auto* web_contents = electron::api::WebContents::From(
+  auto* web_contents = neutron::api::WebContents::From(
       content::WebContents::FromRenderFrameHost(render_frame_host_));
   if (!web_contents || !web_contents->owner_window())
     return;

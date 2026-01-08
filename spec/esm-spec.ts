@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron';
+import { BrowserWindow } from 'neutron';
 
 import { expect } from 'chai';
 
@@ -66,29 +66,29 @@ describe('esm', () => {
       expect(result.stdout).to.equal('Exit with app, ready: false');
     });
 
-    it('import \'electron/lol\' should throw', async () => {
-      const result = await runFixture(path.resolve(fixturePath, 'electron-modules', 'import-lol.mjs'));
+    it('import \'neutron/lol\' should throw', async () => {
+      const result = await runFixture(path.resolve(fixturePath, 'neutron-modules', 'import-lol.mjs'));
       expect(result.code).to.equal(1);
       expect(result.stderr).to.match(/Error \[ERR_MODULE_NOT_FOUND\]/);
     });
 
-    it('import \'electron/main\' should not throw', async () => {
-      const result = await runFixture(path.resolve(fixturePath, 'electron-modules', 'import-main.mjs'));
+    it('import \'neutron/main\' should not throw', async () => {
+      const result = await runFixture(path.resolve(fixturePath, 'neutron-modules', 'import-main.mjs'));
       expect(result.code).to.equal(0);
     });
 
-    it('import \'electron/renderer\' should not throw', async () => {
-      const result = await runFixture(path.resolve(fixturePath, 'electron-modules', 'import-renderer.mjs'));
+    it('import \'neutron/renderer\' should not throw', async () => {
+      const result = await runFixture(path.resolve(fixturePath, 'neutron-modules', 'import-renderer.mjs'));
       expect(result.code).to.equal(0);
     });
 
-    it('import \'electron/common\' should not throw', async () => {
-      const result = await runFixture(path.resolve(fixturePath, 'electron-modules', 'import-common.mjs'));
+    it('import \'neutron/common\' should not throw', async () => {
+      const result = await runFixture(path.resolve(fixturePath, 'neutron-modules', 'import-common.mjs'));
       expect(result.code).to.equal(0);
     });
 
-    it('import \'electron/utility\' should not throw', async () => {
-      const result = await runFixture(path.resolve(fixturePath, 'electron-modules', 'import-utility.mjs'));
+    it('import \'neutron/utility\' should not throw', async () => {
+      const result = await runFixture(path.resolve(fixturePath, 'neutron-modules', 'import-utility.mjs'));
       expect(result.code).to.equal(0);
     });
   });
@@ -105,7 +105,7 @@ describe('esm', () => {
       }
     });
 
-    async function loadWindowWithPreload (preload: string, webPreferences: Electron.WebPreferences) {
+    async function loadWindowWithPreload (preload: string, webPreferences: Neutron.WebPreferences) {
       const tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'e-spec-preload-'));
       tempDirs.push(tmpDir);
       const preloadPath = path.resolve(tmpDir, 'preload.mjs');
@@ -126,7 +126,7 @@ describe('esm', () => {
 
       await w.loadFile(path.resolve(fixturePath, 'empty.html'));
 
-      return [w.webContents, error] as [Electron.WebContents, Error | null];
+      return [w.webContents, error] as [Neutron.WebContents, Error | null];
     }
 
     describe('nodeIntegration', () => {
@@ -252,38 +252,38 @@ describe('esm', () => {
       });
     });
 
-    describe('electron modules', () => {
-      it('import \'electron/lol\' should throw', async () => {
-        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "electron/lol";', {
+    describe('neutron modules', () => {
+      it('import \'neutron/lol\' should throw', async () => {
+        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "neutron/lol";', {
           sandbox: false
         });
         expect(error).to.not.equal(null);
-        expect(error?.message).to.match(/Cannot find package 'electron'/);
+        expect(error?.message).to.match(/Cannot find package 'neutron'/);
       });
 
-      it('import \'electron/main\' should not throw', async () => {
-        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "electron/main";', {
+      it('import \'neutron/main\' should not throw', async () => {
+        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "neutron/main";', {
           sandbox: false
         });
         expect(error).to.equal(null);
       });
 
-      it('import \'electron/renderer\' should not throw', async () => {
-        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "electron/renderer";', {
+      it('import \'neutron/renderer\' should not throw', async () => {
+        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "neutron/renderer";', {
           sandbox: false
         });
         expect(error).to.equal(null);
       });
 
-      it('import \'electron/common\' should not throw', async () => {
-        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "electron/common";', {
+      it('import \'neutron/common\' should not throw', async () => {
+        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "neutron/common";', {
           sandbox: false
         });
         expect(error).to.equal(null);
       });
 
-      it('import \'electron/utility\' should not throw', async () => {
-        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "electron/utility";', {
+      it('import \'neutron/utility\' should not throw', async () => {
+        const [, error] = await loadWindowWithPreload('import { ipcRenderer } from "neutron/utility";', {
           sandbox: false
         });
         expect(error).to.equal(null);

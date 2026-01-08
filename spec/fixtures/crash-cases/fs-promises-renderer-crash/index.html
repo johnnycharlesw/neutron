@@ -2,7 +2,7 @@
 <body>
 <script>
 const fs = require('node:fs');
-const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('neutron');
 
 async function readFile(path) {
     await fs.promises.readFile(path);

@@ -320,7 +320,7 @@ def main():
     if not args.fix:
         # pylint: disable=consider-using-with
         patch_file = tempfile.NamedTemporaryFile(delete=False,
-                                                 prefix='electron-format-')
+                                                 prefix='neutron-format-')
 
     if njobs == 1:
         # execute directly instead of in a pool,

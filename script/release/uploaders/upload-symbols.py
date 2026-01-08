@@ -15,14 +15,14 @@ sys.path.append(
   os.path.abspath(os.path.dirname(os.path.abspath(__file__)) + "/../.."))
 
 from lib.config import PLATFORM
-from lib.util import get_electron_branding, execute, store_artifact, \
+from lib.util import get_neutron_branding, execute, store_artifact, \
                      get_out_dir, ELECTRON_DIR
 
 RELEASE_DIR = get_out_dir()
 
 
-PROJECT_NAME = get_electron_branding()['project_name']
-PRODUCT_NAME = get_electron_branding()['product_name']
+PROJECT_NAME = get_neutron_branding()['project_name']
+PRODUCT_NAME = get_neutron_branding()['product_name']
 SYMBOLS_DIR = os.path.join(RELEASE_DIR, 'breakpad_symbols')
 
 PDB_LIST = [

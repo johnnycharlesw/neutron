@@ -21,13 +21,13 @@
 
 ### Step 1: Fork
 
-Fork the project [on GitHub](https://github.com/electron/electron) and clone your fork
+Fork the project [on GitHub](https://github.com/neutron/neutron) and clone your fork
 locally.
 
 ```sh
-$ git clone git@github.com:username/electron.git
-$ cd electron
-$ git remote add upstream https://github.com/electron/electron.git
+$ git clone git@github.com:username/neutron.git
+$ cd neutron
+$ git remote add upstream https://github.com/neutron/neutron.git
 $ git fetch upstream
 ```
 
@@ -55,7 +55,7 @@ $ git checkout -b my-branch -t upstream/main
 
 ### Step 4: Code
 
-Most pull requests opened against the `electron/electron` repository include
+Most pull requests opened against the `neutron/neutron` repository include
 changes to either the C/C++ code in the `shell/` folder,
 the JavaScript code in the `lib/` folder, the documentation in `docs/api/`
 or tests in the `spec/` folder.
@@ -83,7 +83,7 @@ Note that multiple commits get squashed when they are landed.
 
 #### Commit signing
 
-The `electron/electron` repo enforces [commit signatures](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) for all incoming PRs.
+The `neutron/neutron` repo enforces [commit signatures](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits) for all incoming PRs.
 To sign your commits, see GitHub's documentation on [Telling Git about your signing key](https://docs.github.com/en/authentication/managing-commit-signature-verification/telling-git-about-your-signing-key).
 
 #### Commit message guidelines
@@ -142,7 +142,7 @@ $ git fetch upstream
 $ git rebase upstream/main
 ```
 
-This ensures that your working branch has the latest changes from `electron/electron`
+This ensures that your working branch has the latest changes from `neutron/neutron`
 main.
 
 ### Step 7: Test
@@ -185,7 +185,7 @@ $ git push origin my-branch
 ### Step 9: Opening the Pull Request
 
 From within GitHub, opening a new pull request will present you with a template
-that should be filled out. It can be found [here](https://github.com/electron/electron/blob/main/.github/PULL_REQUEST_TEMPLATE.md).
+that should be filled out. It can be found [here](https://github.com/neutron/neutron/blob/main/.github/PULL_REQUEST_TEMPLATE.md).
 
 If you do not adequately complete this template, your PR may be delayed in being merged as maintainers
 seek more information or clarify ambiguities.
@@ -219,7 +219,7 @@ seem unfamiliar, refer to this
 #### Approval and Request Changes Workflow
 
 All pull requests require approval from a
-[Code Owner](https://github.com/electron/electron/blob/main/.github/CODEOWNERS)
+[Code Owner](https://github.com/neutron/neutron/blob/main/.github/CODEOWNERS)
 of the area you modified in order to land. Whenever a maintainer reviews a pull
 request they may request changes. These may be small, such as fixing a typo, or
 may involve substantive changes. Such requests are intended to be helpful, but

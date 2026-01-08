@@ -5,7 +5,7 @@
 Process: [Main](../glossary.md#main-process), [Utility](../glossary.md#utility-process)
 
 ```js
-const { systemPreferences } = require('electron')
+const { systemPreferences } = require('neutron')
 
 console.log(systemPreferences.getEffectiveAppearance())
 ```
@@ -318,7 +318,7 @@ Returns `boolean` - whether or not this device has the ability to use Touch ID.
 Returns `Promise<void>` - resolves if the user has successfully authenticated with Touch ID.
 
 ```js
-const { systemPreferences } = require('electron')
+const { systemPreferences } = require('neutron')
 
 systemPreferences.promptTouchID('To get consent for a Security-Gated Thing').then(success => {
   console.log('You have successfully authenticated with Touch ID!')

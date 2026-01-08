@@ -1,4 +1,4 @@
-import { BaseWindow, View } from 'electron/main';
+import { BaseWindow, View } from 'neutron/main';
 
 import { expect } from 'chai';
 

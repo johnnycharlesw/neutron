@@ -19,7 +19,7 @@
 
 class CaptionButtonPlaceholderContainer;
 
-namespace electron {
+namespace neutron {
 
 class NativeWindowViews;
 
@@ -199,6 +199,6 @@ class OpaqueFrameView : public FramelessView {
       caption_button_placeholder_container_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_OPAQUE_FRAME_VIEW_H_

@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Jeremy Apthorp <nornagon@nornagon.net>
 Date: Mon, 10 Feb 2020 11:52:23 -0800
-Subject: hack plugin response interceptor to point to electron
+Subject: hack plugin response interceptor to point to neutron
 
 chrome's streams_private_api does prerender and other things and would
 require a largeish patch to get working, so just redirect it to our
@@ -17,8 +17,8 @@ index 18fb39fba6e1a6245d22120ba129abf4e5b42b96..62e79cba8161f2acc3ff9e9e20953179
  #include "base/uuid.h"
 -#include "chrome/browser/extensions/api/streams_private/streams_private_api.h"
 -#include "chrome/browser/plugins/plugin_utils.h"
-+#include "electron/shell/browser/extensions/api/streams_private/streams_private_api.h"
-+#include "electron/shell/browser/plugins/plugin_utils.h"
++#include "neutron/shell/browser/extensions/api/streams_private/streams_private_api.h"
++#include "neutron/shell/browser/plugins/plugin_utils.h"
  #include "content/public/browser/browser_task_traits.h"
  #include "content/public/browser/browser_thread.h"
  #include "content/public/browser/download_utils.h"

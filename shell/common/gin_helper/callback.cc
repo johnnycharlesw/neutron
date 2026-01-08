@@ -71,7 +71,7 @@ void CallTranslator(v8::Local<v8::External> external,
 struct DeleteOnUIThread {
   template <typename T>
   static void Destruct(const T* x) {
-    if (electron::IsBrowserProcess() &&
+    if (neutron::IsBrowserProcess() &&
         !content::BrowserThread::CurrentlyOn(content::BrowserThread::UI)) {
       content::GetUIThreadTaskRunner({})->DeleteSoon(FROM_HERE, x);
     } else {

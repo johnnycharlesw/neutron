@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 const sets = [
   'https://fps-member1.glitch.me',

@@ -31,14 +31,14 @@ Event::Event() = default;
 Event::~Event() = default;
 
 gin::WrapperInfo Event::kWrapperInfo = {{gin::kEmbedderNativeGin},
-                                        gin::kElectronEvent};
+                                        gin::kNeutronEvent};
 
 const gin::WrapperInfo* Event::wrapper_info() const {
   return &kWrapperInfo;
 }
 
 const char* Event::GetHumanReadableName() const {
-  return "Electron / Event";
+  return "Neutron / Event";
 }
 
 }  // namespace gin_helper::internal

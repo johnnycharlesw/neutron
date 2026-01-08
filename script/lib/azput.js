@@ -38,7 +38,7 @@ function next (done) {
   const blockBlobClient = containerClient.getBlockBlobClient(blobKey);
   blockBlobClient.uploadFile(file)
     .then((uploadBlobResponse) => {
-      console.log(`Upload block blob ${blobKey} successfully: https://artifacts.electronjs.org/${key}`, uploadBlobResponse.requestId);
+      console.log(`Upload block blob ${blobKey} successfully: https://artifacts.neutronjs.org/${key}`, uploadBlobResponse.requestId);
     })
     .catch((err) => {
       console.error(err);

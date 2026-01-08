@@ -1,10 +1,10 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Tue, 21 Nov 2023 15:03:21 -0800
 Subject: fix: restore original resize performance on macOS
 
 Reverts https://chromium-review.googlesource.com/c/chromium/src/+/3118293 which
-fixed a android only regression but in the process regressed electron window
+fixed a android only regression but in the process regressed neutron window
 resize perf wildly on macOS.
 
 This patch should be upstreamed as a conditional revert of the logic in desktop

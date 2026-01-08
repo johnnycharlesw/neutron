@@ -6,6 +6,6 @@
   do {
     rendererEventEmitterProperties.push(...Object.getOwnPropertyNames(currentObj));
   } while ((currentObj = Object.getPrototypeOf(currentObj)));
-  const { ipcRenderer } = require('electron');
+  const { ipcRenderer } = require('neutron');
   ipcRenderer.send('answer', rendererEventEmitterProperties);
 })();

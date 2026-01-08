@@ -12,7 +12,7 @@ This module does not include a web interface. To view recorded traces, use
 > module is emitted.
 
 ```js
-const { app, contentTracing } = require('electron')
+const { app, contentTracing } = require('neutron')
 
 app.whenReady().then(() => {
   (async () => {
@@ -39,7 +39,7 @@ Get a set of category groups. The category groups can change as new code paths
 are reached. See also the
 [list of built-in tracing categories](https://chromium.googlesource.com/chromium/src/+/main/base/trace_event/builtin_categories.h).
 
-> **NOTE:** Electron adds a non-default tracing category called `"electron"`.
+> **NOTE:** Electron adds a non-default tracing category called `"neutron"`.
 > This category can be used to capture Electron-specific tracing events.
 
 ### `contentTracing.startRecording(options)`

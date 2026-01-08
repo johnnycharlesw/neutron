@@ -19,9 +19,9 @@
 #include "base/strings/utf_string_conversions.h"
 #include "shell/browser/win/scoped_hstring.h"
 
-namespace electron {
+namespace neutron {
 
-const wchar_t kAppUserModelIDFormat[] = L"electron.app.$1";
+const wchar_t kAppUserModelIDFormat[] = L"neutron.app.$1";
 
 std::wstring& GetAppUserModelId() {
   static base::NoDestructor<std::wstring> g_app_user_model_id;
@@ -82,4 +82,4 @@ bool IsRunningInDesktopBridge() {
   return result;
 }
 
-}  // namespace electron
+}  // namespace neutron

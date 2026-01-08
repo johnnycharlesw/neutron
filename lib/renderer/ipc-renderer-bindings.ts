@@ -5,7 +5,7 @@ let ipc: NodeJS.IpcRendererImpl | undefined;
  */
 export function getIPCRenderer () {
   if (ipc) return ipc;
-  const ipcBinding = process._linkedBinding('electron_renderer_ipc');
+  const ipcBinding = process._linkedBinding('neutron_renderer_ipc');
   switch (process.type) {
     case 'renderer':
       return (ipc = ipcBinding.createForRenderFrame());

@@ -10,7 +10,7 @@
 #include <sys/time.h>
 #include <sys/types.h>
 
-namespace electron {
+namespace neutron {
 
 NodeBindingsMac::NodeBindingsMac(BrowserEnvironment browser_env)
     : NodeBindings(browser_env) {}
@@ -37,4 +37,4 @@ std::unique_ptr<NodeBindings> NodeBindings::Create(BrowserEnvironment env) {
   return std::make_unique<NodeBindingsMac>(env);
 }
 
-}  // namespace electron
+}  // namespace neutron

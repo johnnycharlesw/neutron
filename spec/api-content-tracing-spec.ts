@@ -1,4 +1,4 @@
-import { app, contentTracing, TraceConfig, TraceCategoriesAndOptions } from 'electron/main';
+import { app, contentTracing, TraceConfig, TraceCategoriesAndOptions } from 'neutron/main';
 
 import { expect } from 'chai';
 

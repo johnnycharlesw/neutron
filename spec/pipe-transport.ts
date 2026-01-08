@@ -1,4 +1,4 @@
-// A small pipe transport for talking to Electron over CDP.
+// A small pipe transport for talking to Neutron over CDP.
 export class PipeTransport {
   private _pipeWrite: NodeJS.WritableStream | null;
   private _pendingMessage = '';

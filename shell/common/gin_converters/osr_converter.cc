@@ -49,7 +49,7 @@ std::string OsrWidgetTypeToString(content::WidgetType type) {
 
 struct OffscreenReleaseHolderMonitor {
   explicit OffscreenReleaseHolderMonitor(
-      electron::OffscreenReleaserHolder* holder)
+      neutron::OffscreenReleaserHolder* holder)
       : holder_(holder) {
     CHECK(holder);
   }
@@ -70,16 +70,16 @@ struct OffscreenReleaseHolderMonitor {
   void ResetPersistent() const { persistent_->Reset(); }
 
  private:
-  raw_ptr<electron::OffscreenReleaserHolder> holder_;
+  raw_ptr<neutron::OffscreenReleaserHolder> holder_;
   std::unique_ptr<v8::Persistent<v8::Value>> persistent_;
 };
 
 }  // namespace
 
 // static
-v8::Local<v8::Value> Converter<electron::OffscreenSharedTextureValue>::ToV8(
+v8::Local<v8::Value> Converter<neutron::OffscreenSharedTextureValue>::ToV8(
     v8::Isolate* isolate,
-    const electron::OffscreenSharedTextureValue& val) {
+    const neutron::OffscreenSharedTextureValue& val) {
   gin::Dictionary root(isolate, v8::Object::New(isolate));
 
   // Create a monitor to hold the releaser holder, which enables us to
@@ -121,13 +121,13 @@ v8::Local<v8::Value> Converter<electron::OffscreenSharedTextureValue>::ToV8(
 #if BUILDFLAG(IS_WIN)
   sharedTexture.Set(
       "ntHandle",
-      electron::Buffer::Copy(
+      neutron::Buffer::Copy(
           isolate, base::byte_span_from_ref(val.shared_texture_handle))
           .ToLocalChecked());
 #elif BUILDFLAG(IS_MAC)
   sharedTexture.Set(
       "ioSurface",
-      electron::Buffer::Copy(
+      neutron::Buffer::Copy(
           isolate, base::byte_span_from_ref(val.shared_texture_handle))
           .ToLocalChecked());
 #elif BUILDFLAG(IS_LINUX)
@@ -168,7 +168,7 @@ v8::Local<v8::Value> Converter<electron::OffscreenSharedTextureValue>::ToV8(
             std::call_once(flag, [=] {
               base::SingleThreadTaskRunner::GetCurrentDefault()->PostTask(
                   FROM_HERE, base::BindOnce([] {
-                    electron::util::EmitWarning(
+                    neutron::util::EmitWarning(
                         "Offscreen rendering shared texture was garbage "
                         "collected before calling `release()`. When using OSR "
                         "with `useSharedTexture: true`, `texture.release()` "

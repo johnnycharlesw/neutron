@@ -1,15 +1,15 @@
-import { TouchBar } from 'electron/main';
-import type { BaseWindow as TLWT } from 'electron/main';
+import { TouchBar } from 'neutron/main';
+import type { BaseWindow as TLWT } from 'neutron/main';
 
 import { EventEmitter } from 'events';
 
-const { BaseWindow } = process._linkedBinding('electron_browser_base_window') as { BaseWindow: typeof TLWT };
+const { BaseWindow } = process._linkedBinding('neutron_browser_base_window') as { BaseWindow: typeof TLWT };
 
 Object.setPrototypeOf(BaseWindow.prototype, EventEmitter.prototype);
 
 BaseWindow.prototype._init = function (this: TLWT) {
   // Avoid recursive require.
-  const { app } = require('electron');
+  const { app } = require('neutron');
 
   // Simulate the application menu on platforms other than macOS.
   if (process.platform !== 'darwin') {

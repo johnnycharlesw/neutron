@@ -11,7 +11,7 @@ namespace gin_helper {
 class Arguments;
 }
 
-namespace electron::preload_utils {
+namespace neutron::preload_utils {
 
 v8::Local<v8::Value> GetBinding(v8::Isolate* isolate,
                                 v8::Local<v8::String> key);
@@ -21,6 +21,6 @@ v8::Local<v8::Value> CreatePreloadScript(v8::Isolate* isolate,
 
 double Uptime();
 
-}  // namespace electron::preload_utils
+}  // namespace neutron::preload_utils
 
 #endif  // ELECTRON_SHELL_RENDERER_PRELOAD_UTILS_H_

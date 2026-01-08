@@ -16,9 +16,9 @@ namespace input {
 struct NativeWebKeyboardEvent;
 }
 
-namespace electron {
+namespace neutron {
 
-class ElectronMenuModel;
+class NeutronMenuModel;
 class MenuBar;
 class NativeWindow;
 
@@ -31,7 +31,7 @@ class RootView : public views::View {
   RootView(const RootView&) = delete;
   RootView& operator=(const RootView&) = delete;
 
-  void SetMenu(ElectronMenuModel* menu_model);
+  void SetMenu(NeutronMenuModel* menu_model);
   bool HasMenu() const;
   int GetMenuBarHeight() const;
   void SetAutoHideMenuBar(bool auto_hide);
@@ -42,7 +42,7 @@ class RootView : public views::View {
   void ResetAltState();
   void RestoreFocus();
   // Register/Unregister accelerators supported by the menu model.
-  void RegisterAcceleratorsWithFocusManager(ElectronMenuModel* menu_model);
+  void RegisterAcceleratorsWithFocusManager(NeutronMenuModel* menu_model);
   void UnregisterAcceleratorsWithFocusManager();
 
   views::View* GetMainView() { return &main_view_.get(); }
@@ -71,6 +71,6 @@ class RootView : public views::View {
   views::ViewTracker last_focused_view_tracker_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_ROOT_VIEW_H_

@@ -17,11 +17,11 @@
 #include "content/public/browser/device_service.h"
 #include "services/device/public/cpp/hid/hid_blocklist.h"
 #include "services/device/public/cpp/hid/hid_switches.h"
-#include "shell/browser/api/electron_api_session.h"
-#include "shell/browser/electron_browser_context.h"
-#include "shell/browser/electron_permission_manager.h"
+#include "shell/browser/api/neutron_api_session.h"
+#include "shell/browser/neutron_browser_context.h"
+#include "shell/browser/neutron_permission_manager.h"
 #include "shell/browser/web_contents_permission_helper.h"
-#include "shell/common/electron_constants.h"
+#include "shell/common/neutron_constants.h"
 #include "shell/common/gin_converters/content_converter.h"
 #include "shell/common/gin_converters/frame_converter.h"
 #include "shell/common/gin_converters/hid_device_info_converter.h"
@@ -205,9 +205,9 @@ base::Value::Dict HidCollectionInfoToValue(
 }
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
-HidChooserContext::HidChooserContext(ElectronBrowserContext* context)
+HidChooserContext::HidChooserContext(NeutronBrowserContext* context)
     : browser_context_(context) {}
 
 HidChooserContext::~HidChooserContext() {
@@ -273,7 +273,7 @@ void HidChooserContext::GrantDevicePermission(
     const device::mojom::HidDeviceInfo& device) {
   DCHECK(devices_.contains(device.guid));
   if (CanStorePersistentEntry(device)) {
-    auto* permission_manager = static_cast<ElectronPermissionManager*>(
+    auto* permission_manager = static_cast<NeutronPermissionManager*>(
         browser_context_->GetPermissionControllerDelegate());
 
     permission_manager->GrantDevicePermission(blink::PermissionType::HID,
@@ -308,7 +308,7 @@ void HidChooserContext::RevokeDevicePermission(
 void HidChooserContext::RevokePersistentDevicePermission(
     const url::Origin& origin,
     const device::mojom::HidDeviceInfo& device) {
-  auto* permission_manager = static_cast<ElectronPermissionManager*>(
+  auto* permission_manager = static_cast<NeutronPermissionManager*>(
       browser_context_->GetPermissionControllerDelegate());
   permission_manager->RevokeDevicePermission(blink::PermissionType::HID, origin,
                                              DeviceInfoToValue(device),
@@ -347,7 +347,7 @@ bool HidChooserContext::HasDevicePermission(
     return true;
   }
 
-  auto* permission_manager = static_cast<ElectronPermissionManager*>(
+  auto* permission_manager = static_cast<NeutronPermissionManager*>(
       browser_context_->GetPermissionControllerDelegate());
   return permission_manager->CheckDevicePermission(
       blink::PermissionType::HID, origin, DeviceInfoToValue(device),
@@ -369,7 +369,7 @@ bool HidChooserContext::IsFidoAllowedForOrigin(const url::Origin& origin) {
 #endif  // BUILDFLAG(ENABLE_ELECTRON_EXTENSIONS)
 
   // This differs from upstream - we want to allow users greater
-  // ability to communicate with FIDO devices in Electron.
+  // ability to communicate with FIDO devices in Neutron.
   return base::CommandLine::ForCurrentProcess()->HasSwitch(
       switches::kDisableHidBlocklist);
 }
@@ -508,4 +508,4 @@ void HidChooserContext::OnHidManagerConnectionError() {
   device_observer_list_.Notify(&DeviceObserver::OnHidManagerConnectionError);
 }
 
-}  // namespace electron
+}  // namespace neutron

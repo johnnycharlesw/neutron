@@ -12,8 +12,8 @@ we redesign crashReporter's API to make it alwasy start before the
 sanbox, we can remove this patch.
 
 See following links for more:
-https://github.com/electron/electron/pull/18483#discussion_r292703588
-https://github.com/electron/electron/pull/18483#issuecomment-501090683
+https://github.com/neutron/neutron/pull/18483#discussion_r292703588
+https://github.com/neutron/neutron/pull/18483#issuecomment-501090683
 
 diff --git a/third_party/crashpad/crashpad/util/win/exception_handler_server.cc b/third_party/crashpad/crashpad/util/win/exception_handler_server.cc
 index 8af53a62b088fececd558f1436a84d4c2c4feabd..7d9913ae189708475c08d123a404eb5b125ecccc 100644

@@ -8,7 +8,7 @@ An example of implementing a protocol that has the same effect as the
 `file://` protocol:
 
 ```js
-const { app, protocol, net } = require('electron')
+const { app, protocol, net } = require('neutron')
 
 const path = require('node:path')
 const url = require('node:url')
@@ -32,13 +32,13 @@ object. If you don't specify a session, then your `protocol` will be applied to
 the default session that Electron uses. However, if you define a `partition` or
 `session` on your `browserWindow`'s `webPreferences`, then that window will use
 a different session and your custom protocol will not work if you just use
-`electron.protocol.XXX`.
+`neutron.protocol.XXX`.
 
 To have your custom protocol work in combination with a custom session, you need
 to register it to that session explicitly.
 
 ```js
-const { app, BrowserWindow, net, protocol, session } = require('electron')
+const { app, BrowserWindow, net, protocol, session } = require('neutron')
 
 const path = require('node:path')
 const url = require('node:url')
@@ -77,7 +77,7 @@ An example of registering a privileged scheme, that bypasses Content Security
 Policy:
 
 ```js
-const { protocol } = require('electron')
+const { protocol } = require('neutron')
 
 protocol.registerSchemesAsPrivileged([
   { scheme: 'foo', privileges: { bypassCSP: true } }
@@ -130,7 +130,7 @@ Either a `Response` or a `Promise<Response>` can be returned.
 Example:
 
 ```js
-const { app, net, protocol } = require('electron')
+const { app, net, protocol } = require('neutron')
 
 const path = require('node:path')
 const { pathToFileURL } = require('node:url')
@@ -198,7 +198,7 @@ Returns `boolean` - Whether `scheme` is already handled.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -228,7 +228,7 @@ from protocols that follow the "generic URI syntax" like `file:`.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -261,7 +261,7 @@ protocol.registerBufferProtocol('atom', (request, callback) => {
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -286,7 +286,7 @@ property.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -310,7 +310,7 @@ should be called with an object that has the `url` property.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -333,7 +333,7 @@ has the `data` property.
 Example:
 
 ```js
-const { protocol } = require('electron')
+const { protocol } = require('neutron')
 
 const { PassThrough } = require('node:stream')
 
@@ -369,7 +369,7 @@ protocol.registerStreamProtocol('atom', (request, callback) => {
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -386,7 +386,7 @@ Unregisters the custom protocol of `scheme`.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -401,7 +401,7 @@ Returns `boolean` - Whether `scheme` is already registered.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -423,7 +423,7 @@ which sends a file as a response.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -445,7 +445,7 @@ which sends a `string` as a response.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -467,7 +467,7 @@ which sends a `Buffer` as a response.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -489,7 +489,7 @@ which sends a new HTTP request as a response.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -511,7 +511,7 @@ protocol handler.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```
@@ -528,7 +528,7 @@ Remove the interceptor installed for `scheme` and restore its original handler.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/36674
+  - pr-url: https://github.com/neutron/neutron/pull/36674
     description: "`protocol.register*Protocol` and `protocol.intercept*Protocol` methods have been replaced with `protocol.handle`"
     breaking-changes-header: deprecated-protocolunregisterinterceptbufferstringstreamfilehttpprotocol-and-protocolisprotocolregisteredintercepted
 ```

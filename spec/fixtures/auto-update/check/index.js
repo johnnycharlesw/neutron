@@ -3,7 +3,7 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-const { autoUpdater } = require('electron');
+const { autoUpdater } = require('neutron');
 
 autoUpdater.on('error', (err) => {
   console.error(err);

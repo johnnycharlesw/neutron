@@ -13,7 +13,7 @@ namespace gfx {
 class Rect;
 }
 
-namespace electron {
+namespace neutron {
 
 // Certain events are only in WebContentsDelegate, so we provide our own
 // Observer to dispatch those events.
@@ -29,6 +29,6 @@ class ExtendedWebContentsObserver : public base::CheckedObserver {
   ~ExtendedWebContentsObserver() override = default;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_EXTENDED_WEB_CONTENTS_OBSERVER_H_

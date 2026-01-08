@@ -4,11 +4,11 @@ import * as cp from 'node:child_process';
 import * as fs from 'node:fs';
 import * as path from 'node:path';
 
-const features = process._linkedBinding('electron_common_features');
+const features = process._linkedBinding('neutron_common_features');
 const fixturesPath = path.resolve(__dirname, '..', 'fixtures');
 
 // Re-enable codesign tests for macOS x64
-// Refs https://github.com/electron/electron/issues/48182
+// Refs https://github.com/neutron/neutron/issues/48182
 export const shouldRunCodesignTests =
     process.platform === 'darwin' &&
     !(process.env.CI) &&
@@ -31,7 +31,7 @@ export function getCodesignIdentity () {
 
 export async function copyMacOSFixtureApp (newDir: string, fixture: string | null = 'initial') {
   const appBundlePath = path.resolve(process.execPath, '../../..');
-  const newPath = path.resolve(newDir, 'Electron.app');
+  const newPath = path.resolve(newDir, 'Neutron.app');
   cp.spawnSync('cp', ['-R', appBundlePath, path.dirname(newPath)]);
   if (fixture) {
     const appDir = path.resolve(newPath, 'Contents/Resources/app');

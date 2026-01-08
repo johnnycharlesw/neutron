@@ -26,7 +26,7 @@ async function exec (name) {
     }
   }
 
-  const funcStr = `() => { require('electron').ipcRenderer.send('success', ${JSON.stringify(result)}) }`;
+  const funcStr = `() => { require('neutron').ipcRenderer.send('success', ${JSON.stringify(result)}) }`;
   evalInMainWorld(funcStr);
 }
 

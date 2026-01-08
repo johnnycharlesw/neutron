@@ -39,10 +39,10 @@ This will allow you to observe call chains and identify potential issue areas.
 
 > Note that this will increase the size of the build significantly, taking up around 50G of disk space
 
-Write the following file to `electron/.git/info/exclude/debug.gn`
+Write the following file to `neutron/.git/info/exclude/debug.gn`
 
 ```gn
-import("//electron/build/args/testing.gn")
+import("//neutron/build/args/testing.gn")
 is_debug = true
 symbol_level = 2
 forbid_non_component_debug_builds = false
@@ -51,8 +51,8 @@ forbid_non_component_debug_builds = false
 Then execute:
 
 ```sh
-$ gn gen out/Debug --args="import(\"//electron/.git/info/exclude/debug.gn\") $GN_EXTRA_ARGS"
-$ ninja -C out/Debug electron
+$ gn gen out/Debug --args="import(\"//neutron/.git/info/exclude/debug.gn\") $GN_EXTRA_ARGS"
+$ ninja -C out/Debug neutron
 ```
 
 Now you can use `LLDB` for breakpoint debugging.

@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron/renderer')
+const { ipcRenderer } = require('neutron/renderer')
 
 document.addEventListener('DOMContentLoaded', () => {
   const textarea = document.getElementById('editable')

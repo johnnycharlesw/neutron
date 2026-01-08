@@ -19,7 +19,7 @@ vars = {
   'pyyaml_version': '3.12',
 
   'chromium_git': 'https://chromium.googlesource.com',
-  'electron_git': 'https://github.com/electron',
+  'neutron_git': 'https://github.com/neutron',
   'nodejs_git': 'https://github.com/nodejs',
   'yaml_git': 'https://github.com/yaml',
   'squirrel_git': 'https://github.com/Squirrel',
@@ -28,7 +28,7 @@ vars = {
   'engflow_git': 'https://github.com/EngFlow',
   
   # The path of the sysroots.json file.
-  'sysroots_json_path': 'electron/script/sysroots.json',
+  'sysroots_json_path': 'neutron/script/sysroots.json',
 
   # To be able to build clean Chromium from sources.
   'apply_patches': True,
@@ -80,7 +80,7 @@ deps = {
     'url': (Var("nodejs_git")) + '/nan.git@' + (Var("nan_version")),
     'condition': 'checkout_nan and process_deps',
   },
-  'src/third_party/electron_node': {
+  'src/third_party/neutron_node': {
     'url': (Var("nodejs_git")) + '/node.git@' + (Var("node_version")),
     'condition': 'checkout_node and process_deps',
   },
@@ -110,49 +110,49 @@ pre_deps_hooks = [
   {
     'name': 'generate_mtime_cache',
     'condition': '(checkout_chromium and apply_patches and use_mtime_cache) and process_deps',
-    'pattern': 'src/electron',
+    'pattern': 'src/neutron',
     'action': [
       'python3',
-      'src/electron/script/patches-mtime-cache.py',
+      'src/neutron/script/patches-mtime-cache.py',
       'generate',
       '--cache-file',
-      'src/electron/patches/mtime-cache.json',
+      'src/neutron/patches/mtime-cache.json',
       '--patches-config',
-      'src/electron/patches/config.json',
+      'src/neutron/patches/config.json',
     ],
   },
 ]
 
 hooks = [
   {
-    'name': 'patch_chromium',
+    'name': 'patch_thorium',
     'condition': '(checkout_chromium and apply_patches) and process_deps',
-    'pattern': 'src/electron',
+    'pattern': 'src/neutron',
     'action': [
       'python3',
-      'src/electron/script/apply_all_patches.py',
-      'src/electron/patches/config.json',
+      'src/neutron/script/apply_all_patches.py',
+      'src/neutron/patches/config.json',
     ],
   },
   {
     'name': 'apply_mtime_cache',
     'condition': '(checkout_chromium and apply_patches and use_mtime_cache) and process_deps',
-    'pattern': 'src/electron',
+    'pattern': 'src/neutron',
     'action': [
       'python3',
-      'src/electron/script/patches-mtime-cache.py',
+      'src/neutron/script/patches-mtime-cache.py',
       'apply',
       '--cache-file',
-      'src/electron/patches/mtime-cache.json',
+      'src/neutron/patches/mtime-cache.json',
     ],
   },
   {
-    'name': 'electron_npm_deps',
-    'pattern': 'src/electron/package.json',
+    'name': 'neutron_npm_deps',
+    'pattern': 'src/neutron/package.json',
     'action': [
       'python3',
       '-c',
-      'import os, subprocess; os.chdir(os.path.join("src", "electron")); subprocess.check_call(["node", ".yarn/releases/yarn-4.12.0.cjs", "install", "--immutable"]);',
+      'import os, subprocess; os.chdir(os.path.join("src", "neutron")); subprocess.check_call(["node", ".yarn/releases/yarn-4.12.0.cjs", "install", "--immutable"]);',
     ],
   },
   {

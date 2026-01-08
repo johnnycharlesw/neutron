@@ -8,7 +8,7 @@
 #include "base/observer_list_types.h"
 #include "shell/browser/web_contents_zoom_controller.h"
 
-namespace electron {
+namespace neutron {
 
 // Interface for objects that wish to be notified of changes in
 // WebContentsZoomController.
@@ -25,6 +25,6 @@ class WebContentsZoomObserver : public base::CheckedObserver {
       const WebContentsZoomController::ZoomChangedEventData& data) {}
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WEB_CONTENTS_ZOOM_OBSERVER_H_

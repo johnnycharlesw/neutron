@@ -15,11 +15,11 @@ jobs:
       contents: read
     steps:
       - name: Generate GitHub App token
-        uses: electron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
+        uses: neutron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
         id: generate-token
         with:
           creds: ${{ secrets.ISSUE_TRIAGE_GH_APP_CREDS }}
-          org: electron
+          org: neutron
       - name: Set status
         uses: dsanders11/project-actions/edit-item@2134fe7cc71c58b7ae259c82a8e63c6058255678 # v1.7.0
         with:
@@ -36,11 +36,11 @@ jobs:
       contents: read
     steps:
       - name: Generate GitHub App token
-        uses: electron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
+        uses: neutron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
         id: generate-token
         with:
           creds: ${{ secrets.ISSUE_TRIAGE_GH_APP_CREDS }}
-          org: electron
+          org: neutron
       - name: Set status
         uses: dsanders11/project-actions/edit-item@2134fe7cc71c58b7ae259c82a8e63c6058255678 # v1.7.0
         with:
@@ -60,16 +60,16 @@ jobs:
         id: check-for-comment
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GH_REPO: electron/electron
+          GH_REPO: neutron/neutron
         run: |
           set -eo pipefail
-          COMMENT_COUNT=$(gh issue view ${{ github.event.issue.number }} --comments --json comments | jq '[ .comments[] | select(.author.login == "electron-issue-triage" or .authorAssociation == "OWNER" or .authorAssociation == "MEMBER") | select(.body | startswith("<!-- blocked/need-repro -->")) ] | length')
+          COMMENT_COUNT=$(gh issue view ${{ github.event.issue.number }} --comments --json comments | jq '[ .comments[] | select(.author.login == "neutron-issue-triage" or .authorAssociation == "OWNER" or .authorAssociation == "MEMBER") | select(.body | startswith("<!-- blocked/need-repro -->")) ] | length')
           if [[ $COMMENT_COUNT -eq 0 ]]; then
             echo "SHOULD_COMMENT=1" >> "$GITHUB_OUTPUT"
           fi
       - name: Generate GitHub App token
         if: ${{ steps.check-for-comment.outputs.SHOULD_COMMENT }}
-        uses: electron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
+        uses: neutron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
         id: generate-token
         with:
           creds: ${{ secrets.ISSUE_TRIAGE_GH_APP_CREDS }}
@@ -84,8 +84,8 @@ jobs:
 
             Hello @${{ github.event.issue.user.login }}. Thanks for reporting this and helping to make Electron better!
 
-            Would it be possible for you to make a standalone testcase with only the code necessary to reproduce the issue? For example, [Electron Fiddle](https://www.electronjs.org/fiddle) is a great tool for making small test cases and makes it easy to publish your test case to a [gist](https://gist.github.com) that Electron maintainers can use.
+            Would it be possible for you to make a standalone testcase with only the code necessary to reproduce the issue? For example, [Electron Fiddle](https://www.neutronjs.org/fiddle) is a great tool for making small test cases and makes it easy to publish your test case to a [gist](https://gist.github.com) that Electron maintainers can use.
 
             Stand-alone test cases make fixing issues go more smoothly: it ensure everyone's looking at the same issue, it removes all unnecessary variables from the equation, and it can also provide the basis for automated regression tests.
 
-            Now adding the https://github.com/electron/electron/labels/blocked%2Fneed-repro label for this reason. After you make a test case, please link to it in a followup comment. This issue will be closed in 10 days if the above is not addressed.
+            Now adding the https://github.com/neutron/neutron/labels/blocked%2Fneed-repro label for this reason. After you make a test case, please link to it in a followup comment. This issue will be closed in 10 days if the above is not addressed.

@@ -1,7 +1,7 @@
 const {
   Notification: ElectronNotification,
   isSupported
-} = process._linkedBinding('electron_browser_notification');
+} = process._linkedBinding('neutron_browser_notification');
 
 ElectronNotification.isSupported = isSupported;
 

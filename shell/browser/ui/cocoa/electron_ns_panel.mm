@@ -2,13 +2,13 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "shell/browser/ui/cocoa/electron_ns_panel.h"
+#include "shell/browser/ui/cocoa/neutron_ns_panel.h"
 
 @implementation ElectronNSPanel
 
 @synthesize originalStyleMask;
 
-- (id)initWithShell:(electron::NativeWindowMac*)shell
+- (id)initWithShell:(neutron::NativeWindowMac*)shell
           styleMask:(NSUInteger)styleMask {
   if (self = [super initWithShell:shell styleMask:styleMask]) {
     originalStyleMask = styleMask;

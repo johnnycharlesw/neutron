@@ -1,4 +1,4 @@
-const { appCredentialsFromString, getAuthOptionsForRepo } = require('@electron/github-app-auth');
+const { appCredentialsFromString, getAuthOptionsForRepo } = require('@neutron/github-app-auth');
 
 const { Octokit } = require('@octokit/rest');
 
@@ -7,8 +7,8 @@ const path = require('node:path');
 
 const { PATCH_UP_APP_CREDS } = process.env;
 
-const REPO_OWNER = 'electron';
-const REPO_NAME = 'electron';
+const REPO_OWNER = 'neutron';
+const REPO_NAME = 'neutron';
 
 async function getAllPatchFiles (dir) {
   const files = [];

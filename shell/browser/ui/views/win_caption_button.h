@@ -21,7 +21,7 @@ namespace gfx {
 class Canvas;
 }
 
-namespace electron {
+namespace neutron {
 
 class WinFrameView;
 
@@ -73,6 +73,6 @@ class WinCaptionButton : public views::Button {
   int base_width_ = WindowFrameUtil::kWindowsCaptionButtonWidth;
   int height_ = WindowFrameUtil::kWindowsCaptionButtonHeightRestored;
 };
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_WIN_CAPTION_BUTTON_H_

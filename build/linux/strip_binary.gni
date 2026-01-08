@@ -27,7 +27,7 @@ template("strip_binary") {
   action("${target_name}") {
     llvm_strip_binary = "${clang_base_path}/bin/llvm-strip"
     llvm_objcopy_binary = "${clang_base_path}/bin/llvm-objcopy"
-    script = "//electron/build/linux/strip_binary.py"
+    script = "//neutron/build/linux/strip_binary.py"
 
     if (defined(invoker.stripped_binary_output)) {
       stripped_binary_output = invoker.stripped_binary_output

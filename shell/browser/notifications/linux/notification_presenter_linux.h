@@ -8,7 +8,7 @@
 
 #include "shell/browser/notifications/notification_presenter.h"
 
-namespace electron {
+namespace neutron {
 
 class NotificationPresenterLinux : public NotificationPresenter {
  public:
@@ -21,6 +21,6 @@ class NotificationPresenterLinux : public NotificationPresenter {
       NotificationDelegate* delegate) override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_LINUX_NOTIFICATION_PRESENTER_LINUX_H_

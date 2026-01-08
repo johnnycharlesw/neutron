@@ -17,7 +17,7 @@ shortcuts.
 > shortcuts when running within a Wayland session.
 
 ```js
-const { app, globalShortcut } = require('electron')
+const { app, globalShortcut } = require('neutron')
 
 // Enable usage of Portal's globalShortcuts. This is essential for cases when
 // the app runs in a Wayland session.

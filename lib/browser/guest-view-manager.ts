@@ -1,28 +1,28 @@
-import { ipcMainInternal } from '@electron/internal/browser/ipc-main-internal';
-import * as ipcMainUtils from '@electron/internal/browser/ipc-main-internal-utils';
-import { parseWebViewWebPreferences } from '@electron/internal/browser/parse-features-string';
-import { webViewEvents } from '@electron/internal/browser/web-view-events';
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import { syncMethods, asyncMethods, properties, navigationHistorySyncMethods } from '@electron/internal/common/web-view-methods';
+import { ipcMainInternal } from '@neutron/internal/browser/ipc-main-internal';
+import * as ipcMainUtils from '@neutron/internal/browser/ipc-main-internal-utils';
+import { parseWebViewWebPreferences } from '@neutron/internal/browser/parse-features-string';
+import { webViewEvents } from '@neutron/internal/browser/web-view-events';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import { syncMethods, asyncMethods, properties, navigationHistorySyncMethods } from '@neutron/internal/common/web-view-methods';
 
-import { webContents } from 'electron/main';
+import { webContents } from 'neutron/main';
 
 interface GuestInstance {
   elementInstanceId: number;
   visibilityState?: DocumentVisibilityState;
-  embedder: Electron.WebContents;
-  guest: Electron.WebContents;
+  embedder: Neutron.WebContents;
+  guest: Neutron.WebContents;
 }
 
-const webViewManager = process._linkedBinding('electron_browser_web_view_manager');
-const netBinding = process._linkedBinding('electron_common_net');
+const webViewManager = process._linkedBinding('neutron_browser_web_view_manager');
+const netBinding = process._linkedBinding('neutron_common_net');
 
 const supportedWebViewEvents = Object.keys(webViewEvents);
 
 const guestInstances = new Map<number, GuestInstance>();
 const embedderElementsMap = new Map<string, number>();
 
-function makeWebPreferences (embedder: Electron.WebContents, params: Record<string, any>) {
+function makeWebPreferences (embedder: Neutron.WebContents, params: Record<string, any>) {
   // parse the 'webpreferences' attribute string, if set
   // this uses the same parsing rules as window.open uses for its features
   const parsedWebPreferences =
@@ -30,7 +30,7 @@ function makeWebPreferences (embedder: Electron.WebContents, params: Record<stri
       ? parseWebViewWebPreferences(params.webpreferences)
       : null;
 
-  const webPreferences: Electron.WebPreferences = {
+  const webPreferences: Neutron.WebPreferences = {
     nodeIntegration: params.nodeintegration ?? false,
     nodeIntegrationInSubFrames: params.nodeintegrationinsubframes ?? false,
     plugins: params.plugins,
@@ -60,7 +60,7 @@ function makeWebPreferences (embedder: Electron.WebContents, params: Record<stri
   // Inherit certain option values from embedder
   const lastWebPreferences = embedder.getLastWebPreferences()!;
   for (const [name, value] of inheritedWebPreferences) {
-    if (lastWebPreferences[name as keyof Electron.WebPreferences] === value) {
+    if (lastWebPreferences[name as keyof Neutron.WebPreferences] === value) {
       (webPreferences as any)[name] = value;
     }
   }
@@ -69,7 +69,7 @@ function makeWebPreferences (embedder: Electron.WebContents, params: Record<stri
 }
 
 function makeLoadURLOptions (params: Record<string, any>) {
-  const opts: Electron.LoadURLOptions = {};
+  const opts: Neutron.LoadURLOptions = {};
   if (params.httpreferrer) {
     opts.httpReferrer = params.httpreferrer;
   }
@@ -80,7 +80,7 @@ function makeLoadURLOptions (params: Record<string, any>) {
 }
 
 // Create a new guest instance.
-const createGuest = function (embedder: Electron.WebContents, embedderFrameToken: string, elementInstanceId: number, params: Record<string, any>) {
+const createGuest = function (embedder: Neutron.WebContents, embedderFrameToken: string, elementInstanceId: number, params: Record<string, any>) {
   const webPreferences = makeWebPreferences(embedder, params);
   const event = {
     sender: embedder,
@@ -118,7 +118,7 @@ const createGuest = function (embedder: Electron.WebContents, embedderFrameToken
   });
 
   // Init guest web view after attached.
-  guest.once('did-attach' as any, function (this: Electron.WebContents, event: Electron.Event) {
+  guest.once('did-attach' as any, function (this: Neutron.WebContents, event: Neutron.Event) {
     const previouslyAttached = this.viewInstanceId != null;
     this.viewInstanceId = instanceId;
 
@@ -155,7 +155,7 @@ const createGuest = function (embedder: Electron.WebContents, embedderFrameToken
   }
 
   // Dispatch guest's IPC messages to embedder.
-  guest.on('-ipc-message-host' as any, function (event: Electron.IpcMainEvent, channel: string, args: any[]) {
+  guest.on('-ipc-message-host' as any, function (event: Neutron.IpcMainEvent, channel: string, args: any[]) {
     sendToEmbedder(IPC_MESSAGES.GUEST_VIEW_INTERNAL_DISPATCH_EVENT, 'ipc-message', {
       frameId: [event.processId, event.frameId],
       channel,
@@ -164,7 +164,7 @@ const createGuest = function (embedder: Electron.WebContents, embedderFrameToken
   });
 
   // Dispatch guest's frame navigation event to embedder.
-  guest.on('will-frame-navigate', function (event: Electron.WebContentsWillFrameNavigateEventParams) {
+  guest.on('will-frame-navigate', function (event: Neutron.WebContentsWillFrameNavigateEventParams) {
     sendToEmbedder(IPC_MESSAGES.GUEST_VIEW_INTERNAL_DISPATCH_EVENT, 'will-frame-navigate', {
       url: event.url,
       isMainFrame: event.isMainFrame,
@@ -174,7 +174,7 @@ const createGuest = function (embedder: Electron.WebContents, embedderFrameToken
   });
 
   // Notify guest of embedder window visibility when it is ready
-  // FIXME Remove once https://github.com/electron/electron/issues/6828 is fixed
+  // FIXME Remove once https://github.com/neutron/neutron/issues/6828 is fixed
   guest.on('dom-ready', function () {
     const guestInstance = guestInstances.get(guestInstanceId);
     if (guestInstance != null && guestInstance.visibilityState != null) {
@@ -204,7 +204,7 @@ const createGuest = function (embedder: Electron.WebContents, embedderFrameToken
 };
 
 // Remove an guest-embedder relationship.
-const detachGuest = function (embedder: Electron.WebContents, guestInstanceId: number) {
+const detachGuest = function (embedder: Neutron.WebContents, guestInstanceId: number) {
   const guestInstance = guestInstances.get(guestInstanceId);
 
   if (!guestInstance) return;
@@ -222,8 +222,8 @@ const detachGuest = function (embedder: Electron.WebContents, guestInstanceId: n
 
 // Once an embedder has had a guest attached we watch it for destruction to
 // destroy any remaining guests.
-const watchedEmbedders = new Set<Electron.WebContents>();
-const watchEmbedder = function (embedder: Electron.WebContents) {
+const watchedEmbedders = new Set<Neutron.WebContents>();
+const watchEmbedder = function (embedder: Neutron.WebContents) {
   if (watchedEmbedders.has(embedder)) {
     return;
   }
@@ -257,7 +257,7 @@ const watchEmbedder = function (embedder: Electron.WebContents) {
 
 const isWebViewTagEnabledCache = new WeakMap();
 
-const isWebViewTagEnabled = function (contents: Electron.WebContents) {
+const isWebViewTagEnabled = function (contents: Neutron.WebContents) {
   if (!isWebViewTagEnabledCache.has(contents)) {
     const webPreferences = contents.getLastWebPreferences() || {};
     isWebViewTagEnabledCache.set(contents, !!webPreferences.webviewTag);
@@ -266,8 +266,8 @@ const isWebViewTagEnabled = function (contents: Electron.WebContents) {
   return isWebViewTagEnabledCache.get(contents);
 };
 
-const makeSafeHandler = function<Event extends { sender: Electron.WebContents }> (channel: string, handler: (event: Event, ...args: any[]) => any) {
-  return (event: Electron.IpcMainInvokeEvent | Electron.IpcMainServiceWorkerInvokeEvent, ...args: any[]) => {
+const makeSafeHandler = function<Event extends { sender: Neutron.WebContents }> (channel: string, handler: (event: Event, ...args: any[]) => any) {
+  return (event: Neutron.IpcMainInvokeEvent | Neutron.IpcMainServiceWorkerInvokeEvent, ...args: any[]) => {
     if (event.type !== 'frame') return;
     if (isWebViewTagEnabled(event.sender)) {
       return handler(event as unknown as Event, ...args);
@@ -278,11 +278,11 @@ const makeSafeHandler = function<Event extends { sender: Electron.WebContents }>
   };
 };
 
-const handleMessage = function (channel: string, handler: (event: Electron.IpcMainInvokeEvent, ...args: any[]) => any) {
+const handleMessage = function (channel: string, handler: (event: Neutron.IpcMainInvokeEvent, ...args: any[]) => any) {
   ipcMainInternal.handle(channel, makeSafeHandler(channel, handler));
 };
 
-const handleMessageSync = function (channel: string, handler: (event: { sender: Electron.WebContents }, ...args: any[]) => any) {
+const handleMessageSync = function (channel: string, handler: (event: { sender: Neutron.WebContents }, ...args: any[]) => any) {
   ipcMainUtils.handleSync(channel, makeSafeHandler(channel, handler));
 };
 
@@ -346,7 +346,7 @@ handleMessageSync(IPC_MESSAGES.GUEST_VIEW_MANAGER_PROPERTY_SET, function (event,
 });
 
 // Returns WebContents from its guest id hosted in given webContents.
-const getGuestForWebContents = function (guestInstanceId: number, contents: Electron.WebContents) {
+const getGuestForWebContents = function (guestInstanceId: number, contents: Neutron.WebContents) {
   const guestInstance = guestInstances.get(guestInstanceId);
   if (!guestInstance) {
     throw new Error(`Invalid guestInstanceId: ${guestInstanceId}`);

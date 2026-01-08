@@ -46,4 +46,4 @@ runs:
       fi
 
       echo "Wiping Electron Directory"
-      rm -rf src/electron
+      rm -rf src/neutron

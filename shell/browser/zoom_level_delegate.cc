@@ -18,7 +18,7 @@
 #include "components/prefs/scoped_user_pref_update.h"
 #include "third_party/blink/public/common/page/page_zoom.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -158,4 +158,4 @@ void ZoomLevelDelegate::InitHostZoomMap(content::HostZoomMap* host_zoom_map) {
           &ZoomLevelDelegate::OnZoomLevelChanged, base::Unretained(this)));
 }
 
-}  // namespace electron
+}  // namespace neutron

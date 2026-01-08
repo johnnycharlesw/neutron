@@ -18,7 +18,7 @@ template <typename T>
 class Promise;
 }  // namespace gin_helper
 
-namespace electron {
+namespace neutron {
 
 // GPUInfoManager is a singleton used to manage and fetch GPUInfo
 class GPUInfoManager : private content::GpuDataManagerObserver,
@@ -52,5 +52,5 @@ class GPUInfoManager : private content::GpuDataManagerObserver,
   raw_ptr<content::GpuDataManagerImpl> gpu_data_manager_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 #endif  // ELECTRON_SHELL_BROWSER_API_GPUINFO_MANAGER_H_

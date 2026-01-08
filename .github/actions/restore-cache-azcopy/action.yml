@@ -81,7 +81,7 @@ runs:
       fi
 
       echo "Wiping Electron Directory"
-      rm -rf src/electron
+      rm -rf src/neutron
 
   - name: Unzip and Ensure Src Cache (Windows)
     if: ${{ inputs.target-platform == 'win' }}
@@ -122,4 +122,4 @@ runs:
         }
 
         Write-Host "Wiping Electron Directory"
-        Remove-Item -Recurse -Force src\electron
+        Remove-Item -Recurse -Force src\neutron

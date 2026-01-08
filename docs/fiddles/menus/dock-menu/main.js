@@ -1,5 +1,5 @@
-const { app, BrowserWindow, Menu } = require('electron/main')
-const { shell } = require('electron/common')
+const { app, BrowserWindow, Menu } = require('neutron/main')
+const { shell } = require('neutron/common')
 
 function createWindow () {
   const win = new BrowserWindow()
@@ -28,7 +28,7 @@ app.whenReady().then(() => {
     {
       label: 'Open Electron Docs',
       click: () => {
-        shell.openExternal('https://electronjs.org/docs')
+        shell.openExternal('https://neutronjs.org/docs')
       }
     }
     // add more menu options to the array

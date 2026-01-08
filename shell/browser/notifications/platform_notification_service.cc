@@ -6,7 +6,7 @@
 
 #include "content/public/browser/notification_event_dispatcher.h"
 #include "content/public/browser/render_process_host.h"
-#include "shell/browser/electron_browser_client.h"
+#include "shell/browser/neutron_browser_client.h"
 #include "shell/browser/notifications/notification.h"
 #include "shell/browser/notifications/notification_delegate.h"
 #include "shell/browser/notifications/notification_presenter.h"
@@ -14,7 +14,7 @@
 #include "third_party/blink/public/common/notifications/platform_notification_data.h"
 #include "third_party/skia/include/core/SkBitmap.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -26,7 +26,7 @@ void OnWebNotificationAllowed(base::WeakPtr<Notification> notification,
   if (!notification)
     return;
   if (allowed) {
-    electron::NotificationOptions options;
+    neutron::NotificationOptions options;
     options.title = data.title;
     options.msg = data.body;
     options.tag = data.tag;
@@ -43,7 +43,7 @@ void OnWebNotificationAllowed(base::WeakPtr<Notification> notification,
   }
 }
 
-class NotificationDelegateImpl final : public electron::NotificationDelegate {
+class NotificationDelegateImpl final : public neutron::NotificationDelegate {
  public:
   explicit NotificationDelegateImpl(const std::string& notification_id)
       : notification_id_(notification_id) {}
@@ -52,7 +52,7 @@ class NotificationDelegateImpl final : public electron::NotificationDelegate {
   NotificationDelegateImpl(const NotificationDelegateImpl&) = delete;
   NotificationDelegateImpl& operator=(const NotificationDelegateImpl&) = delete;
 
-  // electron::NotificationDelegate
+  // neutron::NotificationDelegate
   void NotificationDestroyed() override { delete this; }
 
   void NotificationClick() override {
@@ -77,7 +77,7 @@ class NotificationDelegateImpl final : public electron::NotificationDelegate {
 }  // namespace
 
 PlatformNotificationService::PlatformNotificationService(
-    ElectronBrowserClient* browser_client)
+    NeutronBrowserClient* browser_client)
     : browser_client_(browser_client) {}
 
 PlatformNotificationService::~PlatformNotificationService() = default;
@@ -130,7 +130,7 @@ void PlatformNotificationService::GetDisplayedNotificationsForOrigin(
     DisplayedNotificationsCallback callback) {}
 
 int64_t PlatformNotificationService::ReadNextPersistentNotificationId() {
-  // Electron doesn't support persistent notifications.
+  // Neutron doesn't support persistent notifications.
   return 0;
 }
 
@@ -143,4 +143,4 @@ base::Time PlatformNotificationService::ReadNextTriggerTimestamp() {
   return base::Time::Max();
 }
 
-}  // namespace electron
+}  // namespace neutron

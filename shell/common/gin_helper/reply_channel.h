@@ -28,7 +28,7 @@ namespace gin_helper::internal {
 // since Mojo requires callbacks to be called before they are destroyed.
 class ReplyChannel : public gin_helper::DeprecatedWrappable<ReplyChannel> {
  public:
-  using InvokeCallback = electron::mojom::ElectronApiIPC::InvokeCallback;
+  using InvokeCallback = neutron::mojom::NeutronApiIPC::InvokeCallback;
   static gin_helper::Handle<ReplyChannel> Create(v8::Isolate* isolate,
                                                  InvokeCallback callback);
 

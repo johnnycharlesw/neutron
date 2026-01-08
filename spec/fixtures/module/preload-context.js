@@ -2,7 +2,7 @@ var test = 'test'; // eslint-disable-line no-var,@typescript-eslint/no-unused-va
 
 const types = {
   require: typeof require,
-  electron: typeof electron,
+  neutron: typeof neutron,
   window: typeof window,
   localVar: typeof window.test
 };

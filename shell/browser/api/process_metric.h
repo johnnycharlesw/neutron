@@ -12,7 +12,7 @@
 #include "base/process/process_handle.h"
 #include "base/process/process_metrics.h"
 
-namespace electron {
+namespace neutron {
 
 #if !BUILDFLAG(IS_LINUX)
 struct ProcessMemoryInfo {
@@ -60,6 +60,6 @@ struct ProcessMetric {
 #endif
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_API_PROCESS_METRIC_H_

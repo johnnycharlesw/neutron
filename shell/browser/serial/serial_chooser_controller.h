@@ -29,13 +29,13 @@ template <typename T>
 class WeakCell;
 }  // namespace gin
 
-namespace electron {
+namespace neutron {
 
 namespace api {
 class Session;
 }
 
-class ElectronSerialDelegate;
+class NeutronSerialDelegate;
 
 // SerialChooserController provides data for the Serial API permission prompt.
 class SerialChooserController final
@@ -48,7 +48,7 @@ class SerialChooserController final
       std::vector<::device::BluetoothUUID> allowed_bluetooth_service_class_ids,
       content::SerialChooser::Callback callback,
       content::WebContents* web_contents,
-      base::WeakPtr<ElectronSerialDelegate> serial_delegate);
+      base::WeakPtr<NeutronSerialDelegate> serial_delegate);
   ~SerialChooserController() override;
 
   // disable copy
@@ -103,12 +103,12 @@ class SerialChooserController final
                           device::BluetoothAdapter::Observer>
       adapter_observation_{this};
 
-  base::WeakPtr<ElectronSerialDelegate> serial_delegate_;
+  base::WeakPtr<NeutronSerialDelegate> serial_delegate_;
   content::GlobalRenderFrameHostId render_frame_host_id_;
 
   base::WeakPtrFactory<SerialChooserController> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_SERIAL_SERIAL_CHOOSER_CONTROLLER_H_

@@ -17,7 +17,7 @@ def apply_patches(target):
     return
   patch_dir = target.get('patch_dir')
   git.import_patches(
-    committer_email="scripts@electron",
+    committer_email="scripts@neutron",
     committer_name="Electron Scripts",
     patch_data=patch_from_dir(patch_dir),
     repo=repo,

@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Samuel Attard <sattard@salesforce.com>
 Date: Fri, 21 Oct 2022 16:29:06 -0700
-Subject: build: allow electron to use exec_script
+Subject: build: allow neutron to use exec_script
 
 This is similar to the //build usecase so we're OK adding ourselves here
 
@@ -14,26 +14,26 @@ index ae58a0b0a64ae1fdb3f9cd8587041d71a121c6b9..0ed56526002b12deb6d29f3dd23a0d74
        "//tools/grit/grit_rule.gni",
        "//tools/gritsettings/BUILD.gn",
 +
-+      "//electron/BUILD.gn",
-+      "//third_party/electron_node/deps/ada/unofficial.gni",
-+      "//third_party/electron_node/deps/base64/BUILD.gn",
-+      "//third_party/electron_node/deps/base64/unofficial.gni",
-+      "//third_party/electron_node/node.gni",
-+      "//third_party/electron_node/unofficial.gni",
-+      "//third_party/electron_node/deps/brotli/unofficial.gni",
-+      "//third_party/electron_node/deps/cares/unofficial.gni",
-+      "//third_party/electron_node/deps/googletest/unofficial.gni",
-+      "//third_party/electron_node/deps/histogram/unofficial.gni",
-+      "//third_party/electron_node/deps/llhttp/unofficial.gni",
-+      "//third_party/electron_node/deps/nbytes/unofficial.gni",
-+      "//third_party/electron_node/deps/ncrypto/unofficial.gni",
-+      "//third_party/electron_node/deps/nghttp2/unofficial.gni",
-+      "//third_party/electron_node/deps/ngtcp2/unofficial.gni",
-+      "//third_party/electron_node/deps/openssl/unofficial.gni",
-+      "//third_party/electron_node/deps/simdjson/unofficial.gni",
-+      "//third_party/electron_node/deps/sqlite/unofficial.gni",
-+      "//third_party/electron_node/deps/uv/unofficial.gni",
-+      "//third_party/electron_node/deps/uvwasi/unofficial.gni",
-+      "//third_party/electron_node/deps/zstd/unofficial.gni",
-+      "//third_party/electron_node/src/inspector/unofficial.gni",
++      "//neutron/BUILD.gn",
++      "//third_party/neutron_node/deps/ada/unofficial.gni",
++      "//third_party/neutron_node/deps/base64/BUILD.gn",
++      "//third_party/neutron_node/deps/base64/unofficial.gni",
++      "//third_party/neutron_node/node.gni",
++      "//third_party/neutron_node/unofficial.gni",
++      "//third_party/neutron_node/deps/brotli/unofficial.gni",
++      "//third_party/neutron_node/deps/cares/unofficial.gni",
++      "//third_party/neutron_node/deps/googletest/unofficial.gni",
++      "//third_party/neutron_node/deps/histogram/unofficial.gni",
++      "//third_party/neutron_node/deps/llhttp/unofficial.gni",
++      "//third_party/neutron_node/deps/nbytes/unofficial.gni",
++      "//third_party/neutron_node/deps/ncrypto/unofficial.gni",
++      "//third_party/neutron_node/deps/nghttp2/unofficial.gni",
++      "//third_party/neutron_node/deps/ngtcp2/unofficial.gni",
++      "//third_party/neutron_node/deps/openssl/unofficial.gni",
++      "//third_party/neutron_node/deps/simdjson/unofficial.gni",
++      "//third_party/neutron_node/deps/sqlite/unofficial.gni",
++      "//third_party/neutron_node/deps/uv/unofficial.gni",
++      "//third_party/neutron_node/deps/uvwasi/unofficial.gni",
++      "//third_party/neutron_node/deps/zstd/unofficial.gni",
++      "//third_party/neutron_node/src/inspector/unofficial.gni",
      ]

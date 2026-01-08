@@ -1,6 +1,6 @@
-import { getRawHeader } from '@electron/asar';
-import { flipFuses, FuseV1Config, FuseV1Options, FuseVersion } from '@electron/fuses';
-import { resedit } from '@electron/packager/dist/resedit';
+import { getRawHeader } from '@neutron/asar';
+import { flipFuses, FuseV1Config, FuseV1Options, FuseVersion } from '@neutron/fuses';
+import { resedit } from '@neutron/packager/dist/resedit';
 
 import { expect } from 'chai';
 import * as originalFs from 'node:original-fs';
@@ -68,7 +68,7 @@ describe('fuses', function () {
 
   const launchApp = (args: string[] = []) => {
     if (process.platform === 'darwin') {
-      return spawn(path.resolve(appPath, 'Contents/MacOS/Electron'), args);
+      return spawn(path.resolve(appPath, 'Contents/MacOS/Neutron'), args);
     }
     return spawn(appPath, args);
   };
@@ -84,7 +84,7 @@ describe('fuses', function () {
   };
 
   beforeEach(async () => {
-    tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'electron-asar-integrity-spec-'));
+    tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'neutron-asar-integrity-spec-'));
     appPath = await copyApp(tmpDir);
   });
 

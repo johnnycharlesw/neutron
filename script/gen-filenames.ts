@@ -52,7 +52,7 @@ const main = async () => {
   ];
 
   const webpackTargetsWithDeps = await Promise.all(webpackTargets.map(async webpackTarget => {
-    const tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'electron-filenames-'));
+    const tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'neutron-filenames-'));
     const child = cp.spawn('node', [
       './node_modules/webpack-cli/bin/cli.js',
       '--config', `./build/webpack/${webpackTarget.config}`,
@@ -84,12 +84,12 @@ const main = async () => {
         .map(line => line.trim())
         // Get the relative path
         .map(line => path.relative(rootPath, line).replace(/\\/g, '/'))
-        // Only care about files in //electron
+        // Only care about files in //neutron
         .filter(line => !line.startsWith('..'))
         // Only care about our own files
         .filter(line => !line.startsWith('node_modules'))
         // All webpack builds depend on the tsconfig  and package json files
-        .concat(['tsconfig.json', 'tsconfig.electron.json', 'package.json', ...typingFiles])
+        .concat(['tsconfig.json', 'tsconfig.neutron.json', 'package.json', ...typingFiles])
         // Make the generated list easier to read
         .sort()
     };

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('neutron');
 
 const ints = (...args) => args.map(a => parseInt(a, 10));
 

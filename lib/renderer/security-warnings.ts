@@ -1,7 +1,7 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import { ipcRendererInternal } from '@electron/internal/renderer/ipc-renderer-internal';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import { ipcRendererInternal } from '@neutron/internal/renderer/ipc-renderer-internal';
 
-const { mainFrame: webFrame } = process._linkedBinding('electron_renderer_web_frame');
+const { mainFrame: webFrame } = process._linkedBinding('neutron_renderer_web_frame');
 
 let shouldLog: boolean | null = null;
 
@@ -9,7 +9,7 @@ const { platform, execPath, env } = process;
 
 /**
  * This method checks if a security message should be logged.
- * It does so by determining whether we're running as Electron,
+ * It does so by determining whether we're running as Neutron,
  * which indicates that a developer is currently looking at the
  * app.
  *
@@ -22,15 +22,15 @@ const shouldLogSecurityWarnings = function (): boolean {
 
   switch (platform) {
     case 'darwin':
-      shouldLog = execPath.endsWith('MacOS/Electron') ||
-                  execPath.includes('Electron.app/Contents/Frameworks/');
+      shouldLog = execPath.endsWith('MacOS/Neutron') ||
+                  execPath.includes('Neutron.app/Contents/Frameworks/');
       break;
     case 'freebsd':
     case 'linux':
-      shouldLog = execPath.endsWith('/electron');
+      shouldLog = execPath.endsWith('/neutron');
       break;
     case 'win32':
-      shouldLog = execPath.endsWith('\\electron.exe');
+      shouldLog = execPath.endsWith('\\neutron.exe');
       break;
     default:
       shouldLog = false;
@@ -83,7 +83,7 @@ const isUnsafeEvalEnabled = () => {
 };
 
 const moreInformation = `\nFor more information and help, consult
-https://electronjs.org/docs/tutorial/security.\nThis warning will not show up
+https://neutronjs.org/docs/tutorial/security.\nThis warning will not show up
 once the app is packaged.`;
 
 /**
@@ -151,7 +151,7 @@ const warnAboutNodeWithRemoteContent = function (nodeIntegration: boolean) {
  *
  * Logs a warning message about disabled webSecurity.
  */
-const warnAboutDisabledWebSecurity = function (webPreferences?: Electron.WebPreferences) {
+const warnAboutDisabledWebSecurity = function (webPreferences?: Neutron.WebPreferences) {
   if (!webPreferences || webPreferences.webSecurity !== false) return;
 
   const warning = `This renderer process has "webSecurity" disabled. This
@@ -183,7 +183,7 @@ const warnAboutInsecureCSP = function () {
  *
  * Logs a warning message about disabled webSecurity.
  */
-const warnAboutInsecureContentAllowed = function (webPreferences?: Electron.WebPreferences) {
+const warnAboutInsecureContentAllowed = function (webPreferences?: Neutron.WebPreferences) {
   if (!webPreferences || !webPreferences.allowRunningInsecureContent) return;
 
   const warning = `This renderer process has "allowRunningInsecureContent"
@@ -199,7 +199,7 @@ const warnAboutInsecureContentAllowed = function (webPreferences?: Electron.WebP
  *
  * Logs a warning message about experimental features.
  */
-const warnAboutExperimentalFeatures = function (webPreferences?: Electron.WebPreferences) {
+const warnAboutExperimentalFeatures = function (webPreferences?: Neutron.WebPreferences) {
   if (!webPreferences || (!webPreferences.experimentalFeatures)) {
     return;
   }
@@ -217,7 +217,7 @@ const warnAboutExperimentalFeatures = function (webPreferences?: Electron.WebPre
  *
  * Logs a warning message about enableBlinkFeatures
  */
-const warnAboutEnableBlinkFeatures = function (webPreferences?: Electron.WebPreferences) {
+const warnAboutEnableBlinkFeatures = function (webPreferences?: Neutron.WebPreferences) {
   if (!webPreferences ||
     !Object.hasOwn(webPreferences, 'enableBlinkFeatures') ||
     (webPreferences.enableBlinkFeatures != null && webPreferences.enableBlinkFeatures.length === 0)) {
@@ -262,7 +262,7 @@ const warnAboutAllowedPopups = function () {
 //   #14 Do not use `openExternal` with untrusted content
 
 const logSecurityWarnings = function (
-  webPreferences: Electron.WebPreferences | undefined, nodeIntegration: boolean
+  webPreferences: Neutron.WebPreferences | undefined, nodeIntegration: boolean
 ) {
   warnAboutNodeWithRemoteContent(nodeIntegration);
   warnAboutDisabledWebSecurity(webPreferences);
@@ -276,7 +276,7 @@ const logSecurityWarnings = function (
 
 const getWebPreferences = async function () {
   try {
-    return ipcRendererInternal.invoke<Electron.WebPreferences>(IPC_MESSAGES.BROWSER_GET_LAST_WEB_PREFERENCES);
+    return ipcRendererInternal.invoke<Neutron.WebPreferences>(IPC_MESSAGES.BROWSER_GET_LAST_WEB_PREFERENCES);
   } catch (error) {
     console.warn(`getLastWebPreferences() failed: ${error}`);
   }

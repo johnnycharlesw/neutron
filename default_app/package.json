@@ -1,5 +1,5 @@
 {
-  "name": "electron",
+  "name": "neutron",
   "productName": "Electron",
   "main": "main.js",
   "type": "module"

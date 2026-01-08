@@ -21,7 +21,7 @@
 #include "content/public/browser/network_service_instance.h"
 #include "content/public/browser/network_service_util.h"
 #include "content/public/common/content_features.h"
-#include "electron/fuses.h"
+#include "neutron/fuses.h"
 #include "mojo/public/cpp/bindings/pending_receiver.h"
 #include "net/dns/public/dns_over_https_config.h"
 #include "net/dns/public/util.h"
@@ -34,7 +34,7 @@
 #include "services/network/public/mojom/network_context.mojom.h"
 #include "services/network/public/mojom/url_response_head.mojom.h"
 #include "shell/browser/browser.h"
-#include "shell/browser/electron_browser_client.h"
+#include "shell/browser/neutron_browser_client.h"
 #include "shell/common/application_info.h"
 #include "shell/common/options_switches.h"
 #include "url/gurl.h"
@@ -69,13 +69,13 @@ network::mojom::HttpAuthDynamicParamsPtr CreateHttpAuthDynamicParams() {
       network::mojom::HttpAuthDynamicParams::New();
 
   auth_dynamic_params->server_allowlist = command_line->GetSwitchValueASCII(
-      electron::switches::kAuthServerWhitelist);
+      neutron::switches::kAuthServerWhitelist);
   auth_dynamic_params->delegate_allowlist = command_line->GetSwitchValueASCII(
-      electron::switches::kAuthNegotiateDelegateWhitelist);
+      neutron::switches::kAuthNegotiateDelegateWhitelist);
   auth_dynamic_params->enable_negotiate_port =
-      command_line->HasSwitch(electron::switches::kEnableAuthNegotiatePort);
+      command_line->HasSwitch(neutron::switches::kEnableAuthNegotiatePort);
   auth_dynamic_params->ntlm_v2_enabled =
-      !command_line->HasSwitch(electron::switches::kDisableNTLMv2);
+      !command_line->HasSwitch(neutron::switches::kDisableNTLMv2);
   auth_dynamic_params->allowed_schemes = {"basic", "digest", "ntlm",
                                           "negotiate"};
 
@@ -278,7 +278,7 @@ void SystemNetworkContextManager::OnNetworkServiceCreated(
   // The OSCrypt keys are process bound, so if network service is out of
   // process, send it the required key.
   if (content::IsOutOfProcessNetworkService() &&
-      electron::fuses::IsCookieEncryptionEnabled()) {
+      neutron::fuses::IsCookieEncryptionEnabled()) {
     network_service->SetEncryptionKey(OSCrypt::GetRawEncryptionKey());
   }
 }
@@ -290,7 +290,7 @@ SystemNetworkContextManager::CreateNetworkContextParams() {
       CreateDefaultNetworkContextParams();
 
   network_context_params->user_agent =
-      electron::ElectronBrowserClient::Get()->GetUserAgent();
+      neutron::NeutronBrowserClient::Get()->GetUserAgent();
 
   network_context_params->http_cache_enabled = false;
 

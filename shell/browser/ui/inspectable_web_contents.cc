@@ -43,7 +43,7 @@
 #include "services/network/public/cpp/simple_url_loader_stream_consumer.h"
 #include "services/network/public/cpp/wrapper_shared_url_loader_factory.h"
 #include "services/network/public/mojom/url_response_head.mojom.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/native_window_views.h"
 #include "shell/browser/net/asar/asar_url_loader_factory.h"
 #include "shell/browser/protocol_registry.h"
@@ -68,7 +68,7 @@
 #include "extensions/common/permissions/permissions_data.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -83,10 +83,10 @@ constexpr std::string_view kChromeUIDevToolsRemoteFrontendBase =
     "https://chrome-devtools-frontend.appspot.com/";
 constexpr std::string_view kChromeUIDevToolsRemoteFrontendPath = "serve_file";
 
-constexpr std::string_view kDevToolsBoundsPref = "electron.devtools.bounds";
-constexpr std::string_view kDevToolsZoomPref = "electron.devtools.zoom";
+constexpr std::string_view kDevToolsBoundsPref = "neutron.devtools.bounds";
+constexpr std::string_view kDevToolsZoomPref = "neutron.devtools.zoom";
 constexpr std::string_view kDevToolsPreferences =
-    "electron.devtools.preferences";
+    "neutron.devtools.preferences";
 
 constexpr std::string_view kFrontendHostId = "id";
 constexpr std::string_view kFrontendHostMethod = "method";
@@ -690,7 +690,7 @@ void InspectableWebContents::LoadNetworkResource(DispatchCallback callback,
                  protocol_registry->FindRegistered(gurl.scheme())) {
     url_loader_factory = network::SharedURLLoaderFactory::Create(
         std::make_unique<network::WrapperPendingSharedURLLoaderFactory>(
-            ElectronURLLoaderFactory::Create(protocol_handler->first,
+            NeutronURLLoaderFactory::Create(protocol_handler->first,
                                              protocol_handler->second)));
   } else {
     auto* partition = GetDevToolsWebContents()
@@ -1048,4 +1048,4 @@ void InspectableWebContents::SendMessageAck(int request_id,
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

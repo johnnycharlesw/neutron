@@ -14,7 +14,7 @@
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/paint_vector_icon.h"
 
-namespace electron {
+namespace neutron {
 
 StatusIconGtk::StatusIconGtk() : icon_(TakeGObject(gtk_status_icon_new())) {
   auto connect = [&](auto* sender, const char* detailed_signal, auto receiver) {
@@ -77,4 +77,4 @@ void StatusIconGtk::OnContextMenuRequested(GtkStatusIcon* status_icon,
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

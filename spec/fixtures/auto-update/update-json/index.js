@@ -1,4 +1,4 @@
-const { app, autoUpdater } = require('electron');
+const { app, autoUpdater } = require('neutron');
 
 const fs = require('node:fs');
 const path = require('node:path');

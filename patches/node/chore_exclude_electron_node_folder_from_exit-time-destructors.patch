@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: deepak1556 <hop2deep@gmail.com>
 Date: Mon, 1 Sep 2025 03:12:06 +0900
-Subject: chore: exclude electron_node folder from exit-time-destructors
+Subject: chore: exclude neutron_node folder from exit-time-destructors
 
 Refs https://issues.chromium.org/issues/430332953
 It contains multiple third_party dependencies that doesn't

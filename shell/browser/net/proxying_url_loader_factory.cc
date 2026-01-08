@@ -27,7 +27,7 @@
 #include "third_party/abseil-cpp/absl/strings/str_format.h"
 #include "url/origin.h"
 
-namespace electron {
+namespace neutron {
 
 ProxyingURLLoaderFactory::InProgressRequest::FollowRedirectParams::
     FollowRedirectParams() = default;
@@ -251,7 +251,7 @@ void ProxyingURLLoaderFactory::InProgressRequest::OnReceiveResponse(
 void ProxyingURLLoaderFactory::InProgressRequest::OnReceiveRedirect(
     const net::RedirectInfo& redirect_info,
     network::mojom::URLResponseHeadPtr head) {
-  // Note: In Electron we don't check IsRedirectSafe.
+  // Note: In Neutron we don't check IsRedirectSafe.
 
   if (current_request_uses_header_client_) {
     // Use the headers we got from OnHeadersReceived as that'll contain
@@ -441,7 +441,7 @@ void ProxyingURLLoaderFactory::InProgressRequest::ContinueToBeforeSendHeaders(
 
   auto continuation = base::BindRepeating(
       &InProgressRequest::ContinueToSendHeaders, weak_factory_.GetWeakPtr());
-  // Note: In Electron onBeforeSendHeaders is called for all protocols.
+  // Note: In Neutron onBeforeSendHeaders is called for all protocols.
   int result = factory_->web_request_->OnBeforeSendHeaders(
       &info_.value(), request_, continuation, &request_.headers);
 
@@ -555,7 +555,7 @@ void ProxyingURLLoaderFactory::InProgressRequest::ContinueToSendHeaders(
   if (proxied_client_receiver_.is_bound())
     proxied_client_receiver_.Resume();
 
-  // Note: In Electron onSendHeaders is called for all protocols.
+  // Note: In Neutron onSendHeaders is called for all protocols.
   factory_->web_request_->OnSendHeaders(&info_.value(), request_,
                                         request_.headers);
 
@@ -806,7 +806,7 @@ void ProxyingURLLoaderFactory::CreateLoaderAndStart(
       // <scheme, <type, handler>>
       it->second.second.Run(
           request,
-          base::BindOnce(&ElectronURLLoaderFactory::StartLoading,
+          base::BindOnce(&NeutronURLLoaderFactory::StartLoading,
                          std::move(loader), request_id, options, request,
                          std::move(client), traffic_annotation,
                          std::move(loader_remote), it->second.first));
@@ -840,7 +840,7 @@ void ProxyingURLLoaderFactory::CreateLoaderAndStart(
   const uint64_t web_request_id = ++(*request_id_generator_);
 
   // Notes: Chromium assumes that requests with zero-ID would never use the
-  // "extraHeaders" code path, however in Electron requests started from
+  // "extraHeaders" code path, however in Neutron requests started from
   // the net module would have zero-ID because they do not have renderer process
   // associated.
   if (request_id)
@@ -926,4 +926,4 @@ void ProxyingURLLoaderFactory::MaybeDeleteThis() {
   delete this;
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -9,7 +9,7 @@
 #include "services/network/public/mojom/shared_storage.mojom.h"
 #include "shell/browser/login_handler.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -122,4 +122,4 @@ void URLLoaderNetworkObserver::Clone(
   receivers_.Add(this, std::move(observer));
 }
 
-}  // namespace electron
+}  // namespace neutron

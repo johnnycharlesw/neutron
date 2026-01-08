@@ -7,7 +7,7 @@ import shutil
 from pathlib import Path
 
 SRC_DIR = Path(__file__).resolve().parents[3]
-sys.path.append(os.path.join(SRC_DIR, 'third_party/electron_node/tools'))
+sys.path.append(os.path.join(SRC_DIR, 'third_party/neutron_node/tools'))
 
 import install
 
@@ -39,7 +39,7 @@ def get_out_dir():
     return os.path.join(SRC_DIR, 'out', out_dir)
 
 if __name__ == '__main__':
-    node_root_dir = os.path.join(SRC_DIR, 'third_party/electron_node')
+    node_root_dir = os.path.join(SRC_DIR, 'third_party/neutron_node')
     out = {}
 
     out['headers'] = []

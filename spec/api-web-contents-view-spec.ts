@@ -1,4 +1,4 @@
-import { BaseWindow, BrowserWindow, View, WebContentsView, webContents, screen } from 'electron/main';
+import { BaseWindow, BrowserWindow, View, WebContentsView, webContents, screen } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -28,7 +28,7 @@ describe('WebContentsView', () => {
   it('accepts existing webContents object', async () => {
     const currentWebContentsCount = webContents.getAllWebContents().length;
 
-    const wc = (webContents as typeof ElectronInternal.WebContents).create({ sandbox: true });
+    const wc = (webContents as typeof NeutronInternal.WebContents).create({ sandbox: true });
     defer(() => wc.destroy());
     await wc.loadURL('about:blank');
 
@@ -310,10 +310,10 @@ describe('WebContentsView', () => {
 
   describe('setBorderRadius', () => {
     ifdescribe(hasCapturableScreen())('capture', () => {
-      let w: Electron.BaseWindow;
-      let v: Electron.WebContentsView;
-      let display: Electron.Display;
-      let corners: Electron.Point[];
+      let w: Neutron.BaseWindow;
+      let v: Neutron.WebContentsView;
+      let display: Neutron.Display;
+      let corners: Neutron.Point[];
 
       const backgroundUrl = `data:text/html,<style>html{background:${encodeURIComponent(HexColors.GREEN)}}</style>`;
 

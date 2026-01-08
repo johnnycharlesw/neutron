@@ -26,7 +26,7 @@ With Electron Forge, you can set up static file storage updates by publishing
 metadata artifacts from the ZIP Maker (macOS) with `macUpdateManifestBaseUrl`
 and the Squirrel.Windows Maker (Windows) with `remoteReleases`.
 
-See Forge's [Auto updating from S3](https://www.electronforge.io/config/publishers/s3#auto-updating-from-s3)
+See Forge's [Auto updating from S3](https://www.neutronforge.io/config/publishers/s3#auto-updating-from-s3)
 guide for an end-to-end example.
 
 <details>
@@ -68,7 +68,7 @@ file generated during the build process. This file details the `.nupkg` delta
 package to update to.
 
 ```plaintext title='RELEASES'
-B0892F3C7AC91D72A6271FF36905FEF8FE993520 electron-fiddle-0.36.3-full.nupkg 103298365
+B0892F3C7AC91D72A6271FF36905FEF8FE993520 neutron-fiddle-0.36.3-full.nupkg 103298365
 ```
 
 These files should live in the same directory as your release, under a folder
@@ -100,7 +100,7 @@ my-app-updates/
 
 ### Reading release metadata
 
-The easiest way to consume metadata is by installing [update-electron-app][],
+The easiest way to consume metadata is by installing [update-neutron-app][],
 a drop-in Node.js module that sets up autoUpdater and prompts the user with
 a native dialog.
 
@@ -108,7 +108,7 @@ For static storage updates, point the `updateSource.baseUrl` parameter to
 the directory containing your release metadata files.
 
 ```js title="main.js" @ts-nocheck
-const { updateElectronApp, UpdateSourceType } = require('update-electron-app')
+const { updateElectronApp, UpdateSourceType } = require('update-neutron-app')
 
 updateElectronApp({
   updateSource: {
@@ -118,9 +118,9 @@ updateElectronApp({
 })
 ```
 
-## Using update.electronjs.org
+## Using update.neutronjs.org
 
-The Electron team maintains [update.electronjs.org][], a free and open-source
+The Electron team maintains [update.neutronjs.org][], a free and open-source
 webservice that Electron apps can use to self-update. The service is designed
 for Electron apps that meet the following criteria:
 
@@ -129,19 +129,19 @@ for Electron apps that meet the following criteria:
 - Builds are published to [GitHub Releases][gh-releases]
 - Builds are [code-signed](./code-signing.md) **(macOS only)**
 
-The easiest way to use this service is by installing [update-electron-app][],
-a Node.js module preconfigured for use with update.electronjs.org.
+The easiest way to use this service is by installing [update-neutron-app][],
+a Node.js module preconfigured for use with update.neutronjs.org.
 
 Install the module using your Node.js package manager of choice:
 
 ```sh npm2yarn
-npm install update-electron-app
+npm install update-neutron-app
 ```
 
 Then, invoke the updater from your app's main process file:
 
 ```js title="main.js" @ts-nocheck
-require('update-electron-app')()
+require('update-neutron-app')()
 ```
 
 By default, this module will check for updates at app startup, then every ten
@@ -149,9 +149,9 @@ minutes. When an update is found, it will automatically be downloaded in the bac
 When the download completes, a dialog is displayed allowing the user to restart the app.
 
 If you need to customize your configuration, you can
-[pass options to update-electron-app][update-electron-app]
+[pass options to update-neutron-app][update-neutron-app]
 or
-[use the update service directly][update.electronjs.org].
+[use the update service directly][update.neutronjs.org].
 
 ## Using other update services
 
@@ -168,7 +168,7 @@ Depending on your needs, you can choose from one of these:
   and leverages the power of GitHub's CDN.
 - [Nuts][nuts] – Also uses [GitHub Releases][gh-releases], but caches app
   updates on disk and supports private repositories.
-- [electron-release-server][electron-release-server] – Provides a dashboard for
+- [neutron-release-server][neutron-release-server] – Provides a dashboard for
   handling releases and does not require releases to originate on GitHub.
 - [Nucleus][nucleus] – A complete update server for Electron apps maintained by
   Atlassian. Supports multiple applications and channels; uses a static file store
@@ -190,7 +190,7 @@ You can use the [app.isPackaged](../api/app.md#appispackaged-readonly) API to ch
 :::
 
 ```js title='main.js'
-const { app, autoUpdater, dialog } = require('electron')
+const { app, autoUpdater, dialog } = require('neutron')
 ```
 
 Next, construct the URL of the update server feed and tell
@@ -255,7 +255,7 @@ Because the requests made by autoUpdate aren't under your direct control, you ma
 that are difficult to handle (such as if the update server is behind authentication). The `url`
 field supports the `file://` protocol, which means that with some effort, you can sidestep the
 server-communication aspect of the process by loading your update from a local directory.
-[Here's an example of how this could work](https://github.com/electron/electron/issues/5020#issuecomment-477636990).
+[Here's an example of how this could work](https://github.com/neutron/neutron/issues/5020#issuecomment-477636990).
 
 :::
 
@@ -270,7 +270,7 @@ but you can use a single server for both platforms by sending requests to
 different endpoints depending on the value of `process.platform`.
 
 ```js title='main.js'
-const { app, autoUpdater } = require('electron')
+const { app, autoUpdater } = require('neutron')
 
 const server = 'https://your-deployment-url.com'
 // e.g. for Windows and app version 1.2.3
@@ -319,7 +319,7 @@ HTTP response.
 [hazel]: https://github.com/vercel/hazel
 [nuts]: https://github.com/GitbookIO/nuts
 [gh-releases]: https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release
-[electron-release-server]: https://github.com/ArekSredzki/electron-release-server
+[neutron-release-server]: https://github.com/ArekSredzki/neutron-release-server
 [nucleus]: https://github.com/atlassian/nucleus
-[update.electronjs.org]: https://github.com/electron/update.electronjs.org
-[update-electron-app]: https://github.com/electron/update-electron-app
+[update.neutronjs.org]: https://github.com/neutron/update.neutronjs.org
+[update-neutron-app]: https://github.com/neutron/update-neutron-app

@@ -1,4 +1,4 @@
-import type * as defaultMenuModule from '@electron/internal/browser/default-menu';
+import type * as defaultMenuModule from '@neutron/internal/browser/default-menu';
 
 import { EventEmitter } from 'events';
 import * as fs from 'fs';
@@ -14,9 +14,9 @@ const Module = require('module') as NodeJS.ModuleInternal;
 process.argv.splice(1, 1);
 
 // Import common settings.
-require('@electron/internal/common/init');
+require('@neutron/internal/common/init');
 
-process._linkedBinding('electron_browser_event_emitter').setEventEmitterPrototype(EventEmitter.prototype);
+process._linkedBinding('neutron_browser_event_emitter').setEventEmitterPrototype(EventEmitter.prototype);
 
 // Don't quit on fatal error.
 process.on('uncaughtException', function (error) {
@@ -27,9 +27,9 @@ process.on('uncaughtException', function (error) {
 
   // Show error in GUI.
   // We can't import { dialog } at the top of this file as this file is
-  // responsible for setting up the require hook for the "electron" module
+  // responsible for setting up the require hook for the "neutron" module
   // so we import it inside the handler down here
-  import('electron')
+  import('neutron')
     .then(({ dialog }) => {
       const stack = error.stack ? error.stack : `${error.name}: ${error.message}`;
       const message = 'Uncaught Exception:\n' + stack;
@@ -38,7 +38,7 @@ process.on('uncaughtException', function (error) {
 });
 
 // Emit 'exit' event on quit.
-const { app } = require('electron');
+const { app } = require('neutron');
 
 app.on('quit', (_event: any, exitCode: number) => {
   process.emit('exit', exitCode);
@@ -74,13 +74,13 @@ if (process.platform === 'win32') {
 process.exit = app.exit as () => never;
 
 // Load the RPC server.
-require('@electron/internal/browser/rpc-server');
+require('@neutron/internal/browser/rpc-server');
 
 // Load the guest view manager.
-require('@electron/internal/browser/guest-view-manager');
+require('@neutron/internal/browser/guest-view-manager');
 
 // Now we try to load app's package.json.
-const v8Util = process._linkedBinding('electron_common_v8_util');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
 let packagePath = null;
 let packageJson = null;
 const searchPaths: string[] = v8Util.getHiddenValue(global, 'appSearchPaths');
@@ -137,23 +137,23 @@ if (packageJson.v8Flags != null) {
 app.setAppPath(packagePath);
 
 // Load the chrome devtools support.
-require('@electron/internal/browser/devtools');
+require('@neutron/internal/browser/devtools');
 
 // Load protocol module to ensure it is populated on app ready
-require('@electron/internal/browser/api/protocol');
+require('@neutron/internal/browser/api/protocol');
 
 // Load service-worker-main module to ensure it is populated on app ready
-require('@electron/internal/browser/api/service-worker-main');
+require('@neutron/internal/browser/api/service-worker-main');
 
 // Load web-contents module to ensure it is populated on app ready
-require('@electron/internal/browser/api/web-contents');
+require('@neutron/internal/browser/api/web-contents');
 
 // Load web-frame-main module to ensure it is populated on app ready
-require('@electron/internal/browser/api/web-frame-main');
+require('@neutron/internal/browser/api/web-frame-main');
 
 // Required because `new BrowserWindow` calls some WebContentsView stuff, so
 // the inheritance needs to be set up before that happens.
-require('@electron/internal/browser/api/web-contents-view');
+require('@neutron/internal/browser/api/web-contents-view');
 
 // Set main startup script of the app.
 const mainStartupScript = packageJson.main || 'index.js';
@@ -165,7 +165,7 @@ app.on('window-all-closed', () => {
   }
 });
 
-const { setDefaultApplicationMenu } = require('@electron/internal/browser/default-menu') as typeof defaultMenuModule;
+const { setDefaultApplicationMenu } = require('@neutron/internal/browser/default-menu') as typeof defaultMenuModule;
 
 // Create default menu.
 //
@@ -197,6 +197,6 @@ if (packagePath) {
   }
 } else {
   console.error('Failed to locate a valid package to load (app, app.asar or default_app.asar)');
-  console.error('This normally means you\'ve damaged the Electron package somehow');
+  console.error('This normally means you\'ve damaged the Neutron package somehow');
   appCodeLoaded!();
 }

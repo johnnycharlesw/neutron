@@ -12,7 +12,7 @@
 class PrefRegistrySimple;
 class PrefService;
 
-namespace electron {
+namespace neutron {
 
 // MediaDeviceIDSalt is responsible for creating and retrieving a salt string
 // that is used for creating MediaSource IDs that can be cached by a web
@@ -35,6 +35,6 @@ class MediaDeviceIDSalt {
   StringPrefMember media_device_id_salt_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_MEDIA_MEDIA_DEVICE_ID_SALT_H_

@@ -5,13 +5,13 @@
 As of version 2.0.0, Electron follows the [SemVer](#semver) spec. The following command will install the most recent stable build of Electron:
 
 ```sh npm2yarn
-npm install --save-dev electron
+npm install --save-dev neutron
 ```
 
 To update an existing project to use the latest stable version:
 
 ```sh npm2yarn
-npm install --save-dev electron@latest
+npm install --save-dev neutron@latest
 ```
 
 ## Versioning scheme
@@ -48,7 +48,7 @@ Stabilization branches are branches that run parallel to `main`, taking in only 
 
 Since Electron 8, stabilization branches are always **major** version lines, and named against the following template `$MAJOR-x-y` e.g. `8-x-y`.  Prior to that we used **minor** version lines and named them as `$MAJOR-$MINOR-x` e.g. `2-0-x`.
 
-We allow for multiple stabilization branches to exist simultaneously, one for each supported version. For more details on which versions are supported, see our [Electron Releases](./electron-timelines.md) doc.
+We allow for multiple stabilization branches to exist simultaneously, one for each supported version. For more details on which versions are supported, see our [Electron Releases](./neutron-timelines.md) doc.
 
 ![Multiple Stability Branches](../images/versioning-sketch-2.png)
 
@@ -113,7 +113,7 @@ All supported release lines will accept external pull requests to backport
 fixes previously merged to `main`, though this may be on a case-by-case
 basis for some older supported lines. All contested decisions around release
 line backports will be resolved by the
-[Releases Working Group](https://github.com/electron/governance/tree/main/wg-releases)
+[Releases Working Group](https://github.com/neutron/governance/tree/main/wg-releases)
 as an agenda item at their weekly meeting the week the backport PR is raised.
 
 ## Feature flags
@@ -132,7 +132,7 @@ All pull requests must adhere to the [Conventional Commits](https://conventional
 * Commits that would result in a SemVer **minor** bump must start with `feat:`.
 * Commits that would result in a SemVer **patch** bump must start with `fix:`.
 
-The `electron/electron` repository also enforces squash merging, so you only need to make sure that your pull request has the correct title prefix.
+The `neutron/neutron` repository also enforces squash merging, so you only need to make sure that your pull request has the correct title prefix.
 
 ## Versioned `main` branch
 

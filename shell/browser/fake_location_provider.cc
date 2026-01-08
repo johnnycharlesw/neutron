@@ -7,7 +7,7 @@
 #include "services/device/public/mojom/geoposition.mojom-shared.h"
 #include "services/device/public/mojom/geoposition.mojom.h"
 
-namespace electron {
+namespace neutron {
 
 FakeLocationProvider::FakeLocationProvider() {
   result_ = device::mojom::GeopositionResult::NewError(
@@ -49,4 +49,4 @@ void FakeLocationProvider::OnPermissionGranted() {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#import "shell/browser/mac/electron_application_delegate.h"
+#import "shell/browser/mac/neutron_application_delegate.h"
 
 #include <string>
 
@@ -12,10 +12,10 @@
 #include "base/mac/mac_util.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/sys_string_conversions.h"
-#include "shell/browser/api/electron_api_push_notifications.h"
+#include "shell/browser/api/neutron_api_push_notifications.h"
 #include "shell/browser/browser.h"
 #include "shell/browser/mac/dict_util.h"
-#import "shell/browser/mac/electron_application.h"
+#import "shell/browser/mac/neutron_application.h"
 #include "shell/common/mac_util.h"
 
 #import <UserNotifications/UserNotifications.h>
@@ -46,7 +46,7 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
   ElectronMenuController* __strong menu_controller_;
 }
 
-- (void)setApplicationDockMenu:(electron::ElectronMenuModel*)model {
+- (void)setApplicationDockMenu:(neutron::ElectronMenuModel*)model {
   menu_controller_ = [[ElectronMenuController alloc] initWithModel:model
                                              useDefaultAccelerator:NO];
 }
@@ -67,7 +67,7 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
              name:NSWorkspaceWillPowerOffNotification
            object:nil];
 
-  electron::Browser::Get()->WillFinishLaunching();
+  neutron::Browser::Get()->WillFinishLaunching();
 }
 
 // NSUserNotification is deprecated; all calls should be replaced with
@@ -96,21 +96,21 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
       (event.eventID == kAEOpenApplication &&
        [event paramDescriptorForKeyword:keyAEPropData].enumCodeValue ==
            keyAELaunchedAsLogInItem);
-  electron::Browser::Get()->SetLaunchedAtLogin(launched_as_login_item);
+  neutron::Browser::Get()->SetLaunchedAtLogin(launched_as_login_item);
 
-  electron::Browser::Get()->DidFinishLaunching(
-      electron::NSDictionaryToValue(notification_info));
+  neutron::Browser::Get()->DidFinishLaunching(
+      neutron::NSDictionaryToValue(notification_info));
 }
 
 // -Wdeprecated-declarations
 #pragma clang diagnostic pop
 
 - (void)applicationDidBecomeActive:(NSNotification*)notification {
-  electron::Browser::Get()->DidBecomeActive();
+  neutron::Browser::Get()->DidBecomeActive();
 }
 
 - (void)applicationDidResignActive:(NSNotification*)notification {
-  electron::Browser::Get()->DidResignActive();
+  neutron::Browser::Get()->DidResignActive();
 }
 
 - (NSMenu*)applicationDockMenu:(NSApplication*)sender {
@@ -119,12 +119,12 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
 
 - (BOOL)application:(NSApplication*)sender openFile:(NSString*)filename {
   std::string filename_str(base::SysNSStringToUTF8(filename));
-  return electron::Browser::Get()->OpenFile(filename_str) ? YES : NO;
+  return neutron::Browser::Get()->OpenFile(filename_str) ? YES : NO;
 }
 
 - (BOOL)applicationShouldHandleReopen:(NSApplication*)theApplication
                     hasVisibleWindows:(BOOL)flag {
-  electron::Browser* browser = electron::Browser::Get();
+  neutron::Browser* browser = neutron::Browser::Get();
   browser->Activate(static_cast<bool>(flag));
   return flag;
 }
@@ -144,11 +144,11 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
   if (!userActivity.userInfo)
     return NO;
 
-  electron::Browser* browser = electron::Browser::Get();
+  neutron::Browser* browser = neutron::Browser::Get();
   return browser->ContinueUserActivity(
              activity_type,
-             electron::NSDictionaryToValue(userActivity.userInfo),
-             electron::NSDictionaryToValue(details))
+             neutron::NSDictionaryToValue(userActivity.userInfo),
+             neutron::NSDictionaryToValue(details))
              ? YES
              : NO;
 }
@@ -157,7 +157,7 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
     willContinueUserActivityWithType:(NSString*)userActivityType {
   std::string activity_type(base::SysNSStringToUTF8(userActivityType));
 
-  electron::Browser* browser = electron::Browser::Get();
+  neutron::Browser* browser = neutron::Browser::Get();
   return browser->WillContinueUserActivity(activity_type) ? YES : NO;
 }
 
@@ -168,20 +168,20 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
   std::string error_message(
       base::SysNSStringToUTF8(error.localizedDescription));
 
-  electron::Browser* browser = electron::Browser::Get();
+  neutron::Browser* browser = neutron::Browser::Get();
   browser->DidFailToContinueUserActivity(activity_type, error_message);
 }
 
 - (IBAction)newWindowForTab:(id)sender {
-  electron::Browser::Get()->NewWindowForTab();
+  neutron::Browser::Get()->NewWindowForTab();
 }
 
 - (void)application:(NSApplication*)application
     didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken {
   // Resolve outstanding APNS promises created during registration attempts
-  if (auto* push_notifications = electron::api::PushNotifications::Get()) {
+  if (auto* push_notifications = neutron::api::PushNotifications::Get()) {
     std::string encoded =
-        base::HexEncode(electron::util::as_byte_span(deviceToken));
+        base::HexEncode(neutron::util::as_byte_span(deviceToken));
     push_notifications->ResolveAPNSPromiseSetWithToken(
         base::ToLowerASCII(encoded));
   }
@@ -192,8 +192,8 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
   std::string error_message(base::SysNSStringToUTF8(
       [NSString stringWithFormat:@"%ld %@ %@", error.code, error.domain,
                                  error.userInfo]));
-  electron::api::PushNotifications* push_notifications =
-      electron::api::PushNotifications::Get();
+  neutron::api::PushNotifications* push_notifications =
+      neutron::api::PushNotifications::Get();
   if (push_notifications) {
     push_notifications->RejectAPNSPromiseSetWithError(error_message);
   }
@@ -201,11 +201,11 @@ static NSDictionary* UNNotificationResponseToNSDictionary(
 
 - (void)application:(NSApplication*)application
     didReceiveRemoteNotification:(NSDictionary*)userInfo {
-  electron::api::PushNotifications* push_notifications =
-      electron::api::PushNotifications::Get();
+  neutron::api::PushNotifications* push_notifications =
+      neutron::api::PushNotifications::Get();
   if (push_notifications) {
-    electron::api::PushNotifications::Get()->OnDidReceiveAPNSNotification(
-        electron::NSDictionaryToValue(userInfo));
+    neutron::api::PushNotifications::Get()->OnDidReceiveAPNSNotification(
+        neutron::NSDictionaryToValue(userInfo));
   }
 }
 

@@ -646,12 +646,12 @@
         }
       }
     ],
-    // Electron does not yet support tab events -  we define them here because otherwise extensions crash when
+    // Neutron does not yet support tab events -  we define them here because otherwise extensions crash when
     // they try to listen for them.
     "events": [
       {
         "name": "onCreated",
-        "deprecated": "chrome.tabs.onCreated is not current supported in Electron",
+        "deprecated": "chrome.tabs.onCreated is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is created. Note that the tab's URL and tab group membership may not be set at the time this event is fired, but you can listen to onUpdated events so as to be notified when a URL is set or the tab is added to a tab group.",
         "parameters": [
@@ -664,7 +664,7 @@
       },
       {
         "name": "onUpdated",
-        "deprecated": "chrome.tabs.onUpdated is not current supported in Electron",
+        "deprecated": "chrome.tabs.onUpdated is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is updated.",
         "parameters": [
@@ -751,7 +751,7 @@
       },
       {
         "name": "onMoved",
-        "deprecated": "chrome.tabs.onMoved is not current supported in Electron",
+        "deprecated": "chrome.tabs.onMoved is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is moved within a window. Only one move event is fired, representing the tab the user directly moved. Move events are not fired for the other tabs that must move in response to the manually-moved tab. This event is not fired when a tab is moved between windows; for details, see $(ref:tabs.onDetached).",
         "parameters": [
@@ -782,7 +782,7 @@
       },
       {
         "name": "onSelectionChanged",
-        "deprecated": "chrome.tabs.onSelectionChanged is not current supported in Electron",
+        "deprecated": "chrome.tabs.onSelectionChanged is not current supported in Neutron",
         "type": "function",
         "description": "Fires when the selected tab in a window changes.",
         "parameters": [
@@ -807,7 +807,7 @@
       },
       {
         "name": "onActiveChanged",
-        "deprecated": "chrome.tabs.onActiveChanged is not current supported in Electron",
+        "deprecated": "chrome.tabs.onActiveChanged is not current supported in Neutron",
         "type": "function",
         "description": "Fires when the selected tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to $(ref:tabs.onUpdated) events so as to be notified when a URL is set.",
         "parameters": [
@@ -832,7 +832,7 @@
       },
       {
         "name": "onActivated",
-        "deprecated": "chrome.tabs.onActivated is not current supported in Electron",
+        "deprecated": "chrome.tabs.onActivated is not current supported in Neutron",
         "type": "function",
         "description": "Fires when the active tab in a window changes. Note that the tab's URL may not be set at the time this event fired, but you can listen to onUpdated events so as to be notified when a URL is set.",
         "parameters": [
@@ -856,7 +856,7 @@
       },
       {
         "name": "onHighlightChanged",
-        "deprecated": "chrome.tabs.onHighlightChanged is not current supported in Electron",
+        "deprecated": "chrome.tabs.onHighlightChanged is not current supported in Neutron",
         "type": "function",
         "description": "Fired when the highlighted or selected tabs in a window changes.",
         "parameters": [
@@ -884,7 +884,7 @@
       },
       {
         "name": "onHighlighted",
-        "deprecated": "chrome.tabs.onHighlighted is not current supported in Electron",
+        "deprecated": "chrome.tabs.onHighlighted is not current supported in Neutron",
         "type": "function",
         "description": "Fired when the highlighted or selected tabs in a window changes.",
         "parameters": [
@@ -912,7 +912,7 @@
       },
       {
         "name": "onDetached",
-        "deprecated": "chrome.tabs.onDetached is not current supported in Electron",
+        "deprecated": "chrome.tabs.onDetached is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is detached from a window; for example, because it was moved between windows.",
         "parameters": [
@@ -939,7 +939,7 @@
       },
       {
         "name": "onAttached",
-        "deprecated": "chrome.tabs.onAttached is not current supported in Electron",
+        "deprecated": "chrome.tabs.onAttached is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is attached to a window; for example, because it was moved between windows.",
         "parameters": [
@@ -966,7 +966,7 @@
       },
       {
         "name": "onRemoved",
-        "deprecated": "chrome.tabs.onRemoved is not current supported in Electron",
+        "deprecated": "chrome.tabs.onRemoved is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is closed.",
         "parameters": [
@@ -994,7 +994,7 @@
       },
       {
         "name": "onReplaced",
-        "deprecated": "chrome.tabs.onReplaced is not current supported in Electron",
+        "deprecated": "chrome.tabs.onReplaced is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is replaced with another tab due to prerendering or instant.",
         "parameters": [
@@ -1012,7 +1012,7 @@
       },
       {
         "name": "onZoomChange",
-        "deprecated": "chrome.tabs.onZoomChange is not current supported in Electron",
+        "deprecated": "chrome.tabs.onZoomChange is not current supported in Neutron",
         "type": "function",
         "description": "Fired when a tab is zoomed.",
         "parameters": [

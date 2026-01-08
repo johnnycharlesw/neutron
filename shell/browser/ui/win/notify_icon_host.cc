@@ -21,7 +21,7 @@
 #include "ui/events/win/system_event_state_lookup.h"
 #include "ui/gfx/win/hwnd_util.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -30,7 +30,7 @@ const UINT kNotifyIconMessage = WM_APP + 1;
 // |kBaseIconId| is 2 to avoid conflicts with plugins that hard-code id 1.
 const UINT kBaseIconId = 2;
 
-const wchar_t kNotifyIconHostWindowClass[] = L"Electron_NotifyIconHostWindow";
+const wchar_t kNotifyIconHostWindowClass[] = L"Neutron_NotifyIconHostWindow";
 
 constexpr unsigned int kMouseLeaveCheckFrequency = 250;
 
@@ -333,4 +333,4 @@ UINT NotifyIconHost::NextIconId() {
   return kBaseIconId + icon_id;
 }
 
-}  // namespace electron
+}  // namespace neutron

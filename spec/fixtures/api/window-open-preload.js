@@ -1,4 +1,4 @@
-const { ipcRenderer, webFrame } = require('electron');
+const { ipcRenderer, webFrame } = require('neutron');
 
 setImmediate(function () {
   if (window.location.toString() === 'bar://page/') {

@@ -1,5 +1,5 @@
 {
-  "name": "electron-test-initial-app",
+  "name": "neutron-test-initial-app",
   "version": "1.0.0",
   "main": "./index.js"
 }

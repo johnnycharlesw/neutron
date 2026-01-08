@@ -23,7 +23,7 @@
 
 #pragma comment(lib, "runtimeobject.lib")
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -45,7 +45,7 @@ std::unique_ptr<NotificationPresenter> NotificationPresenter::Create() {
   if (!presenter->Init())
     return {};
 
-  if (electron::debug_notifications)
+  if (neutron::debug_notifications)
     LOG(INFO) << "Successfully created Windows notifications presenter";
 
   return presenter;
@@ -56,7 +56,7 @@ NotificationPresenterWin::NotificationPresenterWin() = default;
 NotificationPresenterWin::~NotificationPresenterWin() = default;
 
 bool NotificationPresenterWin::Init() {
-  ScopedAllowBlockingForElectron allow_blocking;
+  ScopedAllowBlockingForNeutron allow_blocking;
   return temp_dir_.CreateUniqueTempDir();
 }
 
@@ -74,7 +74,7 @@ std::wstring NotificationPresenterWin::SaveIconToFilesystem(
     filename = base::NumberToString(now_usec) + ".png";
   }
 
-  ScopedAllowBlockingForElectron allow_blocking;
+  ScopedAllowBlockingForNeutron allow_blocking;
   base::FilePath path = temp_dir_.GetPath().Append(base::UTF8ToWide(filename));
 
   if (!SaveIconToPath(icon, path))
@@ -88,4 +88,4 @@ Notification* NotificationPresenterWin::CreateNotificationObject(
   return new WindowsToastNotification(delegate, this);
 }
 
-}  // namespace electron
+}  // namespace neutron

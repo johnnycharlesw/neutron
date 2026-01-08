@@ -14,7 +14,7 @@ Check the build prerequisites for your platform before proceeding
 
 ## Build Tools
 
-[Electron's Build Tools](https://github.com/electron/build-tools) automate much of the setup for compiling Electron from source with different configurations and build targets. If you wish to set up the environment manually, the instructions are listed below.
+[Electron's Build Tools](https://github.com/neutron/build-tools) automate much of the setup for compiling Electron from source with different configurations and build targets. If you wish to set up the environment manually, the instructions are listed below.
 
 Electron uses [GN](https://gn.googlesource.com/gn) for project generation and
 [ninja](https://ninja-build.org/) for building. Project configurations can
@@ -59,39 +59,39 @@ $ mkdir -p "${GIT_CACHE_PATH}"
 ## Getting the code
 
 ```sh
-$ mkdir electron && cd electron
-$ gclient config --name "src/electron" --unmanaged https://github.com/electron/electron
+$ mkdir neutron && cd neutron
+$ gclient config --name "src/neutron" --unmanaged https://github.com/neutron/neutron
 $ gclient sync --with_branch_heads --with_tags
 # This will take a while, go get a coffee.
 ```
 
-> Instead of `https://github.com/electron/electron`, you can use your own fork
-> here (something like `https://github.com/<username>/electron`).
+> Instead of `https://github.com/neutron/neutron`, you can use your own fork
+> here (something like `https://github.com/<username>/neutron`).
 
 ### A note on pulling/pushing
 
-If you intend to `git pull` or `git push` from the official `electron`
+If you intend to `git pull` or `git push` from the official `neutron`
 repository in the future, you now need to update the respective folder's
 origin URLs.
 
 ```sh
-$ cd src/electron
+$ cd src/neutron
 $ git remote remove origin
-$ git remote add origin https://github.com/electron/electron
+$ git remote add origin https://github.com/neutron/neutron
 $ git checkout main
 $ git branch --set-upstream-to=origin/main
 $ cd -
 ```
 
 :memo: `gclient` works by checking a file called `DEPS` inside the
-`src/electron` folder for dependencies (like Chromium or Node.js).
+`src/neutron` folder for dependencies (like Chromium or Node.js).
 Running `gclient sync -f` ensures that all dependencies required
 to build Electron match that file.
 
 So, in order to pull, you'd run the following commands:
 
 ```sh
-$ cd src/electron
+$ cd src/neutron
 $ git pull
 $ gclient sync -f
 ```
@@ -124,17 +124,17 @@ $ $env:CHROMIUM_BUILDTOOLS_PATH = "$(Get-Location)\buildtools"
 On Linux & MacOS
 
 ```sh
-$ gn gen out/Testing --args="import(\"//electron/build/args/testing.gn\")"
+$ gn gen out/Testing --args="import(\"//neutron/build/args/testing.gn\")"
 ```
 
 On Windows:
 
 ```sh
 # cmd
-$ gn gen out/Testing --args="import(\"//electron/build/args/testing.gn\")"
+$ gn gen out/Testing --args="import(\"//neutron/build/args/testing.gn\")"
 
 # PowerShell
-gn gen out/Testing --args="import(\`"//electron/build/args/testing.gn\`")"
+gn gen out/Testing --args="import(\`"//neutron/build/args/testing.gn\`")"
 ```
 
 **To generate Release build config of Electron:**
@@ -142,17 +142,17 @@ gn gen out/Testing --args="import(\`"//electron/build/args/testing.gn\`")"
 On Linux & MacOS
 
 ```sh
-$ gn gen out/Release --args="import(\"//electron/build/args/release.gn\")"
+$ gn gen out/Release --args="import(\"//neutron/build/args/release.gn\")"
 ```
 
 On Windows:
 
 ```sh
 # cmd
-$ gn gen out/Release --args="import(\"//electron/build/args/release.gn\")"
+$ gn gen out/Release --args="import(\"//neutron/build/args/release.gn\")"
 
 # PowerShell
-$ gn gen out/Release --args="import(\`"//electron/build/args/release.gn\`")"
+$ gn gen out/Release --args="import(\`"//neutron/build/args/release.gn\`")"
 ```
 
 > [!NOTE]
@@ -160,19 +160,19 @@ $ gn gen out/Release --args="import(\`"//electron/build/args/release.gn\`")"
 
 Also you shouldn't have to run `gn gen` again—if you want to change the build arguments, you can run `gn args out/Testing` to bring up an editor. To see the list of available build configuration options, run `gn args out/Testing --list`.
 
-**To build, run `ninja` with the `electron` target:**
+**To build, run `ninja` with the `neutron` target:**
 Note: This will also take a while and probably heat up your lap.
 
 For the testing configuration:
 
 ```sh
-$ ninja -C out/Testing electron
+$ ninja -C out/Testing neutron
 ```
 
 For the release configuration:
 
 ```sh
-$ ninja -C out/Release electron
+$ ninja -C out/Release neutron
 ```
 
 This will build all of what was previously 'libchromiumcontent' (i.e. the
@@ -184,17 +184,17 @@ The built executable will be under `./out/Testing`:
 ```sh
 $ ./out/Testing/Electron.app/Contents/MacOS/Electron
 # or, on Windows
-$ ./out/Testing/electron.exe
+$ ./out/Testing/neutron.exe
 # or, on Linux
-$ ./out/Testing/electron
+$ ./out/Testing/neutron
 ```
 
 ### Packaging
 
-To package the electron build as a distributable zip file:
+To package the neutron build as a distributable zip file:
 
 ```sh
-$ ninja -C out/Release electron:electron_dist_zip
+$ ninja -C out/Release neutron:neutron_dist_zip
 ```
 
 ### Cross-compiling
@@ -249,7 +249,7 @@ generate build headers for the modules to compile against, run the following
 under `src/` directory.
 
 ```sh
-$ ninja -C out/Testing electron:node_headers
+$ ninja -C out/Testing neutron:node_headers
 ```
 
 You can now [run the tests](testing.md#unit-tests).
@@ -296,16 +296,16 @@ If `gclient sync` is interrupted the git tree may be left in a bad state, leadin
 2> See man git-rebase for details.
 ```
 
-If there are no git conflicts or rebases in `src/electron`, you may need to abort a `git am` in `src`:
+If there are no git conflicts or rebases in `src/neutron`, you may need to abort a `git am` in `src`:
 
 ```sh
 $ cd ../
 $ git am --abort
-$ cd electron
+$ cd neutron
 $ gclient sync -f
 ```
 
-This may also happen if you have checked out a branch (as opposed to having a detached head) in `electron/src/`
+This may also happen if you have checked out a branch (as opposed to having a detached head) in `neutron/src/`
 or some other dependency’s repository. If that is the case, a `git checkout --detach HEAD` in the appropriate repository should do the trick.
 
 ### I'm being asked for a username/password for chromium-internal.googlesource.com
@@ -317,10 +317,10 @@ try to download a Google-internal version that only Googlers have access to).
 
 ### `e` Module not found
 
-If `e` is not recognized despite running `npm i -g @electron/build-tools`, ie:
+If `e` is not recognized despite running `npm i -g @neutron/build-tools`, ie:
 
 ```sh
-Error: Cannot find module '/Users/<user>/.electron_build_tools/src/e'
+Error: Cannot find module '/Users/<user>/.neutron_build_tools/src/e'
 ```
 
 We recommend installing Node through [nvm](https://github.com/nvm-sh/nvm). This allows for easier Node version management, and is often a fix for missing `e` modules.

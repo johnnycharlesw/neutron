@@ -1,4 +1,4 @@
-import { protocol, webContents, WebContents, session, BrowserWindow, ipcMain, net } from 'electron/main';
+import { protocol, webContents, WebContents, session, BrowserWindow, ipcMain, net } from 'neutron/main';
 
 import { expect } from 'chai';
 import { v4 } from 'uuid';
@@ -83,7 +83,7 @@ function deferPromise (): Promise<any> & {resolve: Function, reject: Function} {
 describe('protocol module', () => {
   let contents: WebContents;
   // NB. sandbox: true is used because it makes navigations much (~8x) faster.
-  before(() => { contents = (webContents as typeof ElectronInternal.WebContents).create({ sandbox: true }); });
+  before(() => { contents = (webContents as typeof NeutronInternal.WebContents).create({ sandbox: true }); });
   after(() => contents.destroy());
 
   async function ajax (url: string, options = {}) {
@@ -398,13 +398,13 @@ describe('protocol module', () => {
         registerStreamProtocol(protocolName, (request, callback) => callback({
           data: getStream(3),
           headers: {
-            'x-electron': ['a', 'b']
+            'x-neutron': ['a', 'b']
           }
         }));
         const r = await ajax(protocolName + '://fake-host');
         expect(r.data).to.equal(text);
         expect(r.status).to.equal(200);
-        expect(r.headers).to.have.property('x-electron', 'a, b');
+        expect(r.headers).to.have.property('x-neutron', 'a, b');
       });
 
       it('sends custom status code', async () => {
@@ -652,7 +652,7 @@ describe('protocol module', () => {
       after(() => server.close());
       const { url } = await listen(server);
       interceptHttpProtocol('http', (request, callback) => {
-        const data: Electron.ProtocolResponse = {
+        const data: Neutron.ProtocolResponse = {
           url,
           method: 'POST',
           uploadData: {
@@ -915,7 +915,7 @@ describe('protocol module', () => {
 
     it('allows CORS requests by default', async () => {
       await allowsCORSRequests('cors', 200, /(?:)/, () => {
-        const { ipcRenderer } = require('electron');
+        const { ipcRenderer } = require('neutron');
         fetch('cors://myhost').then(function (response) {
           ipcRenderer.send('response', response.status);
         }).catch(function () {
@@ -927,7 +927,7 @@ describe('protocol module', () => {
     // DISABLED-FIXME: Figure out why this test is failing
     it('disallows CORS and fetch requests when only supportFetchAPI is specified', async () => {
       await allowsCORSRequests('no-cors', ['failed xhr', 'failed fetch'], /has been blocked by CORS policy/, () => {
-        const { ipcRenderer } = require('electron');
+        const { ipcRenderer } = require('neutron');
         Promise.all([
           new Promise(resolve => {
             const req = new XMLHttpRequest();
@@ -947,7 +947,7 @@ describe('protocol module', () => {
 
     it('allows CORS, but disallows fetch requests, when specified', async () => {
       await allowsCORSRequests('no-fetch', ['loaded xhr', 'failed fetch'], /Fetch API cannot load/, () => {
-        const { ipcRenderer } = require('electron');
+        const { ipcRenderer } = require('neutron');
         Promise.all([
           new Promise(resolve => {
             const req = new XMLHttpRequest();
@@ -973,7 +973,7 @@ describe('protocol module', () => {
         callback('');
       });
 
-      const newContents = (webContents as typeof ElectronInternal.WebContents).create({
+      const newContents = (webContents as typeof NeutronInternal.WebContents).create({
         nodeIntegration: true,
         contextIsolation: false
       });
@@ -1077,7 +1077,7 @@ describe('protocol module', () => {
       await registerStreamProtocol(standardScheme, protocolHandler);
       await registerStreamProtocol('stream', protocolHandler);
 
-      const newContents = (webContents as typeof ElectronInternal.WebContents).create({
+      const newContents = (webContents as typeof NeutronInternal.WebContents).create({
         nodeIntegration: true,
         contextIsolation: false
       });
@@ -1564,7 +1564,7 @@ describe('protocol module', () => {
       const req = await receivedRequest;
       contents.destroy();
       // Undo .destroy() for the next test
-      contents = (webContents as typeof ElectronInternal.WebContents).create({ sandbox: true });
+      contents = (webContents as typeof NeutronInternal.WebContents).create({ sandbox: true });
       await expect(req.body!.getReader().read()).to.eventually.be.rejectedWith('net::ERR_FAILED');
     });
 

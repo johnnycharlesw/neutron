@@ -1,4 +1,4 @@
 {
-  "name": "electron-exit-closes-all-windows",
+  "name": "neutron-exit-closes-all-windows",
   "main": "main.js"
 }

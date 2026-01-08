@@ -1,7 +1,7 @@
 import type {
   ClientRequestConstructorOptions,
   UploadProgress
-} from 'electron/common';
+} from 'neutron/common';
 
 import { Readable, Writable } from 'stream';
 import * as url from 'url';
@@ -10,7 +10,7 @@ const {
   isValidHeaderName,
   isValidHeaderValue,
   createURLLoader
-} = process._linkedBinding('electron_common_net');
+} = process._linkedBinding('neutron_common_net');
 
 const kHttpProtocols = new Set(['http:', 'https:']);
 
@@ -302,7 +302,7 @@ function parseOptions (optionsIn: ClientRequestConstructorOptions | string): Nod
     urlLoaderOptions.headers[key] = { name, value };
   }
   if (process.type !== 'utility') {
-    const { Session } = process._linkedBinding('electron_browser_session');
+    const { Session } = process._linkedBinding('neutron_browser_session');
     if (options.session) {
       if (!(options.session instanceof Session)) { throw new TypeError('`session` should be an instance of the Session class'); }
       urlLoaderOptions.session = options.session;
@@ -317,7 +317,7 @@ function parseOptions (optionsIn: ClientRequestConstructorOptions | string): Nod
   return urlLoaderOptions;
 }
 
-export class ClientRequest extends Writable implements Electron.ClientRequest {
+export class ClientRequest extends Writable implements Neutron.ClientRequest {
   _started: boolean = false;
   _firstWrite: boolean = false;
   _aborted: boolean = false;

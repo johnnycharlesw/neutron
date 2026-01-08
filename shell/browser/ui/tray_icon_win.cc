@@ -5,7 +5,7 @@
 #include "shell/browser/ui/win/notify_icon.h"
 #include "shell/browser/ui/win/notify_icon_host.h"
 
-namespace electron {
+namespace neutron {
 
 // static
 TrayIcon* TrayIcon::Create(std::optional<base::Uuid> guid) {
@@ -13,4 +13,4 @@ TrayIcon* TrayIcon::Create(std::optional<base::Uuid> guid) {
   return host->CreateNotifyIcon(guid);
 }
 
-}  // namespace electron
+}  // namespace neutron

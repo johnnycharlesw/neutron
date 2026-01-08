@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "shell/browser/ui/cocoa/electron_ns_window_delegate.h"
+#include "shell/browser/ui/cocoa/neutron_ns_window_delegate.h"
 
 #include <algorithm>
 
@@ -11,18 +11,18 @@
 #include "components/remote_cocoa/app_shim/native_widget_ns_window_bridge.h"
 #include "shell/browser/browser.h"
 #include "shell/browser/native_window_mac.h"
-#include "shell/browser/ui/cocoa/electron_preview_item.h"
-#include "shell/browser/ui/cocoa/electron_touch_bar.h"
+#include "shell/browser/ui/cocoa/neutron_preview_item.h"
+#include "shell/browser/ui/cocoa/neutron_touch_bar.h"
 #include "ui/gfx/geometry/resize_utils.h"
 #include "ui/gfx/mac/coordinate_conversion.h"
 #include "ui/views/cocoa/native_widget_mac_ns_window_host.h"
 #include "ui/views/widget/native_widget_mac.h"
 
-using TitleBarStyle = electron::NativeWindowMac::TitleBarStyle;
+using TitleBarStyle = neutron::NativeWindowMac::TitleBarStyle;
 
 @implementation ElectronNSWindowDelegate
 
-- (id)initWithShell:(electron::NativeWindowMac*)shell {
+- (id)initWithShell:(neutron::NativeWindowMac*)shell {
   // The views library assumes the window delegate must be an instance of
   // ViewsNSWindowDelegate, since we don't have a way to override the creation
   // of NSWindowDelegate, we have to dynamically replace the window delegate
@@ -419,7 +419,7 @@ using TitleBarStyle = electron::NativeWindowMac::TitleBarStyle;
 
 - (IBAction)newWindowForTab:(id)sender {
   shell_->NotifyNewWindowForTab();
-  electron::Browser::Get()->NewWindowForTab();
+  neutron::Browser::Get()->NewWindowForTab();
 }
 
 #pragma mark - NSTouchBarDelegate

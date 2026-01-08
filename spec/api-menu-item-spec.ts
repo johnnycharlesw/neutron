@@ -1,4 +1,4 @@
-import { BrowserWindow, app, Menu, MenuItem, MenuItemConstructorOptions } from 'electron/main';
+import { BrowserWindow, app, Menu, MenuItem, MenuItemConstructorOptions } from 'neutron/main';
 
 import { expect } from 'chai';
 

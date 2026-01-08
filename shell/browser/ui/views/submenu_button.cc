@@ -16,7 +16,7 @@
 #include "ui/views/animation/ink_drop_impl.h"
 #include "ui/views/controls/button/label_button_border.h"
 
-namespace electron {
+namespace neutron {
 
 SubmenuButton::SubmenuButton(PressedCallback callback,
                              const std::u16string& title,
@@ -95,4 +95,4 @@ void SubmenuButton::GetCharacterPosition(const std::u16string& text,
 BEGIN_METADATA(SubmenuButton)
 END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

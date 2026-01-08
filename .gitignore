@@ -31,8 +31,8 @@ compile_commands.json
 .npmrc
 
 # Generated API definitions
-electron-api.json
-electron.d.ts
+neutron-api.json
+neutron.d.ts
 
 # Spec hash calculation
 spec/.hash

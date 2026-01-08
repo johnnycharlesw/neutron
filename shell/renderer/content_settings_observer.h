@@ -11,7 +11,7 @@
 #include "third_party/blink/public/platform/web_content_settings_client.h"
 #include "url/origin.h"
 
-namespace electron {
+namespace neutron {
 
 class ContentSettingsObserver : public content::RenderFrameObserver,
                                 public blink::WebContentSettingsClient {
@@ -32,12 +32,12 @@ class ContentSettingsObserver : public content::RenderFrameObserver,
   void OnDestruct() override;
 
   // A getter for `content_settings_manager_` that ensures it is bound.
-  mojom::ElectronWebContentsUtility& GetWebContentsUtility();
+  mojom::NeutronWebContentsUtility& GetWebContentsUtility();
 
-  mojo::AssociatedRemote<mojom::ElectronWebContentsUtility>
+  mojo::AssociatedRemote<mojom::NeutronWebContentsUtility>
       web_contents_utility_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_RENDERER_CONTENT_SETTINGS_OBSERVER_H_

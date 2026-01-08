@@ -5,7 +5,7 @@ Windows Platform. The new `.appx` format does not only enable a number of new
 powerful APIs like Cortana or Push Notifications, but through the Windows Store,
 also simplifies installation and updating.
 
-Microsoft [developed a tool that compiles Electron apps as `.appx` packages][electron-windows-store],
+Microsoft [developed a tool that compiles Electron apps as `.appx` packages][neutron-windows-store],
 enabling developers to use some of the goodies found in the new application
 model. This guide explains how to use it - and what the capabilities and
 limitations of an Electron AppX package are.
@@ -34,15 +34,15 @@ requirements:
 * The Windows 10 SDK, [downloadable here][windows-sdk]
 * At least Node 4 (to check, run `node -v`)
 
-Then, go and install the `electron-windows-store` CLI:
+Then, go and install the `neutron-windows-store` CLI:
 
 ```sh
-npm install -g electron-windows-store
+npm install -g neutron-windows-store
 ```
 
 ## Step 1: Package Your Electron Application
 
-Package the application using [`@electron/packager`][electron-packager] (or a similar tool).
+Package the application using [`@neutron/packager`][neutron-packager] (or a similar tool).
 Make sure to remove `node_modules` that you don't need in your final application, since
 any module you don't actually need will increase your application's size.
 
@@ -70,19 +70,19 @@ The output should look roughly like this:
 └── ui_resources_200_percent.pak
 ```
 
-## Step 2: Running electron-windows-store
+## Step 2: Running neutron-windows-store
 
 From an elevated PowerShell (run it "as Administrator"), run
-`electron-windows-store` with the required parameters, passing both the input
+`neutron-windows-store` with the required parameters, passing both the input
 and output directories, the app's name and version, and confirmation that
 `node_modules` should be flattened.
 
 ```powershell
-electron-windows-store `
-    --input-directory C:\myelectronapp `
-    --output-directory C:\output\myelectronapp `
+neutron-windows-store `
+    --input-directory C:\myneutronapp `
+    --output-directory C:\output\myneutronapp `
     --package-version 1.0.0.0 `
-    --package-name myelectronapp
+    --package-name myneutronapp
 ```
 
 Once executed, the tool goes to work: It accepts your Electron app as an input,
@@ -124,7 +124,7 @@ notifications and live tiles, [check out the Microsoft-provided sample][backgrou
 
 ## Optional: Convert using Container Virtualization
 
-To generate the AppX package, the `electron-windows-store` CLI uses a template
+To generate the AppX package, the `neutron-windows-store` CLI uses a template
 that should work for most Electron apps. However, if you are using a custom
 installer, or should you experience any trouble with the generated package, you
 can attempt to create a package using compilation with a Windows Container - in
@@ -151,8 +151,8 @@ Once installation succeeded, you can move on to compiling your Electron app.
 [windows-sdk]: https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/
 [app-converter]: https://learn.microsoft.com/en-us/windows/msix/packaging-tool/tool-overview
 [add-appxpackage]: https://learn.microsoft.com/en-us/previous-versions//hh856048(v=technet.10)?redirectedfrom=MSDN
-[electron-packager]: https://github.com/electron/packager
-[electron-windows-store]: https://github.com/electron-userland/electron-windows-store
-[background-task]: https://github.com/felixrieseberg/electron-uwp-background
+[neutron-packager]: https://github.com/neutron/packager
+[neutron-windows-store]: https://github.com/neutron-userland/neutron-windows-store
+[background-task]: https://github.com/felixrieseberg/neutron-uwp-background
 [centennial-campaigns]: https://developer.microsoft.com/en-us/windows/projects/campaigns/desktop-bridge
 [how-to-update]: https://blogs.windows.com/windowsexperience/2016/08/02/how-to-get-the-windows-10-anniversary-update

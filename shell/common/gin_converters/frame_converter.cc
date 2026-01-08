@@ -6,7 +6,7 @@
 
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/render_process_host.h"
-#include "shell/browser/api/electron_api_web_frame_main.h"
+#include "shell/browser/api/neutron_api_web_frame_main.h"
 #include "shell/common/gin_helper/accessor.h"
 #include "shell/common/node_util.h"
 
@@ -25,7 +25,7 @@ v8::Local<v8::Value> Converter<content::RenderFrameHost*>::ToV8(
     content::RenderFrameHost* val) {
   if (!val)
     return v8::Null(isolate);
-  return electron::api::WebFrameMain::From(isolate, val).ToV8();
+  return neutron::api::WebFrameMain::From(isolate, val).ToV8();
 }
 
 // static
@@ -33,7 +33,7 @@ bool Converter<content::RenderFrameHost*>::FromV8(
     v8::Isolate* isolate,
     v8::Local<v8::Value> val,
     content::RenderFrameHost** out) {
-  electron::api::WebFrameMain* web_frame_main = nullptr;
+  neutron::api::WebFrameMain* web_frame_main = nullptr;
   if (!ConvertFromV8(isolate, val, &web_frame_main))
     return false;
   *out = web_frame_main->render_frame_host();
@@ -95,11 +95,11 @@ bool Converter<gin_helper::AccessorValue<content::RenderFrameHost*>>::FromV8(
     // Lazily evaluated property accessed after RFH has been destroyed.
     // Continue to return nullptr, but emit warning to inform developers
     // what occurred.
-    electron::util::EmitWarning(
+    neutron::util::EmitWarning(
         isolate,
         "Frame property was accessed after it navigated or was destroyed. "
         "Avoid asynchronous tasks prior to indexing.",
-        "electron");
+        "neutron");
   }
 
   out->Value = rfh;

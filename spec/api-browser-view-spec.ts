@@ -1,4 +1,4 @@
-import { BrowserView, BrowserWindow, screen, session, webContents } from 'electron/main';
+import { BrowserView, BrowserWindow, screen, session, webContents } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -696,7 +696,7 @@ describe('BrowserView module', () => {
     it('does not crash on exit', async () => {
       const rc = await startRemoteControlApp();
       await rc.remotely(() => {
-        const { BrowserView, app } = require('electron');
+        const { BrowserView, app } = require('neutron');
         // eslint-disable-next-line no-new
         new BrowserView({});
         setTimeout(() => {
@@ -710,7 +710,7 @@ describe('BrowserView module', () => {
     it('does not crash on exit if added to a browser window', async () => {
       const rc = await startRemoteControlApp();
       await rc.remotely(() => {
-        const { app, BrowserView, BrowserWindow } = require('electron');
+        const { app, BrowserView, BrowserWindow } = require('neutron');
         const bv = new BrowserView();
         bv.webContents.loadURL('about:blank');
         const bw = new BrowserWindow({ show: false });

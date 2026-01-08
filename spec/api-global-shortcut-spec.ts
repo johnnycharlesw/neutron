@@ -1,4 +1,4 @@
-import { globalShortcut } from 'electron/main';
+import { globalShortcut } from 'neutron/main';
 
 import { expect } from 'chai';
 

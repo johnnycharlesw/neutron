@@ -20,7 +20,7 @@ auto ConvertToWeakPtrVector(const std::vector<T*>& raw_ptrs) {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 // static
 WindowList* WindowList::instance_ = nullptr;
@@ -108,4 +108,4 @@ base::ObserverList<WindowListObserver>& WindowList::GetObservers() {
   return *instance;
 }
 
-}  // namespace electron
+}  // namespace neutron

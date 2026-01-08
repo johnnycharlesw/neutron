@@ -18,7 +18,7 @@
 #include "base/pickle.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/values.h"
-#include "electron/fuses.h"
+#include "neutron/fuses.h"
 #include "shell/common/asar/asar_util.h"
 #include "shell/common/asar/scoped_temporary_file.h"
 #include "shell/common/thread_restrictions.h"
@@ -119,7 +119,7 @@ bool FillFileInfoWithNode(Archive::FileInfo* info,
 
 #if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN)
   if (load_integrity &&
-      electron::fuses::IsEmbeddedAsarIntegrityValidationEnabled()) {
+      neutron::fuses::IsEmbeddedAsarIntegrityValidationEnabled()) {
     if (const base::Value::Dict* integrity = node->FindDict("integrity")) {
       const std::string* algorithm = integrity->FindString("algorithm");
       const std::string* hash = integrity->FindString("hash");
@@ -165,7 +165,7 @@ Archive::FileInfo::FileInfo() = default;
 Archive::FileInfo::~FileInfo() = default;
 
 Archive::Archive(const base::FilePath& path) : path_{path} {
-  electron::ScopedAllowBlockingForElectron allow_blocking;
+  neutron::ScopedAllowBlockingForNeutron allow_blocking;
   file_.Initialize(path_, base::File::FLAG_OPEN | base::File::FLAG_READ);
 #if BUILDFLAG(IS_WIN)
   fd_ = _open_osfhandle(reinterpret_cast<intptr_t>(file_.GetPlatformFile()), 0);
@@ -182,7 +182,7 @@ Archive::~Archive() {
     file_.TakePlatformFile();
   }
 #endif
-  electron::ScopedAllowBlockingForElectron allow_blocking;
+  neutron::ScopedAllowBlockingForNeutron allow_blocking;
   file_.Close();
 }
 
@@ -203,7 +203,7 @@ bool Archive::Init() {
 
   buf.resize(8);
   {
-    electron::ScopedAllowBlockingForElectron allow_blocking;
+    neutron::ScopedAllowBlockingForNeutron allow_blocking;
     if (!file_.ReadAtCurrentPosAndCheck(buf)) {
       PLOG(ERROR) << "Failed to read header size from " << path_.value();
       return false;
@@ -218,7 +218,7 @@ bool Archive::Init() {
 
   buf.resize(size);
   {
-    electron::ScopedAllowBlockingForElectron allow_blocking;
+    neutron::ScopedAllowBlockingForNeutron allow_blocking;
     if (!file_.ReadAtCurrentPosAndCheck(buf)) {
       PLOG(ERROR) << "Failed to read header from " << path_.value();
       return false;
@@ -233,7 +233,7 @@ bool Archive::Init() {
 
 #if BUILDFLAG(IS_MAC) || BUILDFLAG(IS_WIN)
   // Validate header signature if required and possible
-  if (electron::fuses::IsEmbeddedAsarIntegrityValidationEnabled() &&
+  if (neutron::fuses::IsEmbeddedAsarIntegrityValidationEnabled() &&
       RelativePath().has_value()) {
     std::optional<IntegrityPayload> integrity = HeaderIntegrity();
     if (!integrity.has_value()) {

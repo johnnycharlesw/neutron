@@ -35,7 +35,7 @@ namespace storage {
 class FileSystemURL;
 }  // namespace storage
 
-namespace electron {
+namespace neutron {
 
 class FileSystemAccessPermissionContext
     : public KeyedService,
@@ -205,6 +205,6 @@ class FileSystemAccessPermissionContext
   base::WeakPtrFactory<FileSystemAccessPermissionContext> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_FILE_SYSTEM_ACCESS_FILE_SYSTEM_ACCESS_PERMISSION_CONTEXT_H_

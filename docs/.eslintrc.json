@@ -19,7 +19,7 @@
       "newlines-between": "always",
       "pathGroups": [
         {
-          "pattern": "{electron,electron/**}",
+          "pattern": "{neutron,neutron/**}",
           "group": "builtin",
           "position": "before"
         }

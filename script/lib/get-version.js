@@ -4,13 +4,13 @@ const path = require('node:path');
 
 const { ELECTRON_DIR, getOutDir } = require('./utils');
 
-// Print the value of electron_version set in gn config.
+// Print the value of neutron_version set in gn config.
 module.exports.getElectronVersion = () => {
-  // Read the override_electron_version from args.gn file.
+  // Read the override_neutron_version from args.gn file.
   try {
     const outDir = path.resolve(ELECTRON_DIR, '..', 'out', getOutDir());
     const content = fs.readFileSync(path.join(outDir, 'args.gn'));
-    const regex = /override_electron_version\s*=\s*["']([^"']+)["']/;
+    const regex = /override_neutron_version\s*=\s*["']([^"']+)["']/;
     const match = content.toString().match(regex);
     if (match) {
       return match[1];

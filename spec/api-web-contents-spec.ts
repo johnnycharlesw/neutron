@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, webContents, session, app, BrowserView, WebContents, BaseWindow, WebContentsView } from 'electron/main';
+import { BrowserWindow, ipcMain, webContents, session, app, BrowserView, WebContents, BaseWindow, WebContentsView } from 'neutron/main';
 
 import { assert, expect } from 'chai';
 
@@ -16,7 +16,7 @@ import { ifdescribe, defer, waitUntil, listen, ifit } from './lib/spec-helpers';
 import { cleanupWebContents, closeAllWindows } from './lib/window-helpers';
 
 const fixturesPath = path.resolve(__dirname, 'fixtures');
-const features = process._linkedBinding('electron_common_features');
+const features = process._linkedBinding('neutron_common_features');
 
 describe('webContents module', () => {
   describe('getAllWebContents() API', () => {
@@ -65,11 +65,11 @@ describe('webContents module', () => {
   describe('fromFrame()', () => {
     afterEach(cleanupWebContents);
     it('returns WebContents for mainFrame', () => {
-      const contents = (webContents as typeof ElectronInternal.WebContents).create();
+      const contents = (webContents as typeof NeutronInternal.WebContents).create();
       expect(webContents.fromFrame(contents.mainFrame)).to.equal(contents);
     });
     it('returns undefined for disposed frame', async () => {
-      const contents = (webContents as typeof ElectronInternal.WebContents).create();
+      const contents = (webContents as typeof NeutronInternal.WebContents).create();
       const { mainFrame } = contents;
       contents.destroy();
       await waitUntil(() => typeof webContents.fromFrame(mainFrame) === 'undefined');
@@ -208,7 +208,7 @@ describe('webContents module', () => {
     });
 
     it('does not block node async APIs when sent before document is ready', (done) => {
-      // Please reference https://github.com/electron/electron/issues/19368 if
+      // Please reference https://github.com/neutron/neutron/issues/19368 if
       // this test fails.
       ipcMain.once('async-node-api-done', () => {
         done();
@@ -492,7 +492,7 @@ describe('webContents module', () => {
     });
 
     // FIXME: Temporarily disable on WOA until
-    // https://github.com/electron/electron/issues/20008 is resolved
+    // https://github.com/neutron/neutron/issues/20008 is resolved
     ifit(!(process.platform === 'win32' && process.arch === 'arm64'))('rejects when loading fails due to DNS not resolved', async () => {
       await expect(w.loadURL('https://err.name.not.resolved')).to.eventually.be.rejected()
         .and.have.property('code', 'ERR_NAME_NOT_RESOLVED');
@@ -1035,7 +1035,7 @@ describe('webContents module', () => {
 
       expect(() => { webContents.getFocusedWebContents(); }).to.not.throw();
 
-      // Work around https://github.com/electron/electron/issues/19985
+      // Work around https://github.com/neutron/neutron/issues/19985
       await setTimeout();
 
       const devToolsClosed = once(w.webContents, 'devtools-closed');
@@ -1218,7 +1218,7 @@ describe('webContents module', () => {
     it('has the correct properties', async () => {
       const w = new BrowserWindow({ show: false });
       await w.loadFile(path.join(fixturesPath, 'pages', 'base-page.html'));
-      const testBeforeMouse = async (opts: Electron.MouseInputEvent) => {
+      const testBeforeMouse = async (opts: Neutron.MouseInputEvent) => {
         const p = once(w.webContents, 'before-mouse-event');
         w.webContents.sendInputEvent({
           type: opts.type,
@@ -1296,7 +1296,7 @@ describe('webContents module', () => {
         if (opts.meta) modifiers.push('meta');
         if (opts.isAutoRepeat) modifiers.push('isAutoRepeat');
 
-        const p = once(w.webContents, 'before-input-event') as Promise<[any, Electron.Input]>;
+        const p = once(w.webContents, 'before-input-event') as Promise<[any, Neutron.Input]>;
         w.webContents.sendInputEvent({
           type: opts.type,
           keyCode: opts.keyCode,
@@ -1696,7 +1696,7 @@ describe('webContents module', () => {
       const protocol = session.defaultSession.protocol;
       protocol.registerStringProtocol(standardScheme, (request, callback) => {
         const response = `<script>
-                            const {ipcRenderer} = require('electron')
+                            const {ipcRenderer} = require('neutron')
                             ipcRenderer.send('set-zoom', window.location.hostname)
                             ipcRenderer.on(window.location.hostname + '-zoom-set', () => {
                               ipcRenderer.send(window.location.hostname + '-zoom-level')
@@ -1945,7 +1945,7 @@ describe('webContents module', () => {
       it('cannot persist zoom level after navigation with webFrame', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         const source = `
-          const {ipcRenderer, webFrame} = require('electron')
+          const {ipcRenderer, webFrame} = require('neutron')
           webFrame.setZoomLevel(0.6)
           ipcRenderer.send('zoom-level-set', webFrame.getZoomLevel())
         `;
@@ -2026,7 +2026,7 @@ describe('webContents module', () => {
     it('can get opener with window.open()', async () => {
       const w = new BrowserWindow({ show: false, webPreferences: { sandbox: true } });
       await w.loadURL('about:blank');
-      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Electron.DidCreateWindowDetails]>;
+      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Neutron.DidCreateWindowDetails]>;
       w.webContents.executeJavaScript('window.open("about:blank")', true);
       const [childWindow] = await childPromise;
       expect(childWindow.webContents.opener).to.equal(w.webContents.mainFrame);
@@ -2034,7 +2034,7 @@ describe('webContents module', () => {
     it('has no opener when using "noopener"', async () => {
       const w = new BrowserWindow({ show: false, webPreferences: { sandbox: true } });
       await w.loadURL('about:blank');
-      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Electron.DidCreateWindowDetails]>;
+      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Neutron.DidCreateWindowDetails]>;
       w.webContents.executeJavaScript('window.open("about:blank", undefined, "noopener")', true);
       const [childWindow] = await childPromise;
       expect(childWindow.webContents.opener).to.be.null();
@@ -2042,7 +2042,7 @@ describe('webContents module', () => {
     it('can get opener with a[target=_blank][rel=opener]', async () => {
       const w = new BrowserWindow({ show: false, webPreferences: { sandbox: true } });
       await w.loadURL('about:blank');
-      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Electron.DidCreateWindowDetails]>;
+      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Neutron.DidCreateWindowDetails]>;
       w.webContents.executeJavaScript(`(function() {
         const a = document.createElement('a');
         a.target = '_blank';
@@ -2056,7 +2056,7 @@ describe('webContents module', () => {
     it('has no opener with a[target=_blank][rel=noopener]', async () => {
       const w = new BrowserWindow({ show: false, webPreferences: { sandbox: true } });
       await w.loadURL('about:blank');
-      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Electron.DidCreateWindowDetails]>;
+      const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Neutron.DidCreateWindowDetails]>;
       w.webContents.executeJavaScript(`(function() {
         const a = document.createElement('a');
         a.target = '_blank';
@@ -2070,7 +2070,7 @@ describe('webContents module', () => {
   });
 
   describe('focusedFrame api', () => {
-    const focusFrame = (frame: Electron.WebFrameMain) => {
+    const focusFrame = (frame: Neutron.WebFrameMain) => {
       // There has to be a better way to do this...
       return frame.executeJavaScript(`(${() => {
         const input = document.createElement('input');
@@ -2250,7 +2250,7 @@ describe('webContents module', () => {
 
       it('forcefullyCrashRenderer() crashes the process with reason=killed||crashed', async () => {
         expect(w.webContents.isCrashed()).to.equal(false);
-        const crashEvent = once(w.webContents, 'render-process-gone') as Promise<[any, Electron.RenderProcessGoneDetails]>;
+        const crashEvent = once(w.webContents, 'render-process-gone') as Promise<[any, Neutron.RenderProcessGoneDetails]>;
         w.webContents.forcefullyCrashRenderer();
         const [, details] = await crashEvent;
         expect(details.reason === 'killed' || details.reason === 'crashed').to.equal(true, 'reason should be killed || crashed');
@@ -2267,7 +2267,7 @@ describe('webContents module', () => {
   }
 
   // Destroying webContents in its event listener is going to crash when
-  // Electron is built in Debug mode.
+  // Neutron is built in Debug mode.
   describe('destroy()', () => {
     let server: http.Server;
     let serverUrl: string;
@@ -2309,11 +2309,11 @@ describe('webContents module', () => {
     for (const e of events) {
       it(`should not crash when invoked synchronously inside ${e.name} handler`, async function () {
         // This test is flaky on Windows CI and we don't know why, but the
-        // purpose of this test is to make sure Electron does not crash so it
+        // purpose of this test is to make sure Neutron does not crash so it
         // is fine to retry this test for a few times.
         this.retries(3);
 
-        const contents = (webContents as typeof ElectronInternal.WebContents).create();
+        const contents = (webContents as typeof NeutronInternal.WebContents).create();
         const originalEmit = contents.emit.bind(contents);
         contents.emit = (...args) => { return originalEmit(...args); };
         contents.once(e.name as any, () => contents.destroy());
@@ -2367,7 +2367,7 @@ describe('webContents module', () => {
       const w = new BrowserWindow({ show: true, webPreferences: { nodeIntegration: true, contextIsolation: false } });
       await w.webContents.loadURL('about:blank');
       w.webContents.executeJavaScript(`
-        require('electron').ipcRenderer.send('message', 'Hello World!')
+        require('neutron').ipcRenderer.send('message', 'Hello World!')
       `);
 
       const [, channel, message] = await once(w.webContents, 'ipc-message');
@@ -2388,7 +2388,7 @@ describe('webContents module', () => {
         });
       });
       const result = await w.webContents.executeJavaScript(`
-        require('electron').ipcRenderer.sendSync('message', 'Hello World!')
+        require('neutron').ipcRenderer.sendSync('message', 'Hello World!')
       `);
 
       const [channel, message] = await promise;
@@ -2794,10 +2794,10 @@ describe('webContents module', () => {
       expect(data).to.be.an.instanceof(Buffer).that.is.not.empty();
     });
 
-    type PageSizeString = Exclude<Required<Electron.PrintToPDFOptions>['pageSize'], Electron.Size>;
+    type PageSizeString = Exclude<Required<Neutron.PrintToPDFOptions>['pageSize'], Neutron.Size>;
 
     it('with custom page sizes', async () => {
-      const paperFormats: Record<PageSizeString, ElectronInternal.PageSize> = {
+      const paperFormats: Record<PageSizeString, NeutronInternal.PageSize> = {
         Letter: { width: 8.5, height: 11 },
         Legal: { width: 8.5, height: 14 },
         Tabloid: { width: 11, height: 17 },
@@ -3144,7 +3144,7 @@ describe('webContents module', () => {
       const w = new BrowserWindow({ show: false });
       await w.loadFile(path.join(fixturesPath, 'pages', 'base-page.html'));
 
-      const promise = once(w.webContents, 'context-menu') as Promise<[any, Electron.ContextMenuParams]>;
+      const promise = once(w.webContents, 'context-menu') as Promise<[any, Neutron.ContextMenuParams]>;
 
       // Simulate right-click to create context-menu event.
       const opts = { x: 0, y: 0, button: 'right' as const };
@@ -3187,7 +3187,7 @@ describe('webContents module', () => {
 
       await w.loadFile(path.join(fixturesPath, 'pages', 'draggable-page.html'));
 
-      const promise = once(w.webContents, 'context-menu') as Promise<[any, Electron.ContextMenuParams]>;
+      const promise = once(w.webContents, 'context-menu') as Promise<[any, Neutron.ContextMenuParams]>;
 
       // Simulate right-click to create context-menu event.
       const midPoint = w.getBounds().width / 2;
@@ -3220,7 +3220,7 @@ describe('webContents module', () => {
       const { width, height } = w.getContentBounds();
       mainView.setBounds({ x: 0, y: 0, width, height });
 
-      const promise = once(mainView.webContents, 'context-menu') as Promise<[any, Electron.ContextMenuParams]>;
+      const promise = once(mainView.webContents, 'context-menu') as Promise<[any, Neutron.ContextMenuParams]>;
 
       // Simulate right-click to create context-menu event.
       const opts = { x: 0, y: 0, button: 'right' as const };
@@ -3239,7 +3239,7 @@ describe('webContents module', () => {
       const w = new BrowserWindow({ show: false, vibrancy: 'titlebar' });
       await w.loadFile(path.join(fixturesPath, 'pages', 'draggable-page.html'));
 
-      const promise = once(w.webContents, 'context-menu') as Promise<[any, Electron.ContextMenuParams]>;
+      const promise = once(w.webContents, 'context-menu') as Promise<[any, Neutron.ContextMenuParams]>;
 
       // Simulate right-click to create context-menu event.
       const opts = { x: 0, y: 0, button: 'right' as const };
@@ -3262,7 +3262,7 @@ describe('webContents module', () => {
     });
 
     it('closes when close() is called', async () => {
-      const w = (webContents as typeof ElectronInternal.WebContents).create();
+      const w = (webContents as typeof NeutronInternal.WebContents).create();
       const destroyed = once(w, 'destroyed');
       w.close();
       await destroyed;
@@ -3270,7 +3270,7 @@ describe('webContents module', () => {
     });
 
     it('closes when close() is called after loading a page', async () => {
-      const w = (webContents as typeof ElectronInternal.WebContents).create();
+      const w = (webContents as typeof NeutronInternal.WebContents).create();
       await w.loadURL('about:blank');
       const destroyed = once(w, 'destroyed');
       w.close();
@@ -3279,13 +3279,13 @@ describe('webContents module', () => {
     });
 
     it('can be GCed before loading a page', async () => {
-      const v8Util = process._linkedBinding('electron_common_v8_util');
+      const v8Util = process._linkedBinding('neutron_common_v8_util');
       let registry: FinalizationRegistry<unknown> | null = null;
       const cleanedUp = new Promise<number>(resolve => {
         registry = new FinalizationRegistry(resolve as any);
       });
       (() => {
-        const w = (webContents as typeof ElectronInternal.WebContents).create();
+        const w = (webContents as typeof NeutronInternal.WebContents).create();
         registry!.register(w, 42);
       })();
       const i = setInterval(() => v8Util.requestGarbageCollectionForTesting(), 100);
@@ -3303,7 +3303,7 @@ describe('webContents module', () => {
     });
 
     it('ignores beforeunload if waitForBeforeUnload not specified', async () => {
-      const w = (webContents as typeof ElectronInternal.WebContents).create();
+      const w = (webContents as typeof NeutronInternal.WebContents).create();
       await w.loadURL('about:blank');
       await w.executeJavaScript('window.onbeforeunload = () => "hello"; null');
       w.on('will-prevent-unload', () => { throw new Error('unexpected will-prevent-unload'); });
@@ -3314,7 +3314,7 @@ describe('webContents module', () => {
     });
 
     it('runs beforeunload if waitForBeforeUnload is specified', async () => {
-      const w = (webContents as typeof ElectronInternal.WebContents).create();
+      const w = (webContents as typeof NeutronInternal.WebContents).create();
       await w.loadURL('about:blank');
       await w.executeJavaScript('window.onbeforeunload = () => "hello"; null');
       const willPreventUnload = once(w, 'will-prevent-unload');
@@ -3324,7 +3324,7 @@ describe('webContents module', () => {
     });
 
     it('overriding beforeunload prevention results in webcontents close', async () => {
-      const w = (webContents as typeof ElectronInternal.WebContents).create();
+      const w = (webContents as typeof NeutronInternal.WebContents).create();
       await w.loadURL('about:blank');
       await w.executeJavaScript('window.onbeforeunload = () => "hello"; null');
       w.once('will-prevent-unload', e => e.preventDefault());
@@ -3341,7 +3341,7 @@ describe('webContents module', () => {
       const w = new BrowserWindow({ show: false });
       w.loadURL('about:blank');
       w.webContents.executeJavaScript('window.moveTo(50, 50)', true);
-      const [, rect] = await once(w.webContents, 'content-bounds-updated') as [any, Electron.Rectangle];
+      const [, rect] = await once(w.webContents, 'content-bounds-updated') as [any, Neutron.Rectangle];
       const { width, height } = w.getBounds();
       expect(rect).to.deep.equal({
         x: 50,
@@ -3358,7 +3358,7 @@ describe('webContents module', () => {
       const w = new BrowserWindow({ show: false });
       w.loadURL('about:blank');
       w.webContents.executeJavaScript('window.resizeTo(100, 100)', true);
-      const [, rect] = await once(w.webContents, 'content-bounds-updated') as [any, Electron.Rectangle];
+      const [, rect] = await once(w.webContents, 'content-bounds-updated') as [any, Neutron.Rectangle];
       const { x, y } = w.getBounds();
       expect(rect).to.deep.equal({
         x,

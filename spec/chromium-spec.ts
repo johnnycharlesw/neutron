@@ -1,6 +1,6 @@
-import { MediaAccessPermissionRequest } from 'electron';
-import { clipboard } from 'electron/common';
-import { BrowserWindow, WebContents, webFrameMain, session, ipcMain, app, protocol, webContents, dialog, MessageBoxOptions } from 'electron/main';
+import { MediaAccessPermissionRequest } from 'neutron';
+import { clipboard } from 'neutron/common';
+import { BrowserWindow, WebContents, webFrameMain, session, ipcMain, app, protocol, webContents, dialog, MessageBoxOptions } from 'neutron/main';
 
 import { expect } from 'chai';
 import * as ws from 'ws';
@@ -19,7 +19,7 @@ import { ifit, ifdescribe, defer, itremote, listen, startRemoteControlApp, waitU
 import { closeAllWindows } from './lib/window-helpers';
 import { PipeTransport } from './pipe-transport';
 
-const features = process._linkedBinding('electron_common_features');
+const features = process._linkedBinding('neutron_common_features');
 
 const fixturesPath = path.resolve(__dirname, 'fixtures');
 const certPath = path.join(fixturesPath, 'certificates');
@@ -235,7 +235,7 @@ describe('web security', () => {
         s.src = "${serverUrl}"
         // The script will not load under ORB, refs https://chromium-review.googlesource.com/c/chromium/src/+/3785025.
         // Before ORB an empty response is sent, which is now replaced by a network error.
-        s.onerror = () => { require('electron').ipcRenderer.send('success') }
+        s.onerror = () => { require('neutron').ipcRenderer.send('success') }
         document.documentElement.appendChild(s)
       </script>`);
     await p;
@@ -246,7 +246,7 @@ describe('web security', () => {
     const p = once(ipcMain, 'success');
     await w.loadURL(`data:text/html,
       <script>
-        window.onerror = (e) => { require('electron').ipcRenderer.send('success', e) }
+        window.onerror = (e) => { require('neutron').ipcRenderer.send('success', e) }
       </script>
       <script src="${serverUrl}"></script>`);
     await p;
@@ -259,9 +259,9 @@ describe('web security', () => {
         (async function() {
           try {
             await fetch('${serverUrl}');
-            require('electron').ipcRenderer.send('response', 'passed');
+            require('neutron').ipcRenderer.send('response', 'passed');
           } catch {
-            require('electron').ipcRenderer.send('response', 'failed');
+            require('neutron').ipcRenderer.send('response', 'failed');
           }
         })();
       </script>`);
@@ -276,9 +276,9 @@ describe('web security', () => {
         (async function() {
           try {
             await fetch('${serverUrl}');
-            require('electron').ipcRenderer.send('response', 'passed');
+            require('neutron').ipcRenderer.send('response', 'passed');
           } catch {
-            require('electron').ipcRenderer.send('response', 'failed');
+            require('neutron').ipcRenderer.send('response', 'failed');
           }
         })();
       </script>`);
@@ -486,8 +486,8 @@ describe('command line switches', () => {
 
   describe('--remote-debugging-pipe switch', () => {
     it('should expose CDP via pipe', async () => {
-      const electronPath = process.execPath;
-      appProcess = ChildProcess.spawn(electronPath, ['--remote-debugging-pipe'], {
+      const neutronPath = process.execPath;
+      appProcess = ChildProcess.spawn(neutronPath, ['--remote-debugging-pipe'], {
         stdio: ['inherit', 'inherit', 'inherit', 'pipe', 'pipe']
       }) as ChildProcess.ChildProcessWithoutNullStreams;
       const stdio = appProcess.stdio as unknown as [NodeJS.ReadableStream, NodeJS.WritableStream, NodeJS.WritableStream, NodeJS.WritableStream, NodeJS.ReadableStream];
@@ -497,11 +497,11 @@ describe('command line switches', () => {
       const message = (await versionPromise) as any;
       expect(message.id).to.equal(1);
       expect(message.result.product).to.contain('Chrome');
-      expect(message.result.userAgent).to.contain('Electron');
+      expect(message.result.userAgent).to.contain('Neutron');
     });
     it('should override --remote-debugging-port switch', async () => {
-      const electronPath = process.execPath;
-      appProcess = ChildProcess.spawn(electronPath, ['--remote-debugging-pipe', '--remote-debugging-port=0'], {
+      const neutronPath = process.execPath;
+      appProcess = ChildProcess.spawn(neutronPath, ['--remote-debugging-pipe', '--remote-debugging-port=0'], {
         stdio: ['inherit', 'inherit', 'pipe', 'pipe', 'pipe']
       }) as ChildProcess.ChildProcessWithoutNullStreams;
       let stderr = '';
@@ -514,9 +514,9 @@ describe('command line switches', () => {
       expect(message.id).to.equal(1);
       expect(stderr).to.not.include('DevTools listening on');
     });
-    it('should shut down Electron upon Browser.close CDP command', async () => {
-      const electronPath = process.execPath;
-      appProcess = ChildProcess.spawn(electronPath, ['--remote-debugging-pipe'], {
+    it('should shut down Neutron upon Browser.close CDP command', async () => {
+      const neutronPath = process.execPath;
+      appProcess = ChildProcess.spawn(neutronPath, ['--remote-debugging-pipe'], {
         stdio: ['inherit', 'inherit', 'inherit', 'pipe', 'pipe']
       }) as ChildProcess.ChildProcessWithoutNullStreams;
       const stdio = appProcess.stdio as unknown as [NodeJS.ReadableStream, NodeJS.WritableStream, NodeJS.WritableStream, NodeJS.WritableStream, NodeJS.ReadableStream];
@@ -528,9 +528,9 @@ describe('command line switches', () => {
 
   describe('--remote-debugging-port switch', () => {
     it('should display the discovery page', (done) => {
-      const electronPath = process.execPath;
+      const neutronPath = process.execPath;
       let output = '';
-      appProcess = ChildProcess.spawn(electronPath, ['--remote-debugging-port=']);
+      appProcess = ChildProcess.spawn(neutronPath, ['--remote-debugging-port=']);
       appProcess.stdout.on('data', (data) => {
         console.log(data);
       });
@@ -572,7 +572,7 @@ describe('command line switches', () => {
       // The phase event arg TRACE_EVENT_PHASE_NESTABLE_ASYNC_(BEGIN | END) is not supported in v8_use_perfetto mode
       // https://source.chromium.org/chromium/chromium/src/+/main:v8/src/builtins/builtins-trace.cc;l=201-216
       // and leads to the following error: TypeError: Trace event phase must be a number.
-      // TODO: Identify why the error started appearing with roll https://github.com/electron/electron/pull/47561
+      // TODO: Identify why the error started appearing with roll https://github.com/neutron/neutron/pull/47561
       // given both v8_use_perfetto has been enabled before the roll and builtins-trace macro hasn't changed.
       const rc = await startRemoteControlApp(['--trace-startup="*,-node.async_hooks"', `--trace-startup-file=${outputFilePath}`, '--trace-startup-duration=1', '--enable-logging']);
       const stderrComplete = new Promise<string>(resolve => {
@@ -584,7 +584,7 @@ describe('command line switches', () => {
       });
       rc.remotely(() => {
         global.setTimeout(() => {
-          require('electron').app.quit();
+          require('neutron').app.quit();
         }, 5000);
       });
       const stderr = await stderrComplete;
@@ -907,7 +907,7 @@ describe('chromium features', () => {
         ]);
 
         const result = await rc.remotely(async (action: typeof handlerAction) => {
-          const { session, BrowserWindow } = require('electron');
+          const { session, BrowserWindow } = require('neutron');
           const path = require('node:path');
 
           // Isolate each test's permissions to prevent permission state leaks between the test variations
@@ -915,7 +915,7 @@ describe('chromium features', () => {
 
           if (action !== 'none') {
             // Make the PermissionRequestHandler behave according to action variable passed for this test
-            testSession.setPermissionRequestHandler((_wc: Electron.WebContents, permission: string, callback: (allow: boolean) => void) => {
+            testSession.setPermissionRequestHandler((_wc: Neutron.WebContents, permission: string, callback: (allow: boolean) => void) => {
               if (permission === 'geolocation') {
                 if (action === 'allow') callback(true);
                 else if (action === 'deny') callback(false);
@@ -2472,7 +2472,7 @@ describe('chromium features', () => {
       });
 
       beforeEach(() => {
-        contents = (webContents as typeof ElectronInternal.WebContents).create({
+        contents = (webContents as typeof NeutronInternal.WebContents).create({
           nodeIntegration: true,
           contextIsolation: false
         });
@@ -2578,7 +2578,7 @@ describe('chromium features', () => {
           // to exceed the original 10MiB quota yet stay within the
           // new 100MiB quota.
           // Note that both the key name and value affect the total size.
-          const testKeyName = '_electronDOMStorageQuotaIncreasedTest';
+          const testKeyName = '_neutronDOMStorageQuotaIncreasedTest';
           const length = 40 * Math.pow(2, 20) - testKeyName.length;
           await w.webContents.executeJavaScript(`
             ${storageName}.setItem(${JSON.stringify(testKeyName)}, 'X'.repeat(${length}));
@@ -2601,7 +2601,7 @@ describe('chromium features', () => {
           const w = new BrowserWindow({ show: false });
           w.loadFile(path.join(fixturesPath, 'pages', 'blank.html'));
           await expect((async () => {
-            const testKeyName = '_electronDOMStorageQuotaStillEnforcedTest';
+            const testKeyName = '_neutronDOMStorageQuotaStillEnforcedTest';
             const length = 128 * Math.pow(2, 20) - testKeyName.length;
             try {
               await w.webContents.executeJavaScript(`
@@ -2643,7 +2643,7 @@ describe('chromium features', () => {
     it('successfully loads a PDF resource in a iframe', async () => {
       const w = new BrowserWindow({ show: false });
 
-      const readyFrames = new Set<Electron.WebFrameMain['frameToken']>();
+      const readyFrames = new Set<Neutron.WebFrameMain['frameToken']>();
       w.webContents.on('frame-created', (_, { frame }) => {
         frame!.on('dom-ready', () => {
           readyFrames.add(frame!.frameToken);
@@ -2875,7 +2875,7 @@ describe('chromium features', () => {
     it('does not crash', async () => {
       const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
       w.loadURL('about:blank');
-      await w.webContents.executeJavaScript('process._linkedBinding(\'electron_common_v8_util\').takeHeapSnapshot()');
+      await w.webContents.executeJavaScript('process._linkedBinding(\'neutron_common_v8_util\').takeHeapSnapshot()');
     });
   });
 
@@ -2933,7 +2933,7 @@ describe('chromium features', () => {
       w.webContents.executeJavaScript(`
         new WebSocket('ws://127.0.0.1:${port}');
       `);
-      expect(await finished).to.include('Electron');
+      expect(await finished).to.include('Neutron');
     });
   });
 
@@ -2982,11 +2982,11 @@ describe('chromium features', () => {
       });
     });
 
-    itremote('resolves correctly in Electron calls', async () => {
+    itremote('resolves correctly in Neutron calls', async () => {
       await new Promise<void>((resolve, reject) => {
         class YElement extends HTMLElement {}
         customElements.define('y-element', YElement);
-        require('electron').ipcRenderer.invoke('ping').then(() => {
+        require('neutron').ipcRenderer.invoke('ping').then(() => {
           let called = false;
           Promise.resolve().then(() => {
             if (called) resolve();
@@ -3736,7 +3736,7 @@ describe('paste execCommand', () => {
     `, true);
   };
 
-  let ses: Electron.Session;
+  let ses: Neutron.Session;
   beforeEach(() => {
     ses = session.fromPartition(`paste-execCommand-${Math.random()}`);
   });
@@ -3852,7 +3852,7 @@ describe('paste execCommand', () => {
       }
       return false;
     });
-    const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Electron.DidCreateWindowDetails]>;
+    const childPromise = once(w.webContents, 'did-create-window') as Promise<[BrowserWindow, Neutron.DidCreateWindowDetails]>;
     w.webContents.executeJavaScript('window.open("about:blank")', true);
     const [childWindow] = await childPromise;
     expect(childWindow.webContents.opener).to.equal(w.webContents.mainFrame);
@@ -4367,7 +4367,7 @@ describe('navigator.usb', () => {
     if (haveDevices) {
       const grantedDevices = await w.webContents.executeJavaScript('navigator.usb.getDevices()');
       if (grantedDevices.length > 0) {
-        const deletedDevice: Electron.USBDevice = await w.webContents.executeJavaScript(`
+        const deletedDevice: Neutron.USBDevice = await w.webContents.executeJavaScript(`
           navigator.usb.getDevices().then(devices => {
             devices[0].forget();
             return {

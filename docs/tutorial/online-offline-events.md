@@ -24,7 +24,7 @@ status of Electron, you should develop additional means for this check.
 In the main process, you can use the `net` module to detect online/offline status:
 
 ```js
-const { net } = require('electron')
+const { net } = require('neutron')
 
 // Method 1: Using net.isOnline()
 const isOnline = net.isOnline()
@@ -74,7 +74,7 @@ updateOnlineStatus()
 Finally, create a `main.js` file for main process that creates the window.
 
 ```js title='main.js'
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 const createWindow = () => {
   const onlineStatusWindow = new BrowserWindow()

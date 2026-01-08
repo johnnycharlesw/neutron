@@ -7,8 +7,8 @@ After https://github.com/nodejs/node/pull/56649 we see conflicts with the
 version in //third_party/inspector_protocol/crdtp/chromium/protocol_traits.cc
 
 error: duplicate symbol: crdtp::ProtocolTypeTraits<std::__Cr::basic_string<char, std::__Cr::char_traits<char>, std::__Cr::allocator<char>>, void>::Serialize(std::__Cr::basic_string<char, std::__Cr::char_traits<char>, std::__Cr::allocator<char>> const&, std::__Cr::vector<unsigned char, std::__Cr::allocator<unsigned char>>*)
->>> defined in node_string.cc:28 (../../third_party/electron_node/src/inspector/node_string.cc:28)
->>>            obj/third_party/electron_node/libnode/node_string.o
+>>> defined in node_string.cc:28 (../../third_party/neutron_node/src/inspector/node_string.cc:28)
+>>>            obj/third_party/neutron_node/libnode/node_string.o
 >>> defined in protocol_traits.cc:20 (../../third_party/inspector_protocol/crdtp/chromium/protocol_traits.cc:20)
 
 Some distinguishing change should be upstreamed to Node.js.

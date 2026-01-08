@@ -8,9 +8,9 @@
 
 #include "base/files/file_path.h"
 #include "content/public/browser/web_contents.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 
-namespace electron::api {
+namespace neutron::api {
 
 SavePageHandler::SavePageHandler(content::WebContents* web_contents,
                                  gin_helper::Promise<void> promise)
@@ -62,4 +62,4 @@ void SavePageHandler::Destroy(download::DownloadItem* item) {
   delete this;
 }
 
-}  // namespace electron::api
+}  // namespace neutron::api

@@ -16,7 +16,7 @@ namespace base {
 class FilePath;
 }
 
-namespace electron {
+namespace neutron {
 
 // The "main" application bundle is the outermost bundle for this logical
 // application. E.g., if you have MyApp.app and
@@ -25,6 +25,6 @@ namespace electron {
 NSBundle* MainApplicationBundle();
 base::FilePath MainApplicationBundlePath();
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_MAC_MAIN_APPLICATION_BUNDLE_H_

@@ -201,16 +201,16 @@ auto_filenames = {
     "lib/renderer/web-view/web-view-impl.ts",
     "lib/renderer/web-view/web-view-init.ts",
     "lib/renderer/window-setup.ts",
-    "lib/sandboxed_renderer/api/exports/electron.ts",
+    "lib/sandboxed_renderer/api/exports/neutron.ts",
     "lib/sandboxed_renderer/api/module-list.ts",
     "lib/sandboxed_renderer/init.ts",
     "lib/sandboxed_renderer/pre-init.ts",
     "lib/sandboxed_renderer/preload.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 
   isolated_bundle_deps = [
@@ -221,10 +221,10 @@ auto_filenames = {
     "lib/renderer/web-view/web-view-element.ts",
     "lib/renderer/web-view/web-view-impl.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 
   browser_bundle_deps = [
@@ -241,7 +241,7 @@ auto_filenames = {
     "lib/browser/api/crash-reporter.ts",
     "lib/browser/api/desktop-capturer.ts",
     "lib/browser/api/dialog.ts",
-    "lib/browser/api/exports/electron.ts",
+    "lib/browser/api/exports/neutron.ts",
     "lib/browser/api/global-shortcut.ts",
     "lib/browser/api/in-app-purchase.ts",
     "lib/browser/api/ipc-main.ts",
@@ -299,10 +299,10 @@ auto_filenames = {
     "lib/common/web-view-methods.ts",
     "lib/common/webpack-globals-provider.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 
   renderer_bundle_deps = [
@@ -318,7 +318,7 @@ auto_filenames = {
     "lib/renderer/api/clipboard.ts",
     "lib/renderer/api/context-bridge.ts",
     "lib/renderer/api/crash-reporter.ts",
-    "lib/renderer/api/exports/electron.ts",
+    "lib/renderer/api/exports/neutron.ts",
     "lib/renderer/api/ipc-renderer.ts",
     "lib/renderer/api/module-list.ts",
     "lib/renderer/api/shared-texture.ts",
@@ -341,10 +341,10 @@ auto_filenames = {
     "lib/renderer/web-view/web-view-init.ts",
     "lib/renderer/window-setup.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 
   worker_bundle_deps = [
@@ -359,7 +359,7 @@ auto_filenames = {
     "lib/renderer/api/clipboard.ts",
     "lib/renderer/api/context-bridge.ts",
     "lib/renderer/api/crash-reporter.ts",
-    "lib/renderer/api/exports/electron.ts",
+    "lib/renderer/api/exports/neutron.ts",
     "lib/renderer/api/ipc-renderer.ts",
     "lib/renderer/api/module-list.ts",
     "lib/renderer/api/shared-texture.ts",
@@ -370,20 +370,20 @@ auto_filenames = {
     "lib/renderer/ipc-renderer-internal.ts",
     "lib/worker/init.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 
   node_bundle_deps = [
     "lib/node/asar-fs-wrapper.ts",
     "lib/node/init.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 
   utility_bundle_deps = [
@@ -395,16 +395,16 @@ auto_filenames = {
     "lib/common/deprecate.ts",
     "lib/common/init.ts",
     "lib/common/webpack-globals-provider.ts",
-    "lib/utility/api/exports/electron.ts",
+    "lib/utility/api/exports/neutron.ts",
     "lib/utility/api/module-list.ts",
     "lib/utility/api/net.ts",
     "lib/utility/init.ts",
     "lib/utility/parent-port.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 
   preload_realm_bundle_deps = [
@@ -412,7 +412,7 @@ auto_filenames = {
     "lib/common/define-properties.ts",
     "lib/common/ipc-messages.ts",
     "lib/common/webpack-globals-provider.ts",
-    "lib/preload_realm/api/exports/electron.ts",
+    "lib/preload_realm/api/exports/neutron.ts",
     "lib/preload_realm/api/module-list.ts",
     "lib/preload_realm/init.ts",
     "lib/renderer/api/context-bridge.ts",
@@ -424,9 +424,9 @@ auto_filenames = {
     "lib/sandboxed_renderer/pre-init.ts",
     "lib/sandboxed_renderer/preload.ts",
     "package.json",
-    "tsconfig.electron.json",
+    "tsconfig.neutron.json",
     "tsconfig.json",
     "typings/internal-ambient.d.ts",
-    "typings/internal-electron.d.ts",
+    "typings/internal-neutron.d.ts",
   ]
 }

@@ -2,7 +2,7 @@
 
 set -eo pipefail
 
-buildtools=$HOME/.electron_build_tools
+buildtools=$HOME/.neutron_build_tools
 gclient_root=/workspaces/gclient
 buildtools_configs=/workspaces/buildtools-configs
 
@@ -19,8 +19,8 @@ if [ ! -f $gclient_root/.gclient ]; then
   echo "Creating gclient config"
 
   echo "solutions = [
-      { \"name\"        : \"src/electron\",
-          \"url\"         : \"https://github.com/electron/electron\",
+      { \"name\"        : \"src/neutron\",
+          \"url\"         : \"https://github.com/neutron/neutron\",
           \"deps_file\"   : \"DEPS\",
           \"managed\"     : False,
           \"custom_deps\" : {
@@ -41,13 +41,13 @@ if [ ! -f $buildtools/configs/evm.testing.json ]; then
         {
             \"root\": \"/workspaces/gclient\",
             \"remotes\": {
-                \"electron\": {
-                    \"origin\": \"https://github.com/electron/electron.git\"
+                \"neutron\": {
+                    \"origin\": \"https://github.com/neutron/neutron.git\"
                 }
             },
             \"gen\": {
                 \"args\": [
-                    \"import(\\\"//electron/build/args/testing.gn\\\")\",
+                    \"import(\\\"//neutron/build/args/testing.gn\\\")\",
                     \"use_remoteexec = true\"
                 ],
                 \"out\": \"Testing\"
@@ -56,7 +56,7 @@ if [ ! -f $buildtools/configs/evm.testing.json ]; then
                 \"CHROMIUM_BUILDTOOLS_PATH\": \"/workspaces/gclient/src/buildtools\",
                 \"GIT_CACHE_PATH\": \"/workspaces/gclient/.git-cache\"
             },
-            \"\$schema\": \"file:///home/builduser/.electron_build_tools/evm-config.schema.json\",
+            \"\$schema\": \"file:///home/builduser/.neutron_build_tools/evm-config.schema.json\",
             \"configValidationLevel\": \"strict\",
             \"remoteBuild\": \"reclient\",
             \"preserveSDK\": 5

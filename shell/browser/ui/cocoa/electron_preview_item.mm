@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "shell/browser/ui/cocoa/electron_preview_item.h"
+#include "shell/browser/ui/cocoa/neutron_preview_item.h"
 
 @implementation ElectronPreviewItem
 

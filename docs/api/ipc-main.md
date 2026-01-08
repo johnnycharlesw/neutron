@@ -122,7 +122,7 @@ WebContents is the source of the invoke request.
 Errors thrown through `handle` in the main process are not transparent as they
 are serialized and only the `message` property from the original error is
 provided to the renderer process. Please refer to
-[#24427](https://github.com/electron/electron/issues/24427) for details.
+[#24427](https://github.com/neutron/neutron/issues/24427) for details.
 
 ### `ipcMain.handleOnce(channel, listener)`
 

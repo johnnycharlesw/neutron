@@ -13,7 +13,7 @@ namespace views {
 class Widget;
 }
 
-namespace electron {
+namespace neutron {
 
 class NativeWindowViews;
 
@@ -73,6 +73,6 @@ class FramelessView : public views::FrameView {
   friend class NativeWindowsViews;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_FRAMELESS_VIEW_H_

@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('neutron/main')
 const path = require('node:path')
 
 function createWindow () {

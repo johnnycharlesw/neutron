@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#import "shell/browser/ui/cocoa/electron_touch_bar.h"
+#import "shell/browser/ui/cocoa/neutron_touch_bar.h"
 
 #include <string>
 #include <utility>
@@ -21,27 +21,27 @@
 @implementation ElectronTouchBar
 
 static NSTouchBarItemIdentifier ButtonIdentifier =
-    @"com.electron.touchbar.button.";
+    @"com.neutron.touchbar.button.";
 static NSTouchBarItemIdentifier ColorPickerIdentifier =
-    @"com.electron.touchbar.colorpicker.";
+    @"com.neutron.touchbar.colorpicker.";
 static NSTouchBarItemIdentifier GroupIdentifier =
-    @"com.electron.touchbar.group.";
+    @"com.neutron.touchbar.group.";
 static NSTouchBarItemIdentifier LabelIdentifier =
-    @"com.electron.touchbar.label.";
+    @"com.neutron.touchbar.label.";
 static NSTouchBarItemIdentifier PopoverIdentifier =
-    @"com.electron.touchbar.popover.";
+    @"com.neutron.touchbar.popover.";
 static NSTouchBarItemIdentifier SliderIdentifier =
-    @"com.electron.touchbar.slider.";
+    @"com.neutron.touchbar.slider.";
 static NSTouchBarItemIdentifier SegmentedControlIdentifier =
-    @"com.electron.touchbar.segmentedcontrol.";
+    @"com.neutron.touchbar.segmentedcontrol.";
 static NSTouchBarItemIdentifier ScrubberIdentifier =
-    @"com.electron.touchbar.scrubber.";
+    @"com.neutron.touchbar.scrubber.";
 
 static NSString* const TextScrubberItemIdentifier = @"scrubber.text.item";
 static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
 
 - (id)initWithDelegate:(id<NSTouchBarDelegate>)delegate
-                window:(electron::NativeWindow*)window
+                window:(neutron::NativeWindow*)window
               settings:(std::vector<gin_helper::PersistentDictionary>)settings {
   if ((self = [super init])) {
     delegate_ = delegate;
@@ -196,7 +196,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:item_id])
     return;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[item_id];
@@ -253,7 +253,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
                                   withPrefix:ColorPickerIdentifier];
   NSColor* color = ((NSColorPickerTouchBarItem*)sender).color;
   std::string hex_color =
-      electron::ToRGBHex(skia::NSDeviceColorToSkColor(color));
+      neutron::ToRGBHex(skia::NSDeviceColorToSkColor(color));
   base::Value::Dict details;
   details.Set("color", hex_color);
   window_->NotifyTouchBarItemInteraction([item_id UTF8String],
@@ -338,7 +338,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
 }
 
 - (NSColor*)colorFromHexColorString:(const std::string&)colorString {
-  SkColor color = electron::ParseCSSColor(colorString).value_or(SK_ColorWHITE);
+  SkColor color = neutron::ParseCSSColor(colorString).value_or(SK_ColorWHITE);
   return skia::SkColorToDeviceNSColor(color);
 }
 
@@ -348,7 +348,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -408,7 +408,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -445,7 +445,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -482,7 +482,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -511,7 +511,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -534,7 +534,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
 
   item.showsCloseButton = settings.ValueOrDefault("showCloseButton", true);
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary child;
@@ -551,7 +551,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -581,7 +581,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
 
 - (void)updateGroup:(NSGroupTouchBarItem*)item
        withSettings:(const gin_helper::PersistentDictionary&)settings {
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary child;
@@ -601,7 +601,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -686,7 +686,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -764,7 +764,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return 0;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -779,7 +779,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return nil;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];
@@ -826,7 +826,7 @@ static NSString* const ImageScrubberItemIdentifier = @"scrubber.image.item";
   if (![self hasItemWithID:s_id])
     return defaultSize;
 
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   v8::HandleScope handle_scope(isolate);
 
   gin_helper::PersistentDictionary settings = settings_[s_id];

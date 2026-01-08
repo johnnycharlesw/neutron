@@ -44,7 +44,7 @@ declare namespace NodeJS {
     triggerFatalErrorForTesting(): void;
   }
 
-  type CrashReporterBinding = Omit<Electron.CrashReporter, 'start'> & {
+  type CrashReporterBinding = Omit<Neutron.CrashReporter, 'start'> & {
     start(submitUrl: string,
       uploadToServer: boolean,
       ignoreSystemCrashHandler: boolean,
@@ -105,40 +105,40 @@ declare namespace NodeJS {
     Net: any;
     net: any;
     createURLLoader(options: CreateURLLoaderOptions): URLLoader;
-    resolveHost(host: string, options?: Electron.ResolveHostOptions): Promise<Electron.ResolvedHost>;
+    resolveHost(host: string, options?: Neutron.ResolveHostOptions): Promise<Neutron.ResolvedHost>;
   }
 
   interface NotificationBinding {
     isSupported(): boolean;
-    Notification: typeof Electron.Notification;
+    Notification: typeof Neutron.Notification;
   }
 
-  interface PowerMonitorBinding extends Electron.PowerMonitor {
+  interface PowerMonitorBinding extends Neutron.PowerMonitor {
     createPowerMonitor(): PowerMonitorBinding;
     setListeningForShutdown(listening: boolean): void;
   }
 
   interface ServiceWorkerMainBinding {
-    ServiceWorkerMain: typeof Electron.ServiceWorkerMain;
+    ServiceWorkerMain: typeof Neutron.ServiceWorkerMain;
   }
 
   interface SessionBinding {
-    fromPartition: typeof Electron.Session.fromPartition,
-    fromPath: typeof Electron.Session.fromPath,
-    Session: typeof Electron.Session
+    fromPartition: typeof Neutron.Session.fromPartition,
+    fromPath: typeof Neutron.Session.fromPath,
+    Session: typeof Neutron.Session
   }
 
   interface WebViewManagerBinding {
-    addGuest(guestInstanceId: number, embedder: Electron.WebContents, guest: Electron.WebContents, webPreferences: Electron.WebPreferences): void;
-    removeGuest(embedder: Electron.WebContents, guestInstanceId: number): void;
+    addGuest(guestInstanceId: number, embedder: Neutron.WebContents, guest: Neutron.WebContents, webPreferences: Neutron.WebPreferences): void;
+    removeGuest(embedder: Neutron.WebContents, guestInstanceId: number): void;
   }
 
   interface WebFrameMainBinding {
-    WebFrameMain: typeof Electron.WebFrameMain;
-    fromId(processId: number, routingId: number): Electron.WebFrameMain | undefined;
-    fromFrameToken(processId: number, frameToken: string): Electron.WebFrameMain | null;
-    _fromIdIfExists(processId: number, routingId: number): Electron.WebFrameMain | null;
-    _fromFtnIdIfExists(frameTreeNodeId: number): Electron.WebFrameMain | null;
+    WebFrameMain: typeof Neutron.WebFrameMain;
+    fromId(processId: number, routingId: number): Neutron.WebFrameMain | undefined;
+    fromFrameToken(processId: number, frameToken: string): Neutron.WebFrameMain | null;
+    _fromIdIfExists(processId: number, routingId: number): Neutron.WebFrameMain | null;
+    _fromFtnIdIfExists(frameTreeNodeId: number): Neutron.WebFrameMain | null;
   }
 
   interface InternalWebPreferences {
@@ -148,15 +148,15 @@ declare namespace NodeJS {
     webviewTag: boolean;
   }
 
-  interface InternalWebFrame extends Electron.WebFrame {
+  interface InternalWebFrame extends Neutron.WebFrame {
     getWebPreference<K extends keyof InternalWebPreferences>(name: K): InternalWebPreferences[K];
-    _findFrameByWindow(window: Window): Electron.WebFrame | null;
+    _findFrameByWindow(window: Window): Neutron.WebFrame | null;
     allowGuestViewElementDefinition(context: object, callback: Function): void;
   }
 
   interface WebFrameBinding {
     mainFrame: InternalWebFrame;
-    WebFrame: Electron.WebFrame;
+    WebFrame: Neutron.WebFrame;
   }
 
   type DataPipe = {
@@ -171,7 +171,7 @@ declare namespace NodeJS {
     useSessionCookies?: boolean;
     credentials?: 'include' | 'omit' | 'same-origin';
     body: Uint8Array | BodyFunc;
-    session?: Electron.Session;
+    session?: Neutron.Session;
     partition?: string;
     referrer?: string;
     referrerPolicy?: string;
@@ -208,7 +208,7 @@ declare namespace NodeJS {
     on(eventName: 'response-started', listener: (event: any, finalUrl: string, responseHead: ResponseHead) => void): this;
     on(eventName: 'complete', listener: (event: any) => void): this;
     on(eventName: 'error', listener: (event: any, netErrorString: string) => void): this;
-    on(eventName: 'login', listener: (event: any, authInfo: Electron.AuthInfo, callback: (username?: string, password?: string) => void) => void): this;
+    on(eventName: 'login', listener: (event: any, authInfo: Neutron.AuthInfo, callback: (username?: string, password?: string) => void) => void): this;
     on(eventName: 'redirect', listener: (event: any, redirectInfo: RedirectInfo, headers: Record<string, string>) => void): this;
     on(eventName: 'upload-progress', listener: (event: any, position: number, total: number) => void): this;
     on(eventName: 'download-progress', listener: (event: any, current: number) => void): this;
@@ -217,43 +217,43 @@ declare namespace NodeJS {
   interface Process {
     internalBinding?(name: string): any;
     _linkedBinding(name: string): any;
-    _linkedBinding(name: 'electron_common_asar'): AsarBinding;
-    _linkedBinding(name: 'electron_common_clipboard'): Electron.Clipboard;
-    _linkedBinding(name: 'electron_common_command_line'): Electron.CommandLine;
-    _linkedBinding(name: 'electron_common_environment'): EnvironmentBinding;
-    _linkedBinding(name: 'electron_common_features'): FeaturesBinding;
-    _linkedBinding(name: 'electron_common_native_image'): { nativeImage: typeof Electron.NativeImage };
-    _linkedBinding(name: 'electron_common_shared_texture'): Electron.SharedTextureSubtle;
-    _linkedBinding(name: 'electron_common_net'): NetBinding;
-    _linkedBinding(name: 'electron_common_shell'): Electron.Shell;
-    _linkedBinding(name: 'electron_common_v8_util'): V8UtilBinding;
-    _linkedBinding(name: 'electron_browser_app'): { app: Electron.App, App: Function };
-    _linkedBinding(name: 'electron_browser_auto_updater'): { autoUpdater: Electron.AutoUpdater };
-    _linkedBinding(name: 'electron_browser_crash_reporter'): CrashReporterBinding;
-    _linkedBinding(name: 'electron_browser_desktop_capturer'): { createDesktopCapturer(): ElectronInternal.DesktopCapturer; isDisplayMediaSystemPickerAvailable(): boolean; };
-    _linkedBinding(name: 'electron_browser_event_emitter'): { setEventEmitterPrototype(prototype: Object): void; };
-    _linkedBinding(name: 'electron_browser_global_shortcut'): { globalShortcut: Electron.GlobalShortcut };
-    _linkedBinding(name: 'electron_browser_image_view'): { ImageView: any };
-    _linkedBinding(name: 'electron_browser_in_app_purchase'): { inAppPurchase: Electron.InAppPurchase };
-    _linkedBinding(name: 'electron_browser_message_port'): { createPair(): { port1: Electron.MessagePortMain, port2: Electron.MessagePortMain }; };
-    _linkedBinding(name: 'electron_browser_native_theme'): { nativeTheme: Electron.NativeTheme };
-    _linkedBinding(name: 'electron_browser_notification'): NotificationBinding;
-    _linkedBinding(name: 'electron_browser_power_monitor'): PowerMonitorBinding;
-    _linkedBinding(name: 'electron_browser_power_save_blocker'): { powerSaveBlocker: Electron.PowerSaveBlocker };
-    _linkedBinding(name: 'electron_browser_push_notifications'): { pushNotifications: Electron.PushNotifications };
-    _linkedBinding(name: 'electron_browser_safe_storage'): { safeStorage: Electron.SafeStorage };
-    _linkedBinding(name: 'electron_browser_session'): SessionBinding;
-    _linkedBinding(name: 'electron_browser_screen'): { createScreen(): Electron.Screen };
-    _linkedBinding(name: 'electron_browser_service_worker_main'): ServiceWorkerMainBinding;
-    _linkedBinding(name: 'electron_browser_system_preferences'): { systemPreferences: Electron.SystemPreferences };
-    _linkedBinding(name: 'electron_browser_tray'): { Tray: Electron.Tray };
-    _linkedBinding(name: 'electron_browser_view'): { View: Electron.View };
-    _linkedBinding(name: 'electron_browser_web_contents_view'): { WebContentsView: typeof Electron.WebContentsView };
-    _linkedBinding(name: 'electron_browser_web_view_manager'): WebViewManagerBinding;
-    _linkedBinding(name: 'electron_browser_web_frame_main'): WebFrameMainBinding;
-    _linkedBinding(name: 'electron_renderer_crash_reporter'): Electron.CrashReporter;
-    _linkedBinding(name: 'electron_renderer_ipc'): IpcRendererBinding;
-    _linkedBinding(name: 'electron_renderer_web_frame'): WebFrameBinding;
+    _linkedBinding(name: 'neutron_common_asar'): AsarBinding;
+    _linkedBinding(name: 'neutron_common_clipboard'): Neutron.Clipboard;
+    _linkedBinding(name: 'neutron_common_command_line'): Neutron.CommandLine;
+    _linkedBinding(name: 'neutron_common_environment'): EnvironmentBinding;
+    _linkedBinding(name: 'neutron_common_features'): FeaturesBinding;
+    _linkedBinding(name: 'neutron_common_native_image'): { nativeImage: typeof Neutron.NativeImage };
+    _linkedBinding(name: 'neutron_common_shared_texture'): Neutron.SharedTextureSubtle;
+    _linkedBinding(name: 'neutron_common_net'): NetBinding;
+    _linkedBinding(name: 'neutron_common_shell'): Neutron.Shell;
+    _linkedBinding(name: 'neutron_common_v8_util'): V8UtilBinding;
+    _linkedBinding(name: 'neutron_browser_app'): { app: Neutron.App, App: Function };
+    _linkedBinding(name: 'neutron_browser_auto_updater'): { autoUpdater: Neutron.AutoUpdater };
+    _linkedBinding(name: 'neutron_browser_crash_reporter'): CrashReporterBinding;
+    _linkedBinding(name: 'neutron_browser_desktop_capturer'): { createDesktopCapturer(): ElectronInternal.DesktopCapturer; isDisplayMediaSystemPickerAvailable(): boolean; };
+    _linkedBinding(name: 'neutron_browser_event_emitter'): { setEventEmitterPrototype(prototype: Object): void; };
+    _linkedBinding(name: 'neutron_browser_global_shortcut'): { globalShortcut: Neutron.GlobalShortcut };
+    _linkedBinding(name: 'neutron_browser_image_view'): { ImageView: any };
+    _linkedBinding(name: 'neutron_browser_in_app_purchase'): { inAppPurchase: Neutron.InAppPurchase };
+    _linkedBinding(name: 'neutron_browser_message_port'): { createPair(): { port1: Neutron.MessagePortMain, port2: Neutron.MessagePortMain }; };
+    _linkedBinding(name: 'neutron_browser_native_theme'): { nativeTheme: Neutron.NativeTheme };
+    _linkedBinding(name: 'neutron_browser_notification'): NotificationBinding;
+    _linkedBinding(name: 'neutron_browser_power_monitor'): PowerMonitorBinding;
+    _linkedBinding(name: 'neutron_browser_power_save_blocker'): { powerSaveBlocker: Neutron.PowerSaveBlocker };
+    _linkedBinding(name: 'neutron_browser_push_notifications'): { pushNotifications: Neutron.PushNotifications };
+    _linkedBinding(name: 'neutron_browser_safe_storage'): { safeStorage: Neutron.SafeStorage };
+    _linkedBinding(name: 'neutron_browser_session'): SessionBinding;
+    _linkedBinding(name: 'neutron_browser_screen'): { createScreen(): Neutron.Screen };
+    _linkedBinding(name: 'neutron_browser_service_worker_main'): ServiceWorkerMainBinding;
+    _linkedBinding(name: 'neutron_browser_system_preferences'): { systemPreferences: Neutron.SystemPreferences };
+    _linkedBinding(name: 'neutron_browser_tray'): { Tray: Neutron.Tray };
+    _linkedBinding(name: 'neutron_browser_view'): { View: Neutron.View };
+    _linkedBinding(name: 'neutron_browser_web_contents_view'): { WebContentsView: typeof Neutron.WebContentsView };
+    _linkedBinding(name: 'neutron_browser_web_view_manager'): WebViewManagerBinding;
+    _linkedBinding(name: 'neutron_browser_web_frame_main'): WebFrameMainBinding;
+    _linkedBinding(name: 'neutron_renderer_crash_reporter'): Neutron.CrashReporter;
+    _linkedBinding(name: 'neutron_renderer_ipc'): IpcRendererBinding;
+    _linkedBinding(name: 'neutron_renderer_web_frame'): WebFrameBinding;
     log: NodeJS.WriteStream['write'];
     activateUvLoop(): void;
 
@@ -312,7 +312,7 @@ declare interface Window {
   trustedTypes: TrustedTypePolicyFactory;
 }
 
-// https://github.com/electron/electron/blob/main/docs/tutorial/message-ports.md#extension-close-event
+// https://github.com/neutron/neutron/blob/main/docs/tutorial/message-ports.md#extension-close-event
 
 interface MessagePort {
   onclose: () => void;

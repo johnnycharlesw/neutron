@@ -15,11 +15,11 @@ template("webpack_build") {
 
     inputs = [
                invoker.config_file,
-               "//electron/build/webpack/webpack.config.base.js",
-               "//electron/tsconfig.json",
-               "//electron/yarn.lock",
-               "//electron/typings/internal-ambient.d.ts",
-               "//electron/typings/internal-electron.d.ts",
+               "//neutron/build/webpack/webpack.config.base.js",
+               "//neutron/tsconfig.json",
+               "//neutron/yarn.lock",
+               "//neutron/typings/internal-ambient.d.ts",
+               "//neutron/typings/internal-neutron.d.ts",
              ] + invoker.inputs
 
     mode = "development"
@@ -39,7 +39,7 @@ template("webpack_build") {
       "--env",
       "mode=" + mode,
     ]
-    deps += [ "//electron/buildflags" ]
+    deps += [ "//neutron/buildflags" ]
 
     outputs = [ invoker.out_file ]
   }

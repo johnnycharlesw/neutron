@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('neutron');
 
 const net = require('node:net');
 const path = require('node:path');
@@ -19,7 +19,7 @@ app.whenReady().then(() => {
     const currentWindow = new BrowserWindow({
       show: false,
       webPreferences: {
-        preload: path.join(__dirname, 'electron-app-mixed-sandbox-preload.js'),
+        preload: path.join(__dirname, 'neutron-app-mixed-sandbox-preload.js'),
         sandbox: isSandboxed
       }
     });
@@ -61,7 +61,7 @@ app.whenReady().then(() => {
     }
   }
 
-  const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\electron-mixed-sandbox' : '/tmp/electron-mixed-sandbox';
+  const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\neutron-mixed-sandbox' : '/tmp/neutron-mixed-sandbox';
   const client = net.connect(socketPath, () => {
     connected = true;
     finish();

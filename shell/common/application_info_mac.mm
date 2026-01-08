@@ -10,7 +10,7 @@
 #include "base/strings/sys_string_conversions.h"
 #include "shell/common/mac/main_application_bundle.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -34,4 +34,4 @@ std::string GetApplicationVersion() {
   return ApplicationInfoDictionaryValue(@"CFBundleShortVersionString");
 }
 
-}  // namespace electron
+}  // namespace neutron

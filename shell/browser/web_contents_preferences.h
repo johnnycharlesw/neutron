@@ -12,7 +12,7 @@
 #include "base/memory/raw_ptr.h"
 #include "base/values.h"
 #include "content/public/browser/web_contents_user_data.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "third_party/blink/public/common/renderer_preferences/renderer_preferences.h"
 #include "third_party/blink/public/mojom/v8_cache_options.mojom-forward.h"
 #include "third_party/blink/public/mojom/webpreferences/web_preferences.mojom-forward.h"
@@ -25,7 +25,7 @@ namespace gin_helper {
 class Dictionary;
 }
 
-namespace electron {
+namespace neutron {
 
 // Stores and applies the preferences of WebContents.
 class WebContentsPreferences
@@ -82,7 +82,7 @@ class WebContentsPreferences
 
  private:
   friend class content::WebContentsUserData<WebContentsPreferences>;
-  friend class ElectronBrowserClient;
+  friend class NeutronBrowserClient;
 
   // Get WebContents according to process ID.
   static content::WebContents* GetWebContentsFromProcessID(
@@ -149,6 +149,6 @@ class WebContentsPreferences
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WEB_CONTENTS_PREFERENCES_H_

@@ -9,7 +9,7 @@
 #include "shell/browser/native_window.h"
 #include "ui/views/layout/fill_layout.h"
 
-namespace electron {
+namespace neutron {
 
 RootViewMac::RootViewMac(NativeWindow* window) : window_(window) {
   set_owned_by_client(OwnedByClientPassKey{});
@@ -26,4 +26,4 @@ gfx::Size RootViewMac::GetMaximumSize() const {
   return window_->GetMaximumSize();
 }
 
-}  // namespace electron
+}  // namespace neutron

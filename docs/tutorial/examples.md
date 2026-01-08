@@ -44,8 +44,8 @@ something that you would like to do that is not documented, please join
 our [Discord server][discord] and let us know!
 
 [app]: ../api/app.md
-[discord]: https://discord.gg/electronjs
-[fiddle]: https://www.electronjs.org/fiddle
+[discord]: https://discord.gg/neutronjs
+[fiddle]: https://www.neutronjs.org/fiddle
 [Message ports]: ./message-ports.md
 [Device access]: ./devices.md
 [Keyboard shortcuts]: ./keyboard-shortcuts.md

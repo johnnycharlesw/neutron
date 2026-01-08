@@ -20,7 +20,7 @@ more information see the [BrowserWindow constructor docs](browser-window.md).
 > Display external web content in an isolated frame and process.
 
 Process: [Renderer](../glossary.md#renderer-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 Use the `webview` tag to embed 'guest' content (such as web pages) in your
 Electron app. The guest content is contained within the `webview` container.
@@ -193,7 +193,7 @@ This value can only be modified before the first navigation.
 
 ```html
 <webview src="https://github.com" partition="persist:github"></webview>
-<webview src="https://electronjs.org" partition="electron"></webview>
+<webview src="https://neutronjs.org" partition="neutron"></webview>
 ```
 
 A `string` that sets the session used by the page. If `partition` starts with `persist:`, the
@@ -986,7 +986,7 @@ webview.send('ping')
 
 ```js
 // In guest page.
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 ipcRenderer.on('ping', () => {
   ipcRenderer.sendToHost('pong')

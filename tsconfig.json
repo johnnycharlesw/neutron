@@ -16,11 +16,11 @@
     "outDir": "ts-gen",
     "typeRoots" : ["./node_modules/@types", "./spec/node_modules/@types"],
     "paths": {
-      "@electron/internal/*": ["lib/*"],
-      "@node/*": ["../third_party/electron_node/*"]
+      "@neutron/internal/*": ["lib/*"],
+      "@node/*": ["../third_party/neutron_node/*"]
     }
   },
   "exclude": [
-    "electron.d.ts"
+    "neutron.d.ts"
   ],
 }

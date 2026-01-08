@@ -12,7 +12,7 @@ for (let i = 0; i < numIterations; i++) {
   });
 }
 
-// https://github.com/electron/electron/issues/21515 was about electron
+// https://github.com/neutron/neutron/issues/21515 was about neutron
 // exiting before promises finished. This test sets the pending exitCode
 // to failure, then resets it to success only if all promises finish.
 process.exitCode = 1;

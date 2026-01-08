@@ -26,8 +26,8 @@ template <typename T>
 class WeakCell;
 }  // namespace gin
 
-namespace electron {
-class ElectronUsbDelegate;
+namespace neutron {
+class NeutronUsbDelegate;
 
 namespace api {
 class Session;
@@ -42,7 +42,7 @@ class UsbChooserController final : private UsbChooserContext::DeviceObserver,
       blink::mojom::WebUsbRequestDeviceOptionsPtr options,
       blink::mojom::WebUsbService::GetPermissionCallback callback,
       content::WebContents* web_contents,
-      base::WeakPtr<ElectronUsbDelegate> usb_delegate);
+      base::WeakPtr<NeutronUsbDelegate> usb_delegate);
 
   UsbChooserController(const UsbChooserController&) = delete;
   UsbChooserController& operator=(const UsbChooserController&) = delete;
@@ -73,13 +73,13 @@ class UsbChooserController final : private UsbChooserContext::DeviceObserver,
   base::ScopedObservation<UsbChooserContext, UsbChooserContext::DeviceObserver>
       observation_{this};
 
-  base::WeakPtr<ElectronUsbDelegate> usb_delegate_;
+  base::WeakPtr<NeutronUsbDelegate> usb_delegate_;
 
   content::GlobalRenderFrameHostId render_frame_host_id_;
 
   base::WeakPtrFactory<UsbChooserController> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_USB_USB_CHOOSER_CONTROLLER_H_

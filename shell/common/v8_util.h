@@ -20,7 +20,7 @@ namespace blink {
 struct CloneableMessage;
 }
 
-namespace electron {
+namespace neutron {
 
 bool SerializeV8Value(v8::Isolate* isolate,
                       v8::Local<v8::Value> value,
@@ -36,6 +36,6 @@ namespace util {
     v8::Local<v8::ArrayBufferView> abv);
 
 }  // namespace util
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_V8_VALUE_SERIALIZER_H_

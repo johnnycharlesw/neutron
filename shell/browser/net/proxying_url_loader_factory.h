@@ -31,8 +31,8 @@
 #include "services/network/public/mojom/url_loader_factory.mojom.h"
 #include "services/network/public/mojom/url_response_head.mojom-forward.h"
 #include "services/network/url_loader_factory.h"
-#include "shell/browser/api/electron_api_web_request.h"
-#include "shell/browser/net/electron_url_loader_factory.h"
+#include "shell/browser/api/neutron_api_web_request.h"
+#include "shell/browser/net/neutron_url_loader_factory.h"
 #include "url/gurl.h"
 #include "v8/include/cppgc/persistent.h"
 
@@ -43,7 +43,7 @@ template <typename T>
 class PendingRemote;
 }  // namespace mojo
 
-namespace electron {
+namespace neutron {
 
 const uint32_t kBypassCustomProtocolHandlers = 1 << 30;
 
@@ -265,7 +265,7 @@ class ProxyingURLLoaderFactory
 
   const int render_process_id_;
   const int frame_routing_id_;
-  raw_ptr<uint64_t> request_id_generator_;  // managed by ElectronBrowserClient
+  raw_ptr<uint64_t> request_id_generator_;  // managed by NeutronBrowserClient
   std::unique_ptr<extensions::ExtensionNavigationUIData> navigation_ui_data_;
   std::optional<int64_t> navigation_id_;
   mojo::ReceiverSet<network::mojom::URLLoaderFactory> proxy_receivers_;
@@ -286,6 +286,6 @@ class ProxyingURLLoaderFactory
   std::vector<std::string> ignore_connections_limit_domains_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_PROXYING_URL_LOADER_FACTORY_H_

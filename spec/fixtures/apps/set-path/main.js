@@ -1,4 +1,4 @@
-const { app, ipcMain, BrowserWindow } = require('electron');
+const { app, ipcMain, BrowserWindow } = require('neutron');
 
 const http = require('node:http');
 
@@ -16,7 +16,7 @@ async function main() {
 }
 
 main().then(() => {
-  require('electron').ipcRenderer.send('success')
+  require('neutron').ipcRenderer.send('success')
 })
 </script>
 `;

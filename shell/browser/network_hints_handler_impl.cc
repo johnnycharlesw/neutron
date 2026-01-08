@@ -11,7 +11,7 @@
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/render_process_host.h"
 #include "mojo/public/cpp/bindings/self_owned_receiver.h"
-#include "shell/browser/api/electron_api_session.h"
+#include "shell/browser/api/neutron_api_session.h"
 #include "shell/common/gin_converters/gurl_converter.h"
 #include "v8/include/v8.h"
 
@@ -31,8 +31,8 @@ void NetworkHintsHandlerImpl::Preconnect(const url::SchemeHostPort& url,
   if (!browser_context_) {
     return;
   }
-  gin::WeakCell<electron::api::Session>* session =
-      electron::api::Session::FromBrowserContext(browser_context_);
+  gin::WeakCell<neutron::api::Session>* session =
+      neutron::api::Session::FromBrowserContext(browser_context_);
   if (session && session->Get()) {
     session->Get()->Emit("preconnect", url.GetURL(), allow_credentials);
   }

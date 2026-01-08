@@ -1,4 +1,4 @@
-const binding = process._linkedBinding('electron_renderer_crash_reporter');
+const binding = process._linkedBinding('neutron_renderer_crash_reporter');
 
 export default {
   addExtraParameter (key: string, value: string) {

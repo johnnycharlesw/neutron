@@ -15,9 +15,9 @@
 #include "services/network/public/mojom/proxy_lookup_client.mojom.h"
 #include "url/gurl.h"
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserContext;
+class NeutronBrowserContext;
 
 class ResolveProxyHelper
     : public base::RefCountedThreadSafe<ResolveProxyHelper>,
@@ -25,7 +25,7 @@ class ResolveProxyHelper
  public:
   using ResolveProxyCallback = base::OnceCallback<void(std::string)>;
 
-  explicit ResolveProxyHelper(ElectronBrowserContext* browser_context);
+  explicit ResolveProxyHelper(NeutronBrowserContext* browser_context);
 
   void ResolveProxy(const GURL& url, ResolveProxyCallback callback);
 
@@ -71,9 +71,9 @@ class ResolveProxyHelper
   mojo::Receiver<network::mojom::ProxyLookupClient> receiver_{this};
 
   // Weak Ref
-  raw_ptr<ElectronBrowserContext> browser_context_;
+  raw_ptr<NeutronBrowserContext> browser_context_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_RESOLVE_PROXY_HELPER_H_

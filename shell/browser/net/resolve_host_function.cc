@@ -17,17 +17,17 @@
 #include "net/dns/public/host_resolver_results.h"
 #include "net/dns/public/resolve_error_info.h"
 #include "services/network/public/mojom/network_context.mojom.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/common/process_util.h"
 #include "shell/services/node/node_service.h"
 #include "url/origin.h"
 
 using content::BrowserThread;
 
-namespace electron {
+namespace neutron {
 
 ResolveHostFunction::ResolveHostFunction(
-    ElectronBrowserContext* browser_context,
+    NeutronBrowserContext* browser_context,
     std::string host,
     network::mojom::ResolveHostParametersPtr params,
     ResolveHostCallback callback)
@@ -56,7 +56,7 @@ void ResolveHostFunction::Run() {
       net::ResolveErrorInfo(net::ERR_FAILED),
       /*resolved_addresses=*/net::AddressList(),
       /*endpoint_results_with_metadata=*/net::HostResolverEndpointResults()));
-  if (electron::IsUtilityProcess()) {
+  if (neutron::IsUtilityProcess()) {
     URLLoaderBundle::GetInstance()->GetHostResolver()->ResolveHost(
         network::mojom::HostResolverHost::NewHostPortPair(
             std::move(host_port_pair)),
@@ -88,4 +88,4 @@ void ResolveHostFunction::OnComplete(
   std::move(callback_).Run(resolve_error_info.error, resolved_addresses);
 }
 
-}  // namespace electron
+}  // namespace neutron

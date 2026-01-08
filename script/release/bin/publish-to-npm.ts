@@ -13,7 +13,7 @@ import { createGitHubTokenStrategy } from '../github-token';
 import { ELECTRON_ORG, ELECTRON_REPO, ElectronReleaseRepo, NIGHTLY_REPO } from '../types';
 
 const rootPackageJson = JSON.parse(fs.readFileSync(path.resolve(__dirname, '../../../package.json'), 'utf-8'));
-rootPackageJson.name = 'electron';
+rootPackageJson.name = 'neutron';
 
 if (!process.env.ELECTRON_NPM_OTP) {
   console.error('Please set ELECTRON_NPM_OTP');
@@ -48,7 +48,7 @@ const isNightlyElectronVersion = currentElectronVersion.includes('nightly');
 const targetRepo = getRepo();
 
 const octokit = new Octokit({
-  userAgent: 'electron-npm-publisher',
+  userAgent: 'neutron-npm-publisher',
   authStrategy: createGitHubTokenStrategy(targetRepo)
 });
 
@@ -57,7 +57,7 @@ function getRepo (): ElectronReleaseRepo {
 }
 
 new Promise<string>((resolve, reject) => {
-  temp.mkdir('electron-npm', (err, dirPath) => {
+  temp.mkdir('neutron-npm', (err, dirPath) => {
     if (err) {
       reject(err);
     } else {
@@ -92,7 +92,7 @@ new Promise<string>((resolve, reject) => {
     });
   })
   .then((releases) => {
-  // download electron.d.ts from release
+  // download neutron.d.ts from release
     const release = releases.data.find(
       (release) => release.tag_name === `v${currentElectronVersion}`
     );
@@ -102,9 +102,9 @@ new Promise<string>((resolve, reject) => {
     return release;
   })
   .then(async (release) => {
-    const tsdAsset = release.assets.find((asset) => asset.name === 'electron.d.ts');
+    const tsdAsset = release.assets.find((asset) => asset.name === 'neutron.d.ts');
     if (!tsdAsset) {
-      throw new Error(`cannot find electron.d.ts from v${currentElectronVersion} release assets`);
+      throw new Error(`cannot find neutron.d.ts from v${currentElectronVersion} release assets`);
     }
 
     const typingsContent = await getAssetContents(
@@ -112,7 +112,7 @@ new Promise<string>((resolve, reject) => {
       tsdAsset.id
     );
 
-    fs.writeFileSync(path.join(tempDir, 'electron.d.ts'), typingsContent);
+    fs.writeFileSync(path.join(tempDir, 'neutron.d.ts'), typingsContent);
 
     return release;
   })
@@ -159,8 +159,8 @@ new Promise<string>((resolve, reject) => {
       npmTag = currentBranch === 'main' ? 'latest' : `nightly-${currentBranch}`;
 
       const currentJson = JSON.parse(fs.readFileSync(path.join(tempDir, 'package.json'), 'utf8'));
-      currentJson.name = 'electron-nightly';
-      rootPackageJson.name = 'electron-nightly';
+      currentJson.name = 'neutron-nightly';
+      rootPackageJson.name = 'neutron-nightly';
 
       fs.writeFileSync(
         path.join(tempDir, 'package.json'),
@@ -185,11 +185,11 @@ new Promise<string>((resolve, reject) => {
   })
   .then(() => childProcess.execSync('npm pack', { cwd: tempDir }))
   .then(() => {
-  // test that the package can install electron prebuilt from github release
+  // test that the package can install neutron prebuilt from github release
     const tarballPath = path.join(tempDir, `${rootPackageJson.name}-${currentElectronVersion}.tgz`);
     return new Promise((resolve, reject) => {
       const result = childProcess.spawnSync('npm', ['install', tarballPath, '--force', '--silent'], {
-        env: { ...process.env, electron_config_cache: tempDir },
+        env: { ...process.env, neutron_config_cache: tempDir },
         cwd: tempDir,
         stdio: 'inherit'
       });
@@ -197,12 +197,12 @@ new Promise<string>((resolve, reject) => {
         return reject(new Error(`npm install failed with status ${result.status}`));
       }
       try {
-        const electronPath = require(path.resolve(tempDir, 'node_modules', rootPackageJson.name));
-        if (typeof electronPath !== 'string') {
-          return reject(new Error(`path to electron binary (${electronPath}) returned by the ${rootPackageJson.name} module is not a string`));
+        const neutronPath = require(path.resolve(tempDir, 'node_modules', rootPackageJson.name));
+        if (typeof neutronPath !== 'string') {
+          return reject(new Error(`path to neutron binary (${neutronPath}) returned by the ${rootPackageJson.name} module is not a string`));
         }
-        if (!fs.existsSync(electronPath)) {
-          return reject(new Error(`path to electron binary (${electronPath}) returned by the ${rootPackageJson.name} module does not exist on disk`));
+        if (!fs.existsSync(neutronPath)) {
+          return reject(new Error(`path to neutron binary (${neutronPath}) returned by the ${rootPackageJson.name} module does not exist on disk`));
         }
       } catch (e) {
         console.error(e);
@@ -220,22 +220,22 @@ new Promise<string>((resolve, reject) => {
     }
   })
   .then(() => {
-    const currentTags = JSON.parse(childProcess.execSync('npm show electron dist-tags --json').toString());
+    const currentTags = JSON.parse(childProcess.execSync('npm show neutron dist-tags --json').toString());
     const parsedLocalVersion = semver.parse(currentElectronVersion)!;
-    if (rootPackageJson.name === 'electron') {
+    if (rootPackageJson.name === 'neutron') {
       // We should only customly add dist tags for non-nightly releases where the package name is still
-      // "electron"
+      // "neutron"
       if (parsedLocalVersion.prerelease.length === 0 &&
             semver.gt(currentElectronVersion, currentTags.latest)) {
-        childProcess.execSync(`npm dist-tag add electron@${currentElectronVersion} latest --otp=${process.env.ELECTRON_NPM_OTP}`);
+        childProcess.execSync(`npm dist-tag add neutron@${currentElectronVersion} latest --otp=${process.env.ELECTRON_NPM_OTP}`);
       }
       if (parsedLocalVersion.prerelease[0] === 'beta' &&
             semver.gt(currentElectronVersion, currentTags.beta)) {
-        childProcess.execSync(`npm dist-tag add electron@${currentElectronVersion} beta --otp=${process.env.ELECTRON_NPM_OTP}`);
+        childProcess.execSync(`npm dist-tag add neutron@${currentElectronVersion} beta --otp=${process.env.ELECTRON_NPM_OTP}`);
       }
       if (parsedLocalVersion.prerelease[0] === 'alpha' &&
             semver.gt(currentElectronVersion, currentTags.alpha)) {
-        childProcess.execSync(`npm dist-tag add electron@${currentElectronVersion} alpha --otp=${process.env.ELECTRON_NPM_OTP}`);
+        childProcess.execSync(`npm dist-tag add neutron@${currentElectronVersion} alpha --otp=${process.env.ELECTRON_NPM_OTP}`);
       }
     }
   })

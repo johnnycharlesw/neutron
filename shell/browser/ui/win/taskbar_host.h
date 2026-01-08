@@ -19,7 +19,7 @@ namespace gfx {
 class Rect;
 }  // namespace gfx
 
-namespace electron {
+namespace neutron {
 
 class TaskbarHost {
  public:
@@ -84,6 +84,6 @@ class TaskbarHost {
   bool thumbar_buttons_added_ = false;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_WIN_TASKBAR_HOST_H_

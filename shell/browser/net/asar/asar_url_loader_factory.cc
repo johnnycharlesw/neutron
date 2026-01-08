@@ -8,7 +8,7 @@
 
 #include "shell/browser/net/asar/asar_url_loader.h"
 
-namespace electron {
+namespace neutron {
 
 // static
 mojo::PendingRemote<network::mojom::URLLoaderFactory>
@@ -38,4 +38,4 @@ void AsarURLLoaderFactory::CreateLoaderAndStart(
                             new net::HttpResponseHeaders(""));
 }
 
-}  // namespace electron
+}  // namespace neutron

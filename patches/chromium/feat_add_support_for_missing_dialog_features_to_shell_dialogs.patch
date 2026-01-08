@@ -10,8 +10,8 @@ This CL adds support for the following features to //shell_dialogs:
 
 It also:
 * Changes XDG Portal implementation behavior to set default path regardless of dialog type.
-* XDG Portal implementation calls into //electron to perform version checks on the dbus thread
-  Refs https://github.com/electron/electron/issues/46652.
+* XDG Portal implementation calls into //neutron to perform version checks on the dbus thread
+  Refs https://github.com/neutron/neutron/issues/46652.
 
 This may be partially upstreamed to Chromium in the future.
 
@@ -273,7 +273,7 @@ index c66b8da5d3ce640c1a1bdfdaec66bba3b4878d3e..bf57b000175b93908ed44b31726dc194
  #include "dbus/message.h"
  #include "dbus/object_path.h"
  #include "dbus/object_proxy.h"
-+#include "electron/shell/browser/ui/file_dialog.h"
++#include "neutron/shell/browser/ui/file_dialog.h"
  #include "ui/aura/window_tree_host.h"
  #include "ui/base/l10n/l10n_util.h"
  #include "ui/gfx/native_ui_types.h"

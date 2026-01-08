@@ -7,10 +7,10 @@
 
 #include "base/threading/thread_restrictions.h"
 
-namespace electron {
+namespace neutron {
 
-class ScopedAllowBlockingForElectron : public base::ScopedAllowBlocking {};
+class ScopedAllowBlockingForNeutron : public base::ScopedAllowBlocking {};
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_THREAD_RESTRICTIONS_H_

@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer } = require('neutron');
 
 contextBridge.exposeInMainWorld('api', {
   // This is not safe, do not copy this code into your app

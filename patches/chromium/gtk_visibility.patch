@@ -3,7 +3,7 @@ From: Jeremy Apthorp <nornagon@nornagon.net>
 Date: Thu, 20 Sep 2018 17:48:38 -0700
 Subject: gtk_visibility.patch
 
-Allow electron to depend on GTK in the GN build.
+Allow neutron to depend on GTK in the GN build.
 
 diff --git a/build/config/linux/gtk/BUILD.gn b/build/config/linux/gtk/BUILD.gn
 index fdc3442590bddda969681d49c451d32f086bd5d1..b6fd63c0c845e5d7648e8693f1639b1f0f39a779 100644
@@ -13,7 +13,7 @@ index fdc3442590bddda969681d49c451d32f086bd5d1..b6fd63c0c845e5d7648e8693f1639b1f
  
  group("gtk") {
    visibility = [
-+    "//electron:*",
++    "//neutron:*",
      # These are allow-listed for WebRTC builds.  Nothing in else should depend
      # on GTK.
      "//examples:peerconnection_client",
@@ -26,7 +26,7 @@ index ffae34799460f555e0269ad5dcfd9c0f668b16ea..706c8de26b2409f44dc6e53441740ff0
  import("//ui/base/ui_features.gni")
  
 -visibility = [ "//ui/ozone/*" ]
-+visibility = [ "//ui/ozone/*", "//electron:*" ]
++visibility = [ "//ui/ozone/*", "//neutron:*" ]
  
  assert(is_linux || is_chromeos)
  

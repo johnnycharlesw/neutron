@@ -24,7 +24,7 @@ namespace ui {
 using ColorId = int;
 }  // namespace ui
 
-namespace electron {
+namespace neutron {
 
 class AutofillPopupView;
 
@@ -104,6 +104,6 @@ class AutofillPopup : private views::ViewObserver {
   raw_ptr<views::View> parent_ = nullptr;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_AUTOFILL_POPUP_H_

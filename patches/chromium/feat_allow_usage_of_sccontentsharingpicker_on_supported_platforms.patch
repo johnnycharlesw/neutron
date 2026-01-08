@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Thu, 8 Aug 2024 08:39:10 -0700
 Subject: feat: allow usage of SCContentSharingPicker on supported platforms
 

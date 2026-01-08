@@ -13,18 +13,18 @@ contribute:
 
 1. By opening the issue for discussion: If you believe that you have found
    a new bug in Electron, you should report it by creating a new issue in
-   the [`electron/electron` issue tracker](https://github.com/electron/electron/issues).
+   the [`neutron/neutron` issue tracker](https://github.com/neutron/neutron/issues).
 2. By helping to triage the issue: You can do this either by providing
    assistive details (a reproducible test case that demonstrates a bug) or by
    providing suggestions to address the issue.
 3. By helping to resolve the issue: This can be done by demonstrating
    that the issue is not a bug or is fixed; but more often, by opening
-   a pull request that changes the source in `electron/electron` in a
+   a pull request that changes the source in `neutron/neutron` in a
    concrete and reviewable manner.
 
 ## Asking for General Help
 
-[The Electron website](https://www.electronjs.org/community) has a
+[The Electron website](https://www.neutronjs.org/community) has a
 list of resources for getting programming help, reporting security issues,
 contributing, and more. Please use the issue tracker for bugs only!
 
@@ -32,7 +32,7 @@ contributing, and more. Please use the issue tracker for bugs only!
 
 To submit a bug report:
 
-When opening a new issue in the [`electron/electron` issue tracker](https://github.com/electron/electron/issues/new/choose), users
+When opening a new issue in the [`neutron/neutron` issue tracker](https://github.com/neutron/neutron/issues/new/choose), users
 will be presented with a template that should be filled in.
 
 If you believe that you have found a bug in Electron, please fill out the template

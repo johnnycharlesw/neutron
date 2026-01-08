@@ -1,6 +1,6 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import type * as ipcRendererInternalModule from '@electron/internal/renderer/ipc-renderer-internal';
-import type * as ipcRendererUtilsModule from '@electron/internal/renderer/ipc-renderer-internal-utils';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import type * as ipcRendererInternalModule from '@neutron/internal/renderer/ipc-renderer-internal';
+import type * as ipcRendererUtilsModule from '@neutron/internal/renderer/ipc-renderer-internal-utils';
 
 import * as path from 'path';
 import { pathToFileURL } from 'url';
@@ -12,7 +12,7 @@ const Module = require('module') as NodeJS.ModuleInternal;
 const originalModuleLoad = Module._load;
 Module._load = function (request: string) {
   if (request === 'vm') {
-    console.warn('The vm module of Node.js is unsupported in Electron\'s renderer process due to incompatibilities with the Blink rendering engine. Crashes are likely and avoiding the module is highly recommended. This module may be removed in a future release.');
+    console.warn('The vm module of Node.js is unsupported in Neutron\'s renderer process due to incompatibilities with the Blink rendering engine. Crashes are likely and avoiding the module is highly recommended. This module may be removed in a future release.');
   }
   return originalModuleLoad.apply(this, arguments as any);
 };
@@ -44,29 +44,29 @@ Module.wrapper = [
 process.argv.splice(1, 1);
 
 // Import common settings.
-require('@electron/internal/common/init');
+require('@neutron/internal/common/init');
 
-const { ipcRendererInternal } = require('@electron/internal/renderer/ipc-renderer-internal') as typeof ipcRendererInternalModule;
-const ipcRendererUtils = require('@electron/internal/renderer/ipc-renderer-internal-utils') as typeof ipcRendererUtilsModule;
+const { ipcRendererInternal } = require('@neutron/internal/renderer/ipc-renderer-internal') as typeof ipcRendererInternalModule;
+const ipcRendererUtils = require('@neutron/internal/renderer/ipc-renderer-internal-utils') as typeof ipcRendererUtilsModule;
 
 process.getProcessMemoryInfo = () => {
-  return ipcRendererInternal.invoke<Electron.ProcessMemoryInfo>(IPC_MESSAGES.BROWSER_GET_PROCESS_MEMORY_INFO);
+  return ipcRendererInternal.invoke<Neutron.ProcessMemoryInfo>(IPC_MESSAGES.BROWSER_GET_PROCESS_MEMORY_INFO);
 };
 
 // Process command line arguments.
-const { hasSwitch, getSwitchValue } = process._linkedBinding('electron_common_command_line');
-const { mainFrame } = process._linkedBinding('electron_renderer_web_frame');
+const { hasSwitch, getSwitchValue } = process._linkedBinding('neutron_common_command_line');
+const { mainFrame } = process._linkedBinding('neutron_renderer_web_frame');
 
 const nodeIntegration = mainFrame.getWebPreference('nodeIntegration');
 const appPath = hasSwitch('app-path') ? getSwitchValue('app-path') : null;
 
 // Common renderer initialization
-require('@electron/internal/renderer/common-init');
+require('@neutron/internal/renderer/common-init');
 
 if (nodeIntegration) {
   // Export node bindings to global.
   const { makeRequireFunction } = __non_webpack_require__('internal/modules/helpers') as typeof import('@node/lib/internal/modules/helpers');
-  global.module = new Module('electron/js2c/renderer_init');
+  global.module = new Module('neutron/js2c/renderer_init');
   global.require = makeRequireFunction(global.module) as NodeRequire;
 
   // Set the __filename to the path of html file if it is file: protocol.
@@ -93,8 +93,8 @@ if (nodeIntegration) {
     global.module.paths = Module._nodeModulePaths(global.__dirname);
   } else {
     // For backwards compatibility we fake these two paths here
-    global.__filename = path.join(process.resourcesPath, 'electron.asar', 'renderer', 'init.js');
-    global.__dirname = path.join(process.resourcesPath, 'electron.asar', 'renderer');
+    global.__filename = path.join(process.resourcesPath, 'neutron.asar', 'renderer', 'init.js');
+    global.__dirname = path.join(process.resourcesPath, 'neutron.asar', 'renderer');
 
     if (appPath) {
       // Search for module under the app directory

@@ -1,4 +1,4 @@
-const { WebContentsView, app } = require('electron');
+const { WebContentsView, app } = require('neutron');
 
 app.whenReady().then(function () {
   // eslint-disable-next-line no-new

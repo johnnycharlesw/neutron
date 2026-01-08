@@ -12,7 +12,7 @@ class FilePath;
 
 namespace logging {
 
-void InitElectronLogging(const base::CommandLine& command_line,
+void InitNeutronLogging(const base::CommandLine& command_line,
                          bool is_preinit);
 
 base::FilePath GetLogFileName(const base::CommandLine& command_line);

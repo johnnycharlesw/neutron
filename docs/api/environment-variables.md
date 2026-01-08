@@ -9,14 +9,14 @@ POSIX shell example:
 
 ```sh
 $ export ELECTRON_ENABLE_LOGGING=true
-$ electron
+$ neutron
 ```
 
 Windows console example:
 
 ```powershell
 > set ELECTRON_ENABLE_LOGGING=true
-> electron
+> neutron
 ```
 
 ## Production Variables
@@ -153,10 +153,10 @@ Adds extra logs to [`Notification`](./notification.md) lifecycles on macOS to ai
 Sample output:
 
 ```sh
-Notification created (com.github.Electron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
-Notification displayed (com.github.Electron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
-Notification activated (com.github.Electron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
-Notification replied to (com.github.Electron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
+Notification created (io.github.johnnycharlesw.neutron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
+Notification displayed (io.github.johnnycharlesw.neutron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
+Notification activated (io.github.johnnycharlesw.neutron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
+Notification replied to (io.github.johnnycharlesw.neutron:notification:EAF7B87C-A113-43D7-8E76-F88EC9D73D44)
 ```
 
 ### `ELECTRON_LOG_ASAR_READS`
@@ -179,12 +179,12 @@ This environment variable will not work if the `crashReporter` is started.
 
 ### `ELECTRON_OVERRIDE_DIST_PATH`
 
-When running from the `electron` package, this variable tells
-the `electron` command to use the specified build of Electron instead of
+When running from the `neutron` package, this variable tells
+the `neutron` command to use the specified build of Electron instead of
 the one downloaded by `npm install`. Usage:
 
 ```sh
-export ELECTRON_OVERRIDE_DIST_PATH=/Users/username/projects/electron/out/Testing
+export ELECTRON_OVERRIDE_DIST_PATH=/Users/username/projects/neutron/out/Testing
 ```
 
 ### `ELECTRON_SKIP_BINARY_DOWNLOAD`
@@ -192,7 +192,7 @@ export ELECTRON_OVERRIDE_DIST_PATH=/Users/username/projects/electron/out/Testing
 If you want to install your project's dependencies but don't need to use Electron functionality,
 you can set the `ELECTRON_SKIP_BINARY_DOWNLOAD` environment variable to prevent the binary from being
 downloaded. For instance, this feature can be useful in continuous integration environments when
-running unit tests that mock out the `electron` module.
+running unit tests that mock out the `neutron` module.
 
 ```sh
 ELECTRON_SKIP_BINARY_DOWNLOAD=1 npm install

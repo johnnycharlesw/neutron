@@ -73,7 +73,7 @@ testStorage(function (
       }
     });
 
-    const sendMessage = `require('electron').ipcRenderer.send('answer', ${message})`;
+    const sendMessage = `require('neutron').ipcRenderer.send('answer', ${message})`;
     window.chrome.devtools.inspectedWindow.eval(sendMessage, function () {});
   });
 });

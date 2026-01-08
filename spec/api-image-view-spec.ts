@@ -1,5 +1,5 @@
-import { nativeImage } from 'electron/common';
-import { BaseWindow, BrowserWindow, ImageView } from 'electron/main';
+import { nativeImage } from 'neutron/common';
+import { BaseWindow, BrowserWindow, ImageView } from 'neutron/main';
 
 import { expect } from 'chai';
 

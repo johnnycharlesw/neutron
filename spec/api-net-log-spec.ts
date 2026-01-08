@@ -1,4 +1,4 @@
-import { session, net } from 'electron/main';
+import { session, net } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -93,7 +93,7 @@ describe('netLog module', () => {
       const req = net.request(serverUrl);
       req.setHeader('Cookie', `foo=${unique}`);
       req.on('response', (response) => {
-        response.on('data', () => {}); // https://github.com/electron/electron/issues/19214
+        response.on('data', () => {}); // https://github.com/neutron/neutron/issues/19214
         response.on('end', () => resolve());
       });
       req.end();
@@ -110,7 +110,7 @@ describe('netLog module', () => {
     await new Promise<void>((resolve) => {
       const req = net.request({ method: 'POST', url: serverUrl });
       req.on('response', (response) => {
-        response.on('data', () => {}); // https://github.com/electron/electron/issues/19214
+        response.on('data', () => {}); // https://github.com/neutron/neutron/issues/19214
         response.on('end', () => resolve());
       });
       req.end(Buffer.from(unique));

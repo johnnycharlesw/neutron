@@ -3,10 +3,10 @@
 // found in the LICENSE file.
 
 #include "base/strings/sys_string_conversions.h"
-#include "shell/common/api/electron_api_clipboard.h"
+#include "shell/common/api/neutron_api_clipboard.h"
 #include "ui/base/cocoa/find_pasteboard.h"
 
-namespace electron::api {
+namespace neutron::api {
 
 void Clipboard::WriteFindText(const std::u16string& text) {
   NSString* text_ns = base::SysUTF16ToNSString(text);
@@ -17,4 +17,4 @@ std::u16string Clipboard::ReadFindText() {
   return base::SysNSStringToUTF16([[FindPasteboard sharedInstance] findText]);
 }
 
-}  // namespace electron::api
+}  // namespace neutron::api

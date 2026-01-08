@@ -1,6 +1,6 @@
 # Native Code and Electron: Objective-C (macOS)
 
-This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-electron.md) and focuses on creating a native addon for macOS using Objective-C, Objective-C++, and Cocoa frameworks. To illustrate how you can embed native macOS code in your Electron app, we'll be building a basic native macOS GUI (using AppKit) that communicates with Electron's JavaScript.
+This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-neutron.md) and focuses on creating a native addon for macOS using Objective-C, Objective-C++, and Cocoa frameworks. To illustrate how you can embed native macOS code in your Electron app, we'll be building a basic native macOS GUI (using AppKit) that communicates with Electron's JavaScript.
 
 Specifically, we'll be integrating with two macOS frameworks:
 
@@ -21,7 +21,7 @@ Just like our general introduction to Native Code and Electron, this tutorial as
 
 ## 1) Creating a package
 
-You can re-use the package we created in our [Native Code and Electron](./native-code-and-electron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
+You can re-use the package we created in our [Native Code and Electron](./native-code-and-neutron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
 
 ```txt
 my-native-objc-addon/
@@ -47,7 +47,7 @@ Our `package.json` should look like this:
   "author": "Your Name",
   "scripts": {
     "clean": "rm -rf build",
-    "build-electron": "electron-rebuild",
+    "build-neutron": "neutron-rebuild",
     "build": "node-gyp configure && node-gyp build"
   },
   "license": "MIT",

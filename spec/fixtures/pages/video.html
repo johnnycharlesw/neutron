@@ -2,7 +2,7 @@
 <body>
 <video id="videoPlayer" src="/video.webm" autoplay muted></video>
 <script>
-  const { ipcRenderer } = require('electron');
+  const { ipcRenderer } = require('neutron');
   videoPlayer.addEventListener('play', e => {
     ipcRenderer.send('result', 'play');
   });

@@ -1,6 +1,6 @@
 # Native Code and Electron: C++ (Linux)
 
-This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-electron.md) and focuses on creating a native addon for Linux using C++ and GTK3. To illustrate how you can embed native Linux code in your Electron app, we'll be building a basic native GTK3 GUI that communicates with Electron's JavaScript.
+This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-neutron.md) and focuses on creating a native addon for Linux using C++ and GTK3. To illustrate how you can embed native Linux code in your Electron app, we'll be building a basic native GTK3 GUI that communicates with Electron's JavaScript.
 
 Specifically, we'll be using GTK3 for our GUI interface, which provides:
 
@@ -38,7 +38,7 @@ sudo dnf install gcc-c++ pkgconfig gtk3-devel
 
 ## 1) Creating a package
 
-You can re-use the package we created in our [Native Code and Electron](./native-code-and-electron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
+You can re-use the package we created in our [Native Code and Electron](./native-code-and-neutron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
 
 ```txt
 cpp-linux/
@@ -63,7 +63,7 @@ Our package.json should look like this:
   "main": "js/index.js",
   "scripts": {
     "clean": "rm -rf build",
-    "build-electron": "electron-rebuild",
+    "build-neutron": "neutron-rebuild",
     "build": "node-gyp configure && node-gyp build"
   },
   "license": "MIT",

@@ -5,10 +5,10 @@
 #include "shell/browser/hid/hid_chooser_context_factory.h"
 
 #include "components/keyed_service/content/browser_context_dependency_manager.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/hid/hid_chooser_context.h"
 
-namespace electron {
+namespace neutron {
 
 // static
 HidChooserContextFactory* HidChooserContextFactory::GetInstance() {
@@ -41,7 +41,7 @@ std::unique_ptr<KeyedService>
 HidChooserContextFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
   return std::make_unique<HidChooserContext>(
-      static_cast<electron::ElectronBrowserContext*>(context));
+      static_cast<neutron::NeutronBrowserContext*>(context));
 }
 
 content::BrowserContext* HidChooserContextFactory::GetBrowserContextToUse(
@@ -49,4 +49,4 @@ content::BrowserContext* HidChooserContextFactory::GetBrowserContextToUse(
   return context;
 }
 
-}  // namespace electron
+}  // namespace neutron

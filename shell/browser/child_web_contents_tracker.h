@@ -16,7 +16,7 @@ namespace network {
 class ResourceRequestBody;
 }  // namespace network
 
-namespace electron {
+namespace neutron {
 
 // ChildWebContentsTracker tracks child WebContents
 // created by native `window.open()`
@@ -41,6 +41,6 @@ struct ChildWebContentsTracker
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_CHILD_WEB_CONTENTS_TRACKER_H_

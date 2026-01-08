@@ -24,12 +24,12 @@
 #include "content/public/browser/desktop_media_id.h"
 #include "shell/browser/browser.h"
 #include "shell/browser/javascript_environment.h"
-#include "shell/browser/ui/cocoa/electron_native_widget_mac.h"
-#include "shell/browser/ui/cocoa/electron_ns_panel.h"
-#include "shell/browser/ui/cocoa/electron_ns_window.h"
-#include "shell/browser/ui/cocoa/electron_ns_window_delegate.h"
-#include "shell/browser/ui/cocoa/electron_preview_item.h"
-#include "shell/browser/ui/cocoa/electron_touch_bar.h"
+#include "shell/browser/ui/cocoa/neutron_native_widget_mac.h"
+#include "shell/browser/ui/cocoa/neutron_ns_panel.h"
+#include "shell/browser/ui/cocoa/neutron_ns_window.h"
+#include "shell/browser/ui/cocoa/neutron_ns_window_delegate.h"
+#include "shell/browser/ui/cocoa/neutron_preview_item.h"
+#include "shell/browser/ui/cocoa/neutron_touch_bar.h"
 #include "shell/browser/ui/cocoa/root_view_mac.h"
 #include "shell/browser/ui/cocoa/window_buttons_proxy.h"
 #include "shell/browser/ui/drag_util.h"
@@ -89,11 +89,11 @@
 namespace gin {
 
 template <>
-struct Converter<electron::NativeWindowMac::VisualEffectState> {
+struct Converter<neutron::NativeWindowMac::VisualEffectState> {
   static bool FromV8(v8::Isolate* isolate,
                      v8::Local<v8::Value> val,
-                     electron::NativeWindowMac::VisualEffectState* out) {
-    using VisualEffectState = electron::NativeWindowMac::VisualEffectState;
+                     neutron::NativeWindowMac::VisualEffectState* out) {
+    using VisualEffectState = neutron::NativeWindowMac::VisualEffectState;
     std::string visual_effect_state;
     if (!ConvertFromV8(isolate, val, &visual_effect_state))
       return false;
@@ -112,7 +112,7 @@ struct Converter<electron::NativeWindowMac::VisualEffectState> {
 
 }  // namespace gin
 
-namespace electron {
+namespace neutron {
 
 class NativeAppWindowFrameViewMacClient
     : public views::NativeFrameViewMacClient {
@@ -199,7 +199,7 @@ NativeWindowMac::NativeWindowMac(const gin_helper::Dictionary& options,
     styleMask |= NSWindowStyleMaskResizable;
 
 // TODO: remove NSWindowStyleMaskTexturedBackground.
-// https://github.com/electron/electron/issues/43125
+// https://github.com/neutron/neutron/issues/43125
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
   if (windowType == "textured" && (transparent() || !has_frame())) {
@@ -280,7 +280,7 @@ NativeWindowMac::NativeWindowMac(const gin_helper::Dictionary& options,
     [window_ setTitlebarAppearsTransparent:YES];
     [window_ setTitleVisibility:NSWindowTitleHidden];
     // Remove non-transparent corners, see
-    // https://github.com/electron/electron/issues/517.
+    // https://github.com/neutron/neutron/issues/517.
     [window_ setOpaque:NO];
     // Show window buttons if titleBarStyle is not "normal".
     if (title_bar_style() == TitleBarStyle::kNormal) {
@@ -1247,7 +1247,7 @@ content::DesktopMediaID NativeWindowMac::GetDesktopMediaID() const {
       content::DesktopMediaID::TYPE_WINDOW, GetAcceleratedWidget());
   // c.f.
   // https://source.chromium.org/chromium/chromium/src/+/main:chrome/browser/media/webrtc/native_desktop_media_list.cc;l=775-780;drc=79502ab47f61bff351426f57f576daef02b1a8dc
-  // Refs https://github.com/electron/electron/pull/30507
+  // Refs https://github.com/neutron/neutron/pull/30507
   // TODO(deepak1556): Match upstream for `kWindowCaptureMacV2`
 #if 0
     if (remote_cocoa::ScopedCGWindowID::Get(desktop_media_id.id)) {
@@ -1881,4 +1881,4 @@ std::unique_ptr<NativeWindow> NativeWindow::Create(
   return std::make_unique<NativeWindowMac>(options, parent);
 }
 
-}  // namespace electron
+}  // namespace neutron

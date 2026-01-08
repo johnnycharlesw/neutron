@@ -37,4 +37,4 @@ void Initialize(v8::Local<v8::Object> exports,
 
 }  // namespace
 
-NODE_LINKED_BINDING_CONTEXT_AWARE(electron_common_crashpad_support, Initialize)
+NODE_LINKED_BINDING_CONTEXT_AWARE(neutron_common_crashpad_support, Initialize)

@@ -2,17 +2,17 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "electron/shell/renderer/service_worker_data.h"
+#include "neutron/shell/renderer/service_worker_data.h"
 
 #include "base/notimplemented.h"
 #include "shell/common/gin_converters/blink_converter.h"
 #include "shell/common/gin_converters/value_converter.h"
 #include "shell/common/heap_snapshot.h"
-#include "shell/renderer/electron_ipc_native.h"
+#include "shell/renderer/neutron_ipc_native.h"
 #include "shell/renderer/preload_realm_context.h"
 #include "third_party/blink/public/common/associated_interfaces/associated_interface_registry.h"
 
-namespace electron {
+namespace neutron {
 
 ServiceWorkerData::~ServiceWorkerData() = default;
 
@@ -25,13 +25,13 @@ ServiceWorkerData::ServiceWorkerData(blink::WebServiceWorkerContextProxy* proxy,
       isolate_{isolate},
       v8_context_(isolate_, v8_context) {
   proxy_->GetAssociatedInterfaceRegistry()
-      .AddInterface<mojom::ElectronRenderer>(
-          base::BindRepeating(&ServiceWorkerData::OnElectronRendererRequest,
+      .AddInterface<mojom::NeutronRenderer>(
+          base::BindRepeating(&ServiceWorkerData::OnNeutronRendererRequest,
                               weak_ptr_factory_.GetWeakPtr()));
 }
 
-void ServiceWorkerData::OnElectronRendererRequest(
-    mojo::PendingAssociatedReceiver<mojom::ElectronRenderer> receiver) {
+void ServiceWorkerData::OnNeutronRendererRequest(
+    mojo::PendingAssociatedReceiver<mojom::NeutronRenderer> receiver) {
   receiver_.reset();
   receiver_.Bind(std::move(receiver));
 }
@@ -72,4 +72,4 @@ void ServiceWorkerData::TakeHeapSnapshot(mojo::ScopedHandle file,
   std::move(callback).Run(false);
 }
 
-}  // namespace electron
+}  // namespace neutron

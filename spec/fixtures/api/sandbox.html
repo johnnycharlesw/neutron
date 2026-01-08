@@ -17,7 +17,7 @@
   const [,test] = window.location.href.split('?')
   if (window.opener && test !== 'reload-remote') {
     window.callback = () => {
-      opener.require('electron').ipcRenderer.send('answer', document.body.innerHTML)
+      opener.require('neutron').ipcRenderer.send('answer', document.body.innerHTML)
     }
   } else {
     const tests = {
@@ -25,7 +25,7 @@
         open(`${location.protocol}//${location.pathname}?reload-remote`)
       },
       'reload-remote': async () => {
-        const {ipcRenderer, remote} = require('electron')
+        const {ipcRenderer, remote} = require('neutron')
         const p = ipcRenderer.sendSync('get-remote-module-path')
         const Hello = remote.require(p)
         if (!ipcRenderer.sendSync('reloaded')) {
@@ -47,7 +47,7 @@
         })
       },
       'exit-event': () => {
-        const {ipcRenderer} = require('electron')
+        const {ipcRenderer} = require('neutron')
         const currentLocation = location.href.slice();
         process.on('exit', () => {
           ipcRenderer.send('answer', currentLocation)
@@ -64,7 +64,7 @@
         })
       },
       'window-open-external': () => {
-        const {ipcRenderer} = require('electron')
+        const {ipcRenderer} = require('neutron')
         addEventListener('load', () => {
           ipcRenderer.once('open-the-popup', (event, url) => {
             popup = open(url, '', 'top=65,left=55,width=505,height=605')
@@ -82,7 +82,7 @@
         })
       },
       'verify-ipc-sender': () => {
-        const {ipcRenderer} = require('electron')
+        const {ipcRenderer} = require('neutron')
         const popup = open()
         ipcRenderer.once('verified', () => {
           ipcRenderer.send('parent-answer')

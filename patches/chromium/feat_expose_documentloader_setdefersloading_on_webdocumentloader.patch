@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Thu, 9 Mar 2023 01:28:56 -0800
 Subject: feat: expose DocumentLoader::SetDefersLoading on WebDocumentLoader
 

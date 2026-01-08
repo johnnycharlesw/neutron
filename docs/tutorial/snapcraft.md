@@ -13,29 +13,29 @@ system modification.
 
 There are three ways to create a `.snap` file:
 
-1) Using [Electron Forge][electron-forge] or
-   [`electron-builder`][electron-builder], both tools that come with `snap`
+1) Using [Electron Forge][neutron-forge] or
+   [`neutron-builder`][neutron-builder], both tools that come with `snap`
    support out of the box. This is the easiest option.
-2) Using `electron-installer-snap`, which takes `@electron/packager`'s output.
+2) Using `neutron-installer-snap`, which takes `@neutron/packager`'s output.
 3) Using an already created `.deb` package.
 
 In some cases, you will need to have the `snapcraft` tool installed.
 Instructions to install `snapcraft` for your particular distribution are
 available [here](https://snapcraft.io/docs/installing-snapcraft).
 
-## Using `electron-installer-snap`
+## Using `neutron-installer-snap`
 
-The module works like [`electron-winstaller`][electron-winstaller] and similar
+The module works like [`neutron-winstaller`][neutron-winstaller] and similar
 modules in that its scope is limited to building snap packages. You can install
 it with:
 
 ```sh
-npm install --save-dev electron-installer-snap
+npm install --save-dev neutron-installer-snap
 ```
 
 ### Step 1: Package Your Electron Application
 
-Package the application using [@electron/packager][electron-packager] (or a
+Package the application using [@neutron/packager][neutron-packager] (or a
 similar tool). Make sure to remove `node_modules` that you don't need in your
 final application, since any module you don't actually need will increase
 your application's size.
@@ -59,32 +59,32 @@ The output should look roughly like this:
         └── version
 ```
 
-### Step 2: Running `electron-installer-snap`
+### Step 2: Running `neutron-installer-snap`
 
-From a terminal that has `snapcraft` in its `PATH`, run `electron-installer-snap`
+From a terminal that has `snapcraft` in its `PATH`, run `neutron-installer-snap`
 with the only required parameter `--src`, which is the location of your packaged
 Electron application created in the first step.
 
 ```sh
-npx electron-installer-snap --src=out/myappname-linux-x64
+npx neutron-installer-snap --src=out/myappname-linux-x64
 ```
 
-If you have an existing build pipeline, you can use `electron-installer-snap`
+If you have an existing build pipeline, you can use `neutron-installer-snap`
 programmatically. For more information, see the [Snapcraft API docs][snapcraft-syntax].
 
 ```js @ts-nocheck
-const snap = require('electron-installer-snap')
+const snap = require('neutron-installer-snap')
 
 snap(options)
   .then(snapPath => console.log(`Created snap at ${snapPath}!`))
 ```
 
-## Using `snapcraft` with `@electron/packager`
+## Using `snapcraft` with `@neutron/packager`
 
 ### Step 1: Create Sample Snapcraft Project
 
 ```sh
-$ npx create-electron-app@latest my-app
+$ npx create-neutron-app@latest my-app
 ```
 
 ### Step 2: Create Sample Snapcraft Project
@@ -93,7 +93,7 @@ Create a `snap` directory in your project root and add the following to
 `snap/snapcraft.yaml`:
 
 ```yaml
-name: electron-packager-hello-world
+name: neutron-packager-hello-world
 version: '0.1'
 summary: Hello World Electron app
 description: |
@@ -103,7 +103,7 @@ confinement: strict
 grade: stable
 
 apps:
-  electron-packager-hello-world:
+  neutron-packager-hello-world:
     command: my-app/my-app --no-sandbox
     extensions: [gnome]
     plugs:
@@ -120,8 +120,8 @@ parts:
     plugin: nil
     source: .
     override-build: |
-        npm install electron @electron/packager
-        npx electron-packager . --overwrite --platform=linux --output=release-build --prune=true
+        npm install neutron @neutron/packager
+        npx neutron-packager . --overwrite --platform=linux --output=release-build --prune=true
         cp -rv ./my-app-linux-* $SNAPCRAFT_PART_INSTALL/my-app
     build-snaps:
     - node/14/stable
@@ -141,19 +141,19 @@ of `my-app` with your project's name.
 $ snapcraft
 
 <output snipped>
-Snapped electron-packager-hello-world_0.1_amd64.snap
+Snapped neutron-packager-hello-world_0.1_amd64.snap
 ```
 
 ### Step 4: Install the snap
 
 ```sh
-sudo snap install electron-packager-hello-world_0.1_amd64.snap --dangerous
+sudo snap install neutron-packager-hello-world_0.1_amd64.snap --dangerous
 ```
 
 ### Step 5: Run the snap
 
 ```sh
-electron-packager-hello-world
+neutron-packager-hello-world
 ```
 
 ## Using an Existing Debian Package
@@ -165,11 +165,11 @@ building blocks.
 
 ### Step 1: Create a Debian Package
 
-If you do not already have a `.deb` package, using `electron-installer-snap`
+If you do not already have a `.deb` package, using `neutron-installer-snap`
 might be an easier path to create snap packages. However, multiple solutions
-for creating Debian packages exist, including [Electron Forge][electron-forge],
-[`electron-builder`][electron-builder] or
-[`electron-installer-debian`][electron-installer-debian].
+for creating Debian packages exist, including [Electron Forge][neutron-forge],
+[`neutron-builder`][neutron-builder] or
+[`neutron-installer-debian`][neutron-installer-debian].
 
 ### Step 2: Create a snapcraft.yaml
 
@@ -204,15 +204,15 @@ parts:
       - libpulse0
       - libxss1
       - libxtst6
-  electron-launch:
+  neutron-launch:
     plugin: dump
     source: files/
     prepare: |
-      chmod +x bin/electron-launch
+      chmod +x bin/neutron-launch
 
 apps:
   myApp:
-    command: bin/electron-launch $SNAP/usr/lib/myApp/myApp
+    command: bin/neutron-launch $SNAP/usr/lib/myApp/myApp
     desktop: usr/share/applications/myApp.desktop
     # Correct the TMPDIR path for Chromium Framework/Electron to ensure
     # libappindicator has readable resources.
@@ -221,7 +221,7 @@ apps:
 ```
 
 As you can see, the `snapcraft.yaml` instructs the system to launch a file
-called `electron-launch`. In this example, it passes information on to the
+called `neutron-launch`. In this example, it passes information on to the
 app's binary:
 
 ```sh
@@ -271,8 +271,8 @@ Finally, configure your application's environment for PipeWire:
 ```
 
 [snapcraft-syntax]: https://docs.snapcraft.io/build-snaps/syntax
-[electron-packager]: https://github.com/electron/packager
-[electron-forge]: https://github.com/electron/forge
-[electron-builder]: https://github.com/electron-userland/electron-builder
-[electron-installer-debian]: https://github.com/electron-userland/electron-installer-debian
-[electron-winstaller]: https://github.com/electron/windows-installer
+[neutron-packager]: https://github.com/neutron/packager
+[neutron-forge]: https://github.com/neutron/forge
+[neutron-builder]: https://github.com/neutron-userland/neutron-builder
+[neutron-installer-debian]: https://github.com/neutron-userland/neutron-installer-debian
+[neutron-winstaller]: https://github.com/neutron/windows-installer

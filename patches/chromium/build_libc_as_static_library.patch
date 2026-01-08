@@ -14,7 +14,7 @@ index 49bd8af6f4e5762c6059c2f8d2663683f350e386..f386b473b73ba83b383adbb90acb9870
    # need to explicitly depend on libc++.
    visibility = [
      "//build/config:common_deps",
-+    "//electron:libcxx_objects_zip",
++    "//neutron:libcxx_objects_zip",
      "//third_party/catapult/devil",
    ]
    if (is_linux) {

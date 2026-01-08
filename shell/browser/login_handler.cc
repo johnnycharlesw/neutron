@@ -9,8 +9,8 @@
 #include "base/task/sequenced_task_runner.h"
 #include "gin/arguments.h"
 #include "gin/dictionary.h"
-#include "shell/browser/api/electron_api_app.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_app.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/javascript_environment.h"
 #include "shell/common/gin_converters/callback_converter.h"
 #include "shell/common/gin_converters/gurl_converter.h"
@@ -19,7 +19,7 @@
 
 using content::BrowserThread;
 
-namespace electron {
+namespace neutron {
 
 LoginHandler::LoginHandler(
     const net::AuthChallengeInfo& auth_info,
@@ -127,4 +127,4 @@ void LoginHandler::CallbackFromJS(gin::Arguments* args) {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

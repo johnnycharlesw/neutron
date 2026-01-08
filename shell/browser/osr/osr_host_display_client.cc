@@ -17,7 +17,7 @@
 #include "skia/ext/skia_utils_win.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 LayeredWindowUpdater::LayeredWindowUpdater(
     mojo::PendingReceiver<viz::mojom::LayeredWindowUpdater> receiver,
@@ -99,4 +99,4 @@ void OffScreenHostDisplayClient::DidCompleteSwapWithNewSize(
     const gfx::Size& size) {}
 #endif
 
-}  // namespace electron
+}  // namespace neutron

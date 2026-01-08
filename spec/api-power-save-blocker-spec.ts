@@ -1,4 +1,4 @@
-import { powerSaveBlocker } from 'electron/main';
+import { powerSaveBlocker } from 'neutron/main';
 
 import { expect } from 'chai';
 

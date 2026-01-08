@@ -9,7 +9,7 @@ The `webFrameMain` module can be used to lookup frames across existing
 use case.
 
 ```js
-const { BrowserWindow, webFrameMain } = require('electron')
+const { BrowserWindow, webFrameMain } = require('neutron')
 
 const win = new BrowserWindow({ width: 800, height: 1500 })
 win.loadURL('https://twitter.com')
@@ -30,7 +30,7 @@ You can also access frames of existing pages by using the `mainFrame` property
 of [`WebContents`](web-contents.md).
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 async function main () {
   const win = new BrowserWindow({ width: 800, height: 600 })
@@ -79,7 +79,7 @@ or `null` if there is no WebFrameMain associated with the given IDs.
 ## Class: WebFrameMain
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 ### Instance Events
 
@@ -162,7 +162,7 @@ This can be useful to determine why the frame is unresponsive in cases where the
 For more information, see the [proposed Crash Reporting API.](https://wicg.github.io/crash-reporting/)
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.commandLine.appendSwitch('enable-features', 'DocumentPolicyIncludeJSCallStacksInCrashReports')
 

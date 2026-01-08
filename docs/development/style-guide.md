@@ -69,7 +69,7 @@ The following rules only apply to the documentation of APIs.
 
 ### Title and description
 
-Each module's API doc must use the actual object name returned by `require('electron')`
+Each module's API doc must use the actual object name returned by `require('neutron')`
 as its title (such as `BrowserWindow`, `autoUpdater`, and `session`).
 
 Directly under the page title, add a one-line description of the module
@@ -261,12 +261,12 @@ should be placed directly after the Markdown header for a class or method, like 
 <!--
 ```YAML history
 added:
-  - pr-url: https://github.com/electron/electron/pull/22533
+  - pr-url: https://github.com/neutron/neutron/pull/22533
 changes:
-  - pr-url: https://github.com/electron/electron/pull/26789
+  - pr-url: https://github.com/neutron/neutron/pull/26789
     description: "Made `trafficLightPosition` option work for `customButtonOnHover` window."
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/37094
+  - pr-url: https://github.com/neutron/neutron/pull/37094
     breaking-changes-header: deprecated-browserwindowsettrafficlightpositionposition
 ```
 -->
@@ -309,7 +309,7 @@ Always adhere to this format:
   HTML COMMENT OPENING TAG    |  <!--
   API HISTORY OPENING TAG     |  ```YAML history
   API HISTORY                 |  added:
-                              |    - pr-url: https://github.com/electron/electron/pull/22533
+                              |    - pr-url: https://github.com/neutron/neutron/pull/22533
   API HISTORY CLOSING TAG     |  ```
   HTML COMMENT CLOSING TAG    |  -->
   BLANK LINE                  |
@@ -326,7 +326,7 @@ Always adhere to this format:
   * [Certain special characters (e.g. `[`, `]`) can break YAML parsing](https:/stackoverflow.com/a/37015689/19020549).
 * Describe the change in a way relevant to app developers and make it
   capitalized, punctuated, and past tense.
-  * Refer to [Clerk](https://github.com/electron/clerk/blob/main/README.md#examples)
+  * Refer to [Clerk](https://github.com/neutron/clerk/blob/main/README.md#examples)
     for examples.
 * Keep descriptions concise.
   * Ideally, a description will match its corresponding header in the
@@ -343,7 +343,7 @@ is ambiguous:
 
 #### Chromium bump
 
-* [chore: bump chromium to 122.0.6194.0 (main)](https://github.com/electron/electron/pull/40750)
+* [chore: bump chromium to 122.0.6194.0 (main)](https://github.com/neutron/neutron/pull/40750)
   * [Behavior Changed: cross-origin iframes now use Permission Policy to access features][api-history-cross-origin]
 
 Sometimes a breaking change doesn't relate to any of the existing APIs. In this
@@ -351,7 +351,7 @@ case, it is ok not to add API History anywhere.
 
 #### Change affecting multiple APIs
 
-* [refactor: ensure IpcRenderer is not bridgable](https://github.com/electron/electron/pull/40330)
+* [refactor: ensure IpcRenderer is not bridgable](https://github.com/neutron/neutron/pull/40330)
   * [Behavior Changed: ipcRenderer can no longer be sent over the contextBridge][api-history-ipc-renderer]
 
 Sometimes a breaking change involves multiple APIs. In this case, place the
@@ -364,7 +364,7 @@ involved APIs.
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/40330
+  - pr-url: https://github.com/neutron/neutron/pull/40330
     description: "`ipcRenderer` can no longer be sent over the `contextBridge`"
     breaking-changes-header: behavior-changed-ipcrenderer-can-no-longer-be-sent-over-the-contextbridge
 ```
@@ -379,7 +379,7 @@ changes:
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/40330
+  - pr-url: https://github.com/neutron/neutron/pull/40330
     description: "`ipcRenderer` can no longer be sent over the `contextBridge`"
     breaking-changes-header: behavior-changed-ipcrenderer-can-no-longer-be-sent-over-the-contextbridge
 ```
@@ -403,13 +403,13 @@ since that function wasn't changed, only how it may be used:
 
 ## Documentation translations
 
-See [electron/i18n](https://github.com/electron/i18n#readme)
+See [neutron/i18n](https://github.com/neutron/i18n#readme)
 
 [title-case]: https://apastyle.apa.org/style-grammar-guidelines/capitalization/title-case
 [sentence-case]: https://apastyle.apa.org/style-grammar-guidelines/capitalization/sentence-case
 [markdownlint]: https://github.com/DavidAnson/markdownlint
-[api-history-schema-rfc]: https://github.com/electron/rfcs/blob/f36e0a8483e1ea844710890a8a7a1bd58ecbac05/text/0004-api-history-schema.md
-[api-history-linting-script]: https://github.com/electron/lint-roller/blob/3030970136ec6b41028ef973f944d3e5cad68e1c/bin/lint-markdown-api-history.ts
-[api-history-tests]: https://github.com/electron/lint-roller/blob/main/tests/lint-roller-markdown-api-history.spec.ts
-[api-history-cross-origin]: https://github.com/electron/electron/blob/f508f6b6b570481a2b61d8c4f8c1951f492e4309/docs/breaking-changes.md#behavior-changed-cross-origin-iframes-now-use-permission-policy-to-access-features
-[api-history-ipc-renderer]: https://github.com/electron/electron/blob/f508f6b6b570481a2b61d8c4f8c1951f492e4309/docs/breaking-changes.md#behavior-changed-ipcrenderer-can-no-longer-be-sent-over-the-contextbridge
+[api-history-schema-rfc]: https://github.com/neutron/rfcs/blob/f36e0a8483e1ea844710890a8a7a1bd58ecbac05/text/0004-api-history-schema.md
+[api-history-linting-script]: https://github.com/neutron/lint-roller/blob/3030970136ec6b41028ef973f944d3e5cad68e1c/bin/lint-markdown-api-history.ts
+[api-history-tests]: https://github.com/neutron/lint-roller/blob/main/tests/lint-roller-markdown-api-history.spec.ts
+[api-history-cross-origin]: https://github.com/neutron/neutron/blob/f508f6b6b570481a2b61d8c4f8c1951f492e4309/docs/breaking-changes.md#behavior-changed-cross-origin-iframes-now-use-permission-policy-to-access-features
+[api-history-ipc-renderer]: https://github.com/neutron/neutron/blob/f508f6b6b570481a2b61d8c4f8c1951f492e4309/docs/breaking-changes.md#behavior-changed-ipcrenderer-can-no-longer-be-sent-over-the-contextbridge

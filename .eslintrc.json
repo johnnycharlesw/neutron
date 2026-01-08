@@ -28,17 +28,17 @@
       "newlines-between": "always",
       "pathGroups": [
         {
-          "pattern": "@electron/internal/**",
+          "pattern": "@neutron/internal/**",
           "group": "external",
           "position": "before"
         },
         {
-          "pattern": "@electron/**",
+          "pattern": "@neutron/**",
           "group": "external",
           "position": "before"
         },
         {
-          "pattern": "{electron,electron/**}",
+          "pattern": "{neutron,neutron/**}",
           "group": "external",
           "position": "before"
         }

@@ -1,4 +1,4 @@
-const { app, webContents, protocol, session } = require('electron');
+const { app, webContents, protocol, session } = require('neutron');
 
 protocol.registerSchemesAsPrivileged([
   { scheme: 'test', privileges: { standard: true, secure: true } }

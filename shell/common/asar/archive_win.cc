@@ -23,7 +23,7 @@
 namespace asar {
 
 const wchar_t kIntegrityCheckResourceType[] = L"Integrity";
-const wchar_t kIntegrityCheckResourceItem[] = L"ElectronAsar";
+const wchar_t kIntegrityCheckResourceItem[] = L"NeutronAsar";
 
 std::optional<base::FilePath> Archive::RelativePath() const {
   base::FilePath assets_dir;

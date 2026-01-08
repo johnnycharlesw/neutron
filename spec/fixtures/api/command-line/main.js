@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 app.whenReady().then(() => {
   const payload = {

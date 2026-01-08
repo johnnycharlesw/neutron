@@ -14,8 +14,8 @@
 #include "gin/data_object_builder.h"
 #include "services/device/public/cpp/hid/hid_blocklist.h"
 #include "services/device/public/cpp/hid/hid_switches.h"
-#include "shell/browser/api/electron_api_session.h"
-#include "shell/browser/hid/electron_hid_delegate.h"
+#include "shell/browser/api/neutron_api_session.h"
+#include "shell/browser/hid/neutron_hid_delegate.h"
 #include "shell/browser/hid/hid_chooser_context.h"
 #include "shell/browser/hid/hid_chooser_context_factory.h"
 #include "shell/browser/javascript_environment.h"
@@ -74,7 +74,7 @@ bool FilterMatch(const blink::mojom::HidDeviceFilterPtr& filter,
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 HidChooserController::HidChooserController(
     content::RenderFrameHost* render_frame_host,
@@ -82,7 +82,7 @@ HidChooserController::HidChooserController(
     std::vector<blink::mojom::HidDeviceFilterPtr> exclusion_filters,
     content::HidChooser::Callback callback,
     content::WebContents* web_contents,
-    base::WeakPtr<ElectronHidDelegate> hid_delegate)
+    base::WeakPtr<NeutronHidDelegate> hid_delegate)
     : WebContentsObserver(web_contents),
       filters_(std::move(filters)),
       exclusion_filters_(std::move(exclusion_filters)),
@@ -388,4 +388,4 @@ void HidChooserController::RenderFrameDeleted(
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

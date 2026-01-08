@@ -27,7 +27,7 @@
 #include "ui/gfx/win/icon_util.h"
 #endif
 
-namespace electron::util {
+namespace neutron::util {
 
 namespace {
 
@@ -62,7 +62,7 @@ bool AddImageSkiaRepFromPath(gfx::ImageSkia* image,
                              double scale_factor) {
   std::string file_contents;
   {
-    electron::ScopedAllowBlockingForElectron allow_blocking;
+    neutron::ScopedAllowBlockingForNeutron allow_blocking;
     if (!asar::ReadFileToString(path, &file_contents))
       return false;
   }
@@ -97,7 +97,7 @@ bool AddImageSkiaRepFromJPEG(gfx::ImageSkia* image,
   // Let's fix it here.
   // TODO(alexeykuzmin): This workaround should be removed
   // when the `JPEGCodec::Decode()` code is fixed.
-  // See https://github.com/electron/electron/issues/11294.
+  // See https://github.com/neutron/neutron/issues/11294.
   bitmap.setAlphaType(SkAlphaType::kOpaque_SkAlphaType);
 
   image->AddRepresentation(gfx::ImageSkiaRep(bitmap, scale_factor));
@@ -159,4 +159,4 @@ bool ReadImageSkiaFromICO(gfx::ImageSkia* image, HICON icon) {
 }
 #endif
 
-}  // namespace electron::util
+}  // namespace neutron::util

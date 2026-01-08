@@ -18,7 +18,7 @@
 #include "ui/views/widget/widget.h"
 #include "ui/views/widget/widget_observer.h"
 
-namespace electron {
+namespace neutron {
 
 class WinFrameView;
 class WinCaptionButton;
@@ -81,6 +81,6 @@ class WinCaptionButtonContainer : public views::View,
           base::BindRepeating(&WinCaptionButtonContainer::UpdateButtons,
                               base::Unretained(this)));
 };
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_WIN_CAPTION_BUTTON_CONTAINER_H_

@@ -305,11 +305,11 @@ auto MakeDefaultFontCopier() {
 }
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 void SetFontDefaults(blink::web_pref::WebPreferences* prefs) {
   static const auto& copy_default_fonts_to_web_prefs = MakeDefaultFontCopier();
   copy_default_fonts_to_web_prefs(prefs);
 }
 
-}  // namespace electron
+}  // namespace neutron

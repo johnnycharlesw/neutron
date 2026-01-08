@@ -1,10 +1,10 @@
 /* eslint-disable */
 
-import { ipcRenderer, webFrame } from 'electron/renderer';
-import { clipboard, crashReporter, shell } from 'electron/common';
+import { ipcRenderer, webFrame } from 'neutron/renderer';
+import { clipboard, crashReporter, shell } from 'neutron/common';
 
 // In renderer process (web page).
-// https://github.com/electron/electron/blob/main/docs/api/ipc-renderer.md
+// https://github.com/neutron/neutron/blob/main/docs/api/ipc-renderer.md
 
 (async () => {
   console.log(await ipcRenderer.invoke('ping-pong')); // prints "pong"
@@ -30,7 +30,7 @@ ipcRenderer.send('asynchronous-message', 'ping');
 ipcRenderer.sendTo(1, 'test', 'Hello World!');
 
 // web-frame
-// https://github.com/electron/electron/blob/main/docs/api/web-frame.md
+// https://github.com/neutron/neutron/blob/main/docs/api/web-frame.md
 
 webFrame.setZoomFactor(2);
 console.log(webFrame.getZoomFactor());
@@ -61,7 +61,7 @@ console.log(webFrame.getResourceUsage());
 webFrame.clearCache();
 
 // clipboard
-// https://github.com/electron/electron/blob/main/docs/api/clipboard.md
+// https://github.com/neutron/neutron/blob/main/docs/api/clipboard.md
 
 clipboard.writeText('Example String');
 clipboard.writeText('Example String', 'selection');
@@ -77,7 +77,7 @@ clipboard.write({
 });
 
 // crash-reporter
-// https://github.com/electron/electron/blob/main/docs/api/crash-reporter.md
+// https://github.com/neutron/neutron/blob/main/docs/api/crash-reporter.md
 
 crashReporter.start({
   productName: 'YourName',
@@ -87,11 +87,11 @@ crashReporter.start({
 });
 
 // desktopCapturer
-// https://github.com/electron/electron/blob/main/docs/api/desktop-capturer.md
+// https://github.com/neutron/neutron/blob/main/docs/api/desktop-capturer.md
 
 getSources({ types: ['window', 'screen'] }).then(sources => {
   for (const source of sources) {
-    if (source.name === 'Electron') {
+    if (source.name === 'Neutron') {
       (navigator as any).webkitGetUserMedia({
         audio: false,
         video: {
@@ -110,8 +110,8 @@ getSources({ types: ['window', 'screen'] }).then(sources => {
   }
 });
 
-function getSources (options: Electron.SourcesOptions) {
-  return ipcRenderer.invoke('get-sources', options) as Promise<Electron.DesktopCapturerSource[]>;
+function getSources (options: Neutron.SourcesOptions) {
+  return ipcRenderer.invoke('get-sources', options) as Promise<Neutron.DesktopCapturerSource[]>;
 }
 
 function gotStream (stream: any) {
@@ -123,12 +123,12 @@ function getUserMediaError (error: Error) {
 }
 
 // nativeImage
-// https://github.com/electron/electron/blob/main/docs/api/native-image.md
+// https://github.com/neutron/neutron/blob/main/docs/api/native-image.md
 
 const image = clipboard.readImage();
 console.log(image.getSize());
 
-// https://github.com/electron/electron/blob/main/docs/api/process.md
+// https://github.com/neutron/neutron/blob/main/docs/api/process.md
 
 // preload.js
 const _setImmediate = setImmediate;
@@ -139,12 +139,12 @@ process.once('loaded', function () {
 });
 
 // shell
-// https://github.com/electron/electron/blob/main/docs/api/shell.md
+// https://github.com/neutron/neutron/blob/main/docs/api/shell.md
 
 shell.openExternal('https://github.com').then(() => {});
 
 // <webview>
-// https://github.com/electron/electron/blob/main/docs/api/webview-tag.md
+// https://github.com/neutron/neutron/blob/main/docs/api/webview-tag.md
 
 const webview = document.createElement('webview');
 webview.loadURL('https://github.com');

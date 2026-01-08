@@ -20,13 +20,13 @@ template("typescript_build") {
     sources = invoker.sources
     inputs = [
       invoker.tsconfig,
-      "//electron/tsconfig.json",
-      "//electron/yarn.lock",
-      "//electron/typings/internal-ambient.d.ts",
-      "//electron/typings/internal-electron.d.ts",
+      "//neutron/tsconfig.json",
+      "//neutron/yarn.lock",
+      "//neutron/typings/internal-ambient.d.ts",
+      "//neutron/typings/internal-neutron.d.ts",
     ]
 
-    base_out_path = invoker.output_gen_dir + "/electron/"
+    base_out_path = invoker.output_gen_dir + "/neutron/"
     args = [
       "-p",
       rebase_path(invoker.tsconfig),

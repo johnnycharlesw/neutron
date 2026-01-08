@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const { ElectronVersions, Installer } = require('@electron/fiddle-core');
+const { ElectronVersions, Installer } = require('@neutron/fiddle-core');
 
 const { DOMParser } = require('@xmldom/xmldom');
 const chalk = require('chalk');
@@ -22,7 +22,7 @@ const FAILURE_STATUS_KEY = 'Electron_Spec_Runner_Failures';
 
 const args = minimist(process.argv, {
   boolean: ['skipYarnInstall'],
-  string: ['runners', 'target', 'electronVersion'],
+  string: ['runners', 'target', 'neutronVersion'],
   number: ['enableRerun'],
   unknown: arg => unknownFlags.push(arg)
 });
@@ -47,9 +47,9 @@ const runners = new Map([
 
 const specHashPath = path.resolve(__dirname, '../spec/.hash');
 
-if (args.electronVersion) {
+if (args.neutronVersion) {
   if (args.runners && args.runners !== 'main') {
-    console.log(`${fail} only 'main' runner can be used with --electronVersion`);
+    console.log(`${fail} only 'main' runner can be used with --neutronVersion`);
     process.exit(1);
   }
 
@@ -69,25 +69,25 @@ if (args.runners !== undefined) {
 }
 
 async function main () {
-  if (args.electronVersion) {
+  if (args.neutronVersion) {
     const versions = await ElectronVersions.create();
-    if (args.electronVersion === 'latest') {
-      args.electronVersion = versions.latest.version;
-    } else if (args.electronVersion.startsWith('latest@')) {
-      const majorVersion = parseInt(args.electronVersion.slice('latest@'.length));
+    if (args.neutronVersion === 'latest') {
+      args.neutronVersion = versions.latest.version;
+    } else if (args.neutronVersion.startsWith('latest@')) {
+      const majorVersion = parseInt(args.neutronVersion.slice('latest@'.length));
       const ver = versions.inMajor(majorVersion).slice(-1)[0];
       if (ver) {
-        args.electronVersion = ver.version;
+        args.neutronVersion = ver.version;
       } else {
         console.log(`${fail} '${majorVersion}' is not a recognized Electron major version`);
         process.exit(1);
       }
-    } else if (!versions.isVersion(args.electronVersion)) {
-      console.log(`${fail} '${args.electronVersion}' is not a recognized Electron version`);
+    } else if (!versions.isVersion(args.neutronVersion)) {
+      console.log(`${fail} '${args.neutronVersion}' is not a recognized Electron version`);
       process.exit(1);
     }
 
-    const versionString = `v${args.electronVersion}`;
+    const versionString = `v${args.neutronVersion}`;
     console.log(`Running against Electron ${versionString.green}`);
   }
 
@@ -101,8 +101,8 @@ async function main () {
     await getSpecHash().then(saveSpecHash);
   }
 
-  if (!fs.existsSync(path.resolve(__dirname, '../electron.d.ts'))) {
-    console.log('Generating electron.d.ts as it is missing');
+  if (!fs.existsSync(path.resolve(__dirname, '../neutron.d.ts'))) {
+    console.log('Generating neutron.d.ts as it is missing');
     generateTypeDefinitions();
   }
 
@@ -348,9 +348,9 @@ async function rerunFailedTests (specDir, testName) {
 
 async function runTestUsingElectron (specDir, testName, shouldRerun, additionalArgs = []) {
   let exe;
-  if (args.electronVersion) {
+  if (args.neutronVersion) {
     const installer = new Installer();
-    exe = await installer.install(args.electronVersion);
+    exe = await installer.install(args.neutronVersion);
   } else {
     exe = path.resolve(BASE, utils.getElectronExec());
   }
@@ -358,7 +358,7 @@ async function runTestUsingElectron (specDir, testName, shouldRerun, additionalA
   if (additionalArgs.includes('--files')) {
     argsToPass = argsToPass.filter(arg => (arg.toString().indexOf('--files') === -1 && arg.toString().indexOf('spec/') === -1));
   }
-  const runnerArgs = [`electron/${specDir}`, ...argsToPass, ...additionalArgs];
+  const runnerArgs = [`neutron/${specDir}`, ...argsToPass, ...additionalArgs];
   if (process.platform === 'linux') {
     runnerArgs.unshift(path.resolve(__dirname, 'dbus_mock.py'), exe);
     exe = 'python3';
@@ -397,11 +397,11 @@ async function installSpecModules (dir) {
     CXXFLAGS: process.env.CXXFLAGS,
     npm_config_yes: 'true'
   };
-  if (args.electronVersion) {
-    env.npm_config_target = args.electronVersion;
-    env.npm_config_disturl = 'https://electronjs.org/headers';
-    env.npm_config_runtime = 'electron';
-    env.npm_config_devdir = path.join(os.homedir(), '.electron-gyp');
+  if (args.neutronVersion) {
+    env.npm_config_target = args.neutronVersion;
+    env.npm_config_disturl = 'https://neutronjs.org/headers';
+    env.npm_config_runtime = 'neutron';
+    env.npm_config_devdir = path.join(os.homedir(), '.neutron-gyp');
     env.npm_config_build_from_source = 'true';
     const { status } = childProcess.spawnSync('npm', ['run', 'node-gyp-install', '--ensure'], {
       env,

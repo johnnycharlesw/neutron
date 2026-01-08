@@ -17,7 +17,7 @@ an external debugger will need to connect on this port. The default `port` is
 `9229`.
 
 ```shell
-electron --inspect=9229 your/app
+neutron --inspect=9229 your/app
 ```
 
 ### `--inspect-brk=[port]`

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('neutron');
 
 async function createWindow () {
   const mainWindow = new BrowserWindow({

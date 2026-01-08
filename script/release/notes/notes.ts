@@ -161,7 +161,7 @@ const getNoteFromClerk = async (ghKey: GHKey) => {
       // indent anything after the first line to ensure that
       // multiline notes with their own sub-lists don't get
       // parsed in the markdown as part of the top-level list
-      // (example: https://github.com/electron/electron/pull/25216)
+      // (example: https://github.com/neutron/neutron/pull/25216)
       lines = lines.map((line) => '  ' + line);
       return [firstLine, ...lines]
         .join('\n') // join the lines
@@ -530,9 +530,9 @@ const getNotes = async (fromRef: string, toRef: string, newVersion: string) => {
     `Generating release notes between '${fromRef}' and '${toRef}' for version '${newVersion}' in branch '${toBranch}'`
   );
 
-  // get the electron/electron commits
-  const electron = { owner: ELECTRON_ORG, repo: ELECTRON_REPO, dir: ELECTRON_DIR };
-  await addRepoToPool(pool, electron, fromRef, toRef);
+  // get the neutron/neutron commits
+  const neutron = { owner: ELECTRON_ORG, repo: ELECTRON_REPO, dir: ELECTRON_DIR };
+  await addRepoToPool(pool, neutron, fromRef, toRef);
 
   // remove any old commits
   pool.commits = pool.commits.filter(
@@ -706,7 +706,7 @@ function renderDescription (commit: Commit) {
   // release notes bullet point every change, so if the note author
   // manually started the content with a bullet point, that will confuse
   // the markdown renderer -- remove the redundant bullet point
-  // (example: https://github.com/electron/electron/pull/25216)
+  // (example: https://github.com/neutron/neutron/pull/25216)
   if (note.startsWith('*')) {
     note = note.slice(1).trim();
   }

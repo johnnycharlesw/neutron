@@ -1,5 +1,5 @@
-import { systemPreferences } from 'electron';
-import { BrowserWindow, MessageChannelMain, utilityProcess, app } from 'electron/main';
+import { systemPreferences } from 'neutron';
+import { BrowserWindow, MessageChannelMain, utilityProcess, app } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -159,7 +159,7 @@ describe('utilityProcess module', () => {
       expect(location).to.equal('v8_ArrayBuffer_NewBackingStore');
       const reportJSON = JSON.parse(report);
       expect(reportJSON.header.trigger).to.equal('v8_ArrayBuffer_NewBackingStore');
-      const addonPath = path.join(require.resolve('@electron-ci/external-ab'), '..', '..', 'build', 'Release', 'external_ab.node');
+      const addonPath = path.join(require.resolve('@neutron-ci/external-ab'), '..', '..', 'build', 'Release', 'external_ab.node');
       expect(reportJSON.sharedObjects).to.include(path.toNamespacedPath(addonPath));
       expect(code).to.not.equal(0);
     });
@@ -167,7 +167,7 @@ describe('utilityProcess module', () => {
 
   describe('app \'child-process-gone\' event', () => {
     const waitForCrash = (name: string) => {
-      return new Promise<Electron.Details>((resolve) => {
+      return new Promise<Neutron.Details>((resolve) => {
         app.on('child-process-gone', function onCrash (_event, details) {
           if (details.name === name) {
             app.off('child-process-gone', onCrash);
@@ -257,8 +257,8 @@ describe('utilityProcess module', () => {
       expect(log).to.equal(pathToFileURL(fixtureFile) + '\n');
     });
 
-    it('import \'electron/lol\' should throw', async () => {
-      const child = utilityProcess.fork(path.join(fixturesPath, 'electron-modules', 'import-lol.mjs'), [], {
+    it('import \'neutron/lol\' should throw', async () => {
+      const child = utilityProcess.fork(path.join(fixturesPath, 'neutron-modules', 'import-lol.mjs'), [], {
         stdio: ['ignore', 'ignore', 'pipe']
       });
       let stderr = '';
@@ -268,26 +268,26 @@ describe('utilityProcess module', () => {
       expect(stderr).to.match(/Error \[ERR_MODULE_NOT_FOUND\]/);
     });
 
-    it('import \'electron/main\' should not throw', async () => {
-      const child = utilityProcess.fork(path.join(fixturesPath, 'electron-modules', 'import-main.mjs'));
+    it('import \'neutron/main\' should not throw', async () => {
+      const child = utilityProcess.fork(path.join(fixturesPath, 'neutron-modules', 'import-main.mjs'));
       const [code] = await once(child, 'exit');
       expect(code).to.equal(0);
     });
 
-    it('import \'electron/renderer\' should not throw', async () => {
-      const child = utilityProcess.fork(path.join(fixturesPath, 'electron-modules', 'import-renderer.mjs'));
+    it('import \'neutron/renderer\' should not throw', async () => {
+      const child = utilityProcess.fork(path.join(fixturesPath, 'neutron-modules', 'import-renderer.mjs'));
       const [code] = await once(child, 'exit');
       expect(code).to.equal(0);
     });
 
-    it('import \'electron/common\' should not throw', async () => {
-      const child = utilityProcess.fork(path.join(fixturesPath, 'electron-modules', 'import-common.mjs'));
+    it('import \'neutron/common\' should not throw', async () => {
+      const child = utilityProcess.fork(path.join(fixturesPath, 'neutron-modules', 'import-common.mjs'));
       const [code] = await once(child, 'exit');
       expect(code).to.equal(0);
     });
 
-    it('import \'electron/utility\' should not throw', async () => {
-      const child = utilityProcess.fork(path.join(fixturesPath, 'electron-modules', 'import-utility.mjs'));
+    it('import \'neutron/utility\' should not throw', async () => {
+      const child = utilityProcess.fork(path.join(fixturesPath, 'neutron-modules', 'import-utility.mjs'));
       const [code] = await once(child, 'exit');
       expect(code).to.equal(0);
     });
@@ -636,7 +636,7 @@ describe('utilityProcess module', () => {
         response.writeHead(200).end('ok');
       });
       const [loginAuthInfo, statusCode] = await remotely(async (serverUrl: string, fixture: string) => {
-        const { app, utilityProcess } = require('electron');
+        const { app, utilityProcess } = require('neutron');
         const { once } = require('node:events');
         const child = utilityProcess.fork(fixture, [`--server-url=${serverUrl}`], {
           stdio: 'ignore',
@@ -665,7 +665,7 @@ describe('utilityProcess module', () => {
         }
       });
       const [authDetails, responseBody, statusCode] = await remotely(async (serverUrl: string, fixture: string) => {
-        const { app, utilityProcess } = require('electron');
+        const { app, utilityProcess } = require('neutron');
         const { once } = require('node:events');
         const child = utilityProcess.fork(fixture, [`--server-url=${serverUrl}`], {
           stdio: 'ignore',
@@ -695,7 +695,7 @@ describe('utilityProcess module', () => {
       });
       const requestData = randomString(kOneKiloByte);
       const [authDetails, responseBody, statusCode] = await remotely(async (serverUrl: string, requestData: string, fixture: string) => {
-        const { app, utilityProcess } = require('electron');
+        const { app, utilityProcess } = require('neutron');
         const { once } = require('node:events');
         const child = utilityProcess.fork(fixture, [`--server-url=${serverUrl}`, '--request-data'], {
           stdio: 'ignore',
@@ -724,7 +724,7 @@ describe('utilityProcess module', () => {
         response.writeHead(200).end('ok');
       });
       const [statusCode, responseHeaders] = await rc.remotely(async (serverUrl: string, fixture: string) => {
-        const { app, utilityProcess } = require('electron');
+        const { app, utilityProcess } = require('neutron');
         const { once } = require('node:events');
         let gracefulExit = true;
         const child = utilityProcess.fork(fixture, [`--server-url=${serverUrl}`, '--omit-credentials'], {
@@ -760,7 +760,7 @@ describe('utilityProcess module', () => {
         response.writeHead(200).end('ok');
       });
       const [loginAuthInfo, statusCode] = await rc.remotely(async (serverUrl: string, fixture: string) => {
-        const { app, utilityProcess } = require('electron');
+        const { app, utilityProcess } = require('neutron');
         const { once } = require('node:events');
         let gracefulExit = true;
         const child = utilityProcess.fork(fixture, [`--server-url=${serverUrl}`, '--use-net-login-event'], {
@@ -797,7 +797,7 @@ describe('utilityProcess module', () => {
         response.writeHead(200).end('ok');
       });
       const [loginAuthInfo, statusCode] = await remotely(async (serverUrl: string, fixture: string) => {
-        const { app, utilityProcess } = require('electron');
+        const { app, utilityProcess } = require('neutron');
         const { once } = require('node:events');
         const child = utilityProcess.fork(fixture, [`--server-url=${serverUrl}`, '--use-fetch-api'], {
           stdio: 'ignore',
@@ -816,7 +816,7 @@ describe('utilityProcess module', () => {
     });
 
     it('supports generating snapshots via v8.setHeapSnapshotNearHeapLimit', async () => {
-      const tmpDir = await fs.mkdtemp(path.resolve(os.tmpdir(), 'electron-spec-utility-oom-'));
+      const tmpDir = await fs.mkdtemp(path.resolve(os.tmpdir(), 'neutron-spec-utility-oom-'));
       const child = utilityProcess.fork(path.join(fixturesPath, 'oom-grow.js'), [], {
         stdio: 'ignore',
         execArgv: [

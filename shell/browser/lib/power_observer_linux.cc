@@ -30,7 +30,7 @@ base::FilePath::StringType GetExecutableBaseName() {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 PowerObserverLinux::PowerObserverLinux(
     base::PowerSuspendObserver* suspend_observer)
@@ -79,7 +79,7 @@ void PowerObserverLinux::BlockSleep() {
   dbus::MessageWriter inhibit_writer(&sleep_inhibit_call);
   inhibit_writer.AppendString("sleep");  // what
   // Use the executable name as the lock owner, which will list rebrands of the
-  // electron executable as separate entities.
+  // neutron executable as separate entities.
   inhibit_writer.AppendString(lock_owner_name_);                      // who
   inhibit_writer.AppendString("Application cleanup before suspend");  // why
   inhibit_writer.AppendString("delay");                               // mode
@@ -181,4 +181,4 @@ void PowerObserverLinux::OnSignalConnected(const std::string& /*interface*/,
   LOG_IF(WARNING, !success) << "Failed to connect to " << signal;
 }
 
-}  // namespace electron
+}  // namespace neutron

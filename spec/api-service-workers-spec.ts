@@ -1,4 +1,4 @@
-import { session, webContents, WebContents } from 'electron/main';
+import { session, webContents, WebContents } from 'neutron/main';
 
 import { expect } from 'chai';
 import { v4 } from 'uuid';
@@ -13,7 +13,7 @@ import { listen } from './lib/spec-helpers';
 const partition = 'service-workers-spec';
 
 describe('session.serviceWorkers', () => {
-  let ses: Electron.Session;
+  let ses: Neutron.Session;
   let server: http.Server;
   let baseUrl: string;
   let w: WebContents;
@@ -39,7 +39,7 @@ describe('session.serviceWorkers', () => {
     const { port } = await listen(server);
     baseUrl = `http://localhost:${port}/${uuid}`;
 
-    w = (webContents as typeof ElectronInternal.WebContents).create({ session: ses });
+    w = (webContents as typeof NeutronInternal.WebContents).create({ session: ses });
   });
 
   afterEach(async () => {
@@ -66,7 +66,7 @@ describe('session.serviceWorkers', () => {
     it('should report the correct script url and scope', async () => {
       w.loadURL(`${baseUrl}/index.html`);
       const eventInfo = await once(ses.serviceWorkers, 'console-message');
-      const details: Electron.MessageDetails = eventInfo[1];
+      const details: Neutron.MessageDetails = eventInfo[1];
       const worker = ses.serviceWorkers.getFromVersionID(details.versionId);
       expect(worker).to.not.equal(null);
       expect(worker).to.have.property('scope', baseUrl + '/');
@@ -76,7 +76,7 @@ describe('session.serviceWorkers', () => {
 
   describe('console-message event', () => {
     it('should correctly keep the source, message and level', async () => {
-      const messages: Record<string, Electron.MessageDetails> = {};
+      const messages: Record<string, Neutron.MessageDetails> = {};
       w.loadURL(`${baseUrl}/index.html?scriptUrl=sw-logs.js`);
       for await (const [, details] of on(ses.serviceWorkers, 'console-message')) {
         messages[details.message] = details;

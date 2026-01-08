@@ -24,7 +24,7 @@
 #include "ui/views/layout/flex_layout.h"
 #include "ui/views/view_class_properties.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -191,4 +191,4 @@ void WinCaptionButtonContainer::SetButtonSize(gfx::Size size) {
 BEGIN_METADATA(WinCaptionButtonContainer)
 END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

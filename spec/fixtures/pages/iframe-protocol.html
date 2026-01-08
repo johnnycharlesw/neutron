@@ -1,7 +1,7 @@
 <body>
   <iframe src="custom://base-page.html"></iframe>
   <script>
-    const { ipcRenderer } = require('electron');
+    const { ipcRenderer } = require('neutron');
     const iframe = document.querySelector('iframe');
 
     iframe.addEventListener('load', () => {

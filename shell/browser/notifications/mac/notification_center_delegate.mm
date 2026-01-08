@@ -7,7 +7,7 @@
 #include <string>
 
 #include "base/logging.h"
-#include "electron/mas.h"
+#include "neutron/mas.h"
 #include "shell/browser/notifications/mac/cocoa_notification.h"
 #include "shell/browser/notifications/mac/notification_presenter_mac.h"
 
@@ -19,7 +19,7 @@
 @implementation NotificationCenterDelegate
 
 - (instancetype)initWithPresenter:
-    (electron::NotificationPresenterMac*)presenter {
+    (neutron::NotificationPresenterMac*)presenter {
   self = [super init];
   if (!self)
     return nil;
@@ -39,7 +39,7 @@
        didActivateNotification:(NSUserNotification*)notif {
   auto* notification = presenter_->GetNotification(notif);
 
-  if (electron::debug_notifications) {
+  if (neutron::debug_notifications) {
     LOG(INFO) << "Notification activated (" << [notif.identifier UTF8String]
               << ")";
   }

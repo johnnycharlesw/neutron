@@ -11,23 +11,23 @@
 #include "content/public/browser/web_ui_message_handler.h"
 
 // Controls the accessibility web UI page.
-class ElectronAccessibilityUI : public content::WebUIController {
+class NeutronAccessibilityUI : public content::WebUIController {
  public:
-  explicit ElectronAccessibilityUI(content::WebUI* web_ui);
-  ~ElectronAccessibilityUI() override;
+  explicit NeutronAccessibilityUI(content::WebUI* web_ui);
+  ~NeutronAccessibilityUI() override;
 };
 
 // Manages messages sent from accessibility.js via json.
-class ElectronAccessibilityUIMessageHandler
+class NeutronAccessibilityUIMessageHandler
     : public AccessibilityUIMessageHandler {
  public:
-  ElectronAccessibilityUIMessageHandler();
+  NeutronAccessibilityUIMessageHandler();
 
   // disable copy
-  ElectronAccessibilityUIMessageHandler(
-      const ElectronAccessibilityUIMessageHandler&) = delete;
-  ElectronAccessibilityUIMessageHandler& operator=(
-      const ElectronAccessibilityUIMessageHandler&) = delete;
+  NeutronAccessibilityUIMessageHandler(
+      const NeutronAccessibilityUIMessageHandler&) = delete;
+  NeutronAccessibilityUIMessageHandler& operator=(
+      const NeutronAccessibilityUIMessageHandler&) = delete;
 
   void RegisterMessages() final;
 

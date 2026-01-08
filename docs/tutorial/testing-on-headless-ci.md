@@ -24,10 +24,10 @@ Xvfb, if required by the current system. On Windows or macOS, it will
 do nothing.
 
 ```sh
-## On Windows or macOS, this invokes electron-mocha
+## On Windows or macOS, this invokes neutron-mocha
 ## On Linux, if we are in a headless environment, this will be equivalent
-## to xvfb-run electron-mocha ./test/*.js
-xvfb-maybe electron-mocha ./test/*.js
+## to xvfb-run neutron-mocha ./test/*.js
+xvfb-maybe neutron-mocha ./test/*.js
 ```
 
 ### Travis CI

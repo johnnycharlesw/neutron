@@ -12,7 +12,7 @@ sys.path.append(
 
 from lib.util import download, rm_rf, store_artifact, safe_mkdir
 
-DIST_URL = 'https://electronjs.org/headers/'
+DIST_URL = 'https://neutronjs.org/headers/'
 
 
 def main():
@@ -68,7 +68,7 @@ def get_files_list(version):
 
 
 def download_files(url, files):
-  directory = tempfile.mkdtemp(prefix='electron-tmp')
+  directory = tempfile.mkdtemp(prefix='neutron-tmp')
   result = []
   for optional_f in files:
     required = optional_f['required']

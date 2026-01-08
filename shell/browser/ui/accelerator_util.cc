@@ -35,7 +35,7 @@ bool StringToAccelerator(const std::string_view shortcut,
   ui::KeyboardCode key = ui::VKEY_UNKNOWN;
   std::optional<char16_t> shifted_char;
   for (const std::string_view token : tokens) {
-    ui::KeyboardCode code = electron::KeyboardCodeFromStr(token, &shifted_char);
+    ui::KeyboardCode code = neutron::KeyboardCodeFromStr(token, &shifted_char);
     if (shifted_char)
       modifiers |= ui::EF_SHIFT_DOWN;
     switch (code) {
@@ -72,11 +72,11 @@ bool StringToAccelerator(const std::string_view shortcut,
 }
 
 void GenerateAcceleratorTable(AcceleratorTable* table,
-                              electron::ElectronMenuModel* model) {
+                              neutron::NeutronMenuModel* model) {
   size_t count = model->GetItemCount();
   for (size_t i = 0; i < count; ++i) {
-    electron::ElectronMenuModel::ItemType type = model->GetTypeAt(i);
-    if (type == electron::ElectronMenuModel::TYPE_SUBMENU) {
+    neutron::NeutronMenuModel::ItemType type = model->GetTypeAt(i);
+    if (type == neutron::NeutronMenuModel::TYPE_SUBMENU) {
       auto* submodel = model->GetSubmenuModelAt(i);
       GenerateAcceleratorTable(table, submodel);
     } else {

@@ -13,7 +13,7 @@ from lib.util import store_artifact, scoped_cwd, safe_mkdir, get_out_dir, \
 
 OUT_DIR     = get_out_dir()
 
-BASE_URL = 'https://electron-metadumper.herokuapp.com/?version='
+BASE_URL = 'https://neutron-metadumper.herokuapp.com/?version='
 
 AUTH_TOKEN = os.getenv('META_DUMPER_AUTH_HEADER')
 

@@ -1,9 +1,9 @@
-import { ClientRequest } from '@electron/internal/common/api/net-client-request';
+import { ClientRequest } from '@neutron/internal/common/api/net-client-request';
 
-import { app, IncomingMessage, session } from 'electron/main';
-import type { ClientRequestConstructorOptions } from 'electron/main';
+import { app, IncomingMessage, session } from 'neutron/main';
+import type { ClientRequestConstructorOptions } from 'neutron/main';
 
-const { isOnline } = process._linkedBinding('electron_common_net');
+const { isOnline } = process._linkedBinding('neutron_common_net');
 
 export function request (options: ClientRequestConstructorOptions | string, callback?: (message: IncomingMessage) => void) {
   if (!app.isReady()) {
@@ -16,7 +16,7 @@ export function fetch (input: RequestInfo, init?: RequestInit): Promise<Response
   return session.defaultSession.fetch(input, init);
 }
 
-export function resolveHost (host: string, options?: Electron.ResolveHostOptions): Promise<Electron.ResolvedHost> {
+export function resolveHost (host: string, options?: Neutron.ResolveHostOptions): Promise<Neutron.ResolvedHost> {
   return session.defaultSession.resolveHost(host, options);
 }
 

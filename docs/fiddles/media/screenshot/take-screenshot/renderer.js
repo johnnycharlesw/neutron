@@ -3,5 +3,5 @@ const screenshotMsg = document.getElementById('screenshot-path')
 
 screenshot.addEventListener('click', async (event) => {
   screenshotMsg.textContent = 'Gathering screens...'
-  screenshotMsg.textContent = await window.electronAPI.takeScreenshot()
+  screenshotMsg.textContent = await window.neutronAPI.takeScreenshot()
 })

@@ -1,5 +1,5 @@
 {
-  "name": "electron-test-update-stack",
+  "name": "neutron-test-update-stack",
   "version": "1.0.0",
   "main": "./index.js"
 }

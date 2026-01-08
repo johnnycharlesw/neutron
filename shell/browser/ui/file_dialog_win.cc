@@ -96,7 +96,7 @@ static HRESULT ShowFileDialog(IFileDialog* dialog,
                               const DialogSettings& settings) {
   HWND parent_window =
       settings.parent_window
-          ? static_cast<electron::NativeWindowViews*>(settings.parent_window)
+          ? static_cast<neutron::NativeWindowViews*>(settings.parent_window)
                 ->GetAcceleratedWidget()
           : nullptr;
 
@@ -126,7 +126,7 @@ static void ApplySettings(IFileDialog* dialog, const DialogSettings& settings) {
   }
 
   // By default, *.* will be added to the file name if file type is "*.*". In
-  // Electron, we disable it to make a better experience.
+  // Neutron, we disable it to make a better experience.
   //
   // From MSDN: https://msdn.microsoft.com/en-us/library/windows/desktop/
   // bb775970(v=vs.85).aspx

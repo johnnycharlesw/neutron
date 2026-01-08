@@ -9,13 +9,13 @@
 #include <string_view>
 
 #include "content/public/browser/content_browser_client.h"
-#include "shell/browser/net/electron_url_loader_factory.h"
+#include "shell/browser/net/neutron_url_loader_factory.h"
 
 namespace content {
 class BrowserContext;
 }
 
-namespace electron {
+namespace neutron {
 
 class ProtocolRegistry {
  public:
@@ -52,7 +52,7 @@ class ProtocolRegistry {
       std::string_view scheme) const;
 
  private:
-  friend class ElectronBrowserContext;
+  friend class NeutronBrowserContext;
 
   ProtocolRegistry();
 
@@ -60,6 +60,6 @@ class ProtocolRegistry {
   HandlersMap intercept_handlers_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_PROTOCOL_REGISTRY_H_

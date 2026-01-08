@@ -18,8 +18,8 @@ async function checkIfDocOnlyChange () {
       }
 
       const filesChanged = await octokit.paginate(octokit.pulls.listFiles.endpoint.merge({
-        owner: 'electron',
-        repo: 'electron',
+        owner: 'neutron',
+        repo: 'neutron',
         pull_number: prNumber,
         per_page: 100
       }));

@@ -358,7 +358,7 @@ Hello from C++! You said: This is a test
 To use this addon in an Electron application, you would:
 
 1. Include it as a dependency in your Electron project
-1. Build it targeting your specific Electron version. `electron-forge` handles this step automatically for you - for more details, see [Native Node Modules](./using-native-node-modules.md).
+1. Build it targeting your specific Electron version. `neutron-forge` handles this step automatically for you - for more details, see [Native Node Modules](./using-native-node-modules.md).
 1. Import and use it just like any other module in a process that has Node.js enabled.
 
 ```js @ts-expect-error=[2]

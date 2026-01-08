@@ -14,7 +14,7 @@ index 088e7ebbfe07d273691c86c7ab2dce00fcb475c8..a3f7415dba63828bec94ac8503420f14
      'v8_use_perfetto': 0,
      'tsan%': 0,
  
-+    'using_electron_config_gypi%': 0,
++    'using_neutron_config_gypi%': 0,
 +
      ##### end V8 defaults #####
  
@@ -33,7 +33,7 @@ index 088e7ebbfe07d273691c86c7ab2dce00fcb475c8..a3f7415dba63828bec94ac8503420f14
            }],
          ],
        }],
-+      ['using_electron_config_gypi == 1', {
++      ['using_neutron_config_gypi == 1', {
 +        'defines': [
 +          'USING_ELECTRON_CONFIG_GYPI',
 +        ],
@@ -49,7 +49,7 @@ index e063f9131d4d547d231811dafea03c8c52b611e6..a5c764d9e7fb0ffa219202015ec67ed6
  def configure_v8(o, configs):
    set_configuration_variable(configs, 'v8_enable_v8_checks', release=1, debug=0)
  
-+  o['variables']['using_electron_config_gypi'] = 1
++  o['variables']['using_neutron_config_gypi'] = 1
    o['variables']['v8_enable_webassembly'] = 0 if options.v8_lite_mode else 1
    o['variables']['v8_enable_javascript_promise_hooks'] = 1
    o['variables']['v8_enable_lite_mode'] = 1 if options.v8_lite_mode else 0
@@ -63,7 +63,7 @@ index 27f5bb1571920c963e05644a5fc5858aa4b88288..9c624e4ef26c1b06a6c4bca7def24593
  
 +#ifdef ELECTRON_ENSURE_CONFIG_GYPI
 +#ifndef USING_ELECTRON_CONFIG_GYPI
-+#error "It looks like you are building this native module without using the right config.gypi.  This normally means that you need to update electron-rebuild (>=3.2.8) or node-gyp (>=9.0.0) if you're building modules directly."
++#error "It looks like you are building this native module without using the right config.gypi.  This normally means that you need to update neutron-rebuild (>=3.2.8) or node-gyp (>=9.0.0) if you're building modules directly."
 +#endif
 +#endif
 +

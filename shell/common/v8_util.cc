@@ -10,14 +10,14 @@
 
 #include "base/memory/raw_ptr.h"
 #include "gin/converter.h"
-#include "shell/common/api/electron_api_native_image.h"
+#include "shell/common/api/neutron_api_native_image.h"
 #include "skia/public/mojom/bitmap.mojom.h"
 #include "third_party/blink/public/common/messaging/cloneable_message.h"
 #include "third_party/blink/public/common/messaging/web_message_port.h"
 #include "ui/gfx/image/image_skia.h"
 #include "v8/include/v8.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -246,7 +246,7 @@ namespace util {
  * SAFETY: There is not yet any v8::ArrayBufferView API that passes the
  * UNSAFE_BUFFER_USAGE test, so let's isolate the unsafe API here.
  *
- * Where possible, Electron should use spans returned here instead of
+ * Where possible, Neutron should use spans returned here instead of
  * |v8::ArrayBufferView::Buffer()->Data()|,
  * |v8::ArrayBufferView::ByteOffset()|,
  * |v8::ArrayBufferView::ByteLength()|.
@@ -259,4 +259,4 @@ base::span<uint8_t> as_byte_span(v8::Local<v8::ArrayBufferView> val) {
 }
 
 }  // namespace util
-}  // namespace electron
+}  // namespace neutron

@@ -9,7 +9,7 @@
 
 #include "net/cert/x509_certificate.h"
 
-namespace electron {
+namespace neutron {
 class NativeWindow;
 }
 
@@ -22,7 +22,7 @@ class Local;
 namespace certificate_trust {
 
 v8::Local<v8::Promise> ShowCertificateTrust(
-    electron::NativeWindow* parent_window,
+    neutron::NativeWindow* parent_window,
     const scoped_refptr<net::X509Certificate>& cert,
     const std::string& message);
 

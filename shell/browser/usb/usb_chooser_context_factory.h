@@ -14,7 +14,7 @@ template <typename T>
 class NoDestructor;
 }  // namespace base
 
-namespace electron {
+namespace neutron {
 
 class UsbChooserContext;
 
@@ -40,6 +40,6 @@ class UsbChooserContextFactory : public BrowserContextKeyedServiceFactory {
       content::BrowserContext* profile) const override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_USB_USB_CHOOSER_CONTEXT_FACTORY_H_

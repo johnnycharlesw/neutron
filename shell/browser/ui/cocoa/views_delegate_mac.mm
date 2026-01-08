@@ -7,7 +7,7 @@
 #include "content/public/browser/context_factory.h"
 #include "ui/views/widget/native_widget_mac.h"
 
-namespace electron {
+namespace neutron {
 
 ViewsDelegateMac::ViewsDelegateMac() = default;
 
@@ -36,4 +36,4 @@ ui::ContextFactory* ViewsDelegateMac::GetContextFactory() {
   return content::GetContextFactory();
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -116,24 +116,24 @@ async function createRelease (
       releaseBody =
         'Note: This is a nightly release.  Please file new issues ' +
         'for any bugs you find in it.\n \n This release is published to npm ' +
-        'under the electron-nightly package and can be installed via `npm install electron-nightly`, ' +
-        `or \`npm install electron-nightly@${newVersion.substr(1)}\`.\n \n ${
+        'under the neutron-nightly package and can be installed via `npm install neutron-nightly`, ' +
+        `or \`npm install neutron-nightly@${newVersion.substr(1)}\`.\n \n ${
           releaseNotes.text
         }`;
     } else if (newVersion.indexOf('alpha') > 0) {
       releaseBody =
         'Note: This is an alpha release.  Please file new issues ' +
         'for any bugs you find in it.\n \n This release is published to npm ' +
-        'under the alpha tag and can be installed via `npm install electron@alpha`, ' +
-        `or \`npm install electron@${newVersion.substr(1)}\`.\n \n ${
+        'under the alpha tag and can be installed via `npm install neutron@alpha`, ' +
+        `or \`npm install neutron@${newVersion.substr(1)}\`.\n \n ${
           releaseNotes.text
         }`;
     } else {
       releaseBody =
         'Note: This is a beta release.  Please file new issues ' +
         'for any bugs you find in it.\n \n This release is published to npm ' +
-        'under the beta tag and can be installed via `npm install electron@beta`, ' +
-        `or \`npm install electron@${newVersion.substr(1)}\`.\n \n ${
+        'under the beta tag and can be installed via `npm install neutron@beta`, ' +
+        `or \`npm install neutron@${newVersion.substr(1)}\`.\n \n ${
           releaseNotes.text
         }`;
     }
@@ -148,7 +148,7 @@ async function createRelease (
       repo: options.targetRepo,
       tag_name: newVersion,
       draft: true,
-      name: `electron ${newVersion}`,
+      name: `neutron ${newVersion}`,
       body: releaseBody,
       prerelease: releaseIsPrelease,
       target_commitish: newVersion.includes('nightly')

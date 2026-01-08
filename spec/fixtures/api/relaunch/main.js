@@ -1,8 +1,8 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 const net = require('node:net');
 
-const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\electron-app-relaunch' : '/tmp/electron-app-relaunch';
+const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\neutron-app-relaunch' : '/tmp/neutron-app-relaunch';
 
 process.on('uncaughtException', () => {
   app.exit(1);

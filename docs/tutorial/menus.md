@@ -303,8 +303,8 @@ To add visual aid to your menus, you can use the `icon` property to assign image
 `MenuItem` instances.
 
 ```js title='Adding a little green circle to a menu item'
-const { nativeImage } = require('electron/common')
-const { MenuItem } = require('electron/main')
+const { nativeImage } = require('neutron/common')
+const { MenuItem } = require('neutron/main')
 
 // highlight-next-line
 const green = nativeImage.createFromDataURL('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAACOSURBVHgBpZLRDYAgEEOrEzgCozCCGzkCbKArOIlugJvgoRAUNcLRpvGH19TkgFQWkqIohhK8UEaKwKcsOg/+WR1vX+AlA74u6q4FqgCOSzwsGHCwbKliAF89Cv89tWmOT4VaVMoVbOBrdQUz+FrD6XItzh4LzYB1HFJ9yrEkZ4l+wvcid9pTssh4UKbPd+4vED2Nd54iAAAAAElFTkSuQmCC')
@@ -322,7 +322,7 @@ You can add sublabels (also known as [subtitles](https://developer.apple.com/doc
 to menu items using the `sublabel` option on macOS 14.4 and above.
 
 ```js title='Adding descriptions via sublabel'
-const { MenuItem } = require('electron/main')
+const { MenuItem } = require('neutron/main')
 
 const item = new MenuItem({
   label: 'Log Message',
@@ -338,7 +338,7 @@ Tooltips are informational indicators that appear when you hover over a menu ite
 item tooltips on macOS using the `toolTip` option.
 
 ```js title='Adding additional information via tooltip'
-const { MenuItem } = require('electron/main')
+const { MenuItem } = require('neutron/main')
 
 const item = new MenuItem({
   label: 'Hover Over Me',

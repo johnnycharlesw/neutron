@@ -3,7 +3,7 @@
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->
@@ -22,7 +22,7 @@ relative to its owning window. It is meant to be an alternative to the
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->
@@ -40,13 +40,13 @@ module is emitted.
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### Example
 
 ```js
 // In the main process.
-const { app, BrowserView, BrowserWindow } = require('electron')
+const { app, BrowserView, BrowserWindow } = require('neutron')
 
 app.whenReady().then(() => {
   const win = new BrowserWindow({ width: 800, height: 600 })
@@ -54,7 +54,7 @@ app.whenReady().then(() => {
   const view = new BrowserView()
   win.setBrowserView(view)
   view.setBounds({ x: 0, y: 0, width: 300, height: 300 })
-  view.webContents.loadURL('https://electronjs.org')
+  view.webContents.loadURL('https://neutronjs.org')
 })
 ```
 
@@ -63,7 +63,7 @@ app.whenReady().then(() => {
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->
@@ -80,7 +80,7 @@ Objects created with `new BrowserView` have the following properties:
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->
@@ -96,11 +96,11 @@ Objects created with `new BrowserView` have the following instance methods:
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     description: "Standardized auto-resizing behavior across all platforms"
     breaking-changes-header: behavior-changed-browserviewsetautoresize-behavior-on-macos
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->
@@ -120,7 +120,7 @@ deprecated:
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->
@@ -134,7 +134,7 @@ Resizes and moves the view to the supplied bounds relative to the window.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->
@@ -148,7 +148,7 @@ The `bounds` of this BrowserView instance as `Object`.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
     breaking-changes-header: deprecated-browserview
 ```
 -->

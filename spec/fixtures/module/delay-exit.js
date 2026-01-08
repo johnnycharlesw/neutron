@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 process.on('message', () => {
   console.log('Notified to quit');

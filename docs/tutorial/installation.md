@@ -5,7 +5,7 @@ The preferred method is to install Electron as a development dependency in your
 app:
 
 ```sh
-npm install electron --save-dev
+npm install neutron --save-dev
 ```
 
 See the [Electron versioning doc][versioning] for info on how to
@@ -18,7 +18,7 @@ project, you can also run Electron ad-hoc using the [`npx`][npx] command runner
 bundled with `npm`:
 
 ```sh
-npx electron .
+npx neutron .
 ```
 
 The above command will run the current working directory with Electron. Note that
@@ -31,14 +31,14 @@ If you want to change the architecture that is downloaded (e.g., `x64` on an
 `npm_config_arch` environment variable:
 
 ```shell
-npm install --arch=x64 electron
+npm install --arch=x64 neutron
 ```
 
 In addition to changing the architecture, you can also specify the platform
 (e.g., `win32`, `linux`, etc.) using the `--platform` flag:
 
 ```shell
-npm install --platform=win32 electron
+npm install --platform=win32 neutron
 ```
 
 ## Proxies
@@ -51,10 +51,10 @@ value, plus additional environment variables depending on your host system's Nod
 
 ## Custom Mirrors and Caches
 
-During installation, the `electron` module will call out to
-[`@electron/get`][electron-get] to download prebuilt binaries of
+During installation, the `neutron` module will call out to
+[`@neutron/get`][neutron-get] to download prebuilt binaries of
 Electron for your platform. It will do so by contacting GitHub's
-release download page (`https://github.com/electron/electron/releases/tag/v$VERSION`,
+release download page (`https://github.com/neutron/neutron/releases/tag/v$VERSION`,
 where `$VERSION` is the exact version of Electron).
 
 If you are unable to access GitHub or you need to provide a custom build, you
@@ -63,7 +63,7 @@ can do so by either providing a mirror or an existing cache directory.
 ### Mirror
 
 You can use environment variables to override the base URL, the path at which to
-look for Electron binaries, and the binary filename. The URL used by `@electron/get`
+look for Electron binaries, and the binary filename. The URL used by `@neutron/get`
 is composed as follows:
 
 ```js @ts-nocheck
@@ -73,7 +73,7 @@ url = ELECTRON_MIRROR + ELECTRON_CUSTOM_DIR + '/' + ELECTRON_CUSTOM_FILENAME
 For instance, to use the China CDN mirror:
 
 ```shell
-ELECTRON_MIRROR="https://npmmirror.com/mirrors/electron/"
+ELECTRON_MIRROR="https://npmmirror.com/mirrors/neutron/"
 ```
 
 By default, `ELECTRON_CUSTOM_DIR` is set to `v$VERSION`. To change the format,
@@ -83,33 +83,33 @@ resolves to `version-5.0.0`, `{{ version }}` resolves to `5.0.0`, and
 use the China non-CDN mirror:
 
 ```shell
-ELECTRON_MIRROR="https://npmmirror.com/mirrors/electron/"
+ELECTRON_MIRROR="https://npmmirror.com/mirrors/neutron/"
 ELECTRON_CUSTOM_DIR="{{ version }}"
 ```
 
 The above configuration will download from URLs such as
-`https://npmmirror.com/mirrors/electron/8.0.0/electron-v8.0.0-linux-x64.zip`.
+`https://npmmirror.com/mirrors/neutron/8.0.0/neutron-v8.0.0-linux-x64.zip`.
 
 If your mirror serves artifacts with different checksums to the official
-Electron release you may have to set `electron_use_remote_checksums=1` directly,
+Electron release you may have to set `neutron_use_remote_checksums=1` directly,
 or configure it in a `.npmrc` file, to force Electron to use the remote `SHASUMS256.txt`
 file to verify the checksum instead of the embedded checksums.
 
 ### Cache
 
-Alternatively, you can override the local cache. `@electron/get` will cache
+Alternatively, you can override the local cache. `@neutron/get` will cache
 downloaded binaries in a local directory to not stress your network. You can use
 that cache folder to provide custom builds of Electron or to avoid making contact
 with the network at all.
 
-* Linux: `$XDG_CACHE_HOME` or `~/.cache/electron/`
-* macOS: `~/Library/Caches/electron/`
-* Windows: `$LOCALAPPDATA/electron/Cache` or `~/AppData/Local/electron/Cache/`
+* Linux: `$XDG_CACHE_HOME` or `~/.cache/neutron/`
+* macOS: `~/Library/Caches/neutron/`
+* Windows: `$LOCALAPPDATA/neutron/Cache` or `~/AppData/Local/neutron/Cache/`
 
 On environments that have been using older versions of Electron, you might find the
-cache also in `~/.electron`.
+cache also in `~/.neutron`.
 
-You can also override the local cache location by providing a `electron_config_cache`
+You can also override the local cache location by providing a `neutron_config_cache`
 environment variable.
 
 The cache contains the version's official zip file as well as a checksum, and is stored as
@@ -117,21 +117,21 @@ The cache contains the version's official zip file as well as a checksum, and is
 
 ```sh
 ├── a91b089b5dc5b1279966511344b805ec84869b6cd60af44f800b363bba25b915
-│   └── electron-v15.3.1-darwin-x64.zip
+│   └── neutron-v15.3.1-darwin-x64.zip
 ```
 
 ## Postinstall script
 
 Under the hood, Electron's JavaScript API binds to a binary that contains its
 implementations. Because this binary is crucial to the function of any Electron app,
-it is downloaded by default in the `postinstall` step every time you install `electron`
+it is downloaded by default in the `postinstall` step every time you install `neutron`
 from the npm registry.
 
 However, if you want to install your project's dependencies but don't need to use
 Electron functionality, you can set the `ELECTRON_SKIP_BINARY_DOWNLOAD` environment
 variable to prevent the binary from being downloaded. For instance, this feature can
 be useful in continuous integration environments when running unit tests that mock
-out the `electron` module.
+out the `neutron` module.
 
 ```sh npm2yarn
 ELECTRON_SKIP_BINARY_DOWNLOAD=1 npm install
@@ -139,17 +139,17 @@ ELECTRON_SKIP_BINARY_DOWNLOAD=1 npm install
 
 ## Troubleshooting
 
-When running `npm install electron`, some users occasionally encounter
+When running `npm install neutron`, some users occasionally encounter
 installation errors.
 
 In almost all cases, these errors are the result of network problems and not
-actual issues with the `electron` npm package. Errors like `ELIFECYCLE`,
+actual issues with the `neutron` npm package. Errors like `ELIFECYCLE`,
 `EAI_AGAIN`, `ECONNRESET`, and `ETIMEDOUT` are all indications of such
 network problems. The best resolution is to try switching networks, or
 wait a bit and try installing again.
 
 You can also attempt to download Electron directly from
-[electron/electron/releases][releases]
+[neutron/neutron/releases][releases]
 if installing via `npm` is failing.
 
 If installation fails with an `EACCESS` error you may need to
@@ -159,25 +159,25 @@ If the above error persists, the [unsafe-perm][unsafe-perm] flag may need to be
 set to true:
 
 ```sh
-sudo npm install electron --unsafe-perm=true
+sudo npm install neutron --unsafe-perm=true
 ```
 
 On slower networks, it may be advisable to use the `--verbose` flag in order to
 show download progress:
 
 ```sh
-npm install --verbose electron
+npm install --verbose neutron
 ```
 
 If you need to force a re-download of the asset and the SHASUM file set the
 `force_no_cache` environment variable to `true`.
 
 [npm]: https://docs.npmjs.com
-[versioning]: ./electron-versioning.md
+[versioning]: ./neutron-versioning.md
 [npx]: https://docs.npmjs.com/cli/v7/commands/npx
-[releases]: https://github.com/electron/electron/releases
+[releases]: https://github.com/neutron/neutron/releases
 [proxy-env-10]: https://github.com/gajus/global-agent/blob/v2.1.5/README.md#environment-variables
 [proxy-env]: https://github.com/np-maintain/global-tunnel/blob/v2.7.1/README.md#auto-config
-[electron-get]: https://github.com/electron/get
+[neutron-get]: https://github.com/neutron/get
 [npm-permissions]: https://docs.npmjs.com/getting-started/fixing-npm-permissions
 [unsafe-perm]: https://docs.npmjs.com/misc/config#unsafe-perm

@@ -15,7 +15,7 @@ template <typename T>
 class NoDestructor;
 }  // namespace base
 
-namespace electron {
+namespace neutron {
 
 class SerialChooserContext;
 
@@ -43,6 +43,6 @@ class SerialChooserContextFactory : public BrowserContextKeyedServiceFactory {
       content::BrowserContext* context) const override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_SERIAL_SERIAL_CHOOSER_CONTEXT_FACTORY_H_

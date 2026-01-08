@@ -1,6 +1,6 @@
-import { IpcMainImpl } from '@electron/internal/browser/ipc-main-impl';
+import { IpcMainImpl } from '@neutron/internal/browser/ipc-main-impl';
 
-const { ServiceWorkerMain } = process._linkedBinding('electron_browser_service_worker_main');
+const { ServiceWorkerMain } = process._linkedBinding('neutron_browser_service_worker_main');
 
 Object.defineProperty(ServiceWorkerMain.prototype, 'ipc', {
   get () {

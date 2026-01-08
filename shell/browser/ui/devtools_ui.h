@@ -8,7 +8,7 @@
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/web_ui_controller.h"
 
-namespace electron {
+namespace neutron {
 
 class DevToolsUI : public content::WebUIController {
  public:
@@ -21,6 +21,6 @@ class DevToolsUI : public content::WebUIController {
   DevToolsUI& operator=(const DevToolsUI&) = delete;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_DEVTOOLS_UI_H_

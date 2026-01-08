@@ -7,7 +7,7 @@
 #include "third_party/blink/public/mojom/page/draggable_region.mojom.h"
 #include "third_party/skia/include/core/SkRegion.h"
 
-namespace electron {
+namespace neutron {
 
 // Convert draggable regions in raw format to SkRegion format.
 std::unique_ptr<SkRegion> DraggableRegionsToSkRegion(
@@ -22,4 +22,4 @@ std::unique_ptr<SkRegion> DraggableRegionsToSkRegion(
   return sk_region;
 }
 
-}  // namespace electron
+}  // namespace neutron

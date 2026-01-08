@@ -10,7 +10,7 @@
 #include "services/network/public/cpp/resource_request_body.h"
 #include "url/gurl.h"
 
-namespace electron {
+namespace neutron {
 
 ChildWebContentsTracker::ChildWebContentsTracker(
     content::WebContents* web_contents)
@@ -20,4 +20,4 @@ ChildWebContentsTracker::~ChildWebContentsTracker() = default;
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(ChildWebContentsTracker);
 
-}  // namespace electron
+}  // namespace neutron

@@ -1,4 +1,4 @@
-import { BrowserWindow, Menu, MenuItem } from 'electron/main';
+import { BrowserWindow, Menu, MenuItem } from 'neutron/main';
 
 import { assert, expect } from 'chai';
 
@@ -110,7 +110,7 @@ describe('Menu module', function () {
     describe('Menu sorting and building', () => {
       describe('sorts groups', () => {
         it('does a simple sort', () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               label: 'two',
               id: '2',
@@ -155,7 +155,7 @@ describe('Menu module', function () {
         });
 
         it('resolves cycles by ignoring things that conflict', () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '2',
               label: 'two',
@@ -187,7 +187,7 @@ describe('Menu module', function () {
         });
 
         it('ignores references to commands that do not exist', () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '1',
               label: 'one'
@@ -217,7 +217,7 @@ describe('Menu module', function () {
         });
 
         it('only respects the first matching [before|after]GroupContaining rule in a given group', () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '1',
               label: 'one'
@@ -269,7 +269,7 @@ describe('Menu module', function () {
 
       describe('moves an item to a different group by merging groups', () => {
         it('can move a group of one item', () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '1',
               label: 'one'
@@ -309,7 +309,7 @@ describe('Menu module', function () {
         });
 
         it("moves all items in the moving item's group", () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '1',
               label: 'one'
@@ -357,7 +357,7 @@ describe('Menu module', function () {
         });
 
         it("ignores positions relative to commands that don't exist", () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '1',
               label: 'one'
@@ -445,7 +445,7 @@ describe('Menu module', function () {
         });
 
         it('can merge multiple groups when given a list of before/after commands', () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '1',
               label: 'one'
@@ -483,7 +483,7 @@ describe('Menu module', function () {
         });
 
         it('can merge multiple groups based on both before/after commands', () => {
-          const items: Electron.MenuItemConstructorOptions[] = [
+          const items: Neutron.MenuItemConstructorOptions[] = [
             {
               id: '1',
               label: 'one'
@@ -875,7 +875,7 @@ describe('Menu module', function () {
 
       // Do garbage collection, since |menu| is not referenced in this closure
       // it would be gone after next call.
-      const v8Util = process._linkedBinding('electron_common_v8_util');
+      const v8Util = process._linkedBinding('neutron_common_v8_util');
       v8Util.requestGarbageCollectionForTesting();
 
       await setTimeout();
@@ -888,7 +888,7 @@ describe('Menu module', function () {
       }
     });
 
-    // https://github.com/electron/electron/issues/35724
+    // https://github.com/neutron/neutron/issues/35724
     // Maximizing window is enough to trigger the bug
     // FIXME(dsanders11): Test always passes on CI, even pre-fix
     ifit(process.platform === 'linux' && !process.env.CI)('does not trigger issue #35724', (done) => {

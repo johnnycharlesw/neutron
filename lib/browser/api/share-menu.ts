@@ -1,8 +1,8 @@
-import { BrowserWindow, Menu, SharingItem, PopupOptions } from 'electron/main';
+import { BrowserWindow, Menu, SharingItem, PopupOptions } from 'neutron/main';
 
 import { EventEmitter } from 'events';
 
-class ShareMenu extends EventEmitter implements Electron.ShareMenu {
+class ShareMenu extends EventEmitter implements Neutron.ShareMenu {
   private menu: Menu;
 
   constructor (sharingItem: SharingItem) {

@@ -14,7 +14,7 @@ template <typename T>
 class PendingRemote;
 }  // namespace mojo
 
-namespace electron {
+namespace neutron {
 
 // Provide support for accessing asar archives in file:// protocol.
 class AsarURLLoaderFactory : public network::SelfDeletingURLLoaderFactory {
@@ -37,6 +37,6 @@ class AsarURLLoaderFactory : public network::SelfDeletingURLLoaderFactory {
       override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_ASAR_ASAR_URL_LOADER_FACTORY_H_

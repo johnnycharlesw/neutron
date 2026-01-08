@@ -1,5 +1,5 @@
 <script>
-const {ipcRenderer} = require('electron')
+const {ipcRenderer} = require('neutron')
 function onInitFs (fs) {
   fs.root.getFile('log.txt', {create: true}, function (fileEntry) {
     fileEntry.createWriter(function (fileWriter) {

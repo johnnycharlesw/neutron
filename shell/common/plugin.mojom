@@ -1,4 +1,4 @@
-module electron.mojom;
+module neutron.mojom;
 
 import "content/public/common/webplugininfo.mojom";
 import "mojo/public/mojom/base/string16.mojom";

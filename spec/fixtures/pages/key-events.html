@@ -2,7 +2,7 @@
 <body>
 <input type="text" id="input" autofocus/>
 <script type="text/javascript" charset="utf-8">
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 document.onkeydown = function (e) {
   ipcRenderer.send('keydown', e.key, e.code, e.keyCode, e.shiftKey, e.ctrlKey, e.altKey)

@@ -58,12 +58,12 @@ on:
 permissions: {}
 
 concurrency:
-  group: electron-build-and-test-and-nan-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ github.ref_protected == true && github.run_id || github.ref }}
+  group: neutron-build-and-test-and-nan-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ github.ref_protected == true && github.run_id || github.ref }}
   cancel-in-progress: ${{ github.ref_protected != true }}
 
 jobs:
   build:
-    uses: ./.github/workflows/pipeline-segment-electron-build.yml
+    uses: ./.github/workflows/pipeline-segment-neutron-build.yml
     permissions:
       contents: read
     with:
@@ -77,7 +77,7 @@ jobs:
       upload-to-storage: ${{ inputs.upload-to-storage }}
     secrets: inherit
   test:
-    uses: ./.github/workflows/pipeline-segment-electron-test.yml
+    uses: ./.github/workflows/pipeline-segment-neutron-test.yml
     permissions:
       contents: read
       issues: read

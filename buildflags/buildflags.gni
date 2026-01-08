@@ -12,7 +12,7 @@ declare_args() {
   enable_fake_location_provider = !is_official_build
 
   # Enable Chrome extensions support.
-  enable_electron_extensions = true
+  enable_neutron_extensions = true
 
   # Enable Spellchecker support
   enable_builtin_spellchecker = true
@@ -20,11 +20,11 @@ declare_args() {
   # The version of Electron.
   # Packagers and vendor builders should set this in gn args to avoid running
   # the script that reads git tag.
-  override_electron_version = ""
+  override_neutron_version = ""
 
   # Define an extra item that will show in process.versions, the value must
   # be in the format of "key:value".
   # Packagers and vendor builders can set this in gn args to attach extra info
   # about the build in the binary.
-  electron_vendor_version = ""
+  neutron_vendor_version = ""
 }

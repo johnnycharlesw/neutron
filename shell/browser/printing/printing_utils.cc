@@ -14,7 +14,7 @@
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/web_contents.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "printing/backend/print_backend.h"  // nogncheck
 #include "printing/units.h"
 #include "shell/common/thread_restrictions.h"
@@ -39,7 +39,7 @@
 #include <windows.h>
 #endif
 
-namespace electron {
+namespace neutron {
 
 gfx::Size GetDefaultPrinterDPI(const std::u16string& device_name) {
 #if BUILDFLAG(IS_MAC)
@@ -133,7 +133,7 @@ std::pair<std::string, std::u16string> GetDeviceNameToUse(
 #if BUILDFLAG(IS_WIN)
   // Blocking is needed here because Windows printer drivers are oftentimes
   // not thread-safe and have to be accessed on the UI thread.
-  ScopedAllowBlockingForElectron allow_blocking;
+  ScopedAllowBlockingForNeutron allow_blocking;
 #endif
 
   if (!device_name.empty()) {
@@ -191,4 +191,4 @@ scoped_refptr<base::TaskRunner> CreatePrinterHandlerTaskRunner() {
 #endif
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -1,11 +1,11 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Charles Kerr <charles@charleskerr.com>
 Date: Tue, 22 Mar 2022 16:24:44 -0500
-Subject: build: make libcxx_abi_unstable false for electron
+Subject: build: make libcxx_abi_unstable false for neutron
 
 https://nornagon.medium.com/a-libc-odyssey-973e51649063
 
-See also https://github.com/electron/electron/issues/45810#issuecomment-2691417213.
+See also https://github.com/neutron/neutron/issues/45810#issuecomment-2691417213.
 
 diff --git a/buildtools/third_party/libc++/__config_site b/buildtools/third_party/libc++/__config_site
 index 3cd0af88fd13613216464d31d04e26dbb8f61343..6335536338e1eba8b56055eee31910ecba6a65c4 100644

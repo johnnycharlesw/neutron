@@ -1,4 +1,4 @@
-import { autoUpdater, systemPreferences } from 'electron';
+import { autoUpdater, systemPreferences } from 'neutron';
 
 import { expect } from 'chai';
 import * as express from 'express';
@@ -35,18 +35,18 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
   });
 
   const launchApp = (appPath: string, args: string[] = []) => {
-    return spawn(path.resolve(appPath, 'Contents/MacOS/Electron'), args);
+    return spawn(path.resolve(appPath, 'Contents/MacOS/Neutron'), args);
   };
 
   const spawnAppWithHandle = (appPath: string, args: string[] = []) => {
-    return cp.spawn(path.resolve(appPath, 'Contents/MacOS/Electron'), args);
+    return cp.spawn(path.resolve(appPath, 'Contents/MacOS/Neutron'), args);
   };
 
   const launchAppSandboxed = (appPath: string, profilePath: string, args: string[] = []) => {
     return spawn('/usr/bin/sandbox-exec', [
       '-f',
       profilePath,
-      path.resolve(appPath, 'Contents/MacOS/Electron'),
+      path.resolve(appPath, 'Contents/MacOS/Neutron'),
       ...args,
       '--no-sandbox'
     ]);
@@ -54,7 +54,7 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
 
   const getRunningShipIts = async (appPath: string) => {
     const processes = await psList();
-    const activeShipIts = processes.filter(p => p.cmd?.includes('Squirrel.framework/Resources/ShipIt com.github.Electron.ShipIt') && p.cmd!.startsWith(appPath));
+    const activeShipIts = processes.filter(p => p.cmd?.includes('Squirrel.framework/Resources/ShipIt io.github.johnnycharlesw.neutron.ShipIt') && p.cmd!.startsWith(appPath));
     return activeShipIts;
   };
 
@@ -173,7 +173,7 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(launchResult.code).to.equal(0);
           expect(requests).to.have.lengthOf(1);
           expect(requests[0]).to.have.property('url', '/update-check');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
         });
       });
     });
@@ -217,8 +217,8 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
       });
     });
@@ -276,14 +276,14 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
 
         await relaunchPromise;
         expect(requests).to.have.lengthOf(3);
         expect(requests[2].url).to.equal('/update-check/updated/2.0.0');
-        expect(requests[2].header('user-agent')).to.include('Electron/');
+        expect(requests[2].header('user-agent')).to.include('Neutron/');
       });
     });
 
@@ -324,18 +324,18 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
             expect(requests).to.have.lengthOf(4);
             expect(requests[0]).to.have.property('url', '/update-check');
             expect(requests[1]).to.have.property('url', '/update-file');
-            expect(requests[0].header('user-agent')).to.include('Electron/');
-            expect(requests[1].header('user-agent')).to.include('Electron/');
+            expect(requests[0].header('user-agent')).to.include('Neutron/');
+            expect(requests[1].header('user-agent')).to.include('Neutron/');
             expect(requests[2]).to.have.property('url', '/update-check');
             expect(requests[3]).to.have.property('url', '/update-file');
-            expect(requests[2].header('user-agent')).to.include('Electron/');
-            expect(requests[3].header('user-agent')).to.include('Electron/');
+            expect(requests[2].header('user-agent')).to.include('Neutron/');
+            expect(requests[3].header('user-agent')).to.include('Neutron/');
           });
 
           await relaunchPromise;
           expect(requests).to.have.lengthOf(5);
           expect(requests[4].url).to.equal('/update-check/updated/3.0.0');
-          expect(requests[4].header('user-agent')).to.include('Electron/');
+          expect(requests[4].header('user-agent')).to.include('Neutron/');
         });
       });
     });
@@ -370,14 +370,14 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
 
         await relaunchPromise;
         expect(requests).to.have.lengthOf(3);
         expect(requests[2].url).to.equal('/update-check/updated/0.0.1');
-        expect(requests[2].header('user-agent')).to.include('Electron/');
+        expect(requests[2].header('user-agent')).to.include('Neutron/');
       });
     });
 
@@ -416,8 +416,8 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
             expect(requests).to.have.lengthOf(2);
             expect(requests[0]).to.have.property('url', '/update-check');
             expect(requests[1]).to.have.property('url', '/update-file');
-            expect(requests[0].header('user-agent')).to.include('Electron/');
-            expect(requests[1].header('user-agent')).to.include('Electron/');
+            expect(requests[0].header('user-agent')).to.include('Neutron/');
+            expect(requests[1].header('user-agent')).to.include('Neutron/');
           });
         });
       });
@@ -456,8 +456,8 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
             expect(requests).to.have.lengthOf(2);
             expect(requests[0]).to.have.property('url', '/update-check');
             expect(requests[1]).to.have.property('url', '/update-file');
-            expect(requests[0].header('user-agent')).to.include('Electron/');
-            expect(requests[1].header('user-agent')).to.include('Electron/');
+            expect(requests[0].header('user-agent')).to.include('Neutron/');
+            expect(requests[1].header('user-agent')).to.include('Neutron/');
           });
         });
       });
@@ -492,14 +492,14 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
             expect(requests).to.have.lengthOf(2);
             expect(requests[0]).to.have.property('url', '/update-check');
             expect(requests[1]).to.have.property('url', '/update-file');
-            expect(requests[0].header('user-agent')).to.include('Electron/');
-            expect(requests[1].header('user-agent')).to.include('Electron/');
+            expect(requests[0].header('user-agent')).to.include('Neutron/');
+            expect(requests[1].header('user-agent')).to.include('Neutron/');
           });
 
           await relaunchPromise;
           expect(requests).to.have.lengthOf(3);
           expect(requests[2].url).to.equal('/update-check/updated/1.0.1');
-          expect(requests[2].header('user-agent')).to.include('Electron/');
+          expect(requests[2].header('user-agent')).to.include('Neutron/');
         });
       });
 
@@ -565,8 +565,8 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
 
         await shipItFlipFlopPromise;
@@ -621,14 +621,14 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
             expect(requests).to.have.lengthOf(2);
             expect(requests[0]).to.have.property('url', '/update-check');
             expect(requests[1]).to.have.property('url', '/update-file');
-            expect(requests[0].header('user-agent')).to.include('Electron/');
-            expect(requests[1].header('user-agent')).to.include('Electron/');
+            expect(requests[0].header('user-agent')).to.include('Neutron/');
+            expect(requests[1].header('user-agent')).to.include('Neutron/');
           });
 
           await relaunchPromise;
           expect(requests).to.have.lengthOf(3);
           expect(requests[2].url).to.equal('/update-check/updated/2.0.0');
-          expect(requests[2].header('user-agent')).to.include('Electron/');
+          expect(requests[2].header('user-agent')).to.include('Neutron/');
           const result = cp.spawnSync('xattr', ['-l', appPath]);
           expect(result.stdout.toString()).to.include(`spec-id: ${randomID}`);
         });
@@ -667,8 +667,8 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
       });
     });
@@ -706,13 +706,13 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
       });
     });
 
-    it('should hit the download endpoint when an update is available and fail when the Electron Framework is modified', async () => {
+    it('should hit the download endpoint when an update is available and fail when the Neutron Framework is modified', async () => {
       await withUpdatableApp({
         nextVersion: '2.0.0',
         startFixture: 'update',
@@ -720,7 +720,7 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
         mutateAppPostSign: {
           mutationKey: 'modify-eframework',
           mutate: async (appPath) => {
-            const shipItPath = path.resolve(appPath, 'Contents', 'Frameworks', 'Electron Framework.framework', 'Electron Framework');
+            const shipItPath = path.resolve(appPath, 'Contents', 'Frameworks', 'Neutron Framework.framework', 'Neutron Framework');
             await fs.promises.appendFile(shipItPath, Buffer.from('123'));
           }
         }
@@ -744,8 +744,8 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
       });
     });
@@ -779,8 +779,8 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
       });
     });
@@ -824,14 +824,14 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(requests).to.have.lengthOf(2);
           expect(requests[0]).to.have.property('url', '/update-check');
           expect(requests[1]).to.have.property('url', '/update-file');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
-          expect(requests[1].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
+          expect(requests[1].header('user-agent')).to.include('Neutron/');
         });
 
         await relaunchPromise;
         expect(requests).to.have.lengthOf(3);
         expect(requests[2]).to.have.property('url', '/update-check/updated/2.0.0');
-        expect(requests[2].header('user-agent')).to.include('Electron/');
+        expect(requests[2].header('user-agent')).to.include('Neutron/');
       });
     });
 
@@ -867,7 +867,7 @@ ifdescribe(shouldRunCodesignTests)('autoUpdater behavior', function () {
           expect(launchResult.out).to.include('No update available');
           expect(requests).to.have.lengthOf(1);
           expect(requests[0]).to.have.property('url', '/update-check');
-          expect(requests[0].header('user-agent')).to.include('Electron/');
+          expect(requests[0].header('user-agent')).to.include('Neutron/');
         });
       });
     });

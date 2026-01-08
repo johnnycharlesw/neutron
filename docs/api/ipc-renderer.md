@@ -10,7 +10,7 @@ hide_title: false
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/40330
+  - pr-url: https://github.com/neutron/neutron/pull/40330
     description: "`ipcRenderer` can no longer be sent over the `contextBridge`"
     breaking-changes-header: behavior-changed-ipcrenderer-can-no-longer-be-sent-over-the-contextbridge
 ```
@@ -53,7 +53,7 @@ callback that you receive from the renderer in another function like this:
 `ipcRenderer.on('my-channel', (event, ...args) => callback(...args))`.
 Not wrapping the callback in such a function would expose dangerous Electron APIs
 to the renderer process. See the
-[security guide](../tutorial/security.md#20-do-not-expose-electron-apis-to-untrusted-web-content)
+[security guide](../tutorial/security.md#20-do-not-expose-neutron-apis-to-untrusted-web-content)
 for more info.
 :::
 

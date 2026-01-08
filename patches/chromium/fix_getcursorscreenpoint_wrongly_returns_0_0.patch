@@ -4,7 +4,7 @@ Date: Thu, 8 Feb 2024 00:41:40 -0600
 Subject: fix: GetCursorScreenPoint() wrongly returns 0, 0
 
 Fixes #41143. Discussion of the issue at
-https://github.com/electron/electron/issues/41143#issuecomment-1933443163
+https://github.com/neutron/neutron/issues/41143#issuecomment-1933443163
 
 This patch should be backported to e29, upstreamed to Chromium, and then
 removed if it lands upstream.

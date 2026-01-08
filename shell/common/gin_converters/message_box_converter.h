@@ -11,10 +11,10 @@
 namespace gin {
 
 template <>
-struct Converter<electron::MessageBoxSettings> {
+struct Converter<neutron::MessageBoxSettings> {
   static bool FromV8(v8::Isolate* isolate,
                      v8::Local<v8::Value> val,
-                     electron::MessageBoxSettings* out);
+                     neutron::MessageBoxSettings* out);
 };
 
 }  // namespace gin

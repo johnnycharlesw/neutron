@@ -3,7 +3,7 @@
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/40330
+  - pr-url: https://github.com/neutron/neutron/pull/40330
     description: "`ipcRenderer` can no longer be sent over the `contextBridge`"
     breaking-changes-header: behavior-changed-ipcrenderer-can-no-longer-be-sent-over-the-contextbridge
 ```
@@ -17,10 +17,10 @@ An example of exposing an API to a renderer from an isolated preload script is g
 
 ```js
 // Preload (Isolated World)
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
 contextBridge.exposeInMainWorld(
-  'electron',
+  'neutron',
   {
     doThing: () => ipcRenderer.send('do-a-thing')
   }
@@ -30,7 +30,7 @@ contextBridge.exposeInMainWorld(
 ```js @ts-nocheck
 // Renderer (Main World)
 
-window.electron.doThing()
+window.neutron.doThing()
 ```
 
 ## Glossary
@@ -88,10 +88,10 @@ the API become immutable and updates on either side of the bridge do not result 
 An example of a complex API is shown below:
 
 ```js
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
 contextBridge.exposeInMainWorld(
-  'electron',
+  'neutron',
   {
     doThing: () => ipcRenderer.send('do-a-thing'),
     myPromises: [Promise.resolve(), Promise.reject(new Error('whoops'))],
@@ -116,11 +116,11 @@ contextBridge.exposeInMainWorld(
 An example of `exposeInIsolatedWorld` is shown below:
 
 ```js
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
 contextBridge.exposeInIsolatedWorld(
   1004,
-  'electron',
+  'neutron',
   {
     doThing: () => ipcRenderer.send('do-a-thing')
   }
@@ -130,7 +130,7 @@ contextBridge.exposeInIsolatedWorld(
 ```js @ts-nocheck
 // Renderer (In isolated world id1004)
 
-window.electron.doThing()
+window.neutron.doThing()
 ```
 
 ### API Functions
@@ -151,7 +151,7 @@ has been included below for completeness:
 | `boolean` | Simple | ✅ | ✅ | N/A |
 | `Object` | Complex | ✅ | ✅ | Keys must be supported using only "Simple" types in this table.  Values must be supported in this table.  Prototype modifications are dropped.  Sending custom classes will copy values but not the prototype. |
 | `Array` | Complex | ✅ | ✅ | Same limitations as the `Object` type |
-| `Error` | Complex | ✅ | ✅ | Errors that are thrown are also copied, this can result in the message and stack trace of the error changing slightly due to being thrown in a different context, and any custom properties on the Error object [will be lost](https://github.com/electron/electron/issues/25596) |
+| `Error` | Complex | ✅ | ✅ | Errors that are thrown are also copied, this can result in the message and stack trace of the error changing slightly due to being thrown in a different context, and any custom properties on the Error object [will be lost](https://github.com/neutron/neutron/issues/25596) |
 | `Promise` | Complex | ✅ | ✅ | N/A |
 | `Function` | Complex | ✅ | ✅ | Prototype modifications are dropped.  Sending classes or constructors will not work. |
 | [Cloneable Types](https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Structured_clone_algorithm) | Simple | ✅ | ✅ | See the linked document on cloneable types |
@@ -171,14 +171,14 @@ like below:
 
 ```js
 // Preload (Isolated World)
-contextBridge.exposeInMainWorld('electron', {
+contextBridge.exposeInMainWorld('neutron', {
   onMyEventName: (callback) => ipcRenderer.on('MyEventName', (e, ...args) => callback(args))
 })
 ```
 
 ```js @ts-nocheck
 // Renderer (Main World)
-window.electron.onMyEventName(data => { /* ... */ })
+window.neutron.onMyEventName(data => { /* ... */ })
 ```
 
 ### Exposing Node Global Symbols
@@ -189,7 +189,7 @@ Please note that many Node APIs grant access to local system resources.
 Be very cautious about which globals and APIs you expose to untrusted remote content.
 
 ```js
-const { contextBridge } = require('electron')
+const { contextBridge } = require('neutron')
 
 const crypto = require('node:crypto')
 

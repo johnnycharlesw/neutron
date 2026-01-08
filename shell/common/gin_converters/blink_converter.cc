@@ -290,7 +290,7 @@ bool Converter<blink::WebKeyboardEvent>::FromV8(v8::Isolate* isolate,
     return false;
 
   std::optional<char16_t> shifted_char;
-  ui::KeyboardCode keyCode = electron::KeyboardCodeFromStr(str, &shifted_char);
+  ui::KeyboardCode keyCode = neutron::KeyboardCodeFromStr(str, &shifted_char);
   out->windows_key_code = keyCode;
   if (shifted_char)
     out->SetModifiers(out->GetModifiers() |
@@ -738,13 +738,13 @@ bool Converter<blink::mojom::Referrer>::FromV8(v8::Isolate* isolate,
 v8::Local<v8::Value> Converter<blink::CloneableMessage>::ToV8(
     v8::Isolate* isolate,
     const blink::CloneableMessage& in) {
-  return electron::DeserializeV8Value(isolate, in);
+  return neutron::DeserializeV8Value(isolate, in);
 }
 
 bool Converter<blink::CloneableMessage>::FromV8(v8::Isolate* isolate,
                                                 v8::Local<v8::Value> val,
                                                 blink::CloneableMessage* out) {
-  return electron::SerializeV8Value(isolate, val, out);
+  return neutron::SerializeV8Value(isolate, val, out);
 }
 
 // static

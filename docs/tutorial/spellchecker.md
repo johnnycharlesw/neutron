@@ -36,7 +36,7 @@ All the required information to generate a context menu is provided in the [`con
 of how to make a context menu with this information is provided below.
 
 ```js @ts-type={myWindow:Electron.BrowserWindow}
-const { Menu, MenuItem } = require('electron')
+const { Menu, MenuItem } = require('neutron')
 
 myWindow.webContents.on('context-menu', (event, params) => {
   const menu = new Menu()

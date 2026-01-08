@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain, dialog } = require('electron/main')
+const { app, BrowserWindow, ipcMain, dialog } = require('neutron/main')
 const path = require('node:path')
 
 async function handleFileOpen () {

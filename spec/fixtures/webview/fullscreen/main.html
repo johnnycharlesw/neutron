@@ -2,7 +2,7 @@
   <webview id="webview" nodeintegration="on" webpreferences="contextIsolation=no" src="frame.html"/>
   <script type="text/javascript" charset="utf-8">
     document.addEventListener('fullscreenchange', () => {
-      require('electron').ipcRenderer.send('fullscreenchange')
+      require('neutron').ipcRenderer.send('fullscreenchange')
     })
 
     function isIframeFullscreen() {

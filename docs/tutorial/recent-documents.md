@@ -25,7 +25,7 @@ the application via JumpList or dock menu, respectively.
 ### Managing recent documents
 
 ```fiddle docs/fiddles/features/recent-documents
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('neutron/main')
 const fs = require('node:fs')
 const path = require('node:path')
 
@@ -122,7 +122,7 @@ Make sure the application menu is added after the [`'ready'`](../api/app.md#even
 event and not before, or the menu item will be disabled:
 
 ```js
-const { app, Menu } = require('electron')
+const { app, Menu } = require('neutron')
 
 const template = [
   // Menu template here

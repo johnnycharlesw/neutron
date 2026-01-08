@@ -9,7 +9,7 @@ const octokit = new Octokit({
   authStrategy: createGitHubTokenStrategy(ELECTRON_REPO)
 });
 
-const GH_ACTIONS_PIPELINE_URL = 'https://github.com/electron/electron/actions';
+const GH_ACTIONS_PIPELINE_URL = 'https://github.com/neutron/neutron/actions';
 const GH_ACTIONS_WAIT_TIME = process.env.GH_ACTIONS_WAIT_TIME ? parseInt(process.env.GH_ACTIONS_WAIT_TIME, 10) : 30000;
 
 const ghActionsPublishWorkflows = [

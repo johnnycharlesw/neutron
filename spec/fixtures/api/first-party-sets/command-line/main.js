@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 app.whenReady().then(function () {
   const hasSwitch = app.commandLine.hasSwitch('use-first-party-set');

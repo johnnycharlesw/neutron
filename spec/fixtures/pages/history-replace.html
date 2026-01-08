@@ -3,7 +3,7 @@
 <script type="text/javascript" charset="utf-8">
 window.addEventListener("load", function() {
   window.history.replaceState(window.history.state, "test page", window.location.href)
-  require('electron').ipcRenderer.sendToHost('history', window.history.length);
+  require('neutron').ipcRenderer.sendToHost('history', window.history.length);
 })
 </script>
 </body>

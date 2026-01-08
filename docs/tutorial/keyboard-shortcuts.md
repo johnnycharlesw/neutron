@@ -97,7 +97,7 @@ a [MenuItem](../api/menu-item.md). Then, the `click` event associated to that me
 upon using that accelerator.
 
 ```js title='Opening a dialog via accelerator (local)'
-const { dialog, Menu, MenuItem } = require('electron/main')
+const { dialog, Menu, MenuItem } = require('neutron/main')
 
 const menu = new Menu()
 
@@ -137,7 +137,7 @@ shortcut, you can use the [`globalShortcut.register`](../api/global-shortcut.md#
 function to specify shortcuts.
 
 ```js title='Opening a dialog via accelerator (global)'
-const { dialog, globalShortcut } = require('electron/main')
+const { dialog, globalShortcut } = require('neutron/main')
 
 globalShortcut.register('CommandOrControl+Alt+R', () => {
   dialog.showMessageBox({ message: 'Hello World!' })
@@ -148,14 +148,14 @@ To later unregister a shortcut, you can use the [`globalShortcut.unregisterAccel
 function.
 
 ```js title='Opening a dialog via accelerator (global)'
-const { globalShortcut } = require('electron/main')
+const { globalShortcut } = require('neutron/main')
 
 globalShortcut.unregister('CommandOrControl+Alt+R')
 ```
 
 > [!WARNING]
 > On macOS, there's a long-standing bug with `globalShortcut` that prevents it from working with
-> keyboard layouts other than QWERTY ([electron/electron#19747](https://github.com/electron/electron/issues/19747)).
+> keyboard layouts other than QWERTY ([neutron/neutron#19747](https://github.com/neutron/neutron/issues/19747)).
 
 ## Shortcuts within a window
 
@@ -188,7 +188,7 @@ is emitted before dispatching `keydown` and `keyup` events in the renderer proce
 be used to catch and handle custom shortcuts that are not visible in the menu.
 
 ```js title='Intercepting the Ctrl+I event from the main process'
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('neutron/main')
 
 app.whenReady().then(() => {
   const win = new BrowserWindow()

@@ -68,12 +68,12 @@ Add a new `preload.js` script that exposes selected properties of Electron's `pr
 object to the renderer process in a `versions` global variable.
 
 ```js title="preload.js"
-const { contextBridge } = require('electron')
+const { contextBridge } = require('neutron')
 
 contextBridge.exposeInMainWorld('versions', {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron
+  neutron: () => process.versions.neutron
   // we can also expose variables, not just functions
 })
 ```
@@ -82,7 +82,7 @@ To attach this script to your renderer process, pass its path to the
 `webPreferences.preload` option in the BrowserWindow constructor:
 
 ```js {2,8-10} title="main.js"
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 const path = require('node:path')
 
@@ -121,7 +121,7 @@ DOM API to replace the displayed text for the HTML element with `info` as its `i
 
 ```js title="renderer.js" @ts-nocheck
 const information = document.getElementById('info')
-information.innerText = `This app is using Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), and Electron (v${versions.electron()})`
+information.innerText = `This app is using Chrome (v${versions.chrome()}), Node.js (v${versions.node()}), and Electron (v${versions.neutron()})`
 ```
 
 Then, modify your `index.html` by adding a new element with `info` as its `id` property,
@@ -178,12 +178,12 @@ that will return a string from the main process.
 First, set up the `invoke` call in your preload script:
 
 ```js {1,7} title="preload.js"
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
 contextBridge.exposeInMainWorld('versions', {
   node: () => process.versions.node,
   chrome: () => process.versions.chrome,
-  electron: () => process.versions.electron,
+  neutron: () => process.versions.neutron,
   ping: () => ipcRenderer.invoke('ping')
   // we can also expose variables, not just functions
 })
@@ -204,7 +204,7 @@ loading the HTML file so that the handler is guaranteed to be ready before
 you send out the `invoke` call from the renderer.
 
 ```js {1,15} title="main.js"
-const { app, BrowserWindow, ipcMain } = require('electron/main')
+const { app, BrowserWindow, ipcMain } = require('neutron/main')
 
 const path = require('node:path')
 

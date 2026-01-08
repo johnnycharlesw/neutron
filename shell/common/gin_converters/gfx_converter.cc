@@ -231,7 +231,7 @@ bool Converter<WrappedSkColor>::FromV8(v8::Isolate* isolate,
   std::string str;
   if (!gin::ConvertFromV8(isolate, val, &str))
     return false;
-  *out = electron::ParseCSSColor(str).value_or(SK_ColorWHITE);
+  *out = neutron::ParseCSSColor(str).value_or(SK_ColorWHITE);
   return true;
 }
 

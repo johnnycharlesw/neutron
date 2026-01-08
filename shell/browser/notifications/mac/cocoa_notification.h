@@ -12,7 +12,7 @@
 
 #include "shell/browser/notifications/notification.h"
 
-namespace electron {
+namespace neutron {
 
 // NSUserNotification is deprecated; all calls should be replaced with
 // UserNotifications.frameworks API
@@ -48,6 +48,6 @@ class CocoaNotification : public Notification {
 // -Wdeprecated-declarations
 #pragma clang diagnostic pop
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_MAC_COCOA_NOTIFICATION_H_

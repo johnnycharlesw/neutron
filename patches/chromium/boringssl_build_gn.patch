@@ -13,7 +13,7 @@ index 31174ca1c75252b226af14548324d50744ac8c35..8469a37a4e50c76751160ab6ef484662
                crypto_sources + ssl_internal_headers + ssl_sources + pki_sources
  all_headers = crypto_headers + ssl_headers + pki_headers + pki_internal_headers
  
-+if (is_electron_build) {
++if (is_neutron_build) {
 +  # Needed to build a nodejs-compatible boringssl.
 +  all_sources += [
 +    "decrepit/evp/evp_do_all.cc",

@@ -1,4 +1,4 @@
-import { app, BaseWindow, BrowserWindow, session, webContents, WebContents, MenuItemConstructorOptions } from 'electron/main';
+import { app, BaseWindow, BrowserWindow, session, webContents, WebContents, MenuItemConstructorOptions } from 'neutron/main';
 
 const isMac = process.platform === 'darwin';
 const isWindows = process.platform === 'win32';

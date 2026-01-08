@@ -1,4 +1,4 @@
-import { getIPCRenderer } from '@electron/internal/renderer/ipc-renderer-bindings';
+import { getIPCRenderer } from '@neutron/internal/renderer/ipc-renderer-bindings';
 
 import { EventEmitter } from 'events';
 

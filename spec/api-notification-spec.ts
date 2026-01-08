@@ -1,4 +1,4 @@
-import { Notification } from 'electron/main';
+import { Notification } from 'neutron/main';
 
 import { expect } from 'chai';
 

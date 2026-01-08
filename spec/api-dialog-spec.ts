@@ -1,4 +1,4 @@
-import { dialog, BaseWindow, BrowserWindow } from 'electron/main';
+import { dialog, BaseWindow, BrowserWindow } from 'neutron/main';
 
 import { expect } from 'chai';
 

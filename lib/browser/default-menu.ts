@@ -1,5 +1,5 @@
-import { shell } from 'electron/common';
-import { app, Menu } from 'electron/main';
+import { shell } from 'neutron/common';
+import { app, Menu } from 'neutron/main';
 
 const isMac = process.platform === 'darwin';
 
@@ -12,7 +12,7 @@ export const setApplicationMenuWasSet = () => {
 export const setDefaultApplicationMenu = () => {
   if (applicationMenuWasSet) return;
 
-  const helpMenu: Electron.MenuItemConstructorOptions = {
+  const helpMenu: Neutron.MenuItemConstructorOptions = {
     role: 'help',
     submenu: app.isPackaged
       ? []
@@ -20,33 +20,33 @@ export const setDefaultApplicationMenu = () => {
           {
             label: 'Learn More',
             click: async () => {
-              await shell.openExternal('https://electronjs.org');
+              await shell.openExternal('https://neutronjs.org');
             }
           },
           {
             label: 'Documentation',
             click: async () => {
-              const version = process.versions.electron;
-              await shell.openExternal(`https://github.com/electron/electron/tree/v${version}/docs#readme`);
+              const version = process.versions.neutron;
+              await shell.openExternal(`https://github.com/neutron/neutron/tree/v${version}/docs#readme`);
             }
           },
           {
             label: 'Community Discussions',
             click: async () => {
-              await shell.openExternal('https://discord.gg/electronjs');
+              await shell.openExternal('https://discord.gg/neutronjs');
             }
           },
           {
             label: 'Search Issues',
             click: async () => {
-              await shell.openExternal('https://github.com/electron/electron/issues');
+              await shell.openExternal('https://github.com/neutron/neutron/issues');
             }
           }
         ]
   };
 
-  const macAppMenu: Electron.MenuItemConstructorOptions = { role: 'appMenu' };
-  const template: Electron.MenuItemConstructorOptions[] = [
+  const macAppMenu: Neutron.MenuItemConstructorOptions = { role: 'appMenu' };
+  const template: Neutron.MenuItemConstructorOptions[] = [
     ...(isMac ? [macAppMenu] : []),
     { role: 'fileMenu' },
     { role: 'editMenu' },

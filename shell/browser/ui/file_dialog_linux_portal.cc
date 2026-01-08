@@ -42,7 +42,7 @@ bool g_portal_available = false;
 
 // Refs
 // https://source.chromium.org/chromium/chromium/src/+/main:components/dbus/thread_linux/dbus_thread_linux.cc;l=16-24;drc=1c281d7923af032d78ea7247e99b717dfebeb0b2
-base::LazyThreadPoolSingleThreadTaskRunner g_electron_dbus_thread_task_runner =
+base::LazyThreadPoolSingleThreadTaskRunner g_neutron_dbus_thread_task_runner =
     LAZY_THREAD_POOL_SINGLE_THREAD_TASK_RUNNER_INITIALIZER(
         base::TaskTraits(base::MayBlock(), base::TaskPriority::USER_BLOCKING),
         base::SingleThreadTaskRunnerThreadMode::SHARED);
@@ -71,7 +71,7 @@ void CheckPortalAvailabilityOnBusThread() {
   dbus::Bus::Options options;
   options.bus_type = dbus::Bus::SESSION;
   options.connection_type = dbus::Bus::PRIVATE;
-  options.dbus_task_runner = g_electron_dbus_thread_task_runner.Get();
+  options.dbus_task_runner = g_neutron_dbus_thread_task_runner.Get();
   scoped_refptr<dbus::Bus> bus =
       base::MakeRefCounted<dbus::Bus>(std::move(options));
   dbus_utils::CheckForServiceAndStart(
@@ -115,7 +115,7 @@ void StartPortalAvailabilityTestInBackground() {
     VLOG(1) << "Unable to parse --xdg-portal-required-version";
   }
 
-  g_electron_dbus_thread_task_runner.Get()->PostTask(
+  g_neutron_dbus_thread_task_runner.Get()->PostTask(
       FROM_HERE, base::BindOnce(&CheckPortalAvailabilityOnBusThread));
 }
 

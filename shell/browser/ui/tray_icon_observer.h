@@ -15,7 +15,7 @@ class Rect;
 class Point;
 }  // namespace gfx
 
-namespace electron {
+namespace neutron {
 
 class TrayIconObserver : public base::CheckedObserver {
  public:
@@ -44,6 +44,6 @@ class TrayIconObserver : public base::CheckedObserver {
   ~TrayIconObserver() override = default;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_TRAY_ICON_OBSERVER_H_

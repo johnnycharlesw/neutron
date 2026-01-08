@@ -9,7 +9,7 @@
 
 #include "base/strings/cstring_view.h"
 
-namespace electron {
+namespace neutron {
 
 namespace options {
 
@@ -144,7 +144,7 @@ inline constexpr std::string_view kPreloadScript = "preload";
 // Enable the node integration.
 inline constexpr std::string_view kNodeIntegration = "nodeIntegration";
 
-// Enable context isolation of Electron APIs and preload script
+// Enable context isolation of Neutron APIs and preload script
 inline constexpr std::string_view kContextIsolation = "contextIsolation";
 
 // Web runtime features.
@@ -317,6 +317,6 @@ inline constexpr base::cstring_view kNoStdioInit = "no-stdio-init";
 
 }  // namespace switches
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_OPTIONS_SWITCHES_H_

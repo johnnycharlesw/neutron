@@ -6,7 +6,7 @@
 
 #include <sys/epoll.h>
 
-namespace electron {
+namespace neutron {
 
 NodeBindingsLinux::NodeBindingsLinux(BrowserEnvironment browser_env)
     : NodeBindings(browser_env), epoll_(epoll_create(1)) {
@@ -37,4 +37,4 @@ std::unique_ptr<NodeBindings> NodeBindings::Create(BrowserEnvironment env) {
   return std::make_unique<NodeBindingsLinux>(env);
 }
 
-}  // namespace electron
+}  // namespace neutron

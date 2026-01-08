@@ -3,7 +3,7 @@ From: Cheng Zhao <zcbenz@gmail.com>
 Date: Thu, 20 Sep 2018 17:45:03 -0700
 Subject: blink_local_frame.patch
 
-According to electron/electron#3699, it is unreliable to use |unload|
+According to neutron/neutron#3699, it is unreliable to use |unload|
 event for process.exit('exit'), so we have to do that in
 willReleaseScriptContext.
 

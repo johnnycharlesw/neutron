@@ -15,7 +15,7 @@ template("node_action") {
       inputs = []
     }
     inputs += [ invoker.script ]
-    script = "//electron/build/run-node.py"
+    script = "//neutron/build/run-node.py"
     args = [ rebase_path(invoker.script) ] + invoker.args
   }
 }
@@ -35,7 +35,7 @@ template("asar") {
                              "args",
                            ])
 
-    script = "//electron/script/gn-asar.js"
+    script = "//neutron/script/gn-asar.js"
     args = [
              "--base",
              rebase_path(root),
@@ -53,7 +53,7 @@ template("asar") {
     deps = [ ":" + invoker.target_name ]
     sources = invoker.outputs
 
-    script = "//electron/script/gn-asar-hash.js"
+    script = "//neutron/script/gn-asar-hash.js"
     outputs = [ "$target_gen_dir/asar_hashes/$target_name.hash" ]
 
     args = [
@@ -72,7 +72,7 @@ template("asar_hashed_info_plist") {
 
     deps = invoker.hash_targets
 
-    script = "//electron/script/gn-plist-but-with-hashes.js"
+    script = "//neutron/script/gn-plist-but-with-hashes.js"
     inputs = [ invoker.plist_file ]
     outputs = [ "$target_gen_dir/hashed_plists/$target_name.plist" ]
     hash_files = []

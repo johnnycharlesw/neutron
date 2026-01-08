@@ -1,4 +1,4 @@
-import { net, session, BrowserWindow, ClientRequestConstructorOptions } from 'electron/main';
+import { net, session, BrowserWindow, ClientRequestConstructorOptions } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -346,15 +346,15 @@ describe('net module (session)', () => {
 
       await Promise.all([
         sess.cookies.set({
-          url: 'https://electronjs.org',
-          domain: 'electronjs.org',
+          url: 'https://neutronjs.org',
+          domain: 'neutronjs.org',
           name: 'cookie1',
           value: '1',
           secure: true
         }),
         sess.cookies.set({
-          url: 'https://electronjs.org',
-          domain: 'electronjs.org',
+          url: 'https://neutronjs.org',
+          domain: 'neutronjs.org',
           name: 'cookie2',
           value: '2',
           secure: false
@@ -378,7 +378,7 @@ describe('net module (session)', () => {
       const sess = session.fromPartition(`cookie-tests-${Math.random()}`);
 
       await expect(sess.cookies.set({
-        url: 'https://electronjs.org',
+        url: 'https://neutronjs.org',
         domain: 'wssss.iamabaddomain.fun',
         name: 'cookie1'
       })).to.eventually.be.rejectedWith(/Failed to set cookie - The cookie was set with an invalid Domain attribute./);
@@ -389,14 +389,14 @@ describe('net module (session)', () => {
 
       await Promise.all([
         sess.cookies.set({
-          url: 'https://electronjs.org',
-          domain: 'electronjs.org',
+          url: 'https://neutronjs.org',
+          domain: 'neutronjs.org',
           name: 'cookie1',
           value: '1'
         }),
         sess.cookies.set({
-          url: 'https://electronjs.org',
-          domain: 'electronjs.org',
+          url: 'https://neutronjs.org',
+          domain: 'neutronjs.org',
           name: 'cookie2',
           value: '2',
           expirationDate: Math.round(Date.now() / 1000) + 10000
@@ -421,15 +421,15 @@ describe('net module (session)', () => {
 
       await Promise.all([
         sess.cookies.set({
-          url: 'https://electronjs.org',
-          domain: 'electronjs.org',
+          url: 'https://neutronjs.org',
+          domain: 'neutronjs.org',
           name: 'cookie1',
           value: '1',
           httpOnly: true
         }),
         sess.cookies.set({
-          url: 'https://electronjs.org',
-          domain: 'electronjs.org',
+          url: 'https://neutronjs.org',
+          domain: 'neutronjs.org',
           name: 'cookie2',
           value: '2',
           httpOnly: false
@@ -590,7 +590,7 @@ describe('net module (session)', () => {
       });
 
       it('triggers webRequest handlers when bypassCustomProtocolHandlers', async () => {
-        let webRequestDetails: Electron.OnBeforeRequestListenerDetails | null = null;
+        let webRequestDetails: Neutron.OnBeforeRequestListenerDetails | null = null;
         const serverUrl = await respondOnce.toSingleURL((req, res) => res.end('hi'));
         session.defaultSession.webRequest.onBeforeRequest((details, cb) => {
           webRequestDetails = details;

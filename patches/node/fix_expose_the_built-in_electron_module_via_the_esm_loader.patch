@@ -1,9 +1,9 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Samuel Attard <sattard@salesforce.com>
 Date: Thu, 6 Oct 2022 04:09:16 -0700
-Subject: fix: expose the built-in electron module via the ESM loader
+Subject: fix: expose the built-in neutron module via the ESM loader
 
-This allows usage of `import { app } from 'electron'` and `import('electron')` natively in the browser + non-sandboxed renderer
+This allows usage of `import { app } from 'neutron'` and `import('neutron')` natively in the browser + non-sandboxed renderer
 
 diff --git a/lib/internal/modules/esm/get_format.js b/lib/internal/modules/esm/get_format.js
 index 01584983c16a2ab6eec2fbb01208504f2771148b..6afbbca6c95103f3ecad29485581c94735bac0d3 100644
@@ -13,7 +13,7 @@ index 01584983c16a2ab6eec2fbb01208504f2771148b..6afbbca6c95103f3ecad29485581c947
    'data:': getDataProtocolModuleFormat,
    'file:': getFileProtocolModuleFormat,
    'node:'() { return 'builtin'; },
-+  'electron:'() { return 'electron'; },
++  'neutron:'() { return 'neutron'; },
  };
  
  /**
@@ -26,7 +26,7 @@ index c284163fba86ec820af1996571fbd3d092d41d34..5f1921d15bc1d3a68c35990f85e36a0e
    throwIfUnsupportedURLScheme(urlInstance);
  
 -  if (urlInstance.protocol === 'node:') {
-+  if (urlInstance.protocol === 'node:' || format === 'electron') {
++  if (urlInstance.protocol === 'node:' || format === 'neutron') {
      source = null;
      format ??= 'builtin';
    } else if (format === 'addon') {
@@ -35,7 +35,7 @@ index c284163fba86ec820af1996571fbd3d092d41d34..5f1921d15bc1d3a68c35990f85e36a0e
        format = defaultGetFormat(urlInstance, context);
  
 -      if (format === 'commonjs') {
-+      if (format === 'electron' || format === 'commonjs') {
++      if (format === 'neutron' || format === 'commonjs') {
          // For backward compatibility reasons, we need to discard the source in
          // order for the CJS loader to re-fetch it.
          source = null;
@@ -44,7 +44,7 @@ index c284163fba86ec820af1996571fbd3d092d41d34..5f1921d15bc1d3a68c35990f85e36a0e
  
    let shouldBeReloadedByCJSLoader = false;
 -  if (urlInstance.protocol === 'node:') {
-+  if (urlInstance.protocol === 'node:' || format === 'electron') {
++  if (urlInstance.protocol === 'node:' || format === 'neutron') {
      source = null;
      format ??= 'builtin';
    } else if (format === 'addon') {
@@ -52,14 +52,14 @@ index c284163fba86ec820af1996571fbd3d092d41d34..5f1921d15bc1d3a68c35990f85e36a0e
      protocol !== 'file:' &&
      protocol !== 'data:' &&
      protocol !== 'node:' &&
-+    protocol !== 'electron:' &&
++    protocol !== 'neutron:' &&
      (
        protocol !== 'https:' &&
        protocol !== 'http:'
      )
    ) {
 -    const schemes = ['file', 'data', 'node'];
-+    const schemes = ['file', 'data', 'node', 'electron'];
++    const schemes = ['file', 'data', 'node', 'neutron'];
      throw new ERR_UNSUPPORTED_ESM_URL_SCHEME(parsed, schemes);
    }
  }
@@ -72,7 +72,7 @@ index d536d8215c93abd4b9e1faa125257fe120242e92..20bc3b3b15a01251964e741e16500d5d
  
      const cjsModule = wrap[imported_cjs_symbol];
 -    if (cjsModule) {
-+    if (cjsModule && translatorKey !== 'electron') {
++    if (cjsModule && translatorKey !== 'neutron') {
        assert(translatorKey === 'commonjs-sync');
        // Check if the ESM initiating import CJS is being required by the same CJS module.
        if (cjsModule?.[kIsExecuting]) {
@@ -84,8 +84,8 @@ index c27ee4c6612c6a7ea0b6355f03563e8724fd0e40..5f03cf14e948d449d303b22ab6710b55
    throw importNotDefined(name, packageJSONUrl, base);
  }
  
-+const electronTypes = [
-+  'electron', 'electron/main', 'electron/common', 'electron/renderer', 'electron/utility'
++const neutronTypes = [
++  'neutron', 'neutron/main', 'neutron/common', 'neutron/renderer', 'neutron/utility'
 +];
  
  /**
@@ -94,9 +94,9 @@ index c27ee4c6612c6a7ea0b6355f03563e8724fd0e40..5f03cf14e948d449d303b22ab6710b55
      return new URL('node:' + specifier);
    }
  
-+  const electronSpecifiers = new SafeSet(electronTypes);
-+  if (electronSpecifiers.has(specifier)) {
-+    return new URL('electron:electron');
++  const neutronSpecifiers = new SafeSet(neutronTypes);
++  if (neutronSpecifiers.has(specifier)) {
++    return new URL('neutron:neutron');
 +  }
 +
    const { packageJSONUrl, packageJSONPath, packageSubpath } = packageJsonReader.getPackageJSONURL(specifier, base);
@@ -111,7 +111,7 @@ index 446349113e13bce042734010fd98af053c8cf31e..52b8b5d9255f782af96aa859dec4ffa6
    cjsCache.set(url, module);
  
 -  const wrapperNames = [...exportNames];
-+  const wrapperNames = filename === 'electron' ?
++  const wrapperNames = filename === 'neutron' ?
 +    ['default', ...Object.keys(module.exports)] :
 +    [...exportNames];
    if (!exportNames.has('default')) {
@@ -121,8 +121,8 @@ index 446349113e13bce042734010fd98af053c8cf31e..52b8b5d9255f782af96aa859dec4ffa6
    return createCJSModuleWrap(url, translateContext, parentURL);
  });
  
-+translators.set('electron', () => {
-+  return createCJSModuleWrap('electron', { source: '' });
++translators.set('neutron', () => {
++  return createCJSModuleWrap('neutron', { source: '' });
 +});
 +
  // Handle CommonJS modules referenced by `require` calls.
@@ -136,8 +136,8 @@ index a1473fdac8aba3be541df3b6688a05c0dfbe403f..0a87d997856ea227f8f21393909ffc46
      path = new URL(path);
    else if (!isURL(path))
      throw new ERR_INVALID_ARG_TYPE('path', ['string', 'URL'], path);
-+  if (path.protocol === 'electron:')
-+    return 'electron';
++  if (path.protocol === 'neutron:')
++    return 'neutron';
    if (path.protocol !== 'file:')
      throw new ERR_INVALID_URL_SCHEME('file');
    return (windows ?? isWindows) ? getPathFromURLWin32(path) : getPathFromURLPosix(path);

@@ -26,7 +26,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          AUTHOR_ASSOCIATION=$(gh api /repos/electron/electron/pulls/${{ github.event.pull_request.number }} --jq '.author_association')
+          AUTHOR_ASSOCIATION=$(gh api /repos/neutron/neutron/pulls/${{ github.event.pull_request.number }} --jq '.author_association')
           echo "author_association=$AUTHOR_ASSOCIATION" >> "$GITHUB_OUTPUT"
       - name: Check for existing review
         id: check-for-review
@@ -46,4 +46,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PR_URL: ${{ github.event.pull_request.html_url }}
         run: |
-          printf "<!-- disallowed-non-maintainer-change -->\n\nHello @${{ github.event.pull_request.user.login }}! It looks like this pull request touches one of our dependency or CI files, and per [our contribution policy](https://github.com/electron/electron/blob/main/CONTRIBUTING.md#dependencies-upgrades-policy) we do not accept these types of changes in PRs." | gh pr review $PR_URL -r --body-file=-
+          printf "<!-- disallowed-non-maintainer-change -->\n\nHello @${{ github.event.pull_request.user.login }}! It looks like this pull request touches one of our dependency or CI files, and per [our contribution policy](https://github.com/neutron/neutron/blob/main/CONTRIBUTING.md#dependencies-upgrades-policy) we do not accept these types of changes in PRs." | gh pr review $PR_URL -r --body-file=-

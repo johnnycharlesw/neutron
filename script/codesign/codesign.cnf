@@ -11,7 +11,7 @@ ST = BC
 L = Vancouver
 O = ElectronJS
 OU = BuildAutomation
-CN = codesign.electronjs.org
+CN = codesign.neutronjs.org
 
 [extended]
 keyUsage         = critical,digitalSignature

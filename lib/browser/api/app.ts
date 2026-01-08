@@ -1,10 +1,10 @@
-import { Menu } from 'electron/main';
+import { Menu } from 'neutron/main';
 
 import { EventEmitter } from 'events';
 import * as fs from 'fs';
 
-const bindings = process._linkedBinding('electron_browser_app');
-const commandLine = process._linkedBinding('electron_common_command_line');
+const bindings = process._linkedBinding('neutron_browser_app');
+const commandLine = process._linkedBinding('neutron_common_command_line');
 const { app } = bindings;
 
 Object.setPrototypeOf(app, EventEmitter.prototype);
@@ -12,7 +12,7 @@ Object.setPrototypeOf(app, EventEmitter.prototype);
 // Only one app object permitted.
 export default app;
 
-let dockMenu: Electron.Menu | null = null;
+let dockMenu: Neutron.Menu | null = null;
 
 // Properties.
 
@@ -44,7 +44,7 @@ Object.assign(app, {
     appendSwitch: (theSwitch: string, value?: string) => commandLine.appendSwitch(String(theSwitch), typeof value === 'undefined' ? value : String(value)),
     appendArgument: (arg: string) => commandLine.appendArgument(String(arg)),
     removeSwitch: (theSwitch: string) => commandLine.removeSwitch(String(theSwitch))
-  } as Electron.CommandLine
+  } as Neutron.CommandLine
 });
 
 // we define this here because it'd be overly complicated to
@@ -53,7 +53,7 @@ Object.defineProperty(app, 'applicationMenu', {
   get () {
     return Menu.getApplicationMenu();
   },
-  set (menu: Electron.Menu | null) {
+  set (menu: Neutron.Menu | null) {
     return Menu.setApplicationMenu(menu);
   }
 });
@@ -116,11 +116,11 @@ for (const name of events) {
 }
 
 app._clientCertRequestPasswordHandler = null;
-app.setClientCertRequestPasswordHandler = function (handler: (params: Electron.ClientCertRequestParams) => Promise<string>) {
+app.setClientCertRequestPasswordHandler = function (handler: (params: Neutron.ClientCertRequestParams) => Promise<string>) {
   app._clientCertRequestPasswordHandler = handler;
 };
 
-app.on('-client-certificate-request-password', async (event: Electron.Event<Electron.ClientCertRequestParams>, callback: (password: string) => void) => {
+app.on('-client-certificate-request-password', async (event: Neutron.Event<Neutron.ClientCertRequestParams>, callback: (password: string) => void) => {
   event.preventDefault();
   const { hostname, tokenName, isRetry } = event;
   if (!app._clientCertRequestPasswordHandler) {

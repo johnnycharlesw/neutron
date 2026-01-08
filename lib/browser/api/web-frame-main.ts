@@ -1,7 +1,7 @@
-import { IpcMainImpl } from '@electron/internal/browser/ipc-main-impl';
-import { MessagePortMain } from '@electron/internal/browser/message-port-main';
+import { IpcMainImpl } from '@neutron/internal/browser/ipc-main-impl';
+import { MessagePortMain } from '@neutron/internal/browser/message-port-main';
 
-const { WebFrameMain, fromId, fromFrameToken } = process._linkedBinding('electron_browser_web_frame_main');
+const { WebFrameMain, fromId, fromFrameToken } = process._linkedBinding('neutron_browser_web_frame_main');
 
 Object.defineProperty(WebFrameMain.prototype, 'ipc', {
   get () {

@@ -57,7 +57,7 @@ namespace winui = ABI::Windows::UI;
     }                                                                      \
   } while (false)
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -66,7 +66,7 @@ namespace {
 constexpr wchar_t kGroup[] = L"Notifications";
 
 void DebugLog(std::string_view log_msg) {
-  if (electron::debug_notifications)
+  if (neutron::debug_notifications)
     LOG(INFO) << log_msg;
 }
 
@@ -695,4 +695,4 @@ IFACEMETHODIMP ToastEventHandler::Invoke(
   return S_OK;
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -11,7 +11,7 @@
 
 #include "base/files/file_path.h"
 
-namespace electron {
+namespace neutron {
 
 enum class JumpListResult : int {
   kSuccess = 0,
@@ -118,6 +118,6 @@ class JumpList {
   CComPtr<ICustomDestinationList> destinations_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_WIN_JUMP_LIST_H_

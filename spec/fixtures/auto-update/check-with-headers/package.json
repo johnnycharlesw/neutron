@@ -1,5 +1,5 @@
 {
-  "name": "electron-test-check-with-headers",
+  "name": "neutron-test-check-with-headers",
   "version": "1.0.0",
   "main": "./index.js"
 }

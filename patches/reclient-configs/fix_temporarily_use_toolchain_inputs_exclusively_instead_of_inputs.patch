@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Fri, 8 Mar 2024 10:17:09 -0800
 Subject: fix: temporarily use toolchain_inputs exclusively instead of inputs
 

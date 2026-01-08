@@ -17,7 +17,7 @@ index 07449516b6e97d971a78acb3d21e9fd2c35f6d54..48b636ddb72f956265a97847cc1d3e13
  class WideFrameView;
  }  // namespace ash
  
-+namespace electron {
++namespace neutron {
 +class DevToolsWindowDelegate;
 +class InspectableWebContentsView;
 +class MenuBar;
@@ -25,7 +25,7 @@ index 07449516b6e97d971a78acb3d21e9fd2c35f6d54..48b636ddb72f956265a97847cc1d3e13
 +class RootViewMac;
 +}
 +
-+namespace electron::api {
++namespace neutron::api {
 +class ImageView;
 +class View;
 +}
@@ -38,13 +38,13 @@ index 07449516b6e97d971a78acb3d21e9fd2c35f6d54..48b636ddb72f956265a97847cc1d3e13
    class OwnedByClientPassKey {
     private:
 +    // TODO(ckerr) can this list be shortened?
-+    friend class electron::DevToolsWindowDelegate;
-+    friend class electron::InspectableWebContentsView;
-+    friend class electron::MenuBar;
-+    friend class electron::RootView;
-+    friend class electron::RootViewMac;
-+    friend class electron::api::ImageView;
-+    friend class electron::api::View;
++    friend class neutron::DevToolsWindowDelegate;
++    friend class neutron::InspectableWebContentsView;
++    friend class neutron::MenuBar;
++    friend class neutron::RootView;
++    friend class neutron::RootViewMac;
++    friend class neutron::api::ImageView;
++    friend class neutron::api::View;
      // DO NOT ADD TO THIS LIST!
      // These existing cases are "grandfathered in", but there shouldn't be more.
      // See comments atop class.
@@ -56,7 +56,7 @@ index 0315a1fac360ecea54cf8c5c065e777508193169..49df61c710fad846a29f074a91ceba2d
  class AppRestartDialog;
  }
  
-+namespace electron {
++namespace neutron {
 +class AutofillPopupView;
 +class DevToolsWindowDelegate;
 +class NativeWindowMac;
@@ -69,7 +69,7 @@ index 0315a1fac360ecea54cf8c5c065e777508193169..49df61c710fad846a29f074a91ceba2d
  
    class OwnedByWidgetPassKey {
     private:
-+    friend class electron::DevToolsWindowDelegate;
++    friend class neutron::DevToolsWindowDelegate;
      // DO NOT ADD TO THIS LIST!
      // These existing cases are "grandfathered in", but there shouldn't be more.
      // See comments atop `SetOwnedByWidget()`.
@@ -77,7 +77,7 @@ index 0315a1fac360ecea54cf8c5c065e777508193169..49df61c710fad846a29f074a91ceba2d
    };
    class RegisterDeleteCallbackPassKey {
     private:
-+    friend class electron::NativeWindowMac;
++    friend class neutron::NativeWindowMac;
      // DO NOT ADD TO THIS LIST!
      // These existing cases are "grandfathered in", but there shouldn't be more.
      // See comments atop `RegisterDeleteDelegateCallback()`.
@@ -85,7 +85,7 @@ index 0315a1fac360ecea54cf8c5c065e777508193169..49df61c710fad846a29f074a91ceba2d
    View* GetContentsView() override;
  
   private:
-+  friend class electron::AutofillPopupView;
++  friend class neutron::AutofillPopupView;
    // DO NOT ADD TO THIS LIST!
    // These existing cases are "grandfathered in", but there shouldn't be more.
    // See comments atop class.

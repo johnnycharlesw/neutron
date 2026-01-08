@@ -1,4 +1,4 @@
-const { net } = require('electron');
+const { net } = require('neutron');
 
 const serverUrl = process.argv[2].split('=')[1];
 let configurableArg = null;

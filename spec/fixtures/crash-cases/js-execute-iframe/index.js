@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('neutron');
 
 const net = require('node:net');
 const path = require('node:path');

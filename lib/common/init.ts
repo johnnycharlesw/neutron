@@ -77,42 +77,42 @@ if (process.platform === 'win32') {
 
 const Module = require('module') as NodeJS.ModuleInternal;
 
-// Make a fake Electron module that we will insert into the module cache
+// Make a fake Neutron module that we will insert into the module cache
 const makeElectronModule = (name: string) => {
-  const electronModule = new Module('electron', null);
-  electronModule.id = 'electron';
-  electronModule.loaded = true;
-  electronModule.filename = name;
-  Object.defineProperty(electronModule, 'exports', {
-    get: () => require('electron')
+  const neutronModule = new Module('neutron', null);
+  neutronModule.id = 'neutron';
+  neutronModule.loaded = true;
+  neutronModule.filename = name;
+  Object.defineProperty(neutronModule, 'exports', {
+    get: () => require('neutron')
   });
-  Module._cache[name] = electronModule;
+  Module._cache[name] = neutronModule;
 };
 
-makeElectronModule('electron');
-makeElectronModule('electron/common');
+makeElectronModule('neutron');
+makeElectronModule('neutron/common');
 if (process.type === 'browser') {
-  makeElectronModule('electron/main');
+  makeElectronModule('neutron/main');
 } else if (process.type === 'renderer') {
-  makeElectronModule('electron/renderer');
+  makeElectronModule('neutron/renderer');
 } else if (process.type === 'utility') {
-  makeElectronModule('electron/utility');
+  makeElectronModule('neutron/utility');
 }
 
 const originalResolveFilename = Module._resolveFilename;
 
-// 'electron/{common,main,renderer,utility}' are module aliases
-// of the 'electron' module for TypeScript purposes, i.e., the types for
-// 'electron/main' consist of only main process modules, etc. It is intentional
+// 'neutron/{common,main,renderer,utility}' are module aliases
+// of the 'neutron' module for TypeScript purposes, i.e., the types for
+// 'neutron/main' consist of only main process modules, etc. It is intentional
 // that these can be `require()`-ed from both the main process as well as the
 // renderer process regardless of the names, they're superficial for TypeScript
 // only.
-const electronModuleNames = new Set([
-  'electron', 'electron/main', 'electron/renderer', 'electron/common', 'electron/utility'
+const neutronModuleNames = new Set([
+  'neutron', 'neutron/main', 'neutron/renderer', 'neutron/common', 'neutron/utility'
 ]);
 Module._resolveFilename = function (request, parent, isMain, options) {
-  if (electronModuleNames.has(request)) {
-    return 'electron';
+  if (neutronModuleNames.has(request)) {
+    return 'neutron';
   } else {
     return originalResolveFilename(request, parent, isMain, options);
   }

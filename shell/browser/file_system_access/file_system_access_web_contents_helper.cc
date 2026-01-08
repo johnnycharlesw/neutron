@@ -28,7 +28,7 @@ void FileSystemAccessWebContentsHelper::DidFinishNavigation(
   // Navigated away from |src_origin|, tell permission context to check if
   // permissions need to be revoked.
   auto* context =
-      electron::FileSystemAccessPermissionContextFactory::GetForBrowserContext(
+      neutron::FileSystemAccessPermissionContextFactory::GetForBrowserContext(
           web_contents()->GetBrowserContext());
   if (context)
     context->NavigatedAwayFromOrigin(src_origin);
@@ -41,7 +41,7 @@ void FileSystemAccessWebContentsHelper::WebContentsDestroyed() {
   // Navigated away from |src_origin|, tell permission context to check if
   // permissions need to be revoked.
   auto* context =
-      electron::FileSystemAccessPermissionContextFactory::GetForBrowserContext(
+      neutron::FileSystemAccessPermissionContextFactory::GetForBrowserContext(
           web_contents()->GetBrowserContext());
   if (context)
     context->NavigatedAwayFromOrigin(src_origin);

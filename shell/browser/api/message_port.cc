@@ -27,7 +27,7 @@
 #include "third_party/blink/public/mojom/blob/blob.mojom.h"
 #include "third_party/blink/public/mojom/messaging/transferable_message.mojom.h"
 
-namespace electron {
+namespace neutron {
 
 gin::DeprecatedWrapperInfo MessagePort::kWrapperInfo = {
     gin::kEmbedderNativeGin};
@@ -65,7 +65,7 @@ void MessagePort::PostMessage(gin::Arguments* args) {
   // |message| is any value that can be serialized to StructuredClone.
   v8::Local<v8::Value> message_value;
   if (args->GetNext(&message_value)) {
-    if (!electron::SerializeV8Value(args->isolate(), message_value,
+    if (!neutron::SerializeV8Value(args->isolate(), message_value,
                                     &transferable_message)) {
       // SerializeV8Value sets an exception.
       return;
@@ -295,11 +295,11 @@ void MessagePort::WillBeDestroyed() {
   ClearWeak();
 }
 
-}  // namespace electron
+}  // namespace neutron
 
 namespace {
 
-using electron::MessagePort;
+using neutron::MessagePort;
 
 v8::Local<v8::Value> CreatePair(v8::Isolate* isolate) {
   auto port1 = MessagePort::Create(isolate);
@@ -317,11 +317,11 @@ void Initialize(v8::Local<v8::Object> exports,
                 v8::Local<v8::Value> unused,
                 v8::Local<v8::Context> context,
                 void* priv) {
-  v8::Isolate* const isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* const isolate = neutron::JavascriptEnvironment::GetIsolate();
   gin_helper::Dictionary dict{isolate, exports};
   dict.SetMethod("createPair", &CreatePair);
 }
 
 }  // namespace
 
-NODE_LINKED_BINDING_CONTEXT_AWARE(electron_browser_message_port, Initialize)
+NODE_LINKED_BINDING_CONTEXT_AWARE(neutron_browser_message_port, Initialize)

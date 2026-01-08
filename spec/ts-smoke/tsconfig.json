@@ -13,9 +13,9 @@
       "forceConsistentCasingInFileNames": true
   },
   "files": [
-    "electron/main.ts",
-    "electron/renderer.ts",
-    "electron/utility.ts",
-    "../../electron.d.ts"
+    "neutron/main.ts",
+    "neutron/renderer.ts",
+    "neutron/utility.ts",
+    "../../neutron.d.ts"
   ]
 }

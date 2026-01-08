@@ -1,17 +1,17 @@
-import * as deprecate from '@electron/internal/common/deprecate';
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import * as ipcRendererUtils from '@electron/internal/renderer/ipc-renderer-internal-utils';
+import * as deprecate from '@neutron/internal/common/deprecate';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import * as ipcRendererUtils from '@neutron/internal/renderer/ipc-renderer-internal-utils';
 
-const clipboard = {} as Electron.Clipboard;
-const originalClipboard = process._linkedBinding('electron_common_clipboard');
+const clipboard = {} as Neutron.Clipboard;
+const originalClipboard = process._linkedBinding('neutron_common_clipboard');
 
-const warnDeprecatedAccess = function (method: keyof Electron.Clipboard) {
+const warnDeprecatedAccess = function (method: keyof Neutron.Clipboard) {
   return deprecate.warnOnceMessage(`Accessing 'clipboard.${method}' from the renderer process is
      deprecated and will be removed. Please use the 'contextBridge' API to access
      the clipboard API from the renderer.`);
 };
 
-const makeDeprecatedMethod = function (method: keyof Electron.Clipboard): any {
+const makeDeprecatedMethod = function (method: keyof Neutron.Clipboard): any {
   const warnDeprecated = warnDeprecatedAccess(method);
   return (...args: any[]) => {
     warnDeprecated();
@@ -19,7 +19,7 @@ const makeDeprecatedMethod = function (method: keyof Electron.Clipboard): any {
   };
 };
 
-const makeRemoteMethod = function (method: keyof Electron.Clipboard): any {
+const makeRemoteMethod = function (method: keyof Neutron.Clipboard): any {
   const warnDeprecated = warnDeprecatedAccess(method);
   return (...args: any[]) => {
     warnDeprecated();
@@ -29,11 +29,11 @@ const makeRemoteMethod = function (method: keyof Electron.Clipboard): any {
 
 if (process.platform === 'linux') {
   // On Linux we could not access clipboard in renderer process.
-  for (const method of Object.keys(originalClipboard) as (keyof Electron.Clipboard)[]) {
+  for (const method of Object.keys(originalClipboard) as (keyof Neutron.Clipboard)[]) {
     clipboard[method] = makeRemoteMethod(method);
   }
 } else {
-  for (const method of Object.keys(originalClipboard) as (keyof Electron.Clipboard)[]) {
+  for (const method of Object.keys(originalClipboard) as (keyof Neutron.Clipboard)[]) {
     if (process.platform === 'darwin' && (method === 'readFindText' || method === 'writeFindText')) {
       clipboard[method] = makeRemoteMethod(method);
     } else {

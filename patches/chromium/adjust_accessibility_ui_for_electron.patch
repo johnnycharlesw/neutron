@@ -17,7 +17,7 @@ index 3a9f87d82212bfeab23b312a593fb855df344780..83b4a7fe7149f2b195e53fcb05f77da3
  #include "content/public/browser/web_contents_observer.h"
  #include "content/public/browser/web_contents_user_data.h"
  #include "content/public/browser/web_ui_data_source.h"
-+#include "electron/shell/browser/electron_browser_context.h"
++#include "neutron/shell/browser/neutron_browser_context.h"
  #include "ui/accessibility/accessibility_features.h"
  #include "ui/accessibility/ax_mode.h"
  #include "ui/accessibility/ax_updates_and_events.h"
@@ -35,7 +35,7 @@ index 3a9f87d82212bfeab23b312a593fb855df344780..83b4a7fe7149f2b195e53fcb05f77da3
        *content::BrowserAccessibilityState::GetInstance();
    base::Value::Dict data;
 -  PrefService* pref = Profile::FromBrowserContext(current_context)->GetPrefs();
-+  PrefService* pref = static_cast<electron::ElectronBrowserContext*>(current_context)->prefs();
++  PrefService* pref = static_cast<neutron::ElectronBrowserContext*>(current_context)->prefs();
    ui::AXMode mode = browser_accessibility_state.GetAccessibilityMode();
    bool native = mode.has_mode(ui::AXMode::kNativeAPIs);
    bool web = mode.has_mode(ui::AXMode::kWebContents);
@@ -69,7 +69,7 @@ index 3a9f87d82212bfeab23b312a593fb855df344780..83b4a7fe7149f2b195e53fcb05f77da3
  
    if (string_name == kApiTypeField) {
 -    PrefService* pref = Profile::FromWebUI(web_ui())->GetPrefs();
-+    PrefService* pref = static_cast<electron::ElectronBrowserContext*>(
++    PrefService* pref = static_cast<neutron::ElectronBrowserContext*>(
 +            web_ui()->GetWebContents()->GetBrowserContext())->prefs();
      pref->SetString(prefs::kShownAccessibilityApiType, value);
    }
@@ -79,7 +79,7 @@ index 3a9f87d82212bfeab23b312a593fb855df344780..83b4a7fe7149f2b195e53fcb05f77da3
    AddPropertyFilters(property_filters, deny, AXPropertyFilter::DENY);
  
 -  PrefService* pref = Profile::FromWebUI(web_ui())->GetPrefs();
-+  PrefService* pref = static_cast<electron::ElectronBrowserContext*>(
++  PrefService* pref = static_cast<neutron::ElectronBrowserContext*>(
 +              web_contents->GetBrowserContext())->prefs();
    ui::AXApiType::Type api_type =
        ui::AXApiType::From(pref->GetString(prefs::kShownAccessibilityApiType));
@@ -109,7 +109,7 @@ index 3a9f87d82212bfeab23b312a593fb855df344780..83b4a7fe7149f2b195e53fcb05f77da3
 -  PrefService* pref = Profile::FromWebUI(web_ui())->GetPrefs();
 -  const std::vector<ui::AXApiType::Type> supported_types =
 -      content::AXInspectFactory::SupportedApis();
-+  PrefService* pref = static_cast<electron::ElectronBrowserContext*>(
++  PrefService* pref = static_cast<neutron::ElectronBrowserContext*>(
 +            web_ui()->GetWebContents()->GetBrowserContext())->prefs();
    ui::AXApiType::Type api_type =
        ui::AXApiType::From(pref->GetString(prefs::kShownAccessibilityApiType));

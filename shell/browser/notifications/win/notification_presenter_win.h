@@ -29,7 +29,7 @@
 class GURL;
 class SkBitmap;
 
-namespace electron {
+namespace neutron {
 
 class NotificationPresenterWin : public NotificationPresenter {
  public:
@@ -48,6 +48,6 @@ class NotificationPresenterWin : public NotificationPresenter {
   base::ScopedTempDir temp_dir_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_WIN_NOTIFICATION_PRESENTER_WIN_H_

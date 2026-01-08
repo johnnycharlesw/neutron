@@ -2,10 +2,10 @@ version: '3'
 
 services:
   buildtools:
-    image: ghcr.io/electron/devcontainer:933c7d6ff6802706875270bec2e3c891cf8add3f
+    image: ghcr.io/neutron/devcontainer:933c7d6ff6802706875270bec2e3c891cf8add3f
 
     volumes:
-      - ..:/workspaces/gclient/src/electron:cached
+      - ..:/workspaces/gclient/src/neutron:cached
 
       - /var/run/docker.sock:/var/run/docker.sock
 

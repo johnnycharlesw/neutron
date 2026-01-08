@@ -41,7 +41,7 @@ class HeapSnapshotOutputStream : public v8::OutputStream {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 bool TakeHeapSnapshot(v8::Isolate* isolate, base::File* file) {
   DCHECK(isolate);
@@ -62,4 +62,4 @@ bool TakeHeapSnapshot(v8::Isolate* isolate, base::File* file) {
   return stream.IsComplete();
 }
 
-}  // namespace electron
+}  // namespace neutron

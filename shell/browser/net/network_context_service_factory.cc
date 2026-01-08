@@ -6,10 +6,10 @@
 
 #include "base/no_destructor.h"
 #include "components/keyed_service/content/browser_context_dependency_manager.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/net/network_context_service.h"
 
-namespace electron {
+namespace neutron {
 
 NetworkContextService* NetworkContextServiceFactory::GetForContext(
     content::BrowserContext* browser_context) {
@@ -24,7 +24,7 @@ NetworkContextServiceFactory* NetworkContextServiceFactory::GetInstance() {
 
 NetworkContextServiceFactory::NetworkContextServiceFactory()
     : BrowserContextKeyedServiceFactory(
-          "ElectronNetworkContextService",
+          "NeutronNetworkContextService",
           BrowserContextDependencyManager::GetInstance()) {}
 
 NetworkContextServiceFactory::~NetworkContextServiceFactory() = default;
@@ -33,7 +33,7 @@ std::unique_ptr<KeyedService>
 NetworkContextServiceFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
   return std::make_unique<NetworkContextService>(
-      static_cast<ElectronBrowserContext*>(context));
+      static_cast<NeutronBrowserContext*>(context));
 }
 
 content::BrowserContext* NetworkContextServiceFactory::GetBrowserContextToUse(
@@ -42,4 +42,4 @@ content::BrowserContext* NetworkContextServiceFactory::GetBrowserContextToUse(
   return context;
 }
 
-}  // namespace electron
+}  // namespace neutron

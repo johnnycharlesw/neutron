@@ -28,7 +28,7 @@
 
 @end
 
-namespace electron {
+namespace neutron {
 
 gfx::NativeView OffScreenWebContentsView::GetNativeView() const {
   return gfx::NativeView(offScreenView_);
@@ -50,4 +50,4 @@ void OffScreenWebContentsView::PlatformDestroy() {
   offScreenView_ = nil;
 }
 
-}  // namespace electron
+}  // namespace neutron

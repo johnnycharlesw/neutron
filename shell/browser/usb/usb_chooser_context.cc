@@ -17,11 +17,11 @@
 #include "content/public/browser/device_service.h"
 #include "services/device/public/cpp/usb/usb_ids.h"
 #include "services/device/public/mojom/usb_device.mojom.h"
-#include "shell/browser/api/electron_api_session.h"
-#include "shell/browser/electron_browser_context.h"
-#include "shell/browser/electron_permission_manager.h"
+#include "shell/browser/api/neutron_api_session.h"
+#include "shell/browser/neutron_browser_context.h"
+#include "shell/browser/neutron_permission_manager.h"
 #include "shell/browser/web_contents_permission_helper.h"
-#include "shell/common/electron_constants.h"
+#include "shell/common/neutron_constants.h"
 #include "shell/common/gin_converters/usb_device_info_converter.h"
 #include "shell/common/gin_helper/dictionary.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -62,9 +62,9 @@ bool ShouldExposeDevice(const device::mojom::UsbDeviceInfo& device_info) {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
-UsbChooserContext::UsbChooserContext(ElectronBrowserContext* context)
+UsbChooserContext::UsbChooserContext(NeutronBrowserContext* context)
     : browser_context_(context) {}
 
 // static
@@ -262,7 +262,7 @@ void UsbChooserContext::RevokeObjectPermissionInternal(
   DCHECK(object_dict != nullptr);
 
   if (object_dict->FindString(kDeviceSerialNumberKey) != nullptr) {
-    auto* permission_manager = static_cast<ElectronPermissionManager*>(
+    auto* permission_manager = static_cast<NeutronPermissionManager*>(
         browser_context_->GetPermissionControllerDelegate());
     permission_manager->RevokeDevicePermission(
         blink::PermissionType::USB, origin, object, browser_context_);
@@ -292,7 +292,7 @@ void UsbChooserContext::GrantDevicePermission(
     const url::Origin& origin,
     const device::mojom::UsbDeviceInfo& device_info) {
   if (CanStorePersistentEntry(device_info)) {
-    auto* permission_manager = static_cast<ElectronPermissionManager*>(
+    auto* permission_manager = static_cast<NeutronPermissionManager*>(
         browser_context_->GetPermissionControllerDelegate());
     permission_manager->GrantDevicePermission(
         blink::PermissionType::USB, origin, DeviceInfoToValue(device_info),
@@ -316,7 +316,7 @@ bool UsbChooserContext::HasDevicePermission(
     return true;
   }
 
-  auto* permission_manager = static_cast<ElectronPermissionManager*>(
+  auto* permission_manager = static_cast<NeutronPermissionManager*>(
       browser_context_->GetPermissionControllerDelegate());
 
   return permission_manager->CheckDevicePermission(
@@ -425,4 +425,4 @@ void UsbChooserContext::OnDeviceManagerConnectionError() {
   device_observer_list_.Notify(&DeviceObserver::OnDeviceManagerConnectionError);
 }
 
-}  // namespace electron
+}  // namespace neutron

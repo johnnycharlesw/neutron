@@ -3,10 +3,10 @@ From: Calvin Watford <watfordcalvin@gmail.com>
 Date: Mon, 9 Dec 2024 16:58:15 -0700
 Subject: feat: Corner Smoothing CSS rule and Blink painting
 
-This patch implements the `-electron-corner-smoothing` CSS rule by
+This patch implements the `-neutron-corner-smoothing` CSS rule by
 making three primary changes to Blink:
 
-1. Adds the `-electron-corner-smoothing` CSS rule:
+1. Adds the `-neutron-corner-smoothing` CSS rule:
     * Metadata in `blink/renderer/core/css/css_properties.json5`
     * Parsing in `blink/renderer/core/css/properties/longhands/longhands_custom.cc`
     * Other required definitions for all CSS rules (`css_property_id.mojom`, `css_property_equality.cc`)
@@ -14,7 +14,7 @@ making three primary changes to Blink:
 2. Modifies how Blink paints rounded rectangles:
     * Augments `blink::ContouredRect` to add smoothness.
     * Modifies graphics to handle smooth `ContouredRect`s, delegating to
-      `//electron/shell/renderer/electron_smooth_round_rect`.
+      `//neutron/shell/renderer/neutron_smooth_round_rect`.
 
 3. Adds a renderer feature:
     * Controls whether the CSS rule is available.
@@ -54,7 +54,7 @@ index 2b08e0773e9d1c5801516e12cfb0007a4327d4b6..612a93dcd038ca0b7d16745d6296aed9
      },
  
 +    {
-+      name: "-electron-corner-smoothing",
++      name: "-neutron-corner-smoothing",
 +      property_methods: ["ParseSingleValue", "CSSValueFromComputedStyleInternal"],
 +      interpolable: true,
 +      field_group: "*",
@@ -209,8 +209,8 @@ index 50c13b5cfbaa137e6440e880ed97401bae4b1abd..6ade5129ce7b6f67d291877201f53449
      "widget/widget_base.h",
      "widget/widget_base_client.h",
      "windows_keyboard_codes.h",
-+    "//electron/shell/renderer/electron_smooth_round_rect.h",
-+    "//electron/shell/renderer/electron_smooth_round_rect.cc",
++    "//neutron/shell/renderer/neutron_smooth_round_rect.h",
++    "//neutron/shell/renderer/neutron_smooth_round_rect.cc",
    ]
  
    sources -= blink_platform_avx_files
@@ -275,7 +275,7 @@ index 18f283e625101318ee14b50e6e765dfd1c9a1a44..44a3a55974c9e4b9e715574075f25661
  
  #include "third_party/blink/renderer/platform/geometry/path_builder.h"
  
-+#include "electron/shell/renderer/electron_smooth_round_rect.h"
++#include "neutron/shell/renderer/neutron_smooth_round_rect.h"
  #include "third_party/blink/renderer/platform/geometry/contoured_rect.h"
  #include "third_party/blink/renderer/platform/geometry/infinite_int_rect.h"
  #include "third_party/blink/renderer/platform/geometry/path.h"
@@ -284,7 +284,7 @@ index 18f283e625101318ee14b50e6e765dfd1c9a1a44..44a3a55974c9e4b9e715574075f25661
      return *this;
    }
 +
-+  // TODO(clavin): decompose `electron::DrawSmoothRoundRect` into corners
++  // TODO(clavin): decompose `neutron::DrawSmoothRoundRect` into corners
 +  if (contoured_rect.GetCornerCurvature().IsSmooth()) {
 +    const gfx::RectF& box = contoured_rect.Rect();
 +
@@ -301,7 +301,7 @@ index 18f283e625101318ee14b50e6e765dfd1c9a1a44..44a3a55974c9e4b9e715574075f25661
 +      return std::min(radius.width(), radius.height());
 +    };
 +
-+    builder_.addPath(electron::DrawSmoothRoundRect(
++    builder_.addPath(neutron::DrawSmoothRoundRect(
 +        box.x(), box.y(), box.width(), box.height(), smoothness,
 +        min_radius(radii.TopLeft()), min_radius(radii.TopRight()),
 +        min_radius(radii.BottomRight()), min_radius(radii.BottomLeft())));

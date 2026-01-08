@@ -1,4 +1,4 @@
-import { parseDocs } from '@electron/docs-parser';
+import { parseDocs } from '@neutron/docs-parser';
 
 import { promises } from 'node:fs';
 import { resolve } from 'node:path';
@@ -11,7 +11,7 @@ parseDocs({
   useReadme: false,
   moduleVersion: getElectronVersion()
 }).then((api) => {
-  return promises.writeFile(resolve(import.meta.dirname, '..', 'electron-api.json'), JSON.stringify(api, null, 2));
+  return promises.writeFile(resolve(import.meta.dirname, '..', 'neutron-api.json'), JSON.stringify(api, null, 2));
 }).catch((err) => {
   console.error(err);
   process.exit(1);

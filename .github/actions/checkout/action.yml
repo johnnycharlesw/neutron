@@ -19,16 +19,16 @@ runs:
     run: |
       echo "GIT_CACHE_PATH=$(pwd)/git-cache" >> $GITHUB_ENV
   - name: Install Dependencies
-    uses: ./src/electron/.github/actions/install-dependencies
+    uses: ./src/neutron/.github/actions/install-dependencies
   - name: Set Chromium Git Cookie
-    uses: ./src/electron/.github/actions/set-chromium-cookie
+    uses: ./src/neutron/.github/actions/set-chromium-cookie
   - name: Install Build Tools
-    uses: ./src/electron/.github/actions/install-build-tools
+    uses: ./src/neutron/.github/actions/install-build-tools
   - name: Generate DEPS Hash
     shell: bash
     run: |
-      node src/electron/script/generate-deps-hash.js
-      DEPSHASH="v1-src-cache-$(cat src/electron/.depshash)"
+      node src/neutron/script/generate-deps-hash.js
+      DEPSHASH="v1-src-cache-$(cat src/neutron/.depshash)"
       echo "DEPSHASH=$DEPSHASH" >> $GITHUB_ENV
       echo "CACHE_FILE=$DEPSHASH.tar" >> $GITHUB_ENV
       if [ "${{ inputs.target-platform }}" = "win" ]; then
@@ -82,7 +82,7 @@ runs:
       fi
   - name: Add patch conflict problem matcher
     shell: bash
-    run: echo "::add-matcher::src/electron/.github/problem-matchers/patch-conflict.json"
+    run: echo "::add-matcher::src/neutron/.github/problem-matchers/patch-conflict.json"
   - name: Restore gitcache
     if: steps.check-cache.outputs.cache_exists == 'false'
     shell: bash
@@ -100,7 +100,7 @@ runs:
     shell: bash
     run: |
       e d gclient config \
-        --name "src/electron" \
+        --name "src/neutron" \
         --unmanaged \
         ${GCLIENT_EXTRA_ARGS} \
         "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY"
@@ -112,8 +112,8 @@ runs:
       ELECTRON_USE_THREE_WAY_MERGE_FOR_PATCHES=1 e d gclient sync --with_branch_heads --with_tags -vv
       if [[ "${{ inputs.is-release }}" != "true" ]]; then
         # Re-export all the patches to check if there were changes.
-        python3 src/electron/script/export_all_patches.py src/electron/patches/config.json
-        cd src/electron
+        python3 src/neutron/script/export_all_patches.py src/neutron/patches/config.json
+        cd src/neutron
         git update-index --refresh || true
         if ! git diff-index --quiet HEAD --; then
           # There are changes to the patches. Make a git commit with the updated patches
@@ -152,7 +152,7 @@ runs:
     if: ${{ inputs.target-platform == 'linux' && github.ref == 'refs/heads/main' }}
     shell: bash
     run: |
-      node src/electron/script/patches-stats.mjs --upload-stats || true
+      node src/neutron/script/patches-stats.mjs --upload-stats || true
   # delete all .git directories under src/ except for
   # third_party/angle/ and third_party/dawn/ because of build time generation of files
   # gen/angle/commit.h depends on third_party/angle/.git/HEAD
@@ -165,7 +165,7 @@ runs:
     shell: bash
     run: |
       cd src
-      ( find . -type d -name ".git" -not -path "./third_party/angle/*" -not -path "./third_party/dawn/*" -not -path "./electron/*" ) | xargs rm -rf
+      ( find . -type d -name ".git" -not -path "./third_party/angle/*" -not -path "./third_party/dawn/*" -not -path "./neutron/*" ) | xargs rm -rf
   - name: Minimize Cache Size for Upload
     if: ${{ steps.check-cache.outputs.cache_exists == 'false' && inputs.use-cache == 'true' }}
     shell: bash
@@ -177,10 +177,10 @@ runs:
       rm -rf src/third_party/angle/third_party/VK-GL-CTS/src
       rm -rf src/third_party/swift-toolchain
       rm -rf src/third_party/swiftshader/tests/regres/testlists
-      cp src/electron/.github/actions/checkout/action.yml ./
-      rm -rf src/electron
-      mkdir -p src/electron/.github/actions/checkout
-      mv action.yml src/electron/.github/actions/checkout
+      cp src/neutron/.github/actions/checkout/action.yml ./
+      rm -rf src/neutron
+      mkdir -p src/neutron/.github/actions/checkout
+      mv action.yml src/neutron/.github/actions/checkout
   - name: Compress Src Directory
     if: ${{ steps.check-cache.outputs.cache_exists == 'false' && inputs.use-cache == 'true' }}
     shell: bash

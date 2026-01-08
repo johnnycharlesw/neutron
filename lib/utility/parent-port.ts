@@ -1,10 +1,10 @@
-import { MessagePortMain } from '@electron/internal/browser/message-port-main';
+import { MessagePortMain } from '@neutron/internal/browser/message-port-main';
 
 import { EventEmitter } from 'events';
 
-const { createParentPort } = process._linkedBinding('electron_utility_parent_port');
+const { createParentPort } = process._linkedBinding('neutron_utility_parent_port');
 
-export class ParentPort extends EventEmitter implements Electron.ParentPort {
+export class ParentPort extends EventEmitter implements Neutron.ParentPort {
   #port: ParentPort;
   constructor () {
     super();

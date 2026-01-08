@@ -9,7 +9,7 @@
 
 #include "base/memory/raw_ptr.h"
 #include "base/observer_list.h"
-#include "shell/browser/ui/electron_menu_model.h"
+#include "shell/browser/ui/neutron_menu_model.h"
 #include "ui/views/controls/menu/menu_delegate.h"
 
 namespace gfx {
@@ -21,7 +21,7 @@ class MenuRunner;
 class Button;
 }  // namespace views
 
-namespace electron {
+namespace neutron {
 
 class MenuBar;
 
@@ -34,7 +34,7 @@ class MenuDelegate : public views::MenuDelegate {
   MenuDelegate(const MenuDelegate&) = delete;
   MenuDelegate& operator=(const MenuDelegate&) = delete;
 
-  void RunMenu(ElectronMenuModel* model,
+  void RunMenu(NeutronMenuModel* model,
                views::Button* button,
                ui::mojom::MenuSourceType source_type);
 
@@ -83,6 +83,6 @@ class MenuDelegate : public views::MenuDelegate {
   base::ObserverList<Observer>::Unchecked observers_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_MENU_DELEGATE_H_

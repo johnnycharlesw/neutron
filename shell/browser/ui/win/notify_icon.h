@@ -25,7 +25,7 @@ namespace views {
 class MenuRunner;
 }
 
-namespace electron {
+namespace neutron {
 
 class NotifyIconHost;
 
@@ -68,9 +68,9 @@ class NotifyIcon : public TrayIcon {
   void RemoveBalloon() override;
   void Focus() override;
   void PopUpContextMenu(const gfx::Point& pos,
-                        base::WeakPtr<ElectronMenuModel> menu_model) override;
+                        base::WeakPtr<NeutronMenuModel> menu_model) override;
   void CloseContextMenu() override;
-  void SetContextMenu(raw_ptr<ElectronMenuModel> menu_model) override;
+  void SetContextMenu(raw_ptr<NeutronMenuModel> menu_model) override;
   gfx::Rect GetBounds() override;
 
   base::WeakPtr<NotifyIcon> GetWeakPtr() { return weak_factory_.GetWeakPtr(); }
@@ -94,7 +94,7 @@ class NotifyIcon : public TrayIcon {
   base::win::ScopedGDIObject<HICON> icon_;
 
   // The context menu.
-  raw_ptr<ElectronMenuModel> menu_model_ = nullptr;
+  raw_ptr<NeutronMenuModel> menu_model_ = nullptr;
 
   // An optional GUID used for identifying tray entries on Windows
   GUID guid_ = GUID_DEFAULT;
@@ -108,6 +108,6 @@ class NotifyIcon : public TrayIcon {
   base::WeakPtrFactory<NotifyIcon> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_WIN_NOTIFY_ICON_H_

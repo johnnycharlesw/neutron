@@ -3,7 +3,7 @@
 <webview src="./a.html" id="view" partition="webview-temp"/>
 </body>
 <script>
-  const {ipcRenderer} = require('electron')
+  const {ipcRenderer} = require('neutron')
   const view = document.getElementById('view')
   view.addEventListener('dom-ready', () => {
     ipcRenderer.send('dom-ready')

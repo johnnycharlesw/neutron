@@ -10,7 +10,7 @@ You can also access the `session` of existing pages by using the `session`
 property of [`WebContents`](web-contents.md), or from the `session` module.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ width: 800, height: 600 })
 win.loadURL('https://github.com')
@@ -73,12 +73,12 @@ A `Session` object, the default session object of the app, available after `app.
 > Get and set properties of a session.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 You can create a `Session` object in the `session` module:
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 
 const ses = session.fromPartition('persist:name')
 console.log(ses.getUserAgent())
@@ -102,7 +102,7 @@ Calling `event.preventDefault()` will cancel the download and `item` will not be
 available from next tick of the process.
 
 ```js @ts-expect-error=[5]
-const { session } = require('electron')
+const { session } = require('neutron')
 
 session.defaultSession.on('will-download', (event, item, webContents) => {
   event.preventDefault()
@@ -163,7 +163,7 @@ Returns:
     * `tryAgain` - This will open a new file picker and allow the user to choose another path.
 
 ```js
-const { app, dialog, BrowserWindow, session } = require('electron')
+const { app, dialog, BrowserWindow, session } = require('neutron')
 
 async function createWindow () {
   const mainWindow = new BrowserWindow()
@@ -190,7 +190,7 @@ async function createWindow () {
 
   mainWindow.webContents.executeJavaScript(`
     window.showDirectoryPicker({
-      id: 'electron-demo',
+      id: 'neutron-demo',
       mode: 'readwrite',
       startIn: 'downloads',
     }).catch(e => {
@@ -285,7 +285,7 @@ be further managed by using [`ses.setPermissionCheckHandler(handler)`](#sessetpe
 and [`ses.setDevicePermissionHandler(handler)`](#sessetdevicepermissionhandlerhandler).
 
 ```js @ts-type={fetchGrantedDevices:()=>(Array<Electron.DevicePermissionHandlerHandlerDetails['device']>)}
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 let win = null
 
@@ -393,7 +393,7 @@ be managed by using [ses.setPermissionCheckHandler(handler)](#sessetpermissionch
 with the `serial` permission.
 
 ```js @ts-type={fetchGrantedDevices:()=>(Array<Electron.DevicePermissionHandlerHandlerDetails['device']>)}
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 let win = null
 
@@ -489,7 +489,7 @@ to help maintain persistent storage of permissions when `setDevicePermissionHand
 
 ```js
 // Browser Process
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 app.whenReady().then(() => {
   const win = new BrowserWindow({
@@ -538,7 +538,7 @@ be further managed by using [`ses.setPermissionCheckHandler(handler)`](#sessetpe
 and [`ses.setDevicePermissionHandler(handler)`](#sessetdevicepermissionhandlerhandler).
 
 ```js @ts-type={fetchGrantedDevices:()=>(Array<Electron.DevicePermissionHandlerHandlerDetails['device']>)} @ts-type={updateGrantedDevices:(devices:Array<Electron.DevicePermissionHandlerHandlerDetails['device']>)=>void}
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 let win = null
 
@@ -853,7 +853,7 @@ Calling `setCertificateVerifyProc(null)` will revert back to default certificate
 verify proc.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 
@@ -905,7 +905,7 @@ you must also implement `setPermissionCheckHandler` to get complete permission h
 Most web APIs do a permission check and then make a permission request if the check is denied.
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 
 session.fromPartition('some-partition').setPermissionRequestHandler((webContents, permission, callback) => {
   if (webContents.getURL() === 'some-host' && permission === 'notifications') {
@@ -959,7 +959,7 @@ Most web APIs do a permission check and then make a permission request if the ch
 To clear the handler, call `setPermissionCheckHandler(null)`.
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 
 const url = require('node:url')
 
@@ -1016,7 +1016,7 @@ This option is experimental, and currently available for MacOS 15+ only. If the 
 is set to `true`, the handler will not be invoked.
 
 ```js
-const { session, desktopCapturer } = require('electron')
+const { session, desktopCapturer } = require('neutron')
 
 session.defaultSession.setDisplayMediaRequestHandler((request, callback) => {
   desktopCapturer.getSources({ types: ['screen'] }).then((sources) => {
@@ -1034,7 +1034,7 @@ Passing a [WebFrameMain](web-frame-main.md) object as a video or audio stream
 will capture the video or audio stream from that frame.
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 
 session.defaultSession.setDisplayMediaRequestHandler((request, callback) => {
   // Allow the tab to capture itself.
@@ -1063,7 +1063,7 @@ If longer term storage is needed, a developer can store granted device
 permissions (eg when handling the `select-hid-device` event) and then read from that storage with `setDevicePermissionHandler`.
 
 ```js @ts-type={fetchGrantedDevices:()=>(Array<Electron.DevicePermissionHandlerHandlerDetails['device']>)}
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 let win = null
 
@@ -1145,7 +1145,7 @@ Returning an empty string array from the handler will allow all USB classes; ret
 To clear the handler, call `setUSBProtectedClassesHandler(null)`.
 
 ```js
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 let win = null
 
@@ -1201,7 +1201,7 @@ macOS does not require a handler because macOS handles the pairing
 automatically.  To clear the handler, call `setBluetoothPairingHandler(null)`.
 
 ```js
-const { app, BrowserWindow, session } = require('electron')
+const { app, BrowserWindow, session } = require('neutron')
 
 const path = require('node:path')
 
@@ -1248,7 +1248,7 @@ Dynamically sets whether to always send credentials for HTTP NTLM or Negotiate
 authentication.
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 // consider any url ending with `example.com`, `foobar.com`, `baz`
 // for integrated authentication.
 session.defaultSession.allowNTLMCredentialsForDomains('*example.com, *foobar.com, *baz')
@@ -1531,7 +1531,7 @@ be remembered for future runs of the application. This is no longer the case:
 extension to be loaded.
 
 ```js
-const { app, session } = require('electron')
+const { app, session } = require('neutron')
 
 const path = require('node:path')
 
@@ -1673,7 +1673,7 @@ A [`WebRequest`](web-request.md) object for this session.
 A [`Protocol`](protocol.md) object for this session.
 
 ```js
-const { app, session } = require('electron')
+const { app, session } = require('neutron')
 
 const path = require('node:path')
 
@@ -1693,7 +1693,7 @@ app.whenReady().then(() => {
 A [`NetLog`](net-log.md) object for this session.
 
 ```js
-const { app, session } = require('electron')
+const { app, session } = require('neutron')
 
 app.whenReady().then(async () => {
   const netLog = session.fromPartition('some-partition').netLog

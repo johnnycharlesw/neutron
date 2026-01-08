@@ -24,7 +24,7 @@
 #include "ui/events/keycodes/keyboard_code_conversion_x.h"
 #include "ui/ozone/public/ozone_platform.h"
 
-namespace electron::gtkui {
+namespace neutron::gtkui {
 
 namespace {
 
@@ -308,4 +308,4 @@ void SetMenuItemInfo(GtkWidget* widget, void* block_activation_ptr) {
   }
 }
 
-}  // namespace electron::gtkui
+}  // namespace neutron::gtkui

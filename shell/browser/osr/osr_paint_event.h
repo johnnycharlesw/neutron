@@ -17,7 +17,7 @@
 
 #include <cstdint>
 
-namespace electron {
+namespace neutron {
 
 struct OffscreenNativePixmapPlaneInfo {
   // The strides and offsets in bytes to be used when accessing the buffers
@@ -112,6 +112,6 @@ typedef base::RepeatingCallback<
     void(const gfx::Rect&, const SkBitmap&, const OffscreenSharedTexture&)>
     OnPaintCallback;
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_OSR_OSR_PAINT_EVENT_H

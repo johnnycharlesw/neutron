@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('neutron');
 
 const worker = new Worker('worker.js');
 

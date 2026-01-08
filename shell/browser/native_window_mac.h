@@ -19,13 +19,13 @@
 #include "ui/native_theme/native_theme_observer.h"
 #include "ui/views/controls/native/native_view_host.h"
 
-@class ElectronNSWindow;
-@class ElectronNSWindowDelegate;
-@class ElectronPreviewItem;
-@class ElectronTouchBar;
+@class NeutronNSWindow;
+@class NeutronNSWindowDelegate;
+@class NeutronPreviewItem;
+@class NeutronTouchBar;
 @class WindowButtonsProxy;
 
-namespace electron {
+namespace neutron {
 
 class RootViewMac;
 class NativeAppWindowFrameViewMacClient;
@@ -203,8 +203,8 @@ class NativeWindowMac : public NativeWindow,
     kInactive,
   };
 
-  ElectronPreviewItem* preview_item() const { return preview_item_; }
-  ElectronTouchBar* touch_bar() const { return touch_bar_; }
+  NeutronPreviewItem* preview_item() const { return preview_item_; }
+  NeutronTouchBar* touch_bar() const { return touch_bar_; }
   bool zoom_to_page_width() const { return zoom_to_page_width_; }
   bool always_simple_fullscreen() const { return always_simple_fullscreen_; }
 
@@ -246,11 +246,11 @@ class NativeWindowMac : public NativeWindow,
 
   void UpdateZoomButton();
 
-  ElectronNSWindow* window_;  // Weak ref, managed by widget_.
+  NeutronNSWindow* window_;  // Weak ref, managed by widget_.
 
-  ElectronNSWindowDelegate* __strong window_delegate_;
-  ElectronPreviewItem* __strong preview_item_;
-  ElectronTouchBar* __strong touch_bar_;
+  NeutronNSWindowDelegate* __strong window_delegate_;
+  NeutronPreviewItem* __strong preview_item_;
+  NeutronTouchBar* __strong touch_bar_;
 
   // The views::View that fills the client area.
   std::unique_ptr<RootViewMac> root_view_;
@@ -315,6 +315,6 @@ class NativeWindowMac : public NativeWindow,
   std::unique_ptr<NativeAppWindowFrameViewMacClient> frame_view_client_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NATIVE_WINDOW_MAC_H_

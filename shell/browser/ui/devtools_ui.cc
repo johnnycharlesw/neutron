@@ -10,7 +10,7 @@
 #include "shell/browser/ui/devtools_ui_bundle_data_source.h"
 #include "shell/browser/ui/devtools_ui_theme_data_source.h"
 
-namespace electron {
+namespace neutron {
 
 DevToolsUI::DevToolsUI(content::BrowserContext* browser_context,
                        content::WebUI* web_ui)
@@ -22,4 +22,4 @@ DevToolsUI::DevToolsUI(content::BrowserContext* browser_context,
                               std::make_unique<ThemeDataSource>());
 }
 
-}  // namespace electron
+}  // namespace neutron

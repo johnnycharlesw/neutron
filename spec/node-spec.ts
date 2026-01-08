@@ -1,4 +1,4 @@
-import { webContents } from 'electron/main';
+import { webContents } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -111,19 +111,19 @@ describe('node feature', () => {
         expect(msg).to.equal('hello');
       });
 
-      it('has the electron version in process.versions', async () => {
+      it('has the neutron version in process.versions', async () => {
         const source = 'process.send(process.versions)';
         const forked = require('node:child_process').fork('--eval', [source]);
         const [message] = await once(forked, 'message');
         expect(message)
-          .to.have.own.property('electron')
+          .to.have.own.property('neutron')
           .that.is.a('string')
           .and.matches(/^\d+\.\d+\.\d+(\S*)?$/);
       });
     });
 
     describe('child_process.spawn', () => {
-      itremote('supports spawning Electron as a node process via the ELECTRON_RUN_AS_NODE env var', async (fixtures: string) => {
+      itremote('supports spawning Neutron as a node process via the ELECTRON_RUN_AS_NODE env var', async (fixtures: string) => {
         const child = require('node:child_process').spawn(process.execPath, [require('node:path').join(fixtures, 'module', 'run-as-node.js')], {
           env: {
             ELECTRON_RUN_AS_NODE: true
@@ -413,7 +413,7 @@ describe('node feature', () => {
 
   ifdescribe(process.platform === 'darwin')('net.connect', () => {
     itremote('emit error when connect to a socket path without listeners', async (fixtures: string) => {
-      const socketPath = require('node:path').join(require('node:os').tmpdir(), 'electron-test.sock');
+      const socketPath = require('node:path').join(require('node:os').tmpdir(), 'neutron-test.sock');
       const script = require('node:path').join(fixtures, 'module', 'create_socket.js');
       const child = require('node:child_process').fork(script, [socketPath]);
       const code = await new Promise(resolve => child.once('exit', resolve));
@@ -545,7 +545,7 @@ describe('node feature', () => {
 
     itremote('should be able to create a ripemd160 hash and use it', () => {
       const hash = require('node:crypto').createHash('ripemd160');
-      hash.update('electron-ripemd160');
+      hash.update('neutron-ripemd160');
       expect(hash.digest('hex')).to.equal('fa7fec13c624009ab126ebb99eda6525583395fe');
     });
 
@@ -600,9 +600,9 @@ describe('node feature', () => {
     });
   });
 
-  itremote('includes the electron version in process.versions', () => {
+  itremote('includes the neutron version in process.versions', () => {
     expect(process.versions)
-      .to.have.own.property('electron')
+      .to.have.own.property('neutron')
       .that.is.a('string')
       .and.matches(/^\d+\.\d+\.\d+(\S*)?$/);
   });
@@ -641,7 +641,7 @@ describe('node feature', () => {
 
       const listener = (data: Buffer) => {
         output += data;
-        if (/electron: --v8-options is not allowed in NODE_OPTIONS/m.test(output)) {
+        if (/neutron: --v8-options is not allowed in NODE_OPTIONS/m.test(output)) {
           success = true;
           cleanup();
           done();
@@ -675,7 +675,7 @@ describe('node feature', () => {
 
       const listener = (data: Buffer) => {
         output += data;
-        if (/The NODE_OPTION --use-openssl-ca is not supported in Electron/m.test(output)) {
+        if (/The NODE_OPTION --use-openssl-ca is not supported in Neutron/m.test(output)) {
           cleanup();
           done();
         }
@@ -751,10 +751,10 @@ describe('node feature', () => {
       await withTempDirectory(async (dir) => {
         const appPath = await copyMacOSFixtureApp(dir);
         await signApp(appPath, identity);
-        // Invoke Electron by using the system node binary as middle layer, so
+        // Invoke Neutron by using the system node binary as middle layer, so
         // the check of NODE_OPTIONS will think the process is started by other
         // apps.
-        const { code, out } = await spawn('node', [script, path.join(appPath, 'Contents/MacOS/Electron')]);
+        const { code, out } = await spawn('node', [script, path.join(appPath, 'Contents/MacOS/Neutron')]);
         expect(code).to.equal(0);
         expect(out).to.include(nodeOptionsWarning);
       });
@@ -772,8 +772,8 @@ describe('node feature', () => {
         }
         const alienBinary = path.join(appPath, 'Contents/MacOS/node');
         await fs.promises.cp(path.join(nodePath, 'node'), alienBinary, { recursive: true });
-        // Try to execute electron app from the alien node in app bundle.
-        const { code, out } = await spawn(alienBinary, [script, path.join(appPath, 'Contents/MacOS/Electron')]);
+        // Try to execute neutron app from the alien node in app bundle.
+        const { code, out } = await spawn(alienBinary, [script, path.join(appPath, 'Contents/MacOS/Neutron')]);
         expect(code).to.equal(0);
         expect(out).to.include(nodeOptionsWarning);
       });
@@ -783,7 +783,7 @@ describe('node feature', () => {
       await withTempDirectory(async (dir) => {
         const appPath = await copyMacOSFixtureApp(dir, null);
         await signApp(appPath, identity);
-        const appExePath = path.join(appPath, 'Contents/MacOS/Electron');
+        const appExePath = path.join(appPath, 'Contents/MacOS/Neutron');
         const { code, out } = await spawn(appExePath, [script, appExePath]);
         expect(code).to.equal(1);
         expect(out).to.not.include(nodeOptionsWarning);
@@ -817,7 +817,7 @@ describe('node feature', () => {
 
       const listener = (data: Buffer) => {
         output += data;
-        if (/.*The Node.js cli flag --force-fips is not supported in Electron/m.test(output)) {
+        if (/.*The Node.js cli flag --force-fips is not supported in Neutron/m.test(output)) {
           cleanup();
           done();
         }
@@ -922,7 +922,7 @@ describe('node feature', () => {
       }
     });
 
-    // IPC Electron child process not supported on Windows.
+    // IPC Neutron child process not supported on Windows.
     ifit(process.platform !== 'win32')('does not crash when quitting with the inspector connected', function (done) {
       child = childProcess.spawn(process.execPath, [path.join(fixtures, 'module', 'delay-exit'), '--inspect=0'], {
         stdio: ['ipc']
@@ -945,7 +945,7 @@ describe('node feature', () => {
           // NOTE: temporary debug logging to try to catch flake.
           child.stderr.on('data', (m) => console.log(m.toString()));
           child.stdout.on('data', (m) => console.log(m.toString()));
-          const w = (webContents as typeof ElectronInternal.WebContents).create();
+          const w = (webContents as typeof NeutronInternal.WebContents).create();
           w.loadURL('about:blank')
             .then(() => w.executeJavaScript(`new Promise(resolve => {
               const connection = new WebSocket(${JSON.stringify(match[1])})
@@ -995,7 +995,7 @@ describe('node feature', () => {
   });
 
   it('Can find a module using a package.json main field', () => {
-    const result = childProcess.spawnSync(process.execPath, [path.resolve(fixtures, 'api', 'electron-main-module', 'app.asar')], { stdio: 'inherit' });
+    const result = childProcess.spawnSync(process.execPath, [path.resolve(fixtures, 'api', 'neutron-main-module', 'app.asar')], { stdio: 'inherit' });
     expect(result.status).to.equal(0);
   });
 

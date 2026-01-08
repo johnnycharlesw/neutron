@@ -14,7 +14,7 @@
 #include <CoreFoundation/CoreFoundation.h>
 #include <Security/Security.h>
 
-namespace electron {
+namespace neutron {
 
 std::optional<bool> IsUnsignedOrAdHocSigned(SecCodeRef code) {
   base::apple::ScopedCFTypeRef<SecStaticCodeRef> static_code;
@@ -112,4 +112,4 @@ bool ProcessSignatureIsSameWithCurrentApp(pid_t pid) {
   return status == errSecSuccess;
 }
 
-}  // namespace electron
+}  // namespace neutron

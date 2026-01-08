@@ -29,16 +29,16 @@ template <typename T>
 class PendingRemote;
 }  // namespace mojo
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserContext;
+class NeutronBrowserContext;
 
 const char kDisableUSBBlocklist[] = "disable-usb-blocklist";
 
 class UsbChooserContext : public KeyedService,
                           public device::mojom::UsbDeviceManagerClient {
  public:
-  explicit UsbChooserContext(ElectronBrowserContext* context);
+  explicit UsbChooserContext(NeutronBrowserContext* context);
 
   UsbChooserContext(const UsbChooserContext&) = delete;
   UsbChooserContext& operator=(const UsbChooserContext&) = delete;
@@ -119,11 +119,11 @@ class UsbChooserContext : public KeyedService,
       client_receiver_{this};
   base::ObserverList<DeviceObserver> device_observer_list_;
 
-  raw_ptr<ElectronBrowserContext> browser_context_;
+  raw_ptr<NeutronBrowserContext> browser_context_;
 
   base::WeakPtrFactory<UsbChooserContext> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_USB_USB_CHOOSER_CONTEXT_H_

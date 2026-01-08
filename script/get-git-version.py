@@ -31,6 +31,6 @@ try:
 except Exception:
   # When there is error we print a null version string instead of throwing an
   # exception, this is because for linux/bsd packages and some vendor builds
-  # electron is built from a source code tarball and there is no git information
+  # neutron is built from a source code tarball and there is no git information
   # there.
   print('0.0.0-no-git-tag-found')

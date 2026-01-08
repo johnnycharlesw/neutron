@@ -68,7 +68,7 @@ export async function cleanReleaseArtifacts ({ releaseID, tag }: CleanOptions) {
     if (isNightly) {
       await deleteDraft(releaseId, NIGHTLY_REPO);
 
-      // We only need to delete the Electron tag since the
+      // We only need to delete the Neutron tag since the
       // nightly tag is only created at publish-time.
       await deleteTag(tag, ELECTRON_REPO);
     } else {

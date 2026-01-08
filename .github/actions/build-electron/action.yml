@@ -43,7 +43,7 @@ runs:
         echo "GN_EXTRA_ARGS=$GN_APPENDED_ARGS" >> $GITHUB_ENV
     - name: Add Clang problem matcher
       shell: bash
-      run: echo "::add-matcher::src/electron/.github/problem-matchers/clang.json"
+      run: echo "::add-matcher::src/neutron/.github/problem-matchers/clang.json"
     - name: Build Electron ${{ inputs.step-suffix }}
       if: ${{ inputs.target-platform != 'win' }}
       shell: bash
@@ -51,7 +51,7 @@ runs:
         rm -rf "src/out/Default/Electron Framework.framework"
         rm -rf src/out/Default/Electron*.app
 
-        cd src/electron
+        cd src/neutron
         # TODO(codebytere): remove this once we figure out why .git/packed-refs is initially missing
         git pack-refs
         cd ..
@@ -62,16 +62,16 @@ runs:
         fi
 
         if [ "${{ inputs.is-release }}" = "true" ]; then
-          NINJA_SUMMARIZE_BUILD=1 e build --target electron:release_build
+          NINJA_SUMMARIZE_BUILD=1 e build --target neutron:release_build
         else
-          NINJA_SUMMARIZE_BUILD=1 e build --target electron:testing_build
+          NINJA_SUMMARIZE_BUILD=1 e build --target neutron:testing_build
         fi
-        cp out/Default/.ninja_log out/electron_ninja_log
-        node electron/script/check-symlinks.js
+        cp out/Default/.ninja_log out/neutron_ninja_log
+        node neutron/script/check-symlinks.js
 
         # Upload build stats to Datadog
         if ! [ -z $DD_API_KEY ]; then
-          npx node electron/script/build-stats.mjs out/Default/siso.INFO --upload-stats || true          
+          npx node neutron/script/build-stats.mjs out/Default/siso.INFO --upload-stats || true          
         else
           echo "Skipping build-stats.mjs upload because DD_API_KEY is not set"
         fi
@@ -79,23 +79,23 @@ runs:
       if: ${{ inputs.target-platform == 'win' }}
       shell: powershell
       run: |
-        cd src\electron
+        cd src\neutron
         git pack-refs
         cd ..
 
         $env:NINJA_SUMMARIZE_BUILD = 1
         if ("${{ inputs.is-release }}" -eq "true") {          
-          e build --target electron:release_build
+          e build --target neutron:release_build
         } else {
-          e build --target electron:testing_build
+          e build --target neutron:testing_build
         }
-        Copy-Item out\Default\.ninja_log out\electron_ninja_log
-        node electron\script\check-symlinks.js
+        Copy-Item out\Default\.ninja_log out\neutron_ninja_log
+        node neutron\script\check-symlinks.js
 
         # Upload build stats to Datadog
         if ($env:DD_API_KEY) {
           try {
-            npx node electron\script\build-stats.mjs out\Default\siso.exe.INFO --upload-stats
+            npx node neutron\script\build-stats.mjs out\Default\siso.exe.INFO --upload-stats
           } catch {
             Write-Host "Build stats upload failed, continuing..."
           }
@@ -111,7 +111,7 @@ runs:
           if [ "${{ inputs.artifact-platform }}" = "mas" ]; then
             target_os="${target_os}_mas"
           fi
-          electron/script/zip_manifests/check-zip-manifest.py out/Default/dist.zip electron/script/zip_manifests/dist_zip.$target_os.${{ inputs.target-arch }}.manifest
+          neutron/script/zip_manifests/check-zip-manifest.py out/Default/dist.zip neutron/script/zip_manifests/dist_zip.$target_os.${{ inputs.target-arch }}.manifest
         fi
     - name: Fixup Mksnapshot ${{ inputs.step-suffix }}
       shell: bash
@@ -150,7 +150,7 @@ runs:
         cp "out/Default/$MKSNAPSHOT_PATH/v8_context_snapshot_generator" out/Default
         cp "out/Default/$MKSNAPSHOT_PATH/libffmpeg.so" out/Default
 
-        python3 electron/script/verify-mksnapshot.py --source-root "$PWD" --build-dir out/Default --create-snapshot-only
+        python3 neutron/script/verify-mksnapshot.py --source-root "$PWD" --build-dir out/Default --create-snapshot-only
         mkdir cross-arch-snapshots
         cp out/Default-mksnapshot-test/*.bin cross-arch-snapshots
         # Clean up so that ninja does not get confused
@@ -159,14 +159,14 @@ runs:
       shell: bash
       run: |
         cd src
-        e build --target electron:electron_chromedriver_zip
+        e build --target neutron:neutron_chromedriver_zip
 
         if [ "${{ inputs.is-asan }}" != "true" ]; then
           target_os=${{ inputs.target-platform == 'macos' && 'mac' || inputs.target-platform }}
           if [ "${{ inputs.artifact-platform }}" = "mas" ]; then
             target_os="${target_os}_mas"
           fi
-          electron/script/zip_manifests/check-zip-manifest.py out/Default/chromedriver.zip electron/script/zip_manifests/chromedriver_zip.$target_os.${{ inputs.target-arch }}.manifest
+          neutron/script/zip_manifests/check-zip-manifest.py out/Default/chromedriver.zip neutron/script/zip_manifests/chromedriver_zip.$target_os.${{ inputs.target-arch }}.manifest
         fi
     - name: Create installed_software.json ${{ inputs.step-suffix }}
       shell: powershell
@@ -179,7 +179,7 @@ runs:
       if: ${{ inputs.is-release == 'true' && inputs.target-platform == 'win' }}
       run: |
         cd src
-        python3 electron/build/profile_toolchain.py --output-json=out/Default/windows_toolchain_profile.json
+        python3 neutron/build/profile_toolchain.py --output-json=out/Default/windows_toolchain_profile.json
     - name: Add msdia140.dll to Path ${{ inputs.step-suffix }}
       shell: bash
       if: ${{ inputs.is-release == 'true' && inputs.target-platform == 'win' }}
@@ -193,17 +193,17 @@ runs:
         cd src
         export BUILD_PATH="$(pwd)/out/Default"
         if [ "${{ inputs.is-release }}" = "true" ]; then
-          DELETE_DSYMS_AFTER_ZIP=1 electron/script/zip-symbols.py -b $BUILD_PATH
+          DELETE_DSYMS_AFTER_ZIP=1 neutron/script/zip-symbols.py -b $BUILD_PATH
         else
-          electron/script/zip-symbols.py -b $BUILD_PATH
+          neutron/script/zip-symbols.py -b $BUILD_PATH
         fi
     - name: Generate FFMpeg ${{ inputs.step-suffix }}
       shell: bash
       if: ${{ inputs.is-release == 'true' }}
       run: |
         cd src
-        gn gen out/ffmpeg --args="import(\"//electron/build/args/ffmpeg.gn\") use_remoteexec=true use_siso=true $GN_EXTRA_ARGS"
-        e build --target electron:electron_ffmpeg_zip -C ../../out/ffmpeg
+        gn gen out/ffmpeg --args="import(\"//neutron/build/args/ffmpeg.gn\") use_remoteexec=true use_siso=true $GN_EXTRA_ARGS"
+        e build --target neutron:neutron_ffmpeg_zip -C ../../out/ffmpeg
     - name: Remove Clang problem matcher
       shell: bash
       run: echo "::remove-matcher owner=clang::"
@@ -211,14 +211,14 @@ runs:
       if: ${{ inputs.is-release == 'true' }}
       shell: bash
       run: |
-        cd src/electron
+        cd src/neutron
         node script/yarn.js create-typescript-definitions
     - name: Publish Electron Dist ${{ inputs.step-suffix }}
       if: ${{ inputs.is-release == 'true' }}
       shell: bash
       run: |
         rm -rf src/out/Default/obj
-        cd src/electron
+        cd src/neutron
         if [ "${{ inputs.upload-to-storage }}" = "1" ]; then
           echo 'Uploading Electron release distribution to Azure'
           script/release/uploaders/upload.py --verbose --upload_to_storage
@@ -262,7 +262,7 @@ runs:
     - name: Move all Generated Artifacts to Upload Folder ${{ inputs.step-suffix }}
       if: always() && !cancelled()
       shell: bash
-      run: ./src/electron/script/actions/move-artifacts.sh
+      run: ./src/neutron/script/actions/move-artifacts.sh
     - name: Upload Generated Artifacts ${{ inputs.step-suffix }}
       if: always() && !cancelled()
       uses: actions/upload-artifact@65462800fd760344b1a7b4382951275a0abb4808

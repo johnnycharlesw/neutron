@@ -28,7 +28,7 @@
 #include "ui/views/focus/focus_manager.h"
 #include "ui/views/widget/widget.h"
 
-namespace electron {
+namespace neutron {
 
 BEGIN_METADATA(AutofillPopupChildView)
 END_METADATA
@@ -493,4 +493,4 @@ void AutofillPopupView::RemoveObserver() {
   views::NativeViewFocusManager::GetInstance()->RemoveFocusChangeListener(this);
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -18,12 +18,12 @@ An example demonstrating how you can create a file on the fly to be dragged out 
 
 ### Preload.js
 
-In `preload.js` use the [`contextBridge`][] to inject a method `window.electron.startDrag(...)` that will send an IPC message to the main process.
+In `preload.js` use the [`contextBridge`][] to inject a method `window.neutron.startDrag(...)` that will send an IPC message to the main process.
 
 ```js
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
-contextBridge.exposeInMainWorld('electron', {
+contextBridge.exposeInMainWorld('neutron', {
   startDrag: (fileName) => ipcRenderer.send('ondragstart', fileName)
 })
 ```
@@ -44,7 +44,7 @@ In `renderer.js` set up the renderer process to handle drag events by calling th
 ```js @ts-expect-error=[3]
 document.getElementById('drag').ondragstart = (event) => {
   event.preventDefault()
-  window.electron.startDrag('drag-and-drop.md')
+  window.neutron.startDrag('drag-and-drop.md')
 }
 ```
 
@@ -54,7 +54,7 @@ In the Main process (`main.js` file), expand the received event with a path to t
 being dragged and an icon:
 
 ```fiddle docs/fiddles/features/drag-and-drop
-const { app, BrowserWindow, ipcMain } = require('electron/main')
+const { app, BrowserWindow, ipcMain } = require('neutron/main')
 const path = require('node:path')
 const fs = require('node:fs')
 const https = require('node:https')

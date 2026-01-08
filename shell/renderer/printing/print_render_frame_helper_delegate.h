@@ -7,7 +7,7 @@
 
 #include "components/printing/renderer/print_render_frame_helper.h"
 
-namespace electron {
+namespace neutron {
 
 class PrintRenderFrameHelperDelegate
     : public printing::PrintRenderFrameHelper::Delegate {
@@ -28,6 +28,6 @@ class PrintRenderFrameHelperDelegate
   bool OverridePrint(blink::WebLocalFrame* frame) override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_RENDERER_PRINTING_PRINT_RENDER_FRAME_HELPER_DELEGATE_H_

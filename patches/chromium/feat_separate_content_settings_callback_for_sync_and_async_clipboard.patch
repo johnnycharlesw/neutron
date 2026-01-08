@@ -13,7 +13,7 @@ can have sync permission checks for the sync path.
 
 Additionally, `blink::PermissionType::DEPRECATED_SYNC_CLIPBOARD_READ`
 has been added to support type conversion in permission policy checks. We have extended
-`blink::PermissionType` in `electron::WebContentsPermissionHelper::PermissionType`
+`blink::PermissionType` in `neutron::WebContentsPermissionHelper::PermissionType`
 but it is hard to import the latter into the content permission layer checks.
 
 This patch will be removed when the deprecated sync api support is

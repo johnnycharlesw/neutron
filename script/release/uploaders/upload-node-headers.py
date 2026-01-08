@@ -66,11 +66,11 @@ def upload_node(version):
     safe_mkdir(os.path.dirname(node_lib))
     safe_mkdir(os.path.dirname(iojs_lib))
 
-    # Copy electron.lib to node.lib and iojs.lib.
-    electron_lib = os.path.join(OUT_DIR, 'electron.lib')
-    shutil.copy2(electron_lib, node_lib)
-    shutil.copy2(electron_lib, iojs_lib)
-    shutil.copy2(electron_lib, v4_node_lib)
+    # Copy neutron.lib to node.lib and iojs.lib.
+    neutron_lib = os.path.join(OUT_DIR, 'neutron.lib')
+    shutil.copy2(neutron_lib, node_lib)
+    shutil.copy2(neutron_lib, iojs_lib)
+    shutil.copy2(neutron_lib, v4_node_lib)
 
     # Upload the node.lib.
     store_artifact(DIST_DIR, f'headers/dist/{version}', [node_lib])

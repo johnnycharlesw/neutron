@@ -154,7 +154,7 @@ describe('version-bumper', () => {
     });
   });
 
-  // If we don't plan on continuing to support an alpha channel past Electron 15,
+  // If we don't plan on continuing to support an alpha channel past Neutron 15,
   // these tests will be removed. Otherwise, integrate into the bump versions tests
   describe('bump versions - alpha channel', () => {
     const alphaPattern = /[0-9.]*(-alpha[0-9.]*)/g;

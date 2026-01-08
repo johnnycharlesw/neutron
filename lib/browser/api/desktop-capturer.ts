@@ -1,6 +1,6 @@
-import { BrowserWindow } from 'electron/main';
+import { BrowserWindow } from 'neutron/main';
 
-const { createDesktopCapturer, isDisplayMediaSystemPickerAvailable } = process._linkedBinding('electron_browser_desktop_capturer');
+const { createDesktopCapturer, isDisplayMediaSystemPickerAvailable } = process._linkedBinding('neutron_browser_desktop_capturer');
 
 const deepEqual = (a: ElectronInternal.GetSourcesOptions, b: ElectronInternal.GetSourcesOptions) => JSON.stringify(a) === JSON.stringify(b);
 
@@ -10,13 +10,13 @@ let currentlyRunning: {
 }[] = [];
 
 // |options.types| can't be empty and must be an array
-function isValid (options: Electron.SourcesOptions) {
+function isValid (options: Neutron.SourcesOptions) {
   return Array.isArray(options?.types);
 }
 
 export { isDisplayMediaSystemPickerAvailable };
 
-export async function getSources (args: Electron.SourcesOptions) {
+export async function getSources (args: Neutron.SourcesOptions) {
   if (!isValid(args)) throw new Error('Invalid options');
 
   const resizableValues = new Map();
@@ -76,7 +76,7 @@ export async function getSources (args: Electron.SourcesOptions) {
       reject(error);
     };
 
-    capturer._onfinished = (sources: Electron.DesktopCapturerSource[]) => {
+    capturer._onfinished = (sources: Neutron.DesktopCapturerSource[]) => {
       stopRunning();
       resolve(sources);
     };

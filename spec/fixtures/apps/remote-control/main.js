@@ -1,8 +1,8 @@
 // eslint-disable-next-line camelcase
-const electron_1 = require('electron');
+const neutron_1 = require('neutron');
 
 // eslint-disable-next-line camelcase
-const { app } = electron_1;
+const { app } = neutron_1;
 const http = require('node:http');
 // eslint-disable-next-line camelcase,@typescript-eslint/no-unused-vars
 const promises_1 = require('node:timers/promises');

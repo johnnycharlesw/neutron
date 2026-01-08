@@ -9,7 +9,7 @@
 
 #include "base/observer_list.h"
 
-namespace electron {
+namespace neutron {
 
 class NativeWindow;
 class WindowListObserver;
@@ -58,6 +58,6 @@ class WindowList {
   static WindowList* instance_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WINDOW_LIST_H_

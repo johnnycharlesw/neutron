@@ -7,7 +7,7 @@
 
 #include "base/observer_list_types.h"
 
-namespace electron {
+namespace neutron {
 
 class NativeWindow;
 
@@ -23,6 +23,6 @@ class WindowListObserver : public base::CheckedObserver {
   ~WindowListObserver() override = default;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WINDOW_LIST_OBSERVER_H_

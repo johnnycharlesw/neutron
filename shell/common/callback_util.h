@@ -11,7 +11,7 @@
 #include "base/functional/bind.h"
 #include "base/functional/callback.h"
 
-namespace electron {
+namespace neutron {
 
 namespace internal {
 template <typename... Args>
@@ -38,6 +38,6 @@ base::RepeatingCallback<void(Args...)> AdaptCallbackForRepeating(
                              std::make_unique<Holder>(std::move(cb)));
 }
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_CALLBACK_UTIL_H_

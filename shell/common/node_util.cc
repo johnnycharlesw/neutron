@@ -19,9 +19,9 @@
 #include "shell/common/gin_converters/callback_converter.h"
 #include "shell/common/node_includes.h"
 #include "shell/common/process_util.h"
-#include "third_party/electron_node/src/node_process-inl.h"
+#include "third_party/neutron_node/src/node_process-inl.h"
 
-namespace electron::util {
+namespace neutron::util {
 
 v8::MaybeLocal<v8::Value> CompileAndCall(
     v8::Isolate* const isolate,
@@ -43,7 +43,7 @@ v8::MaybeLocal<v8::Value> CompileAndCall(
 
   if (compiled.IsEmpty()) {
     // TODO(samuelmaddock): how can we get the compilation error message?
-    LOG(ERROR) << "CompileAndCall failed to compile electron script (" << id
+    LOG(ERROR) << "CompileAndCall failed to compile neutron script (" << id
                << ")";
     return {};
   }
@@ -53,7 +53,7 @@ v8::MaybeLocal<v8::Value> CompileAndCall(
       context, v8::Null(isolate), arguments->size(), arguments->data());
 
   // This will only be caught when something has gone terrible wrong as all
-  // electron scripts are wrapped in a try {} catch {} by webpack
+  // neutron scripts are wrapped in a try {} catch {} by webpack
   if (try_catch.HasCaught()) {
     std::string msg = "no error message";
     if (!try_catch.Message().IsEmpty()) {
@@ -61,7 +61,7 @@ v8::MaybeLocal<v8::Value> CompileAndCall(
     } else if (try_catch.HasTerminated()) {
       msg = "script execution has been terminated";
     }
-    LOG(ERROR) << "CompileAndCall failed to evaluate electron script (" << id
+    LOG(ERROR) << "CompileAndCall failed to evaluate neutron script (" << id
                << "): " << msg;
   }
   return ret;
@@ -158,7 +158,7 @@ ExplicitMicrotasksScope::ExplicitMicrotasksScope(v8::MicrotaskQueue* queue)
   // first place for those processes. However, in renderer processes, there may
   // be unexpected behavior if this code is triggered within a pending microtask
   // scope.
-  if (electron::IsBrowserProcess() || electron::IsUtilityProcess()) {
+  if (neutron::IsBrowserProcess() || neutron::IsUtilityProcess()) {
     DCHECK_EQ(original_policy_, v8::MicrotasksPolicy::kExplicit);
   } else {
     DCHECK_EQ(microtask_queue_->GetMicrotasksScopeDepth(), 0);
@@ -171,9 +171,9 @@ ExplicitMicrotasksScope::~ExplicitMicrotasksScope() {
   microtask_queue_->set_microtasks_policy(original_policy_);
 }
 
-}  // namespace electron::util
+}  // namespace neutron::util
 
-namespace electron::Buffer {
+namespace neutron::Buffer {
 
 // SAFETY: There is no node::Buffer API that passes the UNSAFE_BUFFER_USAGE
 // test, so let's isolate the unsafe API use into this function. Instead of
@@ -196,4 +196,4 @@ v8::MaybeLocal<v8::Object> Copy(v8::Isolate* isolate,
   return Copy(isolate, base::as_chars(data));
 }
 
-}  // namespace electron::Buffer
+}  // namespace neutron::Buffer

@@ -1,7 +1,7 @@
-import '@electron/internal/sandboxed_renderer/pre-init';
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import type * as ipcRendererUtilsModule from '@electron/internal/renderer/ipc-renderer-internal-utils';
-import { createPreloadProcessObject, executeSandboxedPreloadScripts } from '@electron/internal/sandboxed_renderer/preload';
+import '@neutron/internal/sandboxed_renderer/pre-init';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import type * as ipcRendererUtilsModule from '@neutron/internal/renderer/ipc-renderer-internal-utils';
+import { createPreloadProcessObject, executeSandboxedPreloadScripts } from '@neutron/internal/sandboxed_renderer/preload';
 
 import * as events from 'events';
 
@@ -11,7 +11,7 @@ declare const binding: {
   createPreloadScript: (src: string) => Function
 };
 
-const ipcRendererUtils = require('@electron/internal/renderer/ipc-renderer-internal-utils') as typeof ipcRendererUtilsModule;
+const ipcRendererUtils = require('@neutron/internal/renderer/ipc-renderer-internal-utils') as typeof ipcRendererUtilsModule;
 
 const {
   preloadScripts,
@@ -21,11 +21,11 @@ const {
   process: NodeJS.Process;
 }>(IPC_MESSAGES.BROWSER_SANDBOX_LOAD);
 
-const electron = require('electron');
+const neutron = require('neutron');
 
 const loadedModules = new Map<string, any>([
-  ['electron', electron],
-  ['electron/common', electron],
+  ['neutron', neutron],
+  ['neutron/common', neutron],
   ['events', events],
   ['node:events', events]
 ]);
@@ -42,7 +42,7 @@ Object.assign(preloadProcess, processProps);
 
 Object.assign(process, processProps);
 
-require('@electron/internal/renderer/ipc-native-setup');
+require('@neutron/internal/renderer/ipc-native-setup');
 
 executeSandboxedPreloadScripts({
   loadedModules,

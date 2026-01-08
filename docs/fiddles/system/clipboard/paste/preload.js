@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron/renderer')
+const { contextBridge, ipcRenderer } = require('neutron/renderer')
 
 contextBridge.exposeInMainWorld('clipboard', {
   readText: () => ipcRenderer.invoke('clipboard:readText'),

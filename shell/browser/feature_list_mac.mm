@@ -2,13 +2,13 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "electron/shell/browser/feature_list.h"
+#include "neutron/shell/browser/feature_list.h"
 
 #include <string>
 
 #include "base/dcheck_is_on.h"
 
-namespace electron {
+namespace neutron {
 
 std::string EnablePlatformSpecificFeatures() {
   if (@available(macOS 14.4, *)) {
@@ -40,4 +40,4 @@ std::string DisablePlatformSpecificFeatures() {
   return "";
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -28,7 +28,7 @@ To set the represented file of window, you can use the
 ## Example
 
 ```fiddle docs/fiddles/features/represented-file
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('neutron/main')
 const os = require('node:os')
 
 function createWindow () {

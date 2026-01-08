@@ -10,7 +10,7 @@
 #include "content/public/browser/media_observer.h"
 #include "third_party/blink/public/mojom/mediastream/media_stream.mojom-forward.h"
 
-namespace electron {
+namespace neutron {
 
 // This singleton is used to receive updates about media events from the content
 // layer.
@@ -57,6 +57,6 @@ class MediaCaptureDevicesDispatcher
   ~MediaCaptureDevicesDispatcher() override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_MEDIA_MEDIA_CAPTURE_DEVICES_DISPATCHER_H_

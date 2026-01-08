@@ -1,4 +1,4 @@
-const { contextBridge } = require('electron');
+const { contextBridge } = require('neutron');
 
 contextBridge.exposeInMainWorld('str', 'some-text');
 contextBridge.exposeInMainWorld('obj', { prop: 'obj-prop' });

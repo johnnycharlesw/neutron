@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('neutron');
 
 app.on('ready', async () => {
   const win = new BrowserWindow({ show: false, webPreferences: { partition: '123321' } });

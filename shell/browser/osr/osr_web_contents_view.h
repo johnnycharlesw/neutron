@@ -26,7 +26,7 @@ namespace content {
 class WebContents;
 }
 
-namespace electron {
+namespace neutron {
 
 class NativeWindow;
 
@@ -125,6 +125,6 @@ class OffScreenWebContentsView : public content::WebContentsView,
 #endif
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_OSR_OSR_WEB_CONTENTS_VIEW_H_

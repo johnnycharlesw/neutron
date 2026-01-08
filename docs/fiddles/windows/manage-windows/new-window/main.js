@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, shell } = require('electron/main')
+const { app, BrowserWindow, ipcMain, shell } = require('neutron/main')
 const path = require('node:path')
 
 ipcMain.on('new-window', (event, { url, width, height }) => {

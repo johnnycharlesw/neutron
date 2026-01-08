@@ -1,5 +1,5 @@
-import { shell } from 'electron/common';
-import { BrowserWindow, app } from 'electron/main';
+import { shell } from 'neutron/common';
+import { BrowserWindow, app } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -60,7 +60,7 @@ describe('shell module', () => {
       } else if (process.platform === 'darwin') {
         // On the Mac CI machines, Safari tries to ask for a password to the
         // code signing keychain we set up to test code signing (see
-        // https://github.com/electron/electron/pull/19969#issuecomment-526278890),
+        // https://github.com/neutron/neutron/pull/19969#issuecomment-526278890),
         // so use a blur event as a crude proxy.
         const w = new BrowserWindow({ show: true });
         requestReceived = once(w, 'blur');
@@ -92,12 +92,12 @@ describe('shell module', () => {
       const w = new BrowserWindow({ show: false, webPreferences: { sandbox: false, contextIsolation: false, nodeIntegration: true } });
       await w.loadURL('about:blank');
       await Promise.all<void>([
-        w.webContents.executeJavaScript(`require("electron").shell.openExternal(${JSON.stringify(url)})`),
+        w.webContents.executeJavaScript(`require("neutron").shell.openExternal(${JSON.stringify(url)})`),
         requestReceived
       ]);
     });
 
-    ifit(process.platform === 'darwin')('removes focus from the electron window after opening an external link', async () => {
+    ifit(process.platform === 'darwin')('removes focus from the neutron window after opening an external link', async () => {
       const url = 'http://127.0.0.1';
       const w = new BrowserWindow({ show: true });
 
@@ -117,7 +117,7 @@ describe('shell module', () => {
     afterEach(closeAllWindows);
 
     it('moves an item to the trash', async () => {
-      const dir = await fs.promises.mkdtemp(path.resolve(app.getPath('temp'), 'electron-shell-spec-'));
+      const dir = await fs.promises.mkdtemp(path.resolve(app.getPath('temp'), 'neutron-shell-spec-'));
       const filename = path.join(dir, 'temp-to-be-deleted');
       await fs.promises.writeFile(filename, 'dummy-contents');
       await shell.trashItem(filename);
@@ -132,7 +132,7 @@ describe('shell module', () => {
     ifit(!(process.platform === 'win32' && process.arch === 'ia32'))('works in the renderer process', async () => {
       const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
       w.loadURL('about:blank');
-      await expect(w.webContents.executeJavaScript('require(\'electron\').shell.trashItem(\'does-not-exist\')')).to.be.rejectedWith(/does-not-exist|Failed to move item|Failed to create FileOperation/);
+      await expect(w.webContents.executeJavaScript('require(\'neutron\').shell.trashItem(\'does-not-exist\')')).to.be.rejectedWith(/does-not-exist|Failed to move item|Failed to create FileOperation/);
     });
   });
 

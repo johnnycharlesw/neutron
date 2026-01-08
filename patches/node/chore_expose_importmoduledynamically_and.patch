@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Wed, 8 Mar 2023 13:02:17 -0800
 Subject: chore: expose ImportModuleDynamically and
  HostInitializeImportMetaObjectCallback to embedders

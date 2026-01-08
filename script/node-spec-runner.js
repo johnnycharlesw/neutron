@@ -14,7 +14,7 @@ const args = minimist(process.argv.slice(2), {
 
 const BASE = path.resolve(__dirname, '../..');
 
-const NODE_DIR = path.resolve(BASE, 'third_party', 'electron_node');
+const NODE_DIR = path.resolve(BASE, 'third_party', 'neutron_node');
 const JUNIT_DIR = args.jUnitDir ? path.resolve(args.jUnitDir) : null;
 const TAP_FILE_NAME = 'test.tap';
 

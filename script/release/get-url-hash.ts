@@ -2,7 +2,7 @@ import got from 'got';
 
 import * as url from 'node:url';
 
-const HASHER_FUNCTION_HOST = 'electron-hasher.azurewebsites.net';
+const HASHER_FUNCTION_HOST = 'neutron-hasher.azurewebsites.net';
 const HASHER_FUNCTION_ROUTE = '/api/hashRemoteAsset';
 
 export async function getUrlHash (targetUrl: string, algorithm = 'sha256', attempts = 3) {

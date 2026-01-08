@@ -2,7 +2,7 @@
   try {
     window.localStorage
   } catch (e) {
-    const {ipcRenderer} = require('electron')
+    const {ipcRenderer} = require('neutron')
     ipcRenderer.send('local-storage-response', e.message)
   }
 </script>

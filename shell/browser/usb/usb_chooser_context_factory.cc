@@ -6,10 +6,10 @@
 
 #include "base/no_destructor.h"
 #include "components/keyed_service/content/browser_context_dependency_manager.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/usb/usb_chooser_context.h"
 
-namespace electron {
+namespace neutron {
 
 UsbChooserContextFactory::UsbChooserContextFactory()
     : BrowserContextKeyedServiceFactory(
@@ -22,7 +22,7 @@ std::unique_ptr<KeyedService>
 UsbChooserContextFactory::BuildServiceInstanceForBrowserContext(
     content::BrowserContext* context) const {
   return std::make_unique<UsbChooserContext>(
-      static_cast<electron::ElectronBrowserContext*>(context));
+      static_cast<neutron::NeutronBrowserContext*>(context));
 }
 
 // static
@@ -44,4 +44,4 @@ UsbChooserContext* UsbChooserContextFactory::GetForBrowserContextIfExists(
       GetInstance()->GetServiceForBrowserContext(context, /*create=*/false));
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -119,18 +119,18 @@ class TrackableObject : public TrackableObjectBase, public EventEmitter<T> {
 
   void InitWith(v8::Isolate* isolate, v8::Local<v8::Object> wrapper) override {
     if (!weak_map_) {
-      weak_map_ = new electron::KeyWeakMap<int32_t>;
+      weak_map_ = new neutron::KeyWeakMap<int32_t>;
     }
     weak_map_->Set(isolate, weak_map_id(), wrapper);
     gin_helper::WrappableBase::InitWith(isolate, wrapper);
   }
 
  private:
-  static electron::KeyWeakMap<int32_t>* weak_map_;  // leaked on purpose
+  static neutron::KeyWeakMap<int32_t>* weak_map_;  // leaked on purpose
 };
 
 template <typename T>
-electron::KeyWeakMap<int32_t>* TrackableObject<T>::weak_map_ = nullptr;
+neutron::KeyWeakMap<int32_t>* TrackableObject<T>::weak_map_ = nullptr;
 
 }  // namespace gin_helper
 

@@ -1,5 +1,5 @@
 {
-  "name": "@electron-ci/external-ab",
+  "name": "@neutron-ci/external-ab",
   "version": "0.0.1",
   "main": "./lib/test-array-buffer.js",
   "scripts": {

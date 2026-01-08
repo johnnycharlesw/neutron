@@ -3,7 +3,7 @@
 > Load and interact with extensions.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 Instances of the `Extensions` class are accessed by using `extensions` property of
 a `Session`.
@@ -76,7 +76,7 @@ be remembered for future runs of the application. This is no longer the case:
 extension to be loaded.
 
 ```js
-const { app, session } = require('electron')
+const { app, session } = require('neutron')
 
 const path = require('node:path')
 

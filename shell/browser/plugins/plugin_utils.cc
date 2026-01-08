@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "content/public/common/webplugininfo.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "url/gurl.h"
 #include "url/origin.h"
 

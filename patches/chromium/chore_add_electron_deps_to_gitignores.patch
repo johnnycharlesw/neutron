@@ -1,9 +1,9 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Samuel Attard <sattard@salesforce.com>
 Date: Tue, 26 Jul 2022 00:05:29 -0700
-Subject: chore: add electron deps to gitignores
+Subject: chore: add neutron deps to gitignores
 
-Makes things like "git status" quicker when developing electron locally
+Makes things like "git status" quicker when developing neutron locally
 
 diff --git a/.gitignore b/.gitignore
 index 4c61af331b8276969b7df1b81e1076f8b8e932dd..413dc63ffc065e5f52db11b548eb8d718e2cbbcf 100644
@@ -13,7 +13,7 @@ index 4c61af331b8276969b7df1b81e1076f8b8e932dd..413dc63ffc065e5f52db11b548eb8d71
  /data
  /delegate_execute
  /device/serial/device_serial_mojo.xml
-+/electron
++/neutron
  /GEMINI.md
  /google_apis/gcm/gcm.xml
  /googleurl
@@ -25,7 +25,7 @@ index b5761637e4b91efb38b5c1d4be9f59b271d4f0db..010c4f7bfe4ea8c82eff4924c83668c2
  /directxsdk
  /dragonbox/src
  /edk2
-+/electron_node
++/neutron_node
  /elfutils/src
 +/engflow-reclient-configs/
  /espresso/lib/

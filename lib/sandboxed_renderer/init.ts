@@ -1,7 +1,7 @@
-import '@electron/internal/sandboxed_renderer/pre-init';
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import type * as ipcRendererUtilsModule from '@electron/internal/renderer/ipc-renderer-internal-utils';
-import { createPreloadProcessObject, executeSandboxedPreloadScripts } from '@electron/internal/sandboxed_renderer/preload';
+import '@neutron/internal/sandboxed_renderer/pre-init';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import type * as ipcRendererUtilsModule from '@neutron/internal/renderer/ipc-renderer-internal-utils';
+import { createPreloadProcessObject, executeSandboxedPreloadScripts } from '@neutron/internal/sandboxed_renderer/preload';
 
 import * as events from 'events';
 import { setImmediate, clearImmediate } from 'timers';
@@ -11,7 +11,7 @@ declare const binding: {
   createPreloadScript: (src: string) => Function
 };
 
-const ipcRendererUtils = require('@electron/internal/renderer/ipc-renderer-internal-utils') as typeof ipcRendererUtilsModule;
+const ipcRendererUtils = require('@neutron/internal/renderer/ipc-renderer-internal-utils') as typeof ipcRendererUtilsModule;
 
 const {
   preloadScripts,
@@ -21,12 +21,12 @@ const {
   process: NodeJS.Process;
 }>(IPC_MESSAGES.BROWSER_SANDBOX_LOAD);
 
-const electron = require('electron');
+const neutron = require('neutron');
 
 const loadedModules = new Map<string, any>([
-  ['electron', electron],
-  ['electron/common', electron],
-  ['electron/renderer', electron],
+  ['neutron', neutron],
+  ['neutron/common', neutron],
+  ['neutron/renderer', neutron],
   ['events', events],
   ['node:events', events]
 ]);
@@ -41,7 +41,7 @@ const loadableModules = new Map<string, Function>([
 const preloadProcess = createPreloadProcessObject();
 
 // InvokeEmitProcessEvent in ElectronSandboxedRendererClient will look for this
-const v8Util = process._linkedBinding('electron_common_v8_util');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
 v8Util.setHiddenValue(global, 'emit-process-event', (event: string) => {
   (process as events.EventEmitter).emit(event);
   (preloadProcess as events.EventEmitter).emit(event);
@@ -53,7 +53,7 @@ Object.assign(preloadProcess, processProps);
 Object.assign(process, processProps);
 
 // Common renderer initialization
-require('@electron/internal/renderer/common-init');
+require('@neutron/internal/renderer/common-init');
 
 executeSandboxedPreloadScripts({
   loadedModules,

@@ -13,7 +13,7 @@
 #include "base/win/i18n.h"
 #include "base/win/win_util.h"
 
-namespace electron {
+namespace neutron {
 
 bool GetPreferredLanguagesUsingGlobalization(
     std::vector<std::wstring>* languages) {
@@ -66,4 +66,4 @@ std::vector<std::string> GetPreferredLanguages() {
   return languages;
 }
 
-}  // namespace electron
+}  // namespace neutron

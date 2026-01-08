@@ -1,4 +1,4 @@
-import { BaseWindow } from 'electron';
+import { BaseWindow } from 'neutron';
 
 import { expect } from 'chai';
 
@@ -15,7 +15,7 @@ const skip = process.platform !== 'darwin' || process.arch !== 'arm64';
 ifdescribe(!skip)('sharedTexture module', () => {
   const {
     nativeImage
-  } = require('electron');
+  } = require('neutron');
 
   const debugSpec = false;
   const dirPath = path.join(fixtures, 'api', 'shared-texture');
@@ -29,7 +29,7 @@ ifdescribe(!skip)('sharedTexture module', () => {
       BrowserWindow,
       sharedTexture,
       ipcMain
-    } = require('electron');
+    } = require('neutron');
 
     afterEach(async () => {
       ipcMain.removeAllListeners();
@@ -41,8 +41,8 @@ ifdescribe(!skip)('sharedTexture module', () => {
     it('successfully imported and rendered with subtle api', async function () {
       this.timeout(debugSpec ? 100000 : 10000);
       type CapturedTextureHolder = {
-        importedSubtle: Electron.SharedTextureImportedSubtle,
-        texture: Electron.OffscreenSharedTexture
+        importedSubtle: Neutron.SharedTextureImportedSubtle,
+        texture: Neutron.OffscreenSharedTexture
       }
 
       const capturedTextures = new Map<string, CapturedTextureHolder>();

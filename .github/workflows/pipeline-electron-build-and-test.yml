@@ -61,14 +61,14 @@ on:
         default: false
 
 concurrency:
-  group: electron-build-and-test-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ github.ref_protected == true && github.run_id || github.ref }}
+  group: neutron-build-and-test-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ github.ref_protected == true && github.run_id || github.ref }}
   cancel-in-progress: ${{ github.ref_protected != true }}
 
 permissions: {}
 
 jobs:
   build:
-    uses: ./.github/workflows/pipeline-segment-electron-build.yml
+    uses: ./.github/workflows/pipeline-segment-neutron-build.yml
     permissions:
       contents: read
     with:
@@ -84,7 +84,7 @@ jobs:
       enable-ssh: ${{ inputs.enable-ssh }}
     secrets: inherit
   test:
-    uses: ./.github/workflows/pipeline-segment-electron-test.yml
+    uses: ./.github/workflows/pipeline-segment-neutron-test.yml
     permissions:
       contents: read
       issues: read

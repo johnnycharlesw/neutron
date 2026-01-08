@@ -32,7 +32,7 @@ on:
         default: false
 
 concurrency:
-  group: electron-test-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ inputs.is-asan }}-${{ github.ref_protected == true && github.run_id || github.ref }}
+  group: neutron-test-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ inputs.is-asan }}-${{ github.ref_protected == true && github.run_id || github.ref }}
   cancel-in-progress: ${{ github.ref_protected != true }}
 
 permissions: {}
@@ -121,18 +121,18 @@ jobs:
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Turn off screenshot nag on macOS
       if: ${{ inputs.target-platform == 'macos' }}
       run: |
         defaults write ~/Library/Group\ Containers/group.com.apple.replayd/ScreenCaptureApprovals.plist "/bin/bash" -date "3024-09-23 12:00:00 +0000"
-        src/electron/script/actions/screencapture-nag-remover.sh -a $(which bash)
-        src/electron/script/actions/screencapture-nag-remover.sh -a /opt/hca/hosted-compute-agent
+        src/neutron/script/actions/screencapture-nag-remover.sh -a $(which bash)
+        src/neutron/script/actions/screencapture-nag-remover.sh -a /opt/hca/hosted-compute-agent
     - name: Setup SSH Debugging
       if: ${{ inputs.target-platform == 'macos' && (inputs.enable-ssh || env.ACTIONS_STEP_DEBUG == 'true') }}
-      uses: ./src/electron/.github/actions/ssh-debug
+      uses: ./src/neutron/.github/actions/ssh-debug
       with:
         tunnel: 'true'
       env:
@@ -142,9 +142,9 @@ jobs:
         AUTHORIZED_USERS: ${{ secrets.SSH_DEBUG_AUTHORIZED_USERS }}
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Install Dependencies
-      uses: ./src/electron/.github/actions/install-dependencies
+      uses: ./src/neutron/.github/actions/install-dependencies
     - name: Set Chromium Git Cookie
-      uses: ./src/electron/.github/actions/set-chromium-cookie
+      uses: ./src/neutron/.github/actions/set-chromium-cookie
     - name: Get Depot Tools
       timeout-minutes: 5
       run: |
@@ -178,7 +178,7 @@ jobs:
         name: src_artifacts_${{ env.ARTIFACT_KEY }}
         path: ./src_artifacts_${{ matrix.build-type }}_${{ inputs.target-arch }}
     - name: Restore Generated Artifacts
-      run: ./src/electron/script/actions/restore-artifacts.sh
+      run: ./src/neutron/script/actions/restore-artifacts.sh
     - name: Unzip Dist (win)
       if: ${{ inputs.target-platform == 'win' }}
       shell: powershell
@@ -195,7 +195,7 @@ jobs:
     #  if: ${{ inputs.target-platform == 'macos' && inputs.target-arch == 'x64' }}
     #  run: |
     #    sudo security authorizationdb write com.apple.trust-settings.admin allow
-    #    cd src/electron
+    #    cd src/neutron
     #    ./script/codesign/generate-identity.sh
 
     - name: Run Electron Tests
@@ -207,7 +207,7 @@ jobs:
         DISPLAY: ':99.0'
         NPM_CONFIG_MSVS_VERSION: '2022'
       run: |
-        cd src/electron
+        cd src/neutron
         export ELECTRON_TEST_RESULTS_DIR=`pwd`/junit
         # Get which tests are on this shard
         tests_files=$(node script/split-tests ${{ matrix.shard }} ${{ inputs.target-platform == 'linux' && 3 || 2 }})
@@ -231,7 +231,7 @@ jobs:
           runuser -u builduser -- git config --global --add safe.directory $(pwd)
           if [ "${{ inputs.is-asan }}" == "true" ]; then
             cd ..
-            ASAN_SYMBOLIZE="$PWD/tools/valgrind/asan/asan_symbolize.py --executable-path=$PWD/out/Default/electron"
+            ASAN_SYMBOLIZE="$PWD/tools/valgrind/asan/asan_symbolize.py --executable-path=$PWD/out/Default/neutron"
             export ASAN_OPTIONS="symbolize=0 handle_abort=1"
             export G_SLICE=always-malloc
             export NSS_DISABLE_ARENA_FREE_LIST=1
@@ -239,7 +239,7 @@ jobs:
             export LLVM_SYMBOLIZER_PATH=$PWD/third_party/llvm-build/Release+Asserts/bin/llvm-symbolizer
             export MOCHA_TIMEOUT=180000
             echo "Piping output to ASAN_SYMBOLIZE ($ASAN_SYMBOLIZE)"
-            cd electron
+            cd neutron
             runuser -u builduser -- xvfb-run script/actions/run-tests.sh script/yarn.js test --runners=main --trace-uncaught --enable-logging --files $tests_files | $ASAN_SYMBOLIZE
           else
             if [ "${{ inputs.target-arch }}" = "arm" ]; then
@@ -253,13 +253,13 @@ jobs:
     - name: Upload Test results to Datadog
       env:
         DD_ENV: ci
-        DD_SERVICE: electron
+        DD_SERVICE: neutron
         DD_API_KEY: ${{ secrets.DD_API_KEY }}
         DD_CIVISIBILITY_LOGS_ENABLED: true
         DD_TAGS: "os.architecture:${{ inputs.target-arch }},os.family:${{ inputs.target-platform }},os.platform:${{ inputs.target-platform }},asan:${{ inputs.is-asan }}"
       run: |
-        if ! [ -z $DD_API_KEY ] && [ -f src/electron/junit/test-results-main.xml ]; then
-          cd src/electron
+        if ! [ -z $DD_API_KEY ] && [ -f src/neutron/junit/test-results-main.xml ]; then
+          cd src/neutron
           export DATADOG_PATH=`node script/yarn.js bin datadog-ci`
           $DATADOG_PATH junit upload junit/test-results-main.xml
         fi
@@ -269,7 +269,7 @@ jobs:
       uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4
       with:
         name: test_artifacts_${{ env.ARTIFACT_KEY }}_${{ matrix.shard }}
-        path: src/electron/spec/artifacts
+        path: src/neutron/spec/artifacts
         if-no-files-found: ignore
     - name: Wait for active SSH sessions
       if: always() && !cancelled()

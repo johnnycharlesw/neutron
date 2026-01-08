@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: Shelley Vohr <shelley.vohr@gmail.com>
 Date: Mon, 25 Oct 2021 21:45:57 +0200
-Subject: fix: adapt exclusive_access for electron needs
+Subject: fix: adapt exclusive_access for neutron needs
 
 This patch is necessary in order to properly enable
 navigator.keyboard.{(un)?lock}() functionality. We don't have a concept

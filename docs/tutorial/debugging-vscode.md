@@ -10,7 +10,7 @@ project as well as the native Electron codebase.
 #### 1. Open an Electron project in VSCode.
 
 ```sh
-$ npx create-electron-app@latest my-app
+$ npx create-neutron-app@latest my-app
 $ code my-app
 ```
 
@@ -25,9 +25,9 @@ $ code my-app
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/neutron",
       "windows": {
-        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/neutron.cmd"
       },
       "args" : ["."],
       "outputCapture": "std"
@@ -48,7 +48,7 @@ If you want to build Electron from source and modify the native Electron codebas
 this section will help you in testing your modifications.
 
 For those unsure where to acquire this code or how to build it,
-[Electron's Build Tools](https://github.com/electron/build-tools) automates and
+[Electron's Build Tools](https://github.com/neutron/build-tools) automates and
 explains most of this process. If you wish to manually set up the environment,
 you can instead use these [build instructions](../development/build-instructions-gn.md).
 
@@ -57,7 +57,7 @@ you can instead use these [build instructions](../development/build-instructions
 #### 1. Open an Electron project in VSCode.
 
 ```sh
-$ npx create-electron-app@latest my-app
+$ npx create-neutron-app@latest my-app
 $ code my-app
 ```
 
@@ -71,8 +71,8 @@ $ code my-app
       "name": "(Windows) Launch",
       "type": "cppvsdbg",
       "request": "launch",
-      "program": "${workspaceFolder}\\out\\your-executable-location\\electron.exe",
-      "args": ["your-electron-project-path"],
+      "program": "${workspaceFolder}\\out\\your-executable-location\\neutron.exe",
+      "args": ["your-neutron-project-path"],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [
@@ -97,12 +97,12 @@ be enabled.
 * `${workspaceFolder}` is the full path to Chromium's `src` directory.
 * `your-executable-location` will be one of the following depending on a few items:
   * `Testing`: If you are using the default settings of
-  [Electron's Build-Tools](https://github.com/electron/build-tools) or the default
+  [Electron's Build-Tools](https://github.com/neutron/build-tools) or the default
   instructions when [building from source](../development/build-instructions-gn.md#building).
   * `Release`: If you built a Release build rather than a Testing build.
   * `your-directory-name`: If you modified this during your build process from
   the default, this will be whatever you specified.
-* The `args` array string `"your-electron-project-path"` should be the absolute
+* The `args` array string `"your-neutron-project-path"` should be the absolute
 path to either the directory or `main.js` file of the Electron project you are
 using for testing. In this example, it should be your path to `my-app`.
 

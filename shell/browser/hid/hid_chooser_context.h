@@ -32,9 +32,9 @@ template <typename T>
 class PendingRemote;
 }  // namespace mojo
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserContext;
+class NeutronBrowserContext;
 
 inline constexpr std::string_view kHidDeviceNameKey = "name";
 inline constexpr std::string_view kHidGuidKey = "guid";
@@ -58,7 +58,7 @@ class HidChooserContext : public KeyedService,
     virtual void OnHidChooserContextShutdown() = 0;
   };
 
-  explicit HidChooserContext(ElectronBrowserContext* context);
+  explicit HidChooserContext(NeutronBrowserContext* context);
   HidChooserContext(const HidChooserContext&) = delete;
   HidChooserContext& operator=(const HidChooserContext&) = delete;
   ~HidChooserContext() override;
@@ -124,7 +124,7 @@ class HidChooserContext : public KeyedService,
       const url::Origin& origin,
       const device::mojom::HidDeviceInfo& device);
 
-  raw_ptr<ElectronBrowserContext> browser_context_;
+  raw_ptr<NeutronBrowserContext> browser_context_;
 
   bool is_initialized_ = false;
   base::queue<device::mojom::HidManager::GetDevicesCallback>
@@ -144,21 +144,21 @@ class HidChooserContext : public KeyedService,
   base::WeakPtrFactory<HidChooserContext> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 namespace base {
 
 template <>
-struct ScopedObservationTraits<electron::HidChooserContext,
-                               electron::HidChooserContext::DeviceObserver> {
+struct ScopedObservationTraits<neutron::HidChooserContext,
+                               neutron::HidChooserContext::DeviceObserver> {
   static void AddObserver(
-      electron::HidChooserContext* source,
-      electron::HidChooserContext::DeviceObserver* observer) {
+      neutron::HidChooserContext* source,
+      neutron::HidChooserContext::DeviceObserver* observer) {
     source->AddDeviceObserver(observer);
   }
   static void RemoveObserver(
-      electron::HidChooserContext* source,
-      electron::HidChooserContext::DeviceObserver* observer) {
+      neutron::HidChooserContext* source,
+      neutron::HidChooserContext::DeviceObserver* observer) {
     source->RemoveDeviceObserver(observer);
   }
 };

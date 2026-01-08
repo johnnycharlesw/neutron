@@ -21,7 +21,7 @@ PromiseBase::SettleScope::SettleScope(const PromiseBase& base)
       context_scope_{context_} {}
 
 PromiseBase::SettleScope::~SettleScope() {
-  if (electron::IsBrowserProcess())
+  if (neutron::IsBrowserProcess())
     context_->GetMicrotaskQueue()->PerformCheckpoint(isolate_);
 }
 
@@ -46,7 +46,7 @@ PromiseBase& PromiseBase::operator=(PromiseBase&&) = default;
 
 // static
 scoped_refptr<base::TaskRunner> PromiseBase::GetTaskRunner() {
-  if (electron::IsBrowserProcess() &&
+  if (neutron::IsBrowserProcess() &&
       !content::BrowserThread::CurrentlyOn(content::BrowserThread::UI)) {
     return content::GetUIThreadTaskRunner({});
   }

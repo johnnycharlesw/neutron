@@ -1,6 +1,6 @@
-import * as roles from '@electron/internal/browser/api/menu-item-roles';
+import * as roles from '@neutron/internal/browser/api/menu-item-roles';
 
-import { Menu, BaseWindow, WebContents, KeyboardEvent } from 'electron/main';
+import { Menu, BaseWindow, WebContents, KeyboardEvent } from 'neutron/main';
 
 let nextCommandId = 0;
 

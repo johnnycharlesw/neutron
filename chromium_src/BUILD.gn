@@ -5,13 +5,13 @@
 import("//build/config/ozone.gni")
 import("//build/config/ui.gni")
 import("//components/spellcheck/spellcheck_build_features.gni")
-import("//electron/buildflags/buildflags.gni")
+import("//neutron/buildflags/buildflags.gni")
 import("//printing/buildflags/buildflags.gni")
 import("//third_party/widevine/cdm/widevine.gni")
 
 # Builds some of the chrome sources that Electron depends on.
 static_library("chrome") {
-  visibility = [ "//electron:electron_lib" ]
+  visibility = [ "//neutron:neutron_lib" ]
   sources = [
     "//ash/style/rounded_rect_cutout_path_builder.cc",
     "//ash/style/rounded_rect_cutout_path_builder.h",
@@ -365,7 +365,7 @@ static_library("chrome") {
     }
   }
 
-  if (enable_electron_extensions) {
+  if (enable_neutron_extensions) {
     sources += [
       "//chrome/browser/extensions/chrome_url_request_util.cc",
       "//chrome/browser/extensions/chrome_url_request_util.h",

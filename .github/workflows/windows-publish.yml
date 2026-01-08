@@ -5,7 +5,7 @@ on:
     inputs:
       build-image-sha:
         type: string
-        description: 'SHA for electron/build image'
+        description: 'SHA for neutron/build image'
         default: '933c7d6ff6802706875270bec2e3c891cf8add3f'
         required: true
       upload-to-storage:
@@ -22,11 +22,11 @@ permissions: {}
 
 jobs:
   checkout-windows:
-    runs-on: electron-arc-centralus-linux-amd64-32core
+    runs-on: neutron-arc-centralus-linux-amd64-32core
     permissions:
       contents: read
     container:
-      image: ghcr.io/electron/build:${{ inputs.build-image-sha }}
+      image: ghcr.io/neutron/build:${{ inputs.build-image-sha }}
       options: --user root --device /dev/fuse --cap-add SYS_ADMIN
       volumes:
         - /mnt/win-cache:/mnt/win-cache
@@ -42,22 +42,22 @@ jobs:
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
     - name: Checkout & Sync & Save
-      uses: ./src/electron/.github/actions/checkout
+      uses: ./src/neutron/.github/actions/checkout
       with:
         generate-sas-token: 'true'
         target-platform: win
 
   publish-x64-win:
-    uses: ./.github/workflows/pipeline-segment-electron-build.yml
+    uses: ./.github/workflows/pipeline-segment-neutron-build.yml
     permissions:
       contents: read
     needs: checkout-windows
     with:
       environment: production-release
-      build-runs-on: electron-arc-centralus-windows-amd64-16core
+      build-runs-on: neutron-arc-centralus-windows-amd64-16core
       target-platform: win
       target-arch: x64
       is-release: true
@@ -67,13 +67,13 @@ jobs:
     secrets: inherit
 
   publish-arm64-win:
-    uses: ./.github/workflows/pipeline-segment-electron-build.yml
+    uses: ./.github/workflows/pipeline-segment-neutron-build.yml
     permissions:
       contents: read
     needs: checkout-windows
     with:
       environment: production-release
-      build-runs-on: electron-arc-centralus-windows-amd64-16core
+      build-runs-on: neutron-arc-centralus-windows-amd64-16core
       target-platform: win
       target-arch: arm64
       is-release: true
@@ -83,13 +83,13 @@ jobs:
     secrets: inherit
 
   publish-x86-win:
-    uses: ./.github/workflows/pipeline-segment-electron-build.yml
+    uses: ./.github/workflows/pipeline-segment-neutron-build.yml
     permissions:
       contents: read
     needs: checkout-windows
     with:
       environment: production-release
-      build-runs-on: electron-arc-centralus-windows-amd64-16core
+      build-runs-on: neutron-arc-centralus-windows-amd64-16core
       target-platform: win
       target-arch: x86
       is-release: true

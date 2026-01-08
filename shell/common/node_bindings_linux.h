@@ -7,7 +7,7 @@
 
 #include "shell/common/node_bindings.h"
 
-namespace electron {
+namespace neutron {
 
 class NodeBindingsLinux : public NodeBindings {
  public:
@@ -21,6 +21,6 @@ class NodeBindingsLinux : public NodeBindings {
   int epoll_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_NODE_BINDINGS_LINUX_H_

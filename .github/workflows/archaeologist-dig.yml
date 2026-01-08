@@ -25,8 +25,8 @@ jobs:
           echo "remote: ${{ github.event.pull_request.head.repo.clone_url }}"
           echo "sha ${{ github.event.pull_request.head.sha }}"
           echo "base ref ${{ github.event.pull_request.base.ref }}"
-          git clone https://github.com/electron/electron.git electron          
-          cd electron
+          git clone https://github.com/neutron/neutron.git neutron          
+          cd neutron
           mkdir -p artifacts
           git remote add fork ${{ github.event.pull_request.head.repo.clone_url }} && git fetch fork
           git checkout  ${{ github.event.pull_request.head.sha }}
@@ -38,25 +38,25 @@ jobs:
         uses: ./.github/actions/generate-types
         with:
           sha-file: .dig-new
-          filename: electron.new.d.ts
+          filename: neutron.new.d.ts
       - name: Generating Types for SHA in .dig-old
         uses: ./.github/actions/generate-types
         with:
           sha-file: .dig-old
-          filename: electron.old.d.ts
+          filename: neutron.old.d.ts
       - name: Upload artifacts
         uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4 #v5.0.0
         with:
           name: artifacts
-          path: electron/artifacts
+          path: neutron/artifacts
           include-hidden-files: true
       - name: Set job output
         run: |
-          git diff --no-index electron.old.d.ts electron.new.d.ts > patchfile || true
+          git diff --no-index neutron.old.d.ts neutron.new.d.ts > patchfile || true
           if [ -s patchfile ]; then
             echo "Changes Detected"
             echo "## Changes Detected" > $GITHUB_STEP_SUMMARY
-            echo "Looks like the \`electron.d.ts\` file changed." >> $GITHUB_STEP_SUMMARY
+            echo "Looks like the \`neutron.d.ts\` file changed." >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "\`\`\`\`\`\`diff" >> $GITHUB_STEP_SUMMARY
             cat patchfile >> $GITHUB_STEP_SUMMARY
@@ -64,6 +64,6 @@ jobs:
           else
             echo "No Changes Detected"
             echo "## No Changes" > $GITHUB_STEP_SUMMARY
-            echo "We couldn't see any changes in the \`electron.d.ts\` artifact" >> $GITHUB_STEP_SUMMARY
+            echo "We couldn't see any changes in the \`neutron.d.ts\` artifact" >> $GITHUB_STEP_SUMMARY
           fi
-        working-directory: ./electron/artifacts
+        working-directory: ./neutron/artifacts

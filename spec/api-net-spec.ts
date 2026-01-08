@@ -1,4 +1,4 @@
-import { net, session, ClientRequest, ClientRequestConstructorOptions, utilityProcess } from 'electron/main';
+import { net, session, ClientRequest, ClientRequestConstructorOptions, utilityProcess } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -242,7 +242,7 @@ describe('net module', () => {
               }
               response.writeHead(200).end('ok');
             });
-            let loginAuthInfo: Electron.AuthInfo;
+            let loginAuthInfo: Neutron.AuthInfo;
             const request = net.request({ method: 'GET', url: serverUrl, ...extraOptions });
             request.on('login', (authInfo, cb) => {
               loginAuthInfo = authInfo;
@@ -1082,7 +1082,7 @@ describe('net module', () => {
       });
 
       test('should set the referer header when a referrer url specified', async () => {
-        const referrerURL = 'https://www.electronjs.org/';
+        const referrerURL = 'https://www.neutronjs.org/';
         const serverUrl = await respondOnce.toSingleURL((request, response) => {
           expect(request.headers.referer).to.equal(referrerURL);
           response.statusCode = 200;
@@ -1400,7 +1400,7 @@ describe('net module', () => {
         net.request('https://test');
         await new Promise<void>((resolve) => {
           process.nextTick(() => {
-            const v8Util = process._linkedBinding('electron_common_v8_util');
+            const v8Util = process._linkedBinding('neutron_common_v8_util');
             v8Util.requestGarbageCollectionForTesting();
             resolve();
           });
@@ -1420,7 +1420,7 @@ describe('net module', () => {
         const response = await getResponse(urlRequest);
         process.nextTick(() => {
           // Trigger a garbage collection.
-          const v8Util = process._linkedBinding('electron_common_v8_util');
+          const v8Util = process._linkedBinding('neutron_common_v8_util');
           v8Util.requestGarbageCollectionForTesting();
           finishResponse!();
         });
@@ -1433,7 +1433,7 @@ describe('net module', () => {
         });
         const urlRequest = net.request(serverUrl);
         process.nextTick(() => {
-          const v8Util = process._linkedBinding('electron_common_v8_util');
+          const v8Util = process._linkedBinding('neutron_common_v8_util');
           v8Util.requestGarbageCollectionForTesting();
         });
         const response = await getResponse(urlRequest);
@@ -1449,7 +1449,7 @@ describe('net module', () => {
         const urlRequest = net.request(serverUrl);
         urlRequest.on('close', () => {
           process.nextTick(() => {
-            const v8Util = process._linkedBinding('electron_common_v8_util');
+            const v8Util = process._linkedBinding('neutron_common_v8_util');
             v8Util.requestGarbageCollectionForTesting();
           });
         });
@@ -1470,7 +1470,7 @@ describe('net module', () => {
         const response = await getResponse(urlRequest);
         await collectStreamBody(response);
         process.nextTick(() => {
-          const v8Util = process._linkedBinding('electron_common_v8_util');
+          const v8Util = process._linkedBinding('neutron_common_v8_util');
           v8Util.requestGarbageCollectionForTesting();
         });
       });
@@ -1484,7 +1484,7 @@ describe('net module', () => {
         const urlRequest = net.request(serverUrl);
         urlRequest.chunkedEncoding = true;
         urlRequest.write(randomBuffer(kOneMegaByte));
-        const v8Util = process._linkedBinding('electron_common_v8_util');
+        const v8Util = process._linkedBinding('neutron_common_v8_util');
         v8Util.requestGarbageCollectionForTesting();
         await collectStreamBody(await getResponse(urlRequest));
       });
@@ -1498,7 +1498,7 @@ describe('net module', () => {
         const urlRequest = net.request(serverUrl);
         urlRequest.on('close', () => {
           process.nextTick(() => {
-            const v8Util = process._linkedBinding('electron_common_v8_util');
+            const v8Util = process._linkedBinding('neutron_common_v8_util');
             v8Util.requestGarbageCollectionForTesting();
           });
         });
@@ -1515,7 +1515,7 @@ describe('net module', () => {
         const urlRequest = net.request(serverUrl);
         urlRequest.on('close', () => {
           process.nextTick(() => {
-            const v8Util = process._linkedBinding('electron_common_v8_util');
+            const v8Util = process._linkedBinding('neutron_common_v8_util');
             v8Util.requestGarbageCollectionForTesting();
           });
         });
@@ -1544,10 +1544,10 @@ describe('net module', () => {
       // the WPT: https://github.com/web-platform-tests/wpt/tree/master/fetch
       // It's possible to run these tests against net.fetch(), but the test
       // harness to do so is quite complex and hasn't been munged to smoothly run
-      // inside the Electron test runner yet.
+      // inside the Neutron test runner yet.
       //
       // In the meantime, here are some tests for basic functionality and
-      // Electron-specific behavior.
+      // Neutron-specific behavior.
 
       describe('basic', () => {
         test('can fetch http urls', async () => {

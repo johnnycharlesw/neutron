@@ -1,1 +1,1 @@
-export default process._linkedBinding('electron_browser_content_tracing');
+export default process._linkedBinding('neutron_browser_content_tracing');

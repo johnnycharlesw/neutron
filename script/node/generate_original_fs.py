@@ -3,7 +3,7 @@
 import os
 import sys
 
-NODE_ROOT_DIR = "../../third_party/electron_node"
+NODE_ROOT_DIR = "../../third_party/neutron_node"
 out_dir = sys.argv[1]
 fs_files = sys.argv[2:]
 

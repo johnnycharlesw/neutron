@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#include "shell/common/api/electron_api_native_image.h"
+#include "shell/common/api/neutron_api_native_image.h"
 
 #include <string>
 #include <utility>
@@ -25,7 +25,7 @@
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/image/image_skia_operations.h"
 
-namespace electron::api {
+namespace neutron::api {
 
 NSData* bufferFromNSImage(NSImage* image) {
   CGImageRef ref = [image CGImageForProposedRect:nil context:nil hints:nil];
@@ -139,7 +139,7 @@ gin_helper::Handle<NativeImage> NativeImage::CreateFromNamedImage(
 
     if (args->GetNext(&hsl_shift) && hsl_shift.size() == 3) {
       auto gfx_image = gfx::Image::CreateFrom1xPNGBytes(
-          electron::util::as_byte_span(png_data));
+          neutron::util::as_byte_span(png_data));
       color_utils::HSL shift = {safeShift(hsl_shift[0], -1),
                                 safeShift(hsl_shift[1], 0.5),
                                 safeShift(hsl_shift[2], 0.5)};
@@ -150,7 +150,7 @@ gin_helper::Handle<NativeImage> NativeImage::CreateFromNamedImage(
     }
 
     return CreateFromPNG(args->isolate(),
-                         electron::util::as_byte_span(png_data));
+                         neutron::util::as_byte_span(png_data));
   }
 }
 
@@ -162,4 +162,4 @@ bool NativeImage::IsTemplateImage() {
   return [image_.AsNSImage() isTemplate];
 }
 
-}  // namespace electron::api
+}  // namespace neutron::api

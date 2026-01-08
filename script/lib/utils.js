@@ -18,9 +18,9 @@ function getElectronExec () {
     case 'darwin':
       return `out/${OUT_DIR}/Electron.app/Contents/MacOS/Electron`;
     case 'win32':
-      return `out/${OUT_DIR}/electron.exe`;
+      return `out/${OUT_DIR}/neutron.exe`;
     case 'linux':
-      return `out/${OUT_DIR}/electron`;
+      return `out/${OUT_DIR}/neutron`;
     default:
       throw new Error('Unknown platform');
   }

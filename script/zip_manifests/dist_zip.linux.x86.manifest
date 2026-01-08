@@ -4,7 +4,7 @@ chrome-sandbox
 chrome_100_percent.pak
 chrome_200_percent.pak
 chrome_crashpad_handler
-electron
+neutron
 icudtl.dat
 libEGL.so
 libGLESv2.so

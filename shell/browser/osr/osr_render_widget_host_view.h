@@ -54,11 +54,11 @@ namespace input {
 class CursorManager;
 }
 
-namespace electron {
+namespace neutron {
 
-class ElectronBeginFrameTimer;
-class ElectronCopyFrameGenerator;
-class ElectronDelegatedFrameHostClient;
+class NeutronBeginFrameTimer;
+class NeutronCopyFrameGenerator;
+class NeutronDelegatedFrameHostClient;
 class OffScreenHostDisplayClient;
 
 using OnPopupPaintCallback = base::RepeatingCallback<void(const gfx::Rect&)>;
@@ -320,7 +320,7 @@ class OffScreenRenderWidgetHostView
   std::unique_ptr<ui::Compositor> compositor_;
 
   // depends-on: render_widget_host_, root_layer_
-  const std::unique_ptr<ElectronDelegatedFrameHostClient>
+  const std::unique_ptr<NeutronDelegatedFrameHostClient>
       delegated_frame_host_client_;
 
   // depends-on: delegated_frame_host_client_
@@ -345,6 +345,6 @@ class OffScreenRenderWidgetHostView
   base::WeakPtrFactory<OffScreenRenderWidgetHostView> weak_ptr_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_OSR_OSR_RENDER_WIDGET_HOST_VIEW_H_

@@ -1,5 +1,5 @@
 <script>
-  const {ipcRenderer} = require('electron')
+  const {ipcRenderer} = require('neutron')
   navigator.mediaDevices.enumerateDevices().then((devices) => {
     return devices.map((device) => device.deviceId)
                   .filter((deviceId) => deviceId !== "default")

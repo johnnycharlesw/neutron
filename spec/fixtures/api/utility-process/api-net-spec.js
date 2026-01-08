@@ -2,7 +2,7 @@
 /* eslint-disable camelcase */
 require('ts-node/register');
 
-const main_1 = require('electron/main');
+const main_1 = require('neutron/main');
 
 const chai_1 = require('chai');
 

@@ -10,7 +10,7 @@
       <h1>Use system dialogs</h1>
 
       <h3>
-        The <code>dialog</code> module in Electron allows you to use native
+        The <code>dialog</code> module in Neutron allows you to use native
         system dialogs for opening files or directories, saving a file or
         displaying informational messages.
       </h3>
@@ -23,7 +23,7 @@
 
       <p>
         Open the
-        <a href="https://www.electronjs.org/docs/latest/api/dialog/">
+        <a href="https://www.neutronjs.org/docs/latest/api/dialog/">
           full API documentation (opens in new window)
         </a>
         in your browser.
@@ -58,7 +58,7 @@
           <h5>Renderer Process</h5>
           <pre>
             <code>
-const {ipcRenderer} = require('electron')
+const {ipcRenderer} = require('neutron')
 
 const informationBtn = document.getElementById('information-dialog')
 
@@ -77,7 +77,7 @@ ipcRenderer.on('information-dialog-selection', (event, index) => {
           <h5>Main Process</h5>
           <pre>
             <code>
-const {ipcMain, dialog} = require('electron')
+const {ipcMain, dialog} = require('neutron')
 
 ipcMain.on('open-information-dialog', (event) => {
   const options = {

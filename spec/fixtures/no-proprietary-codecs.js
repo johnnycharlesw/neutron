@@ -4,7 +4,7 @@
 // proprietary codecs to ensure Electron uses it instead of the version
 // that does include proprietary codecs.
 
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('neutron');
 
 const path = require('node:path');
 

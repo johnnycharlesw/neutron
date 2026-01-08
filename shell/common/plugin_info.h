@@ -8,9 +8,9 @@
 #include <vector>
 
 #include "content/public/common/webplugininfo.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 
-namespace electron {
+namespace neutron {
 
 void GetInternalPlugins(std::vector<content::WebPluginInfo>* plugins);
 
@@ -18,6 +18,6 @@ void GetInternalPlugins(std::vector<content::WebPluginInfo>* plugins);
 content::WebPluginInfo GetPDFPluginInfo();
 #endif  // BUILDFLAG(ENABLE_PDF_VIEWER)
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_PLUGIN_INFO_H_

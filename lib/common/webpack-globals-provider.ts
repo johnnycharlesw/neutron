@@ -1,5 +1,5 @@
 // Captures original globals into a scope to ensure that userland modifications do
-// not impact Electron.  Note that users doing:
+// not impact Neutron.  Note that users doing:
 //
 // global.Promise.resolve = myFn
 //

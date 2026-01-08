@@ -17,9 +17,9 @@
 #include "gin/data_object_builder.h"
 #include "services/device/public/cpp/usb/usb_utils.h"
 #include "services/device/public/mojom/usb_enumeration_options.mojom.h"
-#include "shell/browser/api/electron_api_session.h"
+#include "shell/browser/api/neutron_api_session.h"
 #include "shell/browser/javascript_environment.h"
-#include "shell/browser/usb/electron_usb_delegate.h"
+#include "shell/browser/usb/neutron_usb_delegate.h"
 #include "shell/browser/usb/usb_chooser_context_factory.h"
 #include "shell/common/gin_converters/callback_converter.h"
 #include "shell/common/gin_converters/content_converter.h"
@@ -32,14 +32,14 @@
 using content::RenderFrameHost;
 using content::WebContents;
 
-namespace electron {
+namespace neutron {
 
 UsbChooserController::UsbChooserController(
     RenderFrameHost* render_frame_host,
     blink::mojom::WebUsbRequestDeviceOptionsPtr options,
     blink::mojom::WebUsbService::GetPermissionCallback callback,
     content::WebContents* web_contents,
-    base::WeakPtr<ElectronUsbDelegate> usb_delegate)
+    base::WeakPtr<NeutronUsbDelegate> usb_delegate)
     : WebContentsObserver(web_contents),
       options_(std::move(options)),
       callback_(std::move(callback)),
@@ -183,4 +183,4 @@ void UsbChooserController::RunCallback(
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

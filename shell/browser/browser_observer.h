@@ -12,7 +12,7 @@
 #include "base/values.h"
 #include "build/build_config.h"
 
-namespace electron {
+namespace neutron {
 
 class BrowserObserver : public base::CheckedObserver {
  public:
@@ -88,6 +88,6 @@ class BrowserObserver : public base::CheckedObserver {
   ~BrowserObserver() override = default;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_BROWSER_OBSERVER_H_

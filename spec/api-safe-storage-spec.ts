@@ -1,4 +1,4 @@
-import { safeStorage } from 'electron/main';
+import { safeStorage } from 'neutron/main';
 
 import { expect } from 'chai';
 

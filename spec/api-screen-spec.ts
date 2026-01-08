@@ -1,4 +1,4 @@
-import { Display, screen, desktopCapturer } from 'electron/main';
+import { Display, screen, desktopCapturer } from 'neutron/main';
 
 import { expect } from 'chai';
 

@@ -15,7 +15,7 @@
 #include "shell/browser/ui/views/win_caption_button_container.h"
 #include "ui/base/metadata/metadata_header_macros.h"
 
-namespace electron {
+namespace neutron {
 
 class NativeWindowViews;
 
@@ -86,6 +86,6 @@ class WinFrameView : public FramelessView {
   raw_ptr<WinCaptionButtonContainer> caption_button_container_ = nullptr;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_WIN_FRAME_VIEW_H_

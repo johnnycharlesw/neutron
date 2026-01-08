@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron/main';
+import { BrowserWindow } from 'neutron/main';
 
 import { AssertionError } from 'chai';
 import { SuiteFunction, TestFunction } from 'mocha';

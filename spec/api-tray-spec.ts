@@ -1,5 +1,5 @@
-import { nativeImage } from 'electron/common';
-import { Menu, Tray } from 'electron/main';
+import { nativeImage } from 'neutron/common';
+import { Menu, Tray } from 'neutron/main';
 
 import { expect } from 'chai';
 

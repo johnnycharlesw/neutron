@@ -15,12 +15,12 @@
 #include "content/public/browser/browser_task_traits.h"
 #include "content/public/browser/browser_thread.h"
 #include "shell/browser/ui/cocoa/NSString+ANSI.h"
-#include "shell/browser/ui/cocoa/electron_menu_controller.h"
+#include "shell/browser/ui/cocoa/neutron_menu_controller.h"
 #include "ui/events/cocoa/cocoa_event_utils.h"
 #include "ui/gfx/mac/coordinate_conversion.h"
 
 @interface StatusItemView : NSView {
-  raw_ptr<electron::TrayIconCocoa> trayIcon_;  // weak
+  raw_ptr<neutron::TrayIconCocoa> trayIcon_;  // weak
   ElectronMenuController* menuController_;     // weak
   BOOL ignoreDoubleClickEvents_;
   NSStatusItem* __strong statusItem_;
@@ -36,7 +36,7 @@
   menuController_ = nil;
 }
 
-- (id)initWithIcon:(electron::TrayIconCocoa*)icon {
+- (id)initWithIcon:(neutron::TrayIconCocoa*)icon {
   trayIcon_ = icon;
   menuController_ = nil;
   ignoreDoubleClickEvents_ = NO;
@@ -242,7 +242,7 @@
   [self handleClickNotifications:event];
 }
 
-- (void)popUpContextMenu:(electron::ElectronMenuModel*)menu_model {
+- (void)popUpContextMenu:(neutron::ElectronMenuModel*)menu_model {
   // Make sure events can be pumped while the menu is up.
   base::CurrentThread::ScopedAllowApplicationTasksInNativeNestedLoop allow;
 
@@ -253,7 +253,7 @@
                                 useDefaultAccelerator:NO];
     // Hacky way to mimic design of ordinary tray menu.
     [statusItem_ setMenu:[menuController menu]];
-    base::WeakPtr<electron::TrayIconCocoa> weak_tray_icon =
+    base::WeakPtr<neutron::TrayIconCocoa> weak_tray_icon =
         trayIcon_->GetWeakPtr();
     [[statusItem_ button] performClick:self];
     // /⚠️ \ Warning! Arbitrary JavaScript and who knows what else has been run
@@ -354,7 +354,7 @@
 
 @end
 
-namespace electron {
+namespace neutron {
 
 TrayIconCocoa::TrayIconCocoa() {
   status_item_view_ = [[StatusItemView alloc] initWithIcon:this];
@@ -434,4 +434,4 @@ TrayIcon* TrayIcon::Create(std::optional<base::Uuid> guid) {
   return new TrayIconCocoa;
 }
 
-}  // namespace electron
+}  // namespace neutron

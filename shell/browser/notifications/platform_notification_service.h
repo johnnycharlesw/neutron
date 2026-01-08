@@ -10,14 +10,14 @@
 #include "base/memory/raw_ptr.h"
 #include "content/public/browser/platform_notification_service.h"
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserClient;
+class NeutronBrowserClient;
 
 class PlatformNotificationService
     : public content::PlatformNotificationService {
  public:
-  explicit PlatformNotificationService(ElectronBrowserClient* browser_client);
+  explicit PlatformNotificationService(NeutronBrowserClient* browser_client);
   ~PlatformNotificationService() override;
 
   // disable copy
@@ -55,9 +55,9 @@ class PlatformNotificationService
   base::Time ReadNextTriggerTimestamp() override;
 
  private:
-  raw_ptr<ElectronBrowserClient> browser_client_;
+  raw_ptr<NeutronBrowserClient> browser_client_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_PLATFORM_NOTIFICATION_SERVICE_H_

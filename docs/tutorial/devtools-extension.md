@@ -7,7 +7,7 @@ popular web frameworks.
 ## Loading a DevTools extension with tooling
 
 The easiest way to load a DevTools extension is to use third-party tooling to automate the
-process for you. [electron-devtools-installer][electron-devtools-installer] is a popular
+process for you. [neutron-devtools-installer][neutron-devtools-installer] is a popular
 NPM package that does just that.
 
 ## Manually loading a DevTools extension
@@ -34,7 +34,7 @@ Using the [React Developer Tools][react-devtools] as an example:
    API. For React Developer Tools `v4.9.0`, it looks something like:
 
    ```js
-   const { app, session } = require('electron')
+   const { app, session } = require('neutron')
    
    const os = require('node:os')
    const path = require('node:path')
@@ -100,6 +100,6 @@ of the extension is not working as expected.
 [load-extension]: ../api/extensions-api.md#extensionsloadextensionpath-options
 [extension-structure]: ../api/structures/extension.md
 [remove-extension]: ../api/extensions-api.md#extensionsremoveextensionextensionid
-[electron-devtools-installer]: https://github.com/MarshallOfSound/electron-devtools-installer
+[neutron-devtools-installer]: https://github.com/MarshallOfSound/neutron-devtools-installer
 [supported-extension-apis]: ../api/extensions.md
-[issue-tracker]: https://github.com/electron/electron/issues
+[issue-tracker]: https://github.com/neutron/neutron/issues

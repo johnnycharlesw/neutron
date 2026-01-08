@@ -15,7 +15,7 @@
 #include "base/environment.h"
 #include "base/process/launch.h"
 #include "base/strings/strcat.h"
-#include "electron/electron_version.h"
+#include "neutron/neutron_version.h"
 #include "shell/browser/javascript_environment.h"
 #include "shell/browser/native_window.h"
 #include "shell/browser/window_list.h"
@@ -27,7 +27,7 @@
 #include "shell/browser/linux/unity_service.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -61,7 +61,7 @@ std::optional<std::string> GetXdgAppOutput(
     const std::vector<std::string>& argv) {
   std::string reply;
   int success_code;
-  ScopedAllowBlockingForElectron allow_blocking;
+  ScopedAllowBlockingForNeutron allow_blocking;
   bool ran_ok = base::GetAppOutputWithExitCode(base::CommandLine(argv), &reply,
                                                &success_code);
 
@@ -237,4 +237,4 @@ void Browser::SetAboutPanelOptions(base::Value::Dict options) {
   about_panel_options_ = std::move(options);
 }
 
-}  // namespace electron
+}  // namespace neutron

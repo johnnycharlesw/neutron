@@ -3,7 +3,7 @@
 <webview nodeintegration src="app://host1" id="view" partition="webview-temp"/>
 </body>
 <script>
-  const {ipcRenderer, webFrame} = require('electron')
+  const {ipcRenderer, webFrame} = require('neutron')
   const view = document.getElementById('view')
   let finalNavigation = false
   function SendZoomLevel() {

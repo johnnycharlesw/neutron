@@ -1,4 +1,4 @@
-import { nativeTheme, BrowserWindow, ipcMain } from 'electron/main';
+import { nativeTheme, BrowserWindow, ipcMain } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -59,7 +59,7 @@ describe('nativeTheme module', () => {
       expect(called).to.equal(false);
     });
 
-    const getPrefersColorSchemeIsDark = async (w: Electron.BrowserWindow) => {
+    const getPrefersColorSchemeIsDark = async (w: Neutron.BrowserWindow) => {
       const isDark: boolean = await w.webContents.executeJavaScript(
         'matchMedia("(prefers-color-scheme: dark)").matches'
       );
@@ -71,7 +71,7 @@ describe('nativeTheme module', () => {
       await w.loadFile(path.resolve(__dirname, 'fixtures', 'blank.html'));
       await w.webContents.executeJavaScript(`
         window.matchMedia('(prefers-color-scheme: dark)')
-          .addEventListener('change', () => require('electron').ipcRenderer.send('theme-change'))
+          .addEventListener('change', () => require('neutron').ipcRenderer.send('theme-change'))
       `);
       const originalSystemIsDark = await getPrefersColorSchemeIsDark(w);
       let changePromise = once(ipcMain, 'theme-change');

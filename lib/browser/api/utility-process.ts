@@ -1,16 +1,16 @@
-import { MessagePortMain } from '@electron/internal/browser/message-port-main';
+import { MessagePortMain } from '@neutron/internal/browser/message-port-main';
 
 import { EventEmitter } from 'events';
 import { Socket } from 'net';
 import { Duplex, PassThrough } from 'stream';
 
-const { _fork } = process._linkedBinding('electron_browser_utility_process');
+const { _fork } = process._linkedBinding('neutron_browser_utility_process');
 
-class ForkUtilityProcess extends EventEmitter implements Electron.UtilityProcess {
+class ForkUtilityProcess extends EventEmitter implements Neutron.UtilityProcess {
   #handle: ElectronInternal.UtilityProcessWrapper | null;
   #stdout: Duplex | null = null;
   #stderr: Duplex | null = null;
-  constructor (modulePath: string, args?: string[], options?: Electron.ForkOptions) {
+  constructor (modulePath: string, args?: string[], options?: Neutron.ForkOptions) {
     super();
 
     if (!modulePath) {
@@ -147,6 +147,6 @@ class ForkUtilityProcess extends EventEmitter implements Electron.UtilityProcess
   }
 }
 
-export function fork (modulePath: string, args?: string[], options?: Electron.ForkOptions) {
+export function fork (modulePath: string, args?: string[], options?: Neutron.ForkOptions) {
   return new ForkUtilityProcess(modulePath, args, options);
 }

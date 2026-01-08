@@ -1,1 +1,1 @@
-require('electron').ipcRenderer.send('vars', window.preload1, window.preload2, window.preload3);
+require('neutron').ipcRenderer.send('vars', window.preload1, window.preload2, window.preload3);

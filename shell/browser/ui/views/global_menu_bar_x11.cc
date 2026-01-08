@@ -10,7 +10,7 @@
 #include "base/functional/bind.h"
 #include "base/notimplemented.h"
 #include "base/strings/utf_string_conversions.h"
-#include "shell/browser/ui/electron_menu_model.h"
+#include "shell/browser/ui/neutron_menu_model.h"
 #include "shell/browser/ui/views/global_menu_bar_registrar_x11.h"
 #include "third_party/abseil-cpp/absl/strings/str_format.h"
 #include "ui/aura/window.h"
@@ -54,7 +54,7 @@ using dbusmenu_server_new_func = DbusmenuServer* (*)(const char* object);
 using dbusmenu_server_set_root_func = void (*)(DbusmenuServer* self,
                                                DbusmenuMenuitem* root);
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -137,8 +137,8 @@ void EnsureMethodsLoaded() {
       dlsym(dbusmenu_lib, "dbusmenu_server_set_root"));
 }
 
-ElectronMenuModel* ModelForMenuItem(DbusmenuMenuitem* item) {
-  return reinterpret_cast<ElectronMenuModel*>(
+NeutronMenuModel* ModelForMenuItem(DbusmenuMenuitem* item) {
+  return reinterpret_cast<NeutronMenuModel*>(
       g_object_get_data(G_OBJECT(item), "model"));
 }
 
@@ -159,7 +159,7 @@ void SetMenuItemID(DbusmenuMenuitem* item, int id) {
   g_object_set_data(G_OBJECT(item), "menu-id", GINT_TO_POINTER(id + 1));
 }
 
-std::string GetMenuModelStatus(ElectronMenuModel* model) {
+std::string GetMenuModelStatus(NeutronMenuModel* model) {
   std::string ret;
   for (size_t i = 0; i < model->GetItemCount(); ++i) {
     int status = model->GetTypeAt(i) | (model->IsVisibleAt(i) << 3) |
@@ -194,7 +194,7 @@ std::string GlobalMenuBarX11::GetPathForWindow(x11::Window window) {
   return absl::StrFormat("/com/canonical/menu/%X", static_cast<uint>(window));
 }
 
-void GlobalMenuBarX11::SetMenu(ElectronMenuModel* menu_model) {
+void GlobalMenuBarX11::SetMenu(NeutronMenuModel* menu_model) {
   if (!IsServerStarted())
     return;
 
@@ -226,7 +226,7 @@ void GlobalMenuBarX11::OnWindowUnmapped() {
   GlobalMenuBarRegistrarX11::GetInstance()->OnWindowUnmapped(xwindow_);
 }
 
-void GlobalMenuBarX11::BuildMenuFromModel(ElectronMenuModel* model,
+void GlobalMenuBarX11::BuildMenuFromModel(NeutronMenuModel* model,
                                           DbusmenuMenuitem* parent) {
   auto connect = [&](auto* sender, const char* detailed_signal, auto receiver) {
     // Unretained() is safe since GlobalMenuBarX11 will own the
@@ -239,8 +239,8 @@ void GlobalMenuBarX11::BuildMenuFromModel(ElectronMenuModel* model,
     DbusmenuMenuitem* item = menuitem_new();
     menuitem_property_set_bool(item, kPropertyVisible, model->IsVisibleAt(i));
 
-    ElectronMenuModel::ItemType type = model->GetTypeAt(i);
-    if (type == ElectronMenuModel::TYPE_SEPARATOR) {
+    NeutronMenuModel::ItemType type = model->GetTypeAt(i);
+    if (type == NeutronMenuModel::TYPE_SEPARATOR) {
       menuitem_property_set(item, kPropertyType, kTypeSeparator);
     } else {
       std::string label = ui::ConvertAcceleratorsFromWindowsStyle(
@@ -251,7 +251,7 @@ void GlobalMenuBarX11::BuildMenuFromModel(ElectronMenuModel* model,
       g_object_set_data(G_OBJECT(item), "model", model);
       SetMenuItemID(item, i);
 
-      if (type == ElectronMenuModel::TYPE_SUBMENU) {
+      if (type == NeutronMenuModel::TYPE_SUBMENU) {
         menuitem_property_set(item, kPropertyChildrenDisplay, kDisplaySubmenu);
         connect(item, "about-to-show", &GlobalMenuBarX11::OnSubMenuShow);
       } else {
@@ -261,10 +261,10 @@ void GlobalMenuBarX11::BuildMenuFromModel(ElectronMenuModel* model,
 
         connect(item, "item-activated", &GlobalMenuBarX11::OnItemActivated);
 
-        if (type == ElectronMenuModel::TYPE_CHECK ||
-            type == ElectronMenuModel::TYPE_RADIO) {
+        if (type == NeutronMenuModel::TYPE_CHECK ||
+            type == NeutronMenuModel::TYPE_RADIO) {
           menuitem_property_set(item, kPropertyToggleType,
-                                type == ElectronMenuModel::TYPE_CHECK
+                                type == NeutronMenuModel::TYPE_CHECK
                                     ? kToggleCheck
                                     : kToggleRadio);
           menuitem_property_set_int(item, kPropertyToggleState,
@@ -312,14 +312,14 @@ void GlobalMenuBarX11::RegisterAccelerator(DbusmenuMenuitem* item,
 void GlobalMenuBarX11::OnItemActivated(DbusmenuMenuitem* item,
                                        unsigned int timestamp) {
   size_t id;
-  ElectronMenuModel* model = ModelForMenuItem(item);
+  NeutronMenuModel* model = ModelForMenuItem(item);
   if (model && GetMenuItemID(item, &id))
     model->ActivatedAt(id, 0);
 }
 
 void GlobalMenuBarX11::OnSubMenuShow(DbusmenuMenuitem* item) {
   size_t id;
-  ElectronMenuModel* model = ModelForMenuItem(item);
+  NeutronMenuModel* model = ModelForMenuItem(item);
   if (!model || !GetMenuItemID(item, &id))
     return;
 
@@ -342,4 +342,4 @@ void GlobalMenuBarX11::OnSubMenuShow(DbusmenuMenuitem* item) {
   BuildMenuFromModel(model->GetSubmenuModelAt(id), item);
 }
 
-}  // namespace electron
+}  // namespace neutron

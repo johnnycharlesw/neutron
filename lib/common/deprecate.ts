@@ -40,7 +40,7 @@ export function log (message: string): void {
   } else if (process.traceDeprecation) {
     return console.trace(message);
   } else {
-    return console.warn(`(electron) ${message}`);
+    return console.warn(`(neutron) ${message}`);
   }
 }
 

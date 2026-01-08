@@ -1,15 +1,15 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, shell, dialog } = require('electron/main')
+const { app, BrowserWindow, ipcMain, shell, dialog } = require('neutron/main')
 const path = require('node:path')
 
 let mainWindow
 
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient('electron-fiddle', process.execPath, [path.resolve(process.argv[1])])
+    app.setAsDefaultProtocolClient('neutron-fiddle', process.execPath, [path.resolve(process.argv[1])])
   }
 } else {
-  app.setAsDefaultProtocolClient('electron-fiddle')
+  app.setAsDefaultProtocolClient('neutron-fiddle')
 }
 
 const gotTheLock = app.requestSingleInstanceLock()

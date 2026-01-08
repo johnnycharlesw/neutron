@@ -126,12 +126,12 @@ def format_patch(repo, since):
     'core.attributesfile='
     + os.path.join(
         os.path.dirname(os.path.realpath(__file__)),
-        'electron.gitattributes',
+        'neutron.gitattributes',
     ),
     # Ensure it is not possible to match anything
     # Disabled for now as we have consistent chunk headers
     # '-c',
-    # 'diff.electron.xfuncname=$^',
+    # 'diff.neutron.xfuncname=$^',
     'format-patch',
     '--keep-subject',
     '--no-stat',

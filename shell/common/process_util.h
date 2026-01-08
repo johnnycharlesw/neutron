@@ -7,7 +7,7 @@
 
 #include <string>
 
-namespace electron {
+namespace neutron {
 
 std::string GetProcessType();
 
@@ -16,6 +16,6 @@ bool IsRendererProcess();
 bool IsUtilityProcess();
 bool IsZygoteProcess();
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_PROCESS_UTIL_H_

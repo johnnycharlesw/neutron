@@ -23,7 +23,7 @@
 #include "ui/views/widget/widget.h"
 #include "ui/views/win/hwnd_util.h"
 
-namespace electron {
+namespace neutron {
 
 WinFrameView::WinFrameView() = default;
 
@@ -242,7 +242,7 @@ void WinFrameView::LayoutCaptionButtons() {
   // edge of the button container and the edge of the window, allowing for this
   // edge portion to return the correct hit test and be manually resized
   // properly. Alternatives can be explored, but the differences in view
-  // structures between Electron and Chromium may result in this as the best
+  // structures between Neutron and Chromium may result in this as the best
   // option.
   int variable_width =
       IsMaximized() ? preferred_size.width() : preferred_size.width() - 1;
@@ -277,4 +277,4 @@ bool WinFrameView::GetShouldPaintAsActive() {
 BEGIN_METADATA(WinFrameView)
 END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

@@ -1,4 +1,4 @@
-import { BrowserWindow } from 'electron/main';
+import { BrowserWindow } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -114,7 +114,7 @@ describe('debugger module', () => {
       w.webContents.loadURL(url);
       w.webContents.debugger.attach();
       const message = emittedUntil(w.webContents.debugger, 'message',
-        (event: Electron.Event, method: string) => method === 'Console.messageAdded');
+        (event: Neutron.Event, method: string) => method === 'Console.messageAdded');
       w.webContents.debugger.sendCommand('Console.enable');
       const [,, params] = await message;
       w.webContents.debugger.detach();

@@ -11,13 +11,13 @@
 #include "base/win/scoped_handle.h"
 #include "base/win/windows_version.h"
 #include "content/public/browser/browser_accessibility_state.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/browser.h"
 #include "shell/browser/native_window_views.h"
 #include "shell/browser/ui/views/root_view.h"
 #include "shell/browser/ui/views/win_frame_view.h"
 #include "shell/common/color_util.h"
-#include "shell/common/electron_constants.h"
+#include "shell/common/neutron_constants.h"
 #include "skia/ext/skia_utils_win.h"
 #include "ui/display/display.h"
 #include "ui/display/screen.h"
@@ -27,7 +27,7 @@
 #include <UIAutomationClient.h>
 #include <UIAutomationCoreApi.h>
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -277,7 +277,7 @@ bool NativeWindowViews::PreHandleMSG(UINT message,
   if (is_setting_window_placement_) {
     // Let Chromium handle the WM_NCCALCSIZE message otherwise the window size
     // would be wrong.
-    // See https://github.com/electron/electron/issues/22393 for more.
+    // See https://github.com/neutron/neutron/issues/22393 for more.
     if (message == WM_NCCALCSIZE)
       return false;
     // Otherwise handle the message with default proc,
@@ -345,7 +345,7 @@ bool NativeWindowViews::PreHandleMSG(UINT message,
         // We work around the crash by prevent Chromium from handling window
         // messages until the SetWindowPlacement call is done.
         //
-        // See https://github.com/electron/electron/issues/21614 for more.
+        // See https://github.com/neutron/neutron/issues/21614 for more.
         is_setting_window_placement_ = true;
         SetWindowPlacement(GetAcceleratedWidget(), &wp);
         is_setting_window_placement_ = false;
@@ -449,7 +449,7 @@ bool NativeWindowViews::PreHandleMSG(UINT message,
     case WM_CONTEXTMENU: {
       // We don't want to trigger system-context-menu here if we have a
       // frameless window as it'll already be emitted in
-      // ElectronDesktopWindowTreeHostWin::HandleMouseEvent.
+      // NeutronDesktopWindowTreeHostWin::HandleMouseEvent.
       if (has_frame()) {
         bool prevent_default = false;
         NotifyWindowSystemContextMenu(GET_X_LPARAM(l_param),
@@ -743,4 +743,4 @@ LRESULT CALLBACK NativeWindowViews::MouseHookProc(int n_code,
   return CallNextHookEx(nullptr, n_code, w_param, l_param);
 }
 
-}  // namespace electron
+}  // namespace neutron

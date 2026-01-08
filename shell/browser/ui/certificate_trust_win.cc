@@ -59,10 +59,10 @@ CERT_CHAIN_PARA GetCertificateChainParameters() {
 }
 
 v8::Local<v8::Promise> ShowCertificateTrust(
-    electron::NativeWindow* parent_window,
+    neutron::NativeWindow* parent_window,
     const scoped_refptr<net::X509Certificate>& cert,
     const std::string& message) {
-  v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+  v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
   gin_helper::Promise<void> promise(isolate);
   v8::Local<v8::Promise> handle = promise.GetHandle();
 

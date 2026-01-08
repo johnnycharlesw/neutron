@@ -11,10 +11,10 @@
 
 #include "shell/browser/ui/tray_icon.h"
 
-@class ElectronMenuController;
+@class NeutronMenuController;
 @class StatusItemView;
 
-namespace electron {
+namespace neutron {
 
 class TrayIconCocoa : public TrayIcon {
  public:
@@ -29,11 +29,11 @@ class TrayIconCocoa : public TrayIcon {
   std::string GetTitle() override;
   void SetIgnoreDoubleClickEvents(bool ignore) override;
   bool GetIgnoreDoubleClickEvents() override;
-  void PopUpOnUI(base::WeakPtr<ElectronMenuModel> menu_model);
+  void PopUpOnUI(base::WeakPtr<NeutronMenuModel> menu_model);
   void PopUpContextMenu(const gfx::Point& pos,
-                        base::WeakPtr<ElectronMenuModel> menu_model) override;
+                        base::WeakPtr<NeutronMenuModel> menu_model) override;
   void CloseContextMenu() override;
-  void SetContextMenu(raw_ptr<ElectronMenuModel> menu_model) override;
+  void SetContextMenu(raw_ptr<NeutronMenuModel> menu_model) override;
   gfx::Rect GetBounds() override;
   void SetAutoSaveName(const std::string& name) override;
 
@@ -42,15 +42,15 @@ class TrayIconCocoa : public TrayIcon {
   }
 
  private:
-  // Electron custom view for NSStatusItem.
+  // Neutron custom view for NSStatusItem.
   StatusItemView* __strong status_item_view_;
 
   // Status menu shown when right-clicking the system icon.
-  ElectronMenuController* __strong menu_;
+  NeutronMenuController* __strong menu_;
 
   base::WeakPtrFactory<TrayIconCocoa> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_TRAY_ICON_COCOA_H_

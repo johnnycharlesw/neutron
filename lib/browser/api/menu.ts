@@ -1,9 +1,9 @@
-import { sortMenuItems } from '@electron/internal/browser/api/menu-utils';
-import { setApplicationMenuWasSet } from '@electron/internal/browser/default-menu';
+import { sortMenuItems } from '@neutron/internal/browser/api/menu-utils';
+import { setApplicationMenuWasSet } from '@neutron/internal/browser/default-menu';
 
-import { BaseWindow, MenuItem, webContents, Menu as MenuType, MenuItemConstructorOptions } from 'electron/main';
+import { BaseWindow, MenuItem, webContents, Menu as MenuType, MenuItemConstructorOptions } from 'neutron/main';
 
-const bindings = process._linkedBinding('electron_browser_menu');
+const bindings = process._linkedBinding('neutron_browser_menu');
 
 const { Menu } = bindings as { Menu: typeof MenuType };
 const checked = new WeakMap<MenuItem, boolean>();

@@ -7,14 +7,14 @@ const Module = require('module') as NodeJS.ModuleInternal;
 process.argv.splice(1, 1);
 
 // Import common settings.
-require('@electron/internal/common/init');
+require('@neutron/internal/common/init');
 
 // Process command line arguments.
-const { hasSwitch, getSwitchValue } = process._linkedBinding('electron_common_command_line');
+const { hasSwitch, getSwitchValue } = process._linkedBinding('neutron_common_command_line');
 
 // Export node bindings to global.
 const { makeRequireFunction } = __non_webpack_require__('internal/modules/helpers') as typeof import('@node/lib/internal/modules/helpers');
-global.module = new Module('electron/js2c/worker_init');
+global.module = new Module('neutron/js2c/worker_init');
 global.require = makeRequireFunction(global.module) as NodeRequire;
 
 // See WebWorkerObserver::WorkerScriptReadyForEvaluation.
@@ -39,8 +39,8 @@ if (typeof self !== 'undefined' && self.location.protocol === 'file:') {
   global.module.paths = Module._nodeModulePaths(global.__dirname);
 } else {
   // For backwards compatibility we fake these two paths here
-  global.__filename = path.join(process.resourcesPath, 'electron.asar', 'worker', 'init.js');
-  global.__dirname = path.join(process.resourcesPath, 'electron.asar', 'worker');
+  global.__filename = path.join(process.resourcesPath, 'neutron.asar', 'worker', 'init.js');
+  global.__dirname = path.join(process.resourcesPath, 'neutron.asar', 'worker');
 
   const appPath = hasSwitch('app-path') ? getSwitchValue('app-path') : null;
   if (appPath) {

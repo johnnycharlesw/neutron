@@ -15,7 +15,7 @@ namespace content {
 class BrowserContext;
 }
 
-namespace electron {
+namespace neutron {
 
 class SessionPreferences : public base::SupportsUserData::Data {
  public:
@@ -39,6 +39,6 @@ class SessionPreferences : public base::SupportsUserData::Data {
   std::vector<PreloadScript> preload_scripts_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_SESSION_PREFERENCES_H_

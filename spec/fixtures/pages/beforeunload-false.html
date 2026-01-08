@@ -3,7 +3,7 @@
 <script type="text/javascript" charset="utf-8">
   window.onbeforeunload = function() {
     setTimeout(function() {
-        var ipcRenderer = require('electron').ipcRenderer;
+        var ipcRenderer = require('neutron').ipcRenderer;
       ipcRenderer.sendToHost('onbeforeunload');
     }, 0);
     return false;

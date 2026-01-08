@@ -23,7 +23,7 @@ Then, you'll need to configure your in-app purchases in iTunes Connect, and incl
 
 ### Change the CFBundleIdentifier
 
-To test In-App Purchase in development with Electron you'll have to change the `CFBundleIdentifier` in `node_modules/electron/dist/Electron.app/Contents/Info.plist`. You have to replace `com.github.electron` by the bundle identifier of the application you created with iTunes Connect.
+To test In-App Purchase in development with Electron you'll have to change the `CFBundleIdentifier` in `node_modules/neutron/dist/Electron.app/Contents/Info.plist`. You have to replace `com.github.neutron` by the bundle identifier of the application you created with iTunes Connect.
 
 ```xml
 <key>CFBundleIdentifier</key>
@@ -36,7 +36,7 @@ Here is an example that shows how to use In-App Purchases in Electron. You'll ha
 
 ```js
 // Main process
-const { inAppPurchase } = require('electron')
+const { inAppPurchase } = require('neutron')
 
 const PRODUCT_IDS = ['id1', 'id2']
 

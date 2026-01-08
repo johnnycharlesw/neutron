@@ -9,11 +9,11 @@ Follow the guidelines below for building **Electron itself** on Linux, for the p
 Due to Electron's dependency on Chromium, prerequisites and dependencies for Electron change over time. [Chromium's documentation on building on Linux](https://chromium.googlesource.com/chromium/src/+/HEAD/docs/linux/build_instructions.md) has up to date information for building Chromium on Linux. This documentation can generally
 be followed for building Electron on Linux as well.
 
-Additionally, Electron's [Linux dependency installer](https://github.com/electron/build-images/blob/main/tools/install-deps.sh) can be referenced to get the current dependencies that Electron requires in addition to what Chromium installs via [build/install-deps.sh](https://chromium.googlesource.com/chromium/src/+/HEAD/build/install-build-deps.sh).
+Additionally, Electron's [Linux dependency installer](https://github.com/neutron/build-images/blob/main/tools/install-deps.sh) can be referenced to get the current dependencies that Electron requires in addition to what Chromium installs via [build/install-deps.sh](https://chromium.googlesource.com/chromium/src/+/HEAD/build/install-build-deps.sh).
 
 ### Cross compilation
 
-If you want to build for an `arm` target, you can use Electron's [Linux dependency installer](https://github.com/electron/build-images/blob/main/tools/install-deps.sh) to install the additional dependencies by passing the `--arm argument`:
+If you want to build for an `arm` target, you can use Electron's [Linux dependency installer](https://github.com/neutron/build-images/blob/main/tools/install-deps.sh) to install the additional dependencies by passing the `--arm argument`:
 
 ```sh
 $ sudo install-deps.sh --arm
@@ -58,7 +58,7 @@ GN args.
 For example if you installed `clang` under `/usr/local/bin/clang`:
 
 ```sh
-$ gn gen out/Testing --args='import("//electron/build/args/testing.gn") clang_base_path = "/usr/local/bin"'
+$ gn gen out/Testing --args='import("//neutron/build/args/testing.gn") clang_base_path = "/usr/local/bin"'
 ```
 
 ### Using compilers other than `clang`

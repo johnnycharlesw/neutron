@@ -11,7 +11,7 @@ significantly faster build times .
 
 ## Enabling Reclient
 
-Currently the only supported way to use Reclient is to use our [Build Tools](https://github.com/electron/build-tools).
+Currently the only supported way to use Reclient is to use our [Build Tools](https://github.com/neutron/build-tools).
 Reclient configuration is automatically included when you set up `build-tools`.
 
 If you have an existing config, you can just set `"reclient": "remote_exec"`
@@ -26,7 +26,7 @@ Please do not set a value higher than **200**. The RBE system is monitored.
 Users found to be abusing it with unreasonable concurrency will be deactivated.
 
 ```bash
-autoninja -C out/Testing electron -j 200
+autoninja -C out/Testing neutron -j 200
 ```
 
 If you're using `build-tools`, appropriate `-j` values will automatically be used for you.

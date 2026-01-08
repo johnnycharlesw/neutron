@@ -26,8 +26,8 @@ export function randomString (length: number) {
   return buffer.toString();
 }
 
-export async function getResponse (urlRequest: Electron.ClientRequest) {
-  return new Promise<Electron.IncomingMessage>((resolve, reject) => {
+export async function getResponse (urlRequest: Neutron.ClientRequest) {
+  return new Promise<Neutron.IncomingMessage>((resolve, reject) => {
     urlRequest.on('error', reject);
     urlRequest.on('abort', reject);
     urlRequest.on('response', (response) => resolve(response));
@@ -35,11 +35,11 @@ export async function getResponse (urlRequest: Electron.ClientRequest) {
   });
 }
 
-export async function collectStreamBody (response: Electron.IncomingMessage | http.IncomingMessage) {
+export async function collectStreamBody (response: Neutron.IncomingMessage | http.IncomingMessage) {
   return (await collectStreamBodyBuffer(response)).toString();
 }
 
-export function collectStreamBodyBuffer (response: Electron.IncomingMessage | http.IncomingMessage) {
+export function collectStreamBodyBuffer (response: Neutron.IncomingMessage | http.IncomingMessage) {
   return new Promise<Buffer>((resolve, reject) => {
     response.on('error', reject);
     (response as NodeJS.EventEmitter).on('aborted', reject);

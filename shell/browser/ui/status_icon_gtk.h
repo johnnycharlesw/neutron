@@ -14,7 +14,7 @@
 
 typedef struct _GtkStatusIcon GtkStatusIcon;
 
-namespace electron {
+namespace neutron {
 
 namespace gtkui {
 class MenuGtk;
@@ -46,6 +46,6 @@ class StatusIconGtk : public ui::StatusIconLinux {
   std::vector<ScopedGSignal> signals_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_STATUS_ICON_GTK_H_

@@ -1,4 +1,4 @@
-const { contextBridge, ipcRenderer } = require('electron');
+const { contextBridge, ipcRenderer } = require('neutron');
 
 // NOTE: Never do this in an actual app! Very insecure!
 contextBridge.exposeInMainWorld('ipc', {

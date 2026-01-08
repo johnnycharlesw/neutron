@@ -19,9 +19,9 @@ namespace content {
 class BrowserContext;
 }  // namespace content
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserContext;
+class NeutronBrowserContext;
 
 // KeyedService that initializes and provides access to the NetworkContexts for
 // a BrowserContext.
@@ -44,10 +44,10 @@ class NetworkContextService : public KeyedService {
       bool in_memory,
       const base::FilePath& path);
 
-  raw_ptr<ElectronBrowserContext> browser_context_;
+  raw_ptr<NeutronBrowserContext> browser_context_;
   ProxyConfigMonitor proxy_config_monitor_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_NETWORK_CONTEXT_SERVICE_H_

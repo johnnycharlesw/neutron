@@ -1,7 +1,7 @@
-import { BaseWindow, WebContents, BrowserView } from 'electron/main';
-import type { BrowserWindow as BWT } from 'electron/main';
+import { BaseWindow, WebContents, BrowserView } from 'neutron/main';
+import type { BrowserWindow as BWT } from 'neutron/main';
 
-const { BrowserWindow } = process._linkedBinding('electron_browser_window') as { BrowserWindow: typeof BWT };
+const { BrowserWindow } = process._linkedBinding('neutron_browser_window') as { BrowserWindow: typeof BWT };
 
 Object.setPrototypeOf(BrowserWindow.prototype, BaseWindow.prototype);
 
@@ -10,7 +10,7 @@ BrowserWindow.prototype._init = function (this: BWT) {
   (BaseWindow.prototype as any)._init.call(this);
 
   // Avoid recursive require.
-  const { app } = require('electron');
+  const { app } = require('neutron');
 
   // Set ID at construction time so it's accessible after
   // underlying window destruction.
@@ -30,10 +30,10 @@ BrowserWindow.prototype._init = function (this: BWT) {
   };
 
   // Redirect focus/blur event to app instance too.
-  this.on('blur', (event: Electron.Event) => {
+  this.on('blur', (event: Neutron.Event) => {
     app.emit('browser-window-blur', event, this);
   });
-  this.on('focus', (event: Electron.Event) => {
+  this.on('focus', (event: Neutron.Event) => {
     app.emit('browser-window-focus', event, this);
   });
 

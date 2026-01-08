@@ -15,7 +15,7 @@
 #include "dbus/message.h"
 #include "dbus/object_proxy.h"
 
-namespace electron {
+namespace neutron {
 
 class PowerObserverLinux {
  public:
@@ -52,6 +52,6 @@ class PowerObserverLinux {
   base::WeakPtrFactory<PowerObserverLinux> weak_ptr_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_LIB_POWER_OBSERVER_LINUX_H_

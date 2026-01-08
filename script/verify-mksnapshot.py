@@ -8,10 +8,10 @@ import shutil
 import subprocess
 import sys
 
-from lib.util import get_electron_branding, rm_rf, scoped_cwd
+from lib.util import get_neutron_branding, rm_rf, scoped_cwd
 
-PROJECT_NAME = get_electron_branding()['project_name']
-PRODUCT_NAME = get_electron_branding()['product_name']
+PROJECT_NAME = get_neutron_branding()['project_name']
+PRODUCT_NAME = get_neutron_branding()['product_name']
 SOURCE_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 SNAPSHOT_SOURCE = os.path.join(SOURCE_ROOT, 'spec', 'fixtures', 'testsnap.js')
 
@@ -61,19 +61,19 @@ def main():
       if sys.platform == 'darwin':
         bin_files = glob.glob(os.path.join(app_path, '*.bin'))
         app_dir = os.path.join(app_path, f'{PRODUCT_NAME}.app')
-        electron = os.path.join(app_dir, 'Contents', 'MacOS', PRODUCT_NAME)
+        neutron = os.path.join(app_dir, 'Contents', 'MacOS', PRODUCT_NAME)
         bin_out_path = os.path.join(app_dir, 'Contents', 'Frameworks',
                   f'{PROJECT_NAME} Framework.framework',
                   'Resources')
         for bin_file in bin_files:
           shutil.copy2(bin_file, bin_out_path)
       elif sys.platform == 'win32':
-        electron = os.path.join(app_path, f'{PROJECT_NAME}.exe')
+        neutron = os.path.join(app_path, f'{PROJECT_NAME}.exe')
       else:
-        electron = os.path.join(app_path, PROJECT_NAME)
+        neutron = os.path.join(app_path, PROJECT_NAME)
 
-      print('running: ' + ' '.join([electron, test_path]))
-      subprocess.check_call([electron, test_path])
+      print('running: ' + ' '.join([neutron, test_path]))
+      subprocess.check_call([neutron, test_path])
       print('ok successfully used custom snapshot.')
   except subprocess.CalledProcessError as e:
     print('not ok an error was encountered while testing mksnapshot.')

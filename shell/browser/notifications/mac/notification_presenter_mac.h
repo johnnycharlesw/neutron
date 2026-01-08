@@ -9,7 +9,7 @@
 #include "shell/browser/notifications/mac/notification_center_delegate.h"
 #include "shell/browser/notifications/notification_presenter.h"
 
-namespace electron {
+namespace neutron {
 
 class CocoaNotification;
 
@@ -36,6 +36,6 @@ class NotificationPresenterMac : public NotificationPresenter {
 // -Wdeprecated-declarations
 #pragma clang diagnostic pop
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_MAC_NOTIFICATION_PRESENTER_MAC_H_

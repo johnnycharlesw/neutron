@@ -27,7 +27,7 @@ on Windows).
 
 **Default:** Enabled
 
-**@electron/fuses:** `FuseV1Options.RunAsNode`
+**@neutron/fuses:** `FuseV1Options.RunAsNode`
 
 The `runAsNode` fuse toggles whether the [`ELECTRON_RUN_AS_NODE`](../api/environment-variables.md)
 environment variable is respected or not. With this fuse disabled, [`child_process.fork`](https://nodejs.org/api/child_process.html#child_processforkmodulepath-args-options) in the main process will not function
@@ -39,7 +39,7 @@ standalone Node.js process (e.g. a SQLite server process).
 
 **Default:** Disabled
 
-**@electron/fuses:** `FuseV1Options.EnableCookieEncryption`
+**@neutron/fuses:** `FuseV1Options.EnableCookieEncryption`
 
 The `cookieEncryption` fuse toggles whether the cookie store on disk is encrypted using OS level
 cryptography keys. By default, the SQLite database that Chromium uses to store cookies stores the
@@ -52,7 +52,7 @@ later will make your cookie store corrupt and useless. Most apps can safely enab
 
 **Default:** Enabled
 
-**@electron/fuses:** `FuseV1Options.EnableNodeOptionsEnvironmentVariable`
+**@neutron/fuses:** `FuseV1Options.EnableNodeOptionsEnvironmentVariable`
 
 The `nodeOptions` fuse toggles whether the [`NODE_OPTIONS`](https://nodejs.org/api/cli.html#node_optionsoptions)
 and [`NODE_EXTRA_CA_CERTS`](https://github.com/nodejs/node/blob/main/doc/api/cli.md#node_extra_ca_certsfile)
@@ -64,7 +64,7 @@ Most apps can safely disable this fuse.
 
 **Default:** Enabled
 
-**@electron/fuses:** `FuseV1Options.EnableNodeCliInspectArguments`
+**@neutron/fuses:** `FuseV1Options.EnableNodeCliInspectArguments`
 
 The `nodeCliInspect` fuse toggles whether the `--inspect`, `--inspect-brk`, etc. flags are respected
 or not. When disabled, it also ensures that `SIGUSR1` signal does not initialize the main process
@@ -74,7 +74,7 @@ inspector. Most apps can safely disable this fuse.
 
 **Default:** Disabled
 
-**@electron/fuses:** `FuseV1Options.EnableEmbeddedAsarIntegrityValidation`
+**@neutron/fuses:** `FuseV1Options.EnableEmbeddedAsarIntegrityValidation`
 
 The `embeddedAsarIntegrityValidation` fuse toggles a feature on macOS and Windows that validates the
 content of the `app.asar` file when it is loaded. This feature is designed to have a minimal
@@ -87,7 +87,7 @@ For more information on how to use ASAR integrity validation, please read the [A
 
 **Default:** Disabled
 
-**@electron/fuses:** `FuseV1Options.OnlyLoadAppFromAsar`
+**@neutron/fuses:** `FuseV1Options.OnlyLoadAppFromAsar`
 
 The `onlyLoadAppFromAsar` fuse changes the search system that Electron uses to locate your app code.
 By default, Electron will search for this code in the following order:
@@ -103,7 +103,7 @@ it is impossible to load non-validated code.
 
 **Default:** Disabled
 
-**@electron/fuses:** `FuseV1Options.LoadBrowserProcessSpecificV8Snapshot`
+**@neutron/fuses:** `FuseV1Options.LoadBrowserProcessSpecificV8Snapshot`
 
 V8 snapshots can be useful to improve app startup performance. V8 lets you take snapshots of
 initialized heaps and then load them back in to avoid the cost of initializing the heap.
@@ -115,13 +115,13 @@ Other processes will use the V8 snapshot file that they normally do.
 
 Using separate snapshots for renderer processes and the main process can improve security, especially
 to make sure that the renderer doesn't use a snapshot with `nodeIntegration` enabled.
-See [electron/electron#35170](https://github.com/electron/electron/issues/35170) for details.
+See [neutron/neutron#35170](https://github.com/neutron/neutron/issues/35170) for details.
 
 ### `grantFileProtocolExtraPrivileges`
 
 **Default:** Enabled
 
-**@electron/fuses:** `FuseV1Options.GrantFileProtocolExtraPrivileges`
+**@neutron/fuses:** `FuseV1Options.GrantFileProtocolExtraPrivileges`
 
 The `grantFileProtocolExtraPrivileges` fuse changes whether pages loaded from the `file://` protocol
 are given privileges beyond what they would receive in a traditional web browser. This behavior was
@@ -141,14 +141,14 @@ The extra privileges granted to the `file://` protocol by this fuse are incomple
 
 ### The easy way
 
-[`@electron/fuses`](https://npmjs.com/package/@electron/fuses) is a JavaScript utility designed to make flipping these fuses easy. Check out the README of that module for more details on usage and potential error cases.
+[`@neutron/fuses`](https://npmjs.com/package/@neutron/fuses) is a JavaScript utility designed to make flipping these fuses easy. Check out the README of that module for more details on usage and potential error cases.
 
 ```js @ts-nocheck
-const { flipFuses, FuseVersion, FuseV1Options } = require('@electron/fuses')
+const { flipFuses, FuseVersion, FuseV1Options } = require('@neutron/fuses')
 
 flipFuses(
-  // Path to electron
-  require('electron'),
+  // Path to neutron
+  require('neutron'),
   // Fuses to flip
   {
     version: FuseVersion.V1,
@@ -158,15 +158,15 @@ flipFuses(
 ```
 
 You can validate the fuses that have been flipped or check the fuse status of an arbitrary Electron
-app using the `@electron/fuses` CLI.
+app using the `@neutron/fuses` CLI.
 
 ```bash
-npx @electron/fuses read --app /Applications/Foo.app
+npx @neutron/fuses read --app /Applications/Foo.app
 ```
 
 >[!NOTE]
 > If you are using Electron Forge to distribute your application, you can flip fuses using
-> [`@electron-forge/plugin-fuses`](https://www.electronforge.io/config/plugins/fuses),
+> [`@neutron-forge/plugin-fuses`](https://www.neutronforge.io/config/plugins/fuses),
 > which comes pre-installed with all templates.
 
 ### The hard way
@@ -197,4 +197,4 @@ Somewhere in the Electron binary, there will be a sequence of bytes that look li
 
 To flip a fuse, you find its position in the fuse wire and change it to "0" or "1" depending on the state you'd like.
 
-You can view the current schema [here](https://github.com/electron/electron/blob/main/build/fuses/fuses.json5).
+You can view the current schema [here](https://github.com/neutron/neutron/blob/main/build/fuses/fuses.json5).

@@ -6,7 +6,7 @@
 
 #include <utility>
 
-namespace electron {
+namespace neutron {
 
 GPUInfoEnumerator::GPUInfoEnumerator() = default;
 
@@ -108,4 +108,4 @@ base::Value::Dict GPUInfoEnumerator::GetDictionary() {
   return std::move(current_);
 }
 
-}  // namespace electron
+}  // namespace neutron

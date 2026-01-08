@@ -9,7 +9,7 @@
 #include <string>
 
 #include "content/public/renderer/content_renderer_client.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 
 #if BUILDFLAG(ENABLE_BUILTIN_SPELLCHECKER)
 #include "services/service_manager/public/cpp/binder_registry.h"
@@ -32,10 +32,10 @@ class ExtensionsClient;
 }
 #endif
 
-namespace electron {
+namespace neutron {
 
 #if BUILDFLAG(ENABLE_ELECTRON_EXTENSIONS)
-class ElectronExtensionsRendererClient;
+class NeutronExtensionsRendererClient;
 #endif
 
 class RendererClientBase : public content::ContentRendererClient
@@ -70,7 +70,7 @@ class RendererClientBase : public content::ContentRendererClient
   std::unique_ptr<blink::WebPrescientNetworking> CreatePrescientNetworking(
       content::RenderFrame* render_frame) override;
 
-  // Get the context that the Electron API is running in.
+  // Get the context that the Neutron API is running in.
   v8::Local<v8::Context> GetContext(blink::WebLocalFrame* frame,
                                     v8::Isolate* isolate) const;
 
@@ -146,7 +146,7 @@ class RendererClientBase : public content::ContentRendererClient
  private:
 #if BUILDFLAG(ENABLE_ELECTRON_EXTENSIONS)
   std::unique_ptr<extensions::ExtensionsClient> extensions_client_;
-  std::unique_ptr<ElectronExtensionsRendererClient> extensions_renderer_client_;
+  std::unique_ptr<NeutronExtensionsRendererClient> extensions_renderer_client_;
 #endif
 
   std::string renderer_client_id_;
@@ -158,6 +158,6 @@ class RendererClientBase : public content::ContentRendererClient
 #endif
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_RENDERER_RENDERER_CLIENT_BASE_H_

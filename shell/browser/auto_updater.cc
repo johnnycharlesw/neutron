@@ -6,7 +6,7 @@
 
 #include "base/no_destructor.h"
 #include "build/build_config.h"
-#include "electron/mas.h"
+#include "neutron/mas.h"
 
 namespace auto_updater {
 

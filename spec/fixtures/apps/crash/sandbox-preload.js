@@ -1,4 +1,4 @@
-const { crashReporter } = require('electron');
+const { crashReporter } = require('neutron');
 
 const params = new URLSearchParams(location.search);
 if (params.get('set_extra') === '1') {

@@ -5,9 +5,9 @@
 #include "shell/browser/web_view_manager.h"
 
 #include "content/public/browser/web_contents.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 
-namespace electron {
+namespace neutron {
 
 WebViewManager::WebViewManager() = default;
 
@@ -49,4 +49,4 @@ WebViewManager* WebViewManager::GetWebViewManager(
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -28,7 +28,7 @@
 namespace logging {
 
 constexpr base::cstring_view kLogFileName{"ELECTRON_LOG_FILE"};
-constexpr base::cstring_view kElectronEnableLogging{"ELECTRON_ENABLE_LOGGING"};
+constexpr base::cstring_view kNeutronEnableLogging{"ELECTRON_ENABLE_LOGGING"};
 
 #if BUILDFLAG(IS_WIN)
 base::win::ScopedHandle GetLogInheritedHandle(
@@ -60,7 +60,7 @@ base::FilePath GetLogFileName(const base::CommandLine& command_line) {
   if (!filename.empty())
     return base::FilePath::FromUTF8Unsafe(filename);
 
-  auto log_filename = base::FilePath{FILE_PATH_LITERAL("electron_debug.log")};
+  auto log_filename = base::FilePath{FILE_PATH_LITERAL("neutron_debug.log")};
 
   if (base::FilePath path; base::PathService::Get(chrome::DIR_LOGS, &path))
     return path.Append(log_filename);
@@ -89,9 +89,9 @@ DetermineLoggingDestination(const base::CommandLine& command_line,
         command_line.GetSwitchValueASCII(switches::kEnableLogging);
   } else {
     auto env = base::Environment::Create();
-    if (env->HasVar(kElectronEnableLogging)) {
+    if (env->HasVar(kNeutronEnableLogging)) {
       enable_logging = true;
-      logging_destination = env->GetVar(kElectronEnableLogging).value();
+      logging_destination = env->GetVar(kNeutronEnableLogging).value();
     }
   }
   if (!enable_logging)
@@ -116,7 +116,7 @@ DetermineLoggingDestination(const base::CommandLine& command_line,
 
   // --enable-logging logs to stderr, --enable-logging=file logs to a file.
   // NB. this differs from Chromium, in which --enable-logging logs to a file
-  // and --enable-logging=stderr logs to stderr, because that's how Electron
+  // and --enable-logging=stderr logs to stderr, because that's how Neutron
   // used to work, so in order to not break anyone who was depending on
   // --enable-logging logging to stderr, we preserve the old behavior by
   // default.
@@ -135,7 +135,7 @@ DetermineLoggingDestination(const base::CommandLine& command_line,
 
 }  // namespace
 
-void InitElectronLogging(const base::CommandLine& command_line,
+void InitNeutronLogging(const base::CommandLine& command_line,
                          bool is_preinit) {
   const std::string process_type =
       command_line.GetSwitchValueASCII(::switches::kProcessType);

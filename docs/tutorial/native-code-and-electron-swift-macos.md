@@ -1,6 +1,6 @@
 # Native Code and Electron: Swift (macOS)
 
-This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-electron.md) and focuses on creating a native addon for macOS using Swift.
+This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-neutron.md) and focuses on creating a native addon for macOS using Swift.
 
 Swift is a modern, powerful language designed for safety and performance. While you can't use Swift directly with the Node.js N-API as used by Electron, you can create a bridge using Objective-C++ to connect Swift with JavaScript in your Electron application.
 
@@ -13,14 +13,14 @@ This tutorial will be most useful to those who already have some familiarity wit
 
 ## Requirements
 
-Just like our [general introduction to Native Code and Electron](./native-code-and-electron.md), this tutorial assumes you have Node.js and npm installed, as well as the basic tools necessary for compiling native code on macOS. You'll need:
+Just like our [general introduction to Native Code and Electron](./native-code-and-neutron.md), this tutorial assumes you have Node.js and npm installed, as well as the basic tools necessary for compiling native code on macOS. You'll need:
 
 * Xcode installed (available from the Mac App Store)
 * Xcode Command Line Tools (can be installed by running `xcode-select --install` in Terminal)
 
 ## 1) Creating a package
 
-You can re-use the package we created in our [Native Code and Electron](./native-code-and-electron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
+You can re-use the package we created in our [Native Code and Electron](./native-code-and-neutron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
 
 ```txt
 swift-native-addon/
@@ -46,7 +46,7 @@ Our `package.json` should look like this:
   "main": "js/index.js",
   "scripts": {
     "clean": "rm -rf build",
-    "build-electron": "electron-rebuild",
+    "build-neutron": "neutron-rebuild",
     "build": "node-gyp configure && node-gyp build"
   },
   "license": "MIT",

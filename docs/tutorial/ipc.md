@@ -51,7 +51,7 @@ sections.
 In the main process, set an IPC listener on the `set-title` channel with the `ipcMain.on` API:
 
 ```js {6-10,22} title='main.js (Main Process)'
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('neutron')
 
 const path = require('node:path')
 
@@ -94,18 +94,18 @@ To send messages to the listener created above, you can use the `ipcRenderer.sen
 By default, the renderer process has no Node.js or Electron module access. As an app developer,
 you need to choose which APIs to expose from your preload script using the `contextBridge` API.
 
-In your preload script, add the following code, which will expose a global `window.electronAPI`
+In your preload script, add the following code, which will expose a global `window.neutronAPI`
 variable to your renderer process.
 
 ```js title='preload.js (Preload Script)'
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   setTitle: (title) => ipcRenderer.send('set-title', title)
 })
 ```
 
-At this point, you'll be able to use the `window.electronAPI.setTitle()` function in the renderer
+At this point, you'll be able to use the `window.neutronAPI.setTitle()` function in the renderer
 process.
 
 :::caution Security warning
@@ -136,7 +136,7 @@ and a button:
 ```
 
 To make these elements interactive, we'll be adding a few lines of code in the imported
-`renderer.js` file that leverages the `window.electronAPI` functionality exposed from the preload
+`renderer.js` file that leverages the `window.neutronAPI` functionality exposed from the preload
 script:
 
 ```js title='renderer.js (Renderer Process)' @ts-expect-error=[4,5]
@@ -144,7 +144,7 @@ const setButton = document.getElementById('btn')
 const titleInput = document.getElementById('title')
 setButton.addEventListener('click', () => {
   const title = titleInput.value
-  window.electronAPI.setTitle(title)
+  window.neutronAPI.setTitle(title)
 })
 ```
 
@@ -179,11 +179,11 @@ channel from the renderer process. The return value is then returned as a Promis
 Errors thrown through `handle` in the main process are not transparent as they
 are serialized and only the `message` property from the original error is
 provided to the renderer process. Please refer to
-[#24427](https://github.com/electron/electron/issues/24427) for details.
+[#24427](https://github.com/neutron/neutron/issues/24427) for details.
 :::
 
 ```js {6-13,25} title='main.js (Main Process)'
-const { app, BrowserWindow, dialog, ipcMain } = require('electron')
+const { app, BrowserWindow, dialog, ipcMain } = require('neutron')
 
 const path = require('node:path')
 
@@ -228,9 +228,9 @@ In the preload script, we expose a one-line `openFile` function that calls and r
 native dialog from our renderer's user interface.
 
 ```js title='preload.js (Preload Script)'
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   openFile: () => ipcRenderer.invoke('dialog:openFile')
 })
 ```
@@ -270,13 +270,13 @@ const btn = document.getElementById('btn')
 const filePathElement = document.getElementById('filePath')
 
 btn.addEventListener('click', async () => {
-  const filePath = await window.electronAPI.openFile()
+  const filePath = await window.neutronAPI.openFile()
   filePathElement.innerText = filePath
 })
 ```
 
 In the above snippet, we listen for clicks on the `#btn` button, and call our
-`window.electronAPI.openFile()` API to activate the native Open File dialog. We then display the
+`window.neutronAPI.openFile()` API to activate the native Open File dialog. We then display the
 selected file path in the `#filePath` element.
 
 ### Note: legacy approaches
@@ -304,7 +304,7 @@ via IPC prior to Electron 7.
 ```js title='preload.js (Preload Script)'
 // You can also put expose this code to the renderer
 // process with the `contextBridge` API
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 ipcRenderer.on('asynchronous-reply', (_event, arg) => {
   console.log(arg) // prints "pong" in the DevTools console
@@ -335,7 +335,7 @@ The `ipcRenderer.sendSync` API sends a message to the main process and waits _sy
 response.
 
 ```js title='main.js (Main Process)'
-const { ipcMain } = require('electron')
+const { ipcMain } = require('neutron')
 
 ipcMain.on('synchronous-message', (event, arg) => {
   console.log(arg) // prints "ping" in the Node console
@@ -346,7 +346,7 @@ ipcMain.on('synchronous-message', (event, arg) => {
 ```js title='preload.js (Preload Script)'
 // You can also put expose this code to the renderer
 // process with the `contextBridge` API
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 const result = ipcRenderer.sendSync('synchronous-message', 'ping')
 console.log(result) // prints "pong" in the DevTools console
@@ -380,7 +380,7 @@ module that uses the `webContents.send` API to send an IPC message from the main
 target renderer.
 
 ```js {11-26} title='main.js (Main Process)'
-const { app, BrowserWindow, Menu, ipcMain } = require('electron')
+const { app, BrowserWindow, Menu, ipcMain } = require('neutron')
 
 const path = require('node:path')
 
@@ -432,15 +432,15 @@ Like in the previous renderer-to-main example, we use the `contextBridge` and `i
 modules in the preload script to expose IPC functionality to the renderer process:
 
 ```js title='preload.js (Preload Script)'
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   onUpdateCounter: (callback) => ipcRenderer.on('update-counter', (_event, value) => callback(value))
 })
 ```
 
 After loading the preload script, your renderer process should have access to the
-`window.electronAPI.onUpdateCounter()` listener function.
+`window.neutronAPI.onUpdateCounter()` listener function.
 
 :::caution Security warning
 We don't directly expose the whole `ipcRenderer.on` API for [security reasons][]. Make sure to
@@ -454,7 +454,7 @@ In the case of this minimal example, you can call `ipcRenderer.on` directly in t
 rather than exposing it over the context bridge.
 
 ```js title='preload.js (Preload Script)'
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 window.addEventListener('DOMContentLoaded', () => {
   const counter = document.getElementById('counter')
@@ -494,17 +494,17 @@ To tie it all together, we'll create an interface in the loaded HTML file that c
 Finally, to make the values update in the HTML document, we'll add a few lines of DOM manipulation
 so that the value of the `#counter` element is updated whenever we fire an `update-counter` event.
 
-```js title='renderer.js (Renderer Process)' @ts-window-type={electronAPI:{onUpdateCounter:(callback:(value:number)=>void)=>void}}
+```js title='renderer.js (Renderer Process)' @ts-window-type={neutronAPI:{onUpdateCounter:(callback:(value:number)=>void)=>void}}
 const counter = document.getElementById('counter')
 
-window.electronAPI.onUpdateCounter((value) => {
+window.neutronAPI.onUpdateCounter((value) => {
   const oldValue = Number(counter.innerText)
   const newValue = oldValue + value
   counter.innerText = newValue.toString()
 })
 ```
 
-In the above code, we're passing in a callback to the `window.electronAPI.onUpdateCounter` function
+In the above code, we're passing in a callback to the `window.neutronAPI.onUpdateCounter` function
 exposed from our preload script. The second `value` parameter corresponds to the `1` or `-1` we
 were passing in from the `webContents.send` call from the native menu.
 
@@ -518,22 +518,22 @@ renderer process, expose another API to send a reply back to the main process th
 `counter-value` channel.
 
 ```js title='preload.js (Preload Script)'
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   onUpdateCounter: (callback) => ipcRenderer.on('update-counter', (_event, value) => callback(value)),
   counterValue: (value) => ipcRenderer.send('counter-value', value)
 })
 ```
 
-```js title='renderer.js (Renderer Process)' @ts-window-type={electronAPI:{onUpdateCounter:(callback:(value:number)=>void)=>void,counterValue:(value:number)=>void}}
+```js title='renderer.js (Renderer Process)' @ts-window-type={neutronAPI:{onUpdateCounter:(callback:(value:number)=>void)=>void,counterValue:(value:number)=>void}}
 const counter = document.getElementById('counter')
 
-window.electronAPI.onUpdateCounter((value) => {
+window.neutronAPI.onUpdateCounter((value) => {
   const oldValue = Number(counter.innerText)
   const newValue = oldValue + value
   counter.innerText = newValue.toString()
-  window.electronAPI.counterValue(newValue)
+  window.neutronAPI.counterValue(newValue)
 })
 ```
 

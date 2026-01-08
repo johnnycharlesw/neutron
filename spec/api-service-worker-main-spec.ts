@@ -1,4 +1,4 @@
-import { ipcMain, session, webContents as webContentsModule, WebContents } from 'electron/main';
+import { ipcMain, session, webContents as webContentsModule, WebContents } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -15,10 +15,10 @@ const DEBUG = !process.env.CI;
 describe('ServiceWorkerMain module', () => {
   const fixtures = path.resolve(__dirname, 'fixtures');
   const preloadRealmFixtures = path.resolve(fixtures, 'api/preload-realm');
-  const webContentsInternal: typeof ElectronInternal.WebContents = webContentsModule as any;
+  const webContentsInternal: typeof NeutronInternal.WebContents = webContentsModule as any;
 
-  let ses: Electron.Session;
-  let serviceWorkers: Electron.ServiceWorkers;
+  let ses: Neutron.Session;
+  let serviceWorkers: Neutron.ServiceWorkers;
   let server: http.Server;
   let baseUrl: string;
   let wc: WebContents;
@@ -87,9 +87,9 @@ describe('ServiceWorkerMain module', () => {
     }}())`);
   }
 
-  async function waitForServiceWorker (expectedRunningStatus: Electron.ServiceWorkersRunningStatusChangedEventParams['runningStatus'] = 'starting') {
-    const serviceWorkerPromise = new Promise<Electron.ServiceWorkerMain>((resolve) => {
-      function onRunningStatusChanged ({ versionId, runningStatus }: Electron.ServiceWorkersRunningStatusChangedEventParams) {
+  async function waitForServiceWorker (expectedRunningStatus: Neutron.ServiceWorkersRunningStatusChangedEventParams['runningStatus'] = 'starting') {
+    const serviceWorkerPromise = new Promise<Neutron.ServiceWorkerMain>((resolve) => {
+      function onRunningStatusChanged ({ versionId, runningStatus }: Neutron.ServiceWorkersRunningStatusChangedEventParams) {
         if (runningStatus === expectedRunningStatus) {
           const serviceWorker = serviceWorkers.getWorkerFromVersionID(versionId)!;
           serviceWorkers.off('running-status-changed', onRunningStatusChanged);
@@ -104,7 +104,7 @@ describe('ServiceWorkerMain module', () => {
   }
 
   /** Runs a test using the framework in preload-tests.js */
-  const runTest = async (serviceWorker: Electron.ServiceWorkerMain, rpc: { name: string, args: any[] }) => {
+  const runTest = async (serviceWorker: Neutron.ServiceWorkerMain, rpc: { name: string, args: any[] }) => {
     const uuid = crypto.randomUUID();
     serviceWorker.send('test', uuid, rpc.name, ...rpc.args);
     return new Promise((resolve, reject) => {

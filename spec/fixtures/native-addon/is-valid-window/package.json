@@ -1,5 +1,5 @@
 {
-  "name": "@electron-ci/is-valid-window",
+  "name": "@neutron-ci/is-valid-window",
   "version": "0.0.5",
   "main": "./lib/is-valid-window.js",
   "private": true,

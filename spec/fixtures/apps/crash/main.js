@@ -1,4 +1,4 @@
-const { app, BrowserWindow, crashReporter } = require('electron');
+const { app, BrowserWindow, crashReporter } = require('neutron');
 
 const childProcess = require('node:child_process');
 const path = require('node:path');
@@ -33,9 +33,9 @@ app.whenReady().then(() => {
     w.loadURL('about:blank');
     if (setExtraParameters) {
       w.webContents.executeJavaScript(`
-        require('electron').crashReporter.addExtraParameter('rendererSpecific', 'rs');
-        require('electron').crashReporter.addExtraParameter('addedThenRemoved', 'to-be-removed');
-        require('electron').crashReporter.removeExtraParameter('addedThenRemoved');
+        require('neutron').crashReporter.addExtraParameter('rendererSpecific', 'rs');
+        require('neutron').crashReporter.addExtraParameter('addedThenRemoved', 'to-be-removed');
+        require('neutron').crashReporter.removeExtraParameter('addedThenRemoved');
       `);
     }
     w.webContents.executeJavaScript('process.crash()');

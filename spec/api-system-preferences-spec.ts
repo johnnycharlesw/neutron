@@ -1,4 +1,4 @@
-import { systemPreferences } from 'electron/main';
+import { systemPreferences } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -95,7 +95,7 @@ describe('systemPreferences module', () => {
       ['float', 2.5],
       ['double', 10.1],
       ['integer', 11],
-      ['url', 'https://github.com/electron'],
+      ['url', 'https://github.com/neutron'],
       ['array', [1, 2, 3]],
       ['dictionary', { a: 1, b: 2 }]
     ] as const;

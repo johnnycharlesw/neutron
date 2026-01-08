@@ -1,5 +1,5 @@
-const { contextBridge, ipcRenderer } = require('electron/renderer')
+const { contextBridge, ipcRenderer } = require('neutron/renderer')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   openFileDialog: () => ipcRenderer.invoke('open-file-dialog')
 })

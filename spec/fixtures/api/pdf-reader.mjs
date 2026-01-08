@@ -1,4 +1,4 @@
-import { app } from 'electron';
+import { app } from 'neutron';
 
 async function getPDFDoc () {
   try {

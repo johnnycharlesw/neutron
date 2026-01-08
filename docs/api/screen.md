@@ -11,7 +11,7 @@ module is emitted.
 
 > [!NOTE]
 > In the renderer / DevTools, `window.screen` is a reserved DOM
-> property, so writing `let { screen } = require('electron')` will not work.
+> property, so writing `let { screen } = require('neutron')` will not work.
 
 An example of creating a window that fills the whole screen:
 
@@ -19,9 +19,9 @@ An example of creating a window that fills the whole screen:
 // Retrieve information about screen size, displays, cursor position, etc.
 //
 // For more info, see:
-// https://www.electronjs.org/docs/latest/api/screen
+// https://www.neutronjs.org/docs/latest/api/screen
 
-const { app, BrowserWindow, screen } = require('electron/main')
+const { app, BrowserWindow, screen } = require('neutron/main')
 
 let mainWindow = null
 
@@ -31,14 +31,14 @@ app.whenReady().then(() => {
   const { width, height } = primaryDisplay.workAreaSize
 
   mainWindow = new BrowserWindow({ width, height })
-  mainWindow.loadURL('https://electronjs.org')
+  mainWindow.loadURL('https://neutronjs.org')
 })
 ```
 
 Another example of creating a window in the external display:
 
 ```js
-const { app, BrowserWindow, screen } = require('electron')
+const { app, BrowserWindow, screen } = require('neutron')
 
 let win
 

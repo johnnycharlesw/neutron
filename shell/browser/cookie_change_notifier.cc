@@ -8,14 +8,14 @@
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/storage_partition.h"
 #include "net/cookies/cookie_change_dispatcher.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_context.h"
 
 using content::BrowserThread;
 
-namespace electron {
+namespace neutron {
 
 CookieChangeNotifier::CookieChangeNotifier(
-    ElectronBrowserContext* browser_context)
+    NeutronBrowserContext* browser_context)
     : browser_context_(browser_context), receiver_(this) {
   StartListening();
 }
@@ -62,4 +62,4 @@ void CookieChangeNotifier::OnCookieChange(const net::CookieChangeInfo& change) {
   cookie_change_sub_list_.Notify(change);
 }
 
-}  // namespace electron
+}  // namespace neutron

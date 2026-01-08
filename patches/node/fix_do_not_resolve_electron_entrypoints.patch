@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Wed, 26 Jul 2023 17:03:15 -0700
-Subject: fix: do not resolve electron entrypoints
+Subject: fix: do not resolve neutron entrypoints
 
 This wastes fs cycles and can result in strange behavior if this path actually exists on disk
 
@@ -13,7 +13,7 @@ index 96869be3c48b84106a5fe2cb752fe979a211d96a..64f8902b1a3d5c335a3b8889b2dc801e
      return { module, exportNames: module[kModuleExportNames] };
    }
  
-+  if (filename === 'electron') {
++  if (filename === 'neutron') {
 +    return { module, exportNames: new SafeSet(['default', ...Object.keys(module.exports)]) };
 +  }
 +
@@ -39,7 +39,7 @@ index d337eeca801b9c187d1513519d7faf27310dbc41..34025f0c2c984b1b9993709cbd00be41
 +  // For built-in modules used as the main entry point we _never_
 +  // want to waste cycles resolving them to file paths on disk
 +  // that actually might exist
-+  if (typeof main === 'string' && StringPrototypeStartsWith(main, 'electron/js2c')) {
++  if (typeof main === 'string' && StringPrototypeStartsWith(main, 'neutron/js2c')) {
 +    return main;
 +  }
 +
@@ -53,7 +53,7 @@ index d337eeca801b9c187d1513519d7faf27310dbc41..34025f0c2c984b1b9993709cbd00be41
 +  // For built-in modules used as the main entry point we _never_
 +  // want to waste cycles resolving them to file paths on disk
 +  // that actually might exist
-+  if (typeof mainPath === 'string' && StringPrototypeStartsWith(mainPath, 'electron/js2c')) {
++  if (typeof mainPath === 'string' && StringPrototypeStartsWith(mainPath, 'neutron/js2c')) {
 +    return false;
 +  }
 +

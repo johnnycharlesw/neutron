@@ -52,7 +52,7 @@ move_src_dirs_if_exist() {
     "src/out/Default/overlapped-checker" \
     "src/out/Default/ffmpeg" \
     "src/out/Default/hunspell_dictionaries" \
-    "src/third_party/electron_node" \
+    "src/third_party/neutron_node" \
     "src/third_party/nan" \
     "src/cross-arch-snapshots" \
     "src/buildtools/mac" \
@@ -79,13 +79,13 @@ move_src_dirs_if_exist() {
     # On windows we should clean up two symlinks that aren't
   # compatible with the windows test runner
   if [ "$BUILD_TYPE" == "win" ]; then
-    rm -f src/third_party/electron_node/tools/node_modules/eslint/node_modules/eslint
-    rm -f src/third_party/electron_node/tools/node_modules/eslint/node_modules/.bin/eslint
-    rm -f src/third_party/electron_node/out/tools/bin/python
+    rm -f src/third_party/neutron_node/tools/node_modules/eslint/node_modules/eslint
+    rm -f src/third_party/neutron_node/tools/node_modules/eslint/node_modules/.bin/eslint
+    rm -f src/third_party/neutron_node/out/tools/bin/python
 
-    # Also need to copy electron.lib to node.lib for native module testing purposes
+    # Also need to copy neutron.lib to node.lib for native module testing purposes
     mkdir -p src/out/Default/gen/node_headers/Release
-    cp src/out/Default/electron.lib src/out/Default/gen/node_headers/Release/node.lib
+    cp src/out/Default/neutron.lib src/out/Default/gen/node_headers/Release/node.lib
   fi
 
   for dir in "${dirs[@]}"
@@ -111,7 +111,7 @@ mv_if_exist src/out/Default/chromedriver.zip
 mv_if_exist src/out/ffmpeg/ffmpeg.zip
 mv_if_exist src/out/Default/hunspell_dictionaries.zip
 mv_if_exist src/cross-arch-snapshots
-cp_if_exist src/out/electron_ninja_log
+cp_if_exist src/out/neutron_ninja_log
 cp_if_exist src/out/Default/.ninja_log
 if [ -n "$SISO_REPORT_PATH" ]; then
   cp_if_exist "$SISO_REPORT_PATH"

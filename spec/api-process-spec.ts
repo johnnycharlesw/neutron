@@ -1,5 +1,5 @@
-import { BrowserWindow } from 'electron';
-import { app } from 'electron/main';
+import { BrowserWindow } from 'neutron';
+import { app } from 'neutron/main';
 
 import { expect } from 'chai';
 

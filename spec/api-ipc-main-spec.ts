@@ -1,4 +1,4 @@
-import { ipcMain, BrowserWindow } from 'electron/main';
+import { ipcMain, BrowserWindow } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -54,8 +54,8 @@ describe('ipc main module', () => {
   describe('ipcMain.on', () => {
     it('is not used for internals', async () => {
       const appPath = path.join(fixtures, 'api', 'ipc-main-listeners');
-      const electronPath = process.execPath;
-      const appProcess = cp.spawn(electronPath, [appPath]);
+      const neutronPath = process.execPath;
+      const appProcess = cp.spawn(neutronPath, [appPath]);
 
       let output = '';
       appProcess.stdout.on('data', (data) => { output += data; });
@@ -83,7 +83,7 @@ describe('ipc main module', () => {
       });
       w.loadURL('about:blank');
       const v = await w.webContents.executeJavaScript(`new Promise((resolve, reject) => {
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         ipcRenderer.send('test-echo', 'hello')
         ipcRenderer.on('test-echo', (e, v) => {
           resolve(v)

@@ -7,7 +7,7 @@
 
 #include "content/public/browser/url_data_source.h"
 
-namespace electron {
+namespace neutron {
 // A BundledDataSource implementation that handles devtools://devtools/
 // requests.
 class BundledDataSource : public content::URLDataSource {
@@ -35,6 +35,6 @@ class BundledDataSource : public content::URLDataSource {
   void StartBundledDataRequest(const std::string& path,
                                GotDataCallback callback);
 };
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_DEVTOOLS_UI_BUNDLE_DATA_SOURCE_H_

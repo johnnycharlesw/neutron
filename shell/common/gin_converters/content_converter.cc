@@ -12,7 +12,7 @@
 #include "content/public/browser/context_menu_params.h"
 #include "content/public/browser/permission_result.h"
 #include "content/public/browser/web_contents.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/web_contents_permission_helper.h"
 #include "shell/common/gin_converters/blink_converter.h"
 #include "shell/common/gin_converters/callback_converter.h"
@@ -154,7 +154,7 @@ v8::Local<v8::Value> Converter<blink::PermissionType>::ToV8(
     v8::Isolate* isolate,
     const blink::PermissionType& val) {
   // Based on mappings from content/browser/devtools/protocol/browser_handler.cc
-  // Not all permissions are currently used by Electron but this will future
+  // Not all permissions are currently used by Neutron but this will future
   // proof these conversions.
   switch (val) {
     case blink::PermissionType::AUTOMATIC_FULLSCREEN:
@@ -236,7 +236,7 @@ v8::Local<v8::Value> Converter<blink::PermissionType>::ToV8(
     case blink::PermissionType::GEOLOCATION_APPROXIMATE:
       return StringToV8(isolate, "geolocation-approximate");
 
-    // Permissions added by Electron
+    // Permissions added by Neutron
     case blink::PermissionType::DEPRECATED_SYNC_CLIPBOARD_READ:
       return StringToV8(isolate, "deprecated-sync-clipboard-read");
     case blink::PermissionType::FILE_SYSTEM:
@@ -278,7 +278,7 @@ v8::Local<v8::Value> Converter<content::WebContents*>::ToV8(
     content::WebContents* val) {
   if (!val)
     return v8::Null(isolate);
-  return electron::api::WebContents::FromOrCreate(isolate, val).ToV8();
+  return neutron::api::WebContents::FromOrCreate(isolate, val).ToV8();
 }
 
 // static
@@ -291,7 +291,7 @@ bool Converter<content::WebContents*>::FromV8(v8::Isolate* isolate,
   // nullptr, so we check here first before attempting to unwrap.
   if (gin_helper::Destroyable::IsDestroyed(val.As<v8::Object>()))
     return false;
-  electron::api::WebContents* web_contents = nullptr;
+  neutron::api::WebContents* web_contents = nullptr;
   if (!gin::ConvertFromV8(isolate, val, &web_contents) || !web_contents)
     return false;
 

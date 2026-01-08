@@ -1,5 +1,5 @@
-import { shell } from 'electron/common';
-import { app, dialog, BrowserWindow, ipcMain } from 'electron/main';
+import { shell } from 'neutron/common';
+import { app, dialog, BrowserWindow, ipcMain } from 'neutron/main';
 
 import * as path from 'node:path';
 import * as url from 'node:url';
@@ -18,16 +18,16 @@ function decorateURL (url: string) {
   return parsedUrl.toString();
 }
 
-// Find the shortest path to the electron binary
+// Find the shortest path to the neutron binary
 const absoluteElectronPath = process.execPath;
 const relativeElectronPath = path.relative(process.cwd(), absoluteElectronPath);
-const electronPath = absoluteElectronPath.length < relativeElectronPath.length
+const neutronPath = absoluteElectronPath.length < relativeElectronPath.length
   ? absoluteElectronPath
   : relativeElectronPath;
 
 const indexPath = path.resolve(app.getAppPath(), 'index.html');
 
-function isTrustedSender (webContents: Electron.WebContents) {
+function isTrustedSender (webContents: Neutron.WebContents) {
   if (webContents !== (mainWindow && mainWindow.webContents)) {
     return false;
   }
@@ -40,13 +40,13 @@ function isTrustedSender (webContents: Electron.WebContents) {
 }
 
 ipcMain.handle('bootstrap', (event) => {
-  return isTrustedSender(event.sender) ? electronPath : null;
+  return isTrustedSender(event.sender) ? neutronPath : null;
 });
 
 async function createWindow (backgroundColor?: string) {
   await app.whenReady();
 
-  const options: Electron.BrowserWindowConstructorOptions = {
+  const options: Neutron.BrowserWindowConstructorOptions = {
     width: 960,
     height: 620,
     autoHideMenuBar: true,
@@ -76,7 +76,7 @@ async function createWindow (backgroundColor?: string) {
   mainWindow.webContents.session.setPermissionRequestHandler((webContents, permission, done) => {
     const parsedUrl = new URL(webContents.getURL());
 
-    const options: Electron.MessageBoxOptions = {
+    const options: Neutron.MessageBoxOptions = {
       title: 'Permission Request',
       message: `Allow '${parsedUrl.origin}' to access '${permission}'?`,
       buttons: ['OK', 'Cancel'],

@@ -13,7 +13,7 @@ Details at  https://github.com/microsoft/vscode/issues/192119#issuecomment-23758
 This patch is more of a bandaid fix to improve the lifetime
 management with existing finalizer callbacks. We should be able to
 remove this patch once gin::Wrappable can be managed by V8 Oilpan
-via https://github.com/electron/electron/issues/47922
+via https://github.com/neutron/neutron/issues/47922
 
 diff --git a/gin/isolate_holder.cc b/gin/isolate_holder.cc
 index 64edf6fe78d2478cb9e12e8767a09e2b6c7c6ad2..7c640559dc7a09730f0053be8798d10bc8ac1a1c 100644

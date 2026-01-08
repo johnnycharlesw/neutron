@@ -8,7 +8,7 @@
 #include "base/memory/ptr_util.h"
 #include "content/public/browser/browser_context.h"
 
-namespace electron {
+namespace neutron {
 
 // static
 int SessionPreferences::kLocatorKey = 0;
@@ -39,4 +39,4 @@ bool SessionPreferences::HasServiceWorkerPreloadScript() {
   return it != preloads.end();
 }
 
-}  // namespace electron
+}  // namespace neutron

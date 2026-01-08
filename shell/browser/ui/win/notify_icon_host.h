@@ -14,7 +14,7 @@
 
 const GUID GUID_DEFAULT = {0, 0, 0, {0, 0, 0, 0, 0, 0, 0, 0}};
 
-namespace electron {
+namespace neutron {
 
 class NotifyIcon;
 
@@ -69,6 +69,6 @@ class NotifyIconHost {
   std::unique_ptr<MouseEnteredExitedDetector> mouse_entered_exited_detector_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_WIN_NOTIFY_ICON_HOST_H_

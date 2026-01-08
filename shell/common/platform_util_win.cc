@@ -33,7 +33,7 @@
 #include "base/win/scoped_com_initializer.h"
 #include "content/public/browser/browser_task_traits.h"
 #include "content/public/browser/browser_thread.h"
-#include "shell/common/electron_paths.h"
+#include "shell/common/neutron_paths.h"
 #include "ui/base/win/shell.h"
 #include "url/gurl.h"
 
@@ -436,7 +436,7 @@ bool GetFolderPath(int key, base::FilePath* result) {
   wchar_t system_buffer[MAX_PATH];
 
   switch (key) {
-    case electron::DIR_RECENT:
+    case neutron::DIR_RECENT:
       if (FAILED(SHGetFolderPath(nullptr, CSIDL_RECENT, nullptr,
                                  SHGFP_TYPE_CURRENT, system_buffer))) {
         return false;

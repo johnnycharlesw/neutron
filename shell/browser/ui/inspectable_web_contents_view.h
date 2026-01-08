@@ -25,7 +25,7 @@ class Widget;
 class WidgetDelegate;
 }  // namespace views
 
-namespace electron {
+namespace neutron {
 
 class InspectableWebContents;
 class InspectableWebContentsViewDelegate;
@@ -83,6 +83,6 @@ class InspectableWebContentsView : public views::View {
   std::u16string title_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_INSPECTABLE_WEB_CONTENTS_VIEW_H_

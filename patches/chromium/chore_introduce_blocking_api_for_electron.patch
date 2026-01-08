@@ -1,7 +1,7 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: deepak1556 <hop2deep@gmail.com>
 Date: Tue, 15 Nov 2022 21:45:28 +0900
-Subject: chore: introduce blocking api for //electron
+Subject: chore: introduce blocking api for //neutron
 
 This patch comes after Chromium removed the ScopedAllowIO API in favor
 of explicitly adding ScopedAllowBlocking calls as friends.
@@ -22,9 +22,9 @@ index 6f000c21239c85de00733ccaef02feeabdf994de..c91dec8e89141526e2f125c270805a3b
  class InFlightIO;
  bool CleanupDirectorySync(const base::FilePath&);
  }  // namespace disk_cache
-+namespace electron {
++namespace neutron {
 +class ScopedAllowBlockingForElectron;
-+}  // namespace electron
++}  // namespace neutron
  namespace enterprise_connectors {
  class LinuxKeyRotationCommand;
  }  // namespace enterprise_connectors
@@ -40,7 +40,7 @@ index 6f000c21239c85de00733ccaef02feeabdf994de..c91dec8e89141526e2f125c270805a3b
    friend class cronet::CronetPrefsManager;
    friend class crypto::ScopedAllowBlockingForNSS;  // http://crbug.com/59847
    friend class drive::FakeDriveService;
-+  friend class electron::ScopedAllowBlockingForElectron;
++  friend class neutron::ScopedAllowBlockingForElectron;
    friend class extensions::InstalledLoader;
    friend class extensions::UnpackedInstaller;
    friend class font_service::internal::MappedFontFile;

@@ -1,4 +1,4 @@
-import { app, session, webFrameMain, BrowserWindow, ipcMain, WebContents, Extension, Session } from 'electron/main';
+import { app, session, webFrameMain, BrowserWindow, ipcMain, WebContents, Extension, Session } from 'neutron/main';
 
 import { expect } from 'chai';
 import * as WebSocket from 'ws';
@@ -64,7 +64,7 @@ describe('chrome extensions', () => {
     const promise = once(app, 'web-contents-created') as Promise<[any, WebContents]>;
     await customSession.extensions.loadExtension(path.join(fixtures, 'extensions', 'persistent-background-page'));
     const args: any = await promise;
-    const wc: Electron.WebContents = args[1];
+    const wc: Neutron.WebContents = args[1];
     await expect(wc.executeJavaScript(`
       (() => {
         return new Promise((resolve) => {
@@ -395,7 +395,7 @@ describe('chrome extensions', () => {
       });
     });
 
-    it('does not take precedence over Electron webRequest - http', async () => {
+    it('does not take precedence over Neutron webRequest - http', async () => {
       return new Promise<void>((resolve) => {
         (async () => {
           customSession.webRequest.onBeforeRequest((details, callback) => {
@@ -410,7 +410,7 @@ describe('chrome extensions', () => {
       });
     });
 
-    it('does not take precedence over Electron webRequest - WebSocket', () => {
+    it('does not take precedence over Neutron webRequest - WebSocket', () => {
       return new Promise<void>((resolve) => {
         (async () => {
           customSession.webRequest.onBeforeSendHeaders(() => {
@@ -920,7 +920,7 @@ describe('chrome extensions', () => {
       });
     });
 
-    // chrome.action is not supported in Electron. These tests only ensure
+    // chrome.action is not supported in Neutron. These tests only ensure
     // it does not explode.
     describe('chrome.action', () => {
       let customSession: Session;

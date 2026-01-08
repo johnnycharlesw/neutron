@@ -4,9 +4,9 @@
 
 #include "shell/browser/ui/views/menu_model_adapter.h"
 
-namespace electron {
+namespace neutron {
 
-MenuModelAdapter::MenuModelAdapter(ElectronMenuModel* menu_model)
+MenuModelAdapter::MenuModelAdapter(NeutronMenuModel* menu_model)
     : views::MenuModelAdapter(menu_model), menu_model_(menu_model) {}
 
 MenuModelAdapter::~MenuModelAdapter() = default;
@@ -16,10 +16,10 @@ bool MenuModelAdapter::GetAccelerator(int id,
   ui::MenuModel* model = menu_model_;
   size_t index = 0;
   if (ui::MenuModel::GetModelAndIndexForCommandId(id, &model, &index)) {
-    return static_cast<ElectronMenuModel*>(model)->GetAcceleratorAtWithParams(
+    return static_cast<NeutronMenuModel*>(model)->GetAcceleratorAtWithParams(
         index, true, accelerator);
   }
   return false;
 }
 
-}  // namespace electron
+}  // namespace neutron

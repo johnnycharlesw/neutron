@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@electronjs.org>
+From: John Kleinschmidt <jkleinsc@neutronjs.org>
 Date: Mon, 30 Oct 2023 20:56:45 -0400
 Subject: chore: remove CHECK_IS_TEST on script injection tracker
 

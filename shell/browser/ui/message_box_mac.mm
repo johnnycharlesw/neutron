@@ -18,7 +18,7 @@
 #include "skia/ext/skia_utils_mac.h"
 #include "ui/gfx/image/image_skia.h"
 
-namespace electron {
+namespace neutron {
 
 MessageBoxSettings::MessageBoxSettings() = default;
 MessageBoxSettings::MessageBoxSettings(const MessageBoxSettings&) = default;
@@ -174,7 +174,7 @@ void ShowMessageBox(const MessageBoxSettings& settings,
       // not do any runModal inside it. However since we can not control what
       // users will run in the callback, we have to delay running the callback
       // until next tick, otherwise crash like this may happen:
-      // https://github.com/electron/electron/issues/26884
+      // https://github.com/neutron/neutron/issues/26884
       content::GetUIThreadTaskRunner({})->PostTask(
           FROM_HERE,
           base::BindOnce(std::move(callback_), response, suppressed));
@@ -200,4 +200,4 @@ void ShowErrorBox(const std::u16string& title, const std::u16string& content) {
   [alert runModal];
 }
 
-}  // namespace electron
+}  // namespace neutron

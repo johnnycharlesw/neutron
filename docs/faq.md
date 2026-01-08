@@ -2,17 +2,17 @@
 
 ## Why am I having trouble installing Electron?
 
-When running `npm install electron`, some users occasionally encounter
+When running `npm install neutron`, some users occasionally encounter
 installation errors.
 
 In almost all cases, these errors are the result of network problems and not
-actual issues with the `electron` npm package. Errors like `ELIFECYCLE`,
+actual issues with the `neutron` npm package. Errors like `ELIFECYCLE`,
 `EAI_AGAIN`, `ECONNRESET`, and `ETIMEDOUT` are all indications of such
 network problems. The best resolution is to try switching networks, or
 wait a bit and try installing again.
 
 You can also attempt to download Electron directly from
-[GitHub Releases](https://github.com/electron/electron/releases)
+[GitHub Releases](https://github.com/neutron/neutron/releases)
 if installing via `npm` is failing.
 
 If you need to install Electron through a custom mirror or proxy, see
@@ -20,10 +20,10 @@ the [Advanced Installation](./tutorial/installation.md) documentation for more d
 
 ## How are Electron binaries downloaded?
 
-When you run `npm install electron`, the Electron binary for the corresponding version is downloaded
+When you run `npm install neutron`, the Electron binary for the corresponding version is downloaded
 into your project's `node_modules` folder via npm's `postinstall` lifecycle script.
 
-This logic is handled by the [`@electron/get`](https://github.com/electron/get) utility package
+This logic is handled by the [`@neutron/get`](https://github.com/neutron/get) utility package
 under the hood.
 
 ## When will Electron upgrade to latest Chromium?
@@ -32,8 +32,8 @@ Every new major version of Electron releases with a Chromium major version upgra
 8 weeks, Electron is able to pull in every other major Chromium release on the very same day that it
 releases upstream. Security fixes will be backported to stable release channels ahead of time.
 
-See the [Electron Releases](./tutorial/electron-timelines.md) documentation for more details or
-[releases.electronjs.org](https://releases.electronjs.org) to see our Release Status dashboard.
+See the [Electron Releases](./tutorial/neutron-timelines.md) documentation for more details or
+[releases.neutronjs.org](https://releases.neutronjs.org) to see our Release Status dashboard.
 
 ## When will Electron upgrade to latest Node.js?
 
@@ -75,7 +75,7 @@ If you want a quick fix, you can make the variables global by changing your
 code from this:
 
 ```js
-const { app, Tray } = require('electron')
+const { app, Tray } = require('neutron')
 
 app.whenReady().then(() => {
   const tray = new Tray('/path/to/icon.png')
@@ -86,7 +86,7 @@ app.whenReady().then(() => {
 to this:
 
 ```js
-const { app, Tray } = require('electron')
+const { app, Tray } = require('neutron')
 
 let tray = null
 app.whenReady().then(() => {
@@ -105,7 +105,7 @@ To solve this, you can turn off node integration in Electron:
 
 ```js
 // In the main process.
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({
   webPreferences: {
@@ -130,17 +130,17 @@ delete window.module;
 </head>
 ```
 
-## `require('electron').xxx` is undefined.
+## `require('neutron').xxx` is undefined.
 
 When using Electron's built-in module you might encounter an error like this:
 
 ```sh
-> require('electron').webFrame.setZoomFactor(1.0)
+> require('neutron').webFrame.setZoomFactor(1.0)
 Uncaught TypeError: Cannot read property 'setZoomLevel' of undefined
 ```
 
 It is very likely you are using the module in the wrong process. For example
-`electron.app` can only be used in the main process, while `electron.webFrame`
+`neutron.app` can only be used in the main process, while `neutron.webFrame`
 is only available in renderer processes.
 
 ## The font looks blurry, what is this and what can I do?
@@ -149,12 +149,12 @@ If [sub-pixel anti-aliasing](https://alienryderflex.com/sub_pixel/) is deactivat
 
 ![Subpixel rendering example](images/subpixel-rendering-screenshot.gif)
 
-Sub-pixel anti-aliasing needs a non-transparent background of the layer containing the font glyphs. (See [this issue](https://github.com/electron/electron/issues/6344#issuecomment-420371918) for more info).
+Sub-pixel anti-aliasing needs a non-transparent background of the layer containing the font glyphs. (See [this issue](https://github.com/neutron/neutron/issues/6344#issuecomment-420371918) for more info).
 
 To achieve this goal, set the background in the constructor for [BrowserWindow][browser-window]:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({
   backgroundColor: '#fff'
@@ -171,7 +171,7 @@ Electron classes cannot be subclassed with the [`extends`](https://developer.moz
 keyword (also known as class inheritance). This feature was never implemented in Electron due
 to the added complexity it would add to C++/JavaScript interop in Electron's internals.
 
-For more information, see [electron/electron#23](https://github.com/electron/electron/issues/23).
+For more information, see [neutron/neutron#23](https://github.com/neutron/neutron/issues/23).
 
 [memory-management]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Memory_Management
 [closures]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Closures

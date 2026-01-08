@@ -116,7 +116,7 @@ try openssl pkcs12 \
   -in out/A-chain.pem \
   -out client.p12 \
   -export \
-  -passout pass:electron
+  -passout pass:neutron
 
 echo Package the certs
 try cp out/C.pem rootCA.pem

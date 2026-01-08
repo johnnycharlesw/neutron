@@ -1,8 +1,8 @@
-import { IpcMainInvokeEvent } from 'electron/main';
+import { IpcMainInvokeEvent } from 'neutron/main';
 
 import { EventEmitter } from 'events';
 
-export class IpcMainImpl extends EventEmitter implements Electron.IpcMain {
+export class IpcMainImpl extends EventEmitter implements Neutron.IpcMain {
   private _invokeHandlers: Map<string, (e: IpcMainInvokeEvent, ...args: any[]) => void> = new Map();
 
   constructor () {
@@ -12,7 +12,7 @@ export class IpcMainImpl extends EventEmitter implements Electron.IpcMain {
     this.on('error', () => {});
   }
 
-  handle: Electron.IpcMain['handle'] = (method, fn) => {
+  handle: Neutron.IpcMain['handle'] = (method, fn) => {
     if (this._invokeHandlers.has(method)) {
       throw new Error(`Attempted to register a second handler for '${method}'`);
     }
@@ -22,7 +22,7 @@ export class IpcMainImpl extends EventEmitter implements Electron.IpcMain {
     this._invokeHandlers.set(method, fn);
   };
 
-  handleOnce: Electron.IpcMain['handleOnce'] = (method, fn) => {
+  handleOnce: Neutron.IpcMain['handleOnce'] = (method, fn) => {
     this.handle(method, (e, ...args) => {
       this.removeHandler(method);
       return fn(e, ...args);

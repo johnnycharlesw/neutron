@@ -26,14 +26,14 @@
 #include "base/strings/utf_string_conversions.h"
 #include "content/public/browser/desktop_media_id.h"
 #include "content/public/common/color_parser.h"
-#include "shell/browser/api/electron_api_system_preferences.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_system_preferences.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "shell/browser/ui/inspectable_web_contents_view.h"
 #include "shell/browser/ui/views/root_view.h"
 #include "shell/browser/web_contents_preferences.h"
 #include "shell/browser/web_view_manager.h"
 #include "shell/browser/window_list.h"
-#include "shell/common/electron_constants.h"
+#include "shell/common/neutron_constants.h"
 #include "shell/common/gin_converters/image_converter.h"
 #include "shell/common/gin_helper/dictionary.h"
 #include "shell/common/options_switches.h"
@@ -57,7 +57,7 @@
 #include "shell/browser/browser.h"
 #include "shell/browser/linux/unity_service.h"
 #include "shell/browser/linux/x11_util.h"
-#include "shell/browser/ui/electron_desktop_window_tree_host_linux.h"
+#include "shell/browser/ui/neutron_desktop_window_tree_host_linux.h"
 #include "shell/browser/ui/views/client_frame_view_linux.h"
 #include "shell/browser/ui/views/native_frame_view.h"
 #include "shell/browser/ui/views/opaque_frame_view.h"
@@ -79,8 +79,8 @@
 #include "base/win/win_util.h"
 #include "base/win/windows_version.h"
 #include "shell/browser/ui/views/win_frame_view.h"
-#include "shell/browser/ui/win/electron_desktop_native_widget_aura.h"
-#include "shell/browser/ui/win/electron_desktop_window_tree_host_win.h"
+#include "shell/browser/ui/win/neutron_desktop_native_widget_aura.h"
+#include "shell/browser/ui/win/neutron_desktop_window_tree_host_win.h"
 #include "shell/common/color_util.h"
 #include "skia/ext/skia_utils_win.h"
 #include "ui/display/win/screen_win.h"
@@ -88,7 +88,7 @@
 #include "ui/gfx/win/msg_util.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 #if BUILDFLAG(IS_WIN)
 
@@ -281,7 +281,7 @@ NativeWindowViews::NativeWindowViews(const gin_helper::Dictionary& options,
   if (parent)
     params.parent = parent->GetNativeWindow();
 
-  params.native_widget = new ElectronDesktopNativeWidgetAura{this, widget()};
+  params.native_widget = new NeutronDesktopNativeWidgetAura{this, widget()};
 #elif BUILDFLAG(IS_LINUX)
   std::string name = Browser::Get()->GetName();
   // Set WM_WINDOW_ROLE.
@@ -297,7 +297,7 @@ NativeWindowViews::NativeWindowViews(const gin_helper::Dictionary& options,
   auto* native_widget = new views::DesktopNativeWidgetAura(widget());
   params.native_widget = native_widget;
   params.desktop_window_tree_host =
-      new ElectronDesktopWindowTreeHostLinux{this, widget(), native_widget};
+      new NeutronDesktopWindowTreeHostLinux{this, widget(), native_widget};
 #endif
 
   widget()->Init(std::move(params));
@@ -984,7 +984,7 @@ bool NativeWindowViews::MoveAbove(const std::string& sourceId) {
     if (!IsWindowValid(static_cast<x11::Window>(id.id)))
       return false;
 
-    electron::MoveWindowAbove(static_cast<x11::Window>(GetAcceleratedWidget()),
+    neutron::MoveWindowAbove(static_cast<x11::Window>(GetAcceleratedWidget()),
                               static_cast<x11::Window>(id.id));
   }
 #endif
@@ -1003,7 +1003,7 @@ void NativeWindowViews::MoveTop() {
                  SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOSIZE | SWP_SHOWWINDOW);
 #else
   if (x11_util::IsX11())
-    electron::MoveWindowToForeground(
+    neutron::MoveWindowToForeground(
         static_cast<x11::Window>(GetAcceleratedWidget()));
 #endif
 }
@@ -1381,7 +1381,7 @@ bool NativeWindowViews::IsFocusable() const {
 #endif
 }
 
-void NativeWindowViews::SetMenu(ElectronMenuModel* menu_model) {
+void NativeWindowViews::SetMenu(NeutronMenuModel* menu_model) {
 #if BUILDFLAG(IS_LINUX)
   // Remove global menu bar.
   if (global_menu_bar_ && menu_model == nullptr) {
@@ -1563,7 +1563,7 @@ void NativeWindowViews::SetBackgroundMaterial(const std::string& material) {
     LOG(WARNING) << "Failed to set background material to " << material;
 
   auto* desktop_window_tree_host =
-      static_cast<ElectronDesktopWindowTreeHostWin*>(
+      static_cast<NeutronDesktopWindowTreeHostWin*>(
           GetNativeWindow()->GetHost());
 
   // Synchronize the internal state; otherwise, the background material may not
@@ -1573,7 +1573,7 @@ void NativeWindowViews::SetBackgroundMaterial(const std::string& material) {
   }
 
   auto* desktop_native_widget_aura =
-      static_cast<ElectronDesktopNativeWidgetAura*>(widget()->native_widget());
+      static_cast<NeutronDesktopNativeWidgetAura*>(widget()->native_widget());
   desktop_native_widget_aura->UpdateWindowTransparency();
 
   // For frameless windows with a background material set, we also need to
@@ -1872,7 +1872,7 @@ std::unique_ptr<views::FrameView> NativeWindowViews::CreateFrameView(
 }
 
 #if BUILDFLAG(IS_LINUX)
-electron::ClientFrameViewLinux* NativeWindowViews::GetClientFrameViewLinux() {
+neutron::ClientFrameViewLinux* NativeWindowViews::GetClientFrameViewLinux() {
   // Check to make sure this window's non-client frame view is a
   // ClientFrameViewLinux.  If either has_frame() or has_client_frame()
   // are false, it will be an OpaqueFrameView or NativeFrameView instead.
@@ -1957,4 +1957,4 @@ std::unique_ptr<NativeWindow> NativeWindow::Create(
   return std::make_unique<NativeWindowViews>(options, parent);
 }
 
-}  // namespace electron
+}  // namespace neutron

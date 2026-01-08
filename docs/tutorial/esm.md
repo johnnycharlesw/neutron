@@ -19,7 +19,7 @@ ESM in Electron and ESM in Node.js and Chromium.
 
 :::info
 
-This feature was added in `electron@28.0.0`.
+This feature was added in `neutron@28.0.0`.
 
 :::
 
@@ -145,7 +145,7 @@ extension in your ESM preload scripts.
 
 Sandboxed preload scripts are run as plain JavaScript without an ESM context. If you need to
 use external modules, we recommend using a bundler for your preload code. Loading the
-`electron` API is still done via `require('electron')`.
+`neutron` API is still done via `require('neutron')`.
 
 For more information on sandboxing, see the [Process Sandboxing](./sandbox.md) docs.
 

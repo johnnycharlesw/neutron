@@ -50,7 +50,7 @@
   </head>
   <body>
     <script>
-      const {ipcRenderer} = require('electron');
+      const {ipcRenderer} = require('neutron');
       navigator.windowControlsOverlay.ongeometrychange = function() {
         const {x, y, width, height} = navigator.windowControlsOverlay.getTitlebarAreaRect();
         ipcRenderer.send('geometrychange', {x, y, width, height});

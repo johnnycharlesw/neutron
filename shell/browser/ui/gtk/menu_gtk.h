@@ -16,7 +16,7 @@ namespace ui {
 class MenuModel;
 }
 
-namespace electron::gtkui {
+namespace neutron::gtkui {
 
 class MenuGtk {
  public:
@@ -39,6 +39,6 @@ class MenuGtk {
   std::vector<ScopedGSignal> signals_;
 };
 
-}  // namespace electron::gtkui
+}  // namespace neutron::gtkui
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_GTK_MENU_GTK_H_

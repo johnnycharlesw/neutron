@@ -31,7 +31,7 @@ void DrawRect(gfx::Canvas* canvas,
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 WinIconPainter::WinIconPainter() = default;
 WinIconPainter::~WinIconPainter() = default;
@@ -143,4 +143,4 @@ void Win11IconPainter::PaintRestoreIcon(gfx::Canvas* canvas,
                        top_rect_upper_right_radius);
   canvas->sk_canvas()->drawRRect(SkRRect(rrect), flags);
 }
-}  // namespace electron
+}  // namespace neutron

@@ -1,5 +1,5 @@
 <script>
 navigator.geolocation.getCurrentPosition(() => {}, (err) => {
-  require('electron').ipcRenderer.send('message', err.message);
+  require('neutron').ipcRenderer.send('message', err.message);
 });
 </script>

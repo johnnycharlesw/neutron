@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@electronjs.org>
+From: Samuel Attard <marshallofsound@neutronjs.org>
 Date: Tue, 13 Feb 2024 17:40:15 -0800
 Subject: fix: add support for skipping first 2 no-op refreshes in thumb cap
 

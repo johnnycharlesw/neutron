@@ -10,7 +10,7 @@ See [`Menu`](menu.md) for examples.
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### `new MenuItem(options)`
 

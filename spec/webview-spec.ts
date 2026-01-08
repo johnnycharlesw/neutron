@@ -1,4 +1,4 @@
-import { BrowserWindow, session, ipcMain, app, WebContents } from 'electron/main';
+import { BrowserWindow, session, ipcMain, app, WebContents } from 'neutron/main';
 
 import * as auth from 'basic-auth';
 import { expect } from 'chai';
@@ -15,7 +15,7 @@ import { ifit, ifdescribe, defer, itremote, useRemoteContext, listen } from './l
 import { closeAllWindows } from './lib/window-helpers';
 
 declare let WebView: any;
-const features = process._linkedBinding('electron_common_features');
+const features = process._linkedBinding('neutron_common_features');
 
 async function loadWebView (w: WebContents, attributes: Record<string, string>, opts?: {openDevTools?: boolean}): Promise<void> {
   const { openDevTools } = {
@@ -716,7 +716,7 @@ describe('<webview> tag', function () {
 
     it('emits a web-contents-created event', async () => {
       const webContentsCreated = emittedUntil(app, 'web-contents-created',
-        (event: Electron.Event, contents: Electron.WebContents) => contents.getType() === 'window');
+        (event: Neutron.Event, contents: Neutron.WebContents) => contents.getType() === 'window');
 
       loadWebView(w.webContents, {
         allowpopups: 'on',
@@ -1184,7 +1184,7 @@ describe('<webview> tag', function () {
         const types = JSON.parse(message);
         expect(types).to.include({
           require: 'function', // arguments passed to it should be available
-          electron: 'undefined', // objects from the scope it is called from should not be available
+          neutron: 'undefined', // objects from the scope it is called from should not be available
           window: 'object', // the window object should be available
           localVar: 'undefined' // but local variables should not be exposed to the window
         });

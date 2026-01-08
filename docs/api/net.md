@@ -27,10 +27,10 @@ Node.js.
 Example usage:
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.whenReady().then(() => {
-  const { net } = require('electron')
+  const { net } = require('neutron')
   const request = net.request('https://github.com')
   request.on('response', (response) => {
     console.log(`STATUS: ${response.statusCode}`)

@@ -1,4 +1,4 @@
-import { BaseWindow, BrowserWindow, BrowserWindowConstructorOptions, webContents, WebContents, WebContentsView } from 'electron/main';
+import { BaseWindow, BrowserWindow, BrowserWindowConstructorOptions, webContents, WebContents, WebContentsView } from 'neutron/main';
 
 import { expect } from 'chai';
 

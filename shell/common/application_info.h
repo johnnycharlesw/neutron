@@ -13,7 +13,7 @@
 
 #include <string>
 
-namespace electron {
+namespace neutron {
 
 std::string& OverriddenApplicationName();
 std::string& OverriddenApplicationVersion();
@@ -22,7 +22,7 @@ std::string GetPossiblyOverriddenApplicationName();
 
 std::string GetApplicationName();
 std::string GetApplicationVersion();
-// Returns the user agent of Electron.
+// Returns the user agent of Neutron.
 std::string GetApplicationUserAgent();
 
 bool IsAppRTL();
@@ -34,6 +34,6 @@ void SetAppUserModelID(const std::wstring& name);
 bool IsRunningInDesktopBridge();
 #endif
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_APPLICATION_INFO_H_

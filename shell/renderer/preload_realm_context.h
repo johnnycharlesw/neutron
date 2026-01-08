@@ -7,11 +7,11 @@
 
 #include "v8/include/v8-forward.h"
 
-namespace electron {
+namespace neutron {
 class ServiceWorkerData;
 }
 
-namespace electron::preload_realm {
+namespace neutron::preload_realm {
 
 // Get initiator context given the preload context.
 v8::MaybeLocal<v8::Context> GetInitiatorContext(v8::Local<v8::Context> context,
@@ -22,15 +22,15 @@ v8::MaybeLocal<v8::Context> GetPreloadRealmContext(
     v8::Local<v8::Context> context);
 
 // Get service worker data given the preload realm context.
-electron::ServiceWorkerData* GetServiceWorkerData(
+neutron::ServiceWorkerData* GetServiceWorkerData(
     v8::Local<v8::Context> context);
 
 // Create
 void OnCreatePreloadableV8Context(
     v8::Isolate* const isolate,
     v8::Local<v8::Context> initiator_context,
-    electron::ServiceWorkerData* service_worker_data);
+    neutron::ServiceWorkerData* service_worker_data);
 
-}  // namespace electron::preload_realm
+}  // namespace neutron::preload_realm
 
 #endif  // ELECTRON_SHELL_RENDERER_PRELOAD_REALM_CONTEXT_H_

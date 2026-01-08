@@ -6,23 +6,23 @@
 #define ELECTRON_SHELL_COMMON_GIN_CONVERTERS_NATIVE_WINDOW_CONVERTER_H_
 
 #include "gin/converter.h"
-#include "shell/browser/api/electron_api_base_window.h"
+#include "shell/browser/api/neutron_api_base_window.h"
 
 namespace gin {
 
 template <>
-struct Converter<electron::NativeWindow*> {
+struct Converter<neutron::NativeWindow*> {
   static bool FromV8(v8::Isolate* isolate,
                      v8::Local<v8::Value> val,
-                     electron::NativeWindow** out) {
+                     neutron::NativeWindow** out) {
     // null would be transferred to nullptr.
     if (val->IsNull()) {
       *out = nullptr;
       return true;
     }
 
-    electron::api::BaseWindow* window;
-    if (!gin::Converter<electron::api::BaseWindow*>::FromV8(isolate, val,
+    neutron::api::BaseWindow* window;
+    if (!gin::Converter<neutron::api::BaseWindow*>::FromV8(isolate, val,
                                                             &window))
       return false;
     *out = window->window();

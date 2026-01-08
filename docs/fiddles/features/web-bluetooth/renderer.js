@@ -8,12 +8,12 @@ async function testIt () {
 document.getElementById('clickme').addEventListener('click', testIt)
 
 function cancelRequest () {
-  window.electronAPI.cancelBluetoothRequest()
+  window.neutronAPI.cancelBluetoothRequest()
 }
 
 document.getElementById('cancel').addEventListener('click', cancelRequest)
 
-window.electronAPI.bluetoothPairingRequest((event, details) => {
+window.neutronAPI.bluetoothPairingRequest((event, details) => {
   const response = {}
 
   switch (details.pairingKind) {
@@ -36,5 +36,5 @@ window.electronAPI.bluetoothPairingRequest((event, details) => {
     }
   }
 
-  window.electronAPI.bluetoothPairingResponse(response)
+  window.neutronAPI.bluetoothPairingResponse(response)
 })

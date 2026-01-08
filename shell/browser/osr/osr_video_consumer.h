@@ -16,7 +16,7 @@
 #include "media/capture/mojom/video_capture_types.mojom.h"
 #include "shell/browser/osr/osr_paint_event.h"
 
-namespace electron {
+namespace neutron {
 
 class OffScreenRenderWidgetHostView;
 
@@ -55,6 +55,6 @@ class OffScreenVideoConsumer : public viz::mojom::FrameSinkVideoConsumer {
   base::WeakPtrFactory<OffScreenVideoConsumer> weak_ptr_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_OSR_OSR_VIDEO_CONSUMER_H_

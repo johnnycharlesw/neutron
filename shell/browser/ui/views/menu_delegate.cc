@@ -16,13 +16,13 @@
 #include "ui/views/controls/menu/menu_runner.h"
 #include "ui/views/widget/widget.h"
 
-namespace electron {
+namespace neutron {
 
 MenuDelegate::MenuDelegate(MenuBar* menu_bar) : menu_bar_(menu_bar) {}
 
 MenuDelegate::~MenuDelegate() = default;
 
-void MenuDelegate::RunMenu(ElectronMenuModel* model,
+void MenuDelegate::RunMenu(NeutronMenuModel* model,
                            views::Button* button,
                            ui::mojom::MenuSourceType source_type) {
   gfx::Point screen_loc;
@@ -124,7 +124,7 @@ views::MenuItemView* MenuDelegate::GetSiblingMenu(
   // TODO(zcbenz): We should follow Chromium's logics on implementing the
   // sibling menu switches, this code is almost a hack.
   views::MenuButton* button;
-  ElectronMenuModel* model;
+  NeutronMenuModel* model;
   if (menu_bar_->GetMenuButtonFromScreenPoint(screen_point, &model, &button) &&
       button->GetID() != id_) {
     bool switch_in_progress = !!button_to_open_;
@@ -141,4 +141,4 @@ views::MenuItemView* MenuDelegate::GetSiblingMenu(
   return nullptr;
 }
 
-}  // namespace electron
+}  // namespace neutron

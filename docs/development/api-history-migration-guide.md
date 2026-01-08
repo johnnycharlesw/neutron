@@ -13,8 +13,8 @@ Here are some resources you can use to find information on the history of an API
 ### Additions
 
 * `git blame`
-* [Release notes](https://github.com/electron/electron/releases/)
-* [`electron-api-historian`](https://github.com/electron/electron-api-historian)
+* [Release notes](https://github.com/neutron/neutron/releases/)
+* [`neutron-api-historian`](https://github.com/neutron/neutron-api-historian)
 
 ## Example
 
@@ -55,7 +55,7 @@ $ git blame -L523,524 -- docs/breaking-changes.md
 
 $ git log -1 1e206deec3e
 commit 1e206deec3ef142460c780307752a84782f9baed (tag: v26.0.0-nightly.20230407)
-Author: Keeley Hammond <vertedinde@electronjs.org>
+Author: Keeley Hammond <vertedinde@neutronjs.org>
 Date:   Thu Apr 6 21:23:29 2023 -0700
 
     docs: update E24/E25 breaking changes (#37878) <-- This is the associated Pull Request
@@ -74,7 +74,7 @@ for information on how to create API History blocks.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/37878
+  - pr-url: https://github.com/neutron/neutron/pull/37878
     breaking-changes-header: deprecated-browserwindowgettrafficlightposition
 ```
 -->
@@ -107,9 +107,9 @@ API History:
 <!--
 ```YAML history
 added:
-  - pr-url: https://github.com/electron/electron/pull/22533
+  - pr-url: https://github.com/neutron/neutron/pull/22533
 changes:
-  - pr-url: https://github.com/electron/electron/pull/26789
+  - pr-url: https://github.com/neutron/neutron/pull/26789
     description: "Made `trafficLightPosition` option work for `customButtonOnHover` window."
     breaking-changes-header: behavior-changed-draggable-regions-on-macos
 ```
@@ -173,13 +173,13 @@ API History:
 <!--
 ```YAML history
 added:
-  - pr-url: https://github.com/electron/electron/pull/22533
+  - pr-url: https://github.com/neutron/neutron/pull/22533
 changes:
-  - pr-url: https://github.com/electron/electron/pull/26789
+  - pr-url: https://github.com/neutron/neutron/pull/26789
     description: "Made `trafficLightPosition` option work for `customButtonOnHover` window."
     breaking-changes-header: behavior-changed-draggable-regions-on-macos
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/37878
+  - pr-url: https://github.com/neutron/neutron/pull/37878
     breaking-changes-header: deprecated-browserwindowgettrafficlightposition
 ```
 -->

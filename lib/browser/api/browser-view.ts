@@ -1,6 +1,6 @@
-import { BrowserWindow, AutoResizeOptions, Rectangle, WebContentsView, WebPreferences, WebContents } from 'electron/main';
+import { BrowserWindow, AutoResizeOptions, Rectangle, WebContentsView, WebPreferences, WebContents } from 'neutron/main';
 
-const v8Util = process._linkedBinding('electron_common_v8_util');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
 
 export default class BrowserView {
   #webContentsView: WebContentsView;
@@ -103,7 +103,7 @@ export default class BrowserView {
   #autoVerticalProportion: {height: number, top: number} | null = null;
   #autoResize () {
     if (!this.ownerWindow) {
-      throw new Error('Electron bug: #autoResize called without owner window');
+      throw new Error('Neutron bug: #autoResize called without owner window');
     };
 
     if (this.#autoResizeFlags.horizontal && this.#autoHorizontalProportion == null) {

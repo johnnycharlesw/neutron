@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('neutron');
 
 app.commandLine.appendSwitch('--disable-software-rasterizer');
 

@@ -10,7 +10,7 @@
 #include "cc/paint/paint_filter.h"
 #include "cc/paint/paint_flags.h"
 #include "shell/browser/native_window_views.h"
-#include "shell/browser/ui/electron_desktop_window_tree_host_linux.h"
+#include "shell/browser/ui/neutron_desktop_window_tree_host_linux.h"
 #include "shell/browser/ui/views/frameless_view.h"
 #include "ui/base/hit_test.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -35,7 +35,7 @@
 #include "ui/views/window/frame_buttons.h"
 #include "ui/views/window/window_button_order_provider.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -123,8 +123,8 @@ void ClientFrameViewLinux::Init(NativeWindowViews* window,
       frame_->RegisterPaintAsActiveChangedCallback(base::BindRepeating(
           &ClientFrameViewLinux::PaintAsActiveChanged, base::Unretained(this)));
 
-  auto* tree_host = static_cast<ElectronDesktopWindowTreeHostLinux*>(
-      ElectronDesktopWindowTreeHostLinux::GetHostForWidget(
+  auto* tree_host = static_cast<NeutronDesktopWindowTreeHostLinux*>(
+      NeutronDesktopWindowTreeHostLinux::GetHostForWidget(
           window->GetAcceleratedWidget()));
   host_supports_client_frame_shadow_ = tree_host->SupportsClientFrameShadow();
 
@@ -513,4 +513,4 @@ int ClientFrameViewLinux::GetTranslucentTopAreaHeight() const {
 
 BEGIN_METADATA(ClientFrameViewLinux) END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

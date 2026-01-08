@@ -1,11 +1,11 @@
-import * as deprecate from '@electron/internal/common/deprecate';
+import * as deprecate from '@neutron/internal/common/deprecate';
 
-import { app } from 'electron/main';
+import { app } from 'neutron/main';
 
-const binding = process._linkedBinding('electron_browser_crash_reporter');
+const binding = process._linkedBinding('neutron_browser_crash_reporter');
 
-class CrashReporter implements Electron.CrashReporter {
-  start (options: Electron.CrashReporterStartOptions) {
+class CrashReporter implements Neutron.CrashReporter {
+  start (options: Neutron.CrashReporterStartOptions) {
     const {
       productName = app.name,
       companyName,
@@ -21,7 +21,7 @@ class CrashReporter implements Electron.CrashReporter {
     if (uploadToServer && !submitURL) throw new Error('submitURL must be specified when uploadToServer is true');
 
     if (!compress && uploadToServer) {
-      deprecate.log('Sending uncompressed crash reports is deprecated and will be removed in a future version of Electron. Set { compress: true } to opt-in to the new behavior. Crash reports will be uploaded gzipped, which most crash reporting servers support.');
+      deprecate.log('Sending uncompressed crash reports is deprecated and will be removed in a future version of Neutron. Set { compress: true } to opt-in to the new behavior. Crash reports will be uploaded gzipped, which most crash reporting servers support.');
     }
 
     const appVersion = app.getVersion();
@@ -49,7 +49,7 @@ class CrashReporter implements Electron.CrashReporter {
     return (reports.length > 0) ? reports[0] : null;
   }
 
-  getUploadedReports (): Electron.CrashReport[] {
+  getUploadedReports (): Neutron.CrashReport[] {
     return binding.getUploadedReports();
   }
 

@@ -17,7 +17,7 @@ certain properties and methods (e.g. `webFrame.firstChild`).
 An example of zooming current page to 200%.
 
 ```js
-const { webFrame } = require('electron')
+const { webFrame } = require('neutron')
 
 webFrame.setZoomFactor(2)
 ```
@@ -106,7 +106,7 @@ with an array of misspelt words when complete.
 An example of using [node-spellchecker][spellchecker] as provider:
 
 ```js @ts-expect-error=[3,8]
-const { webFrame } = require('electron')
+const { webFrame } = require('neutron')
 
 const spellChecker = require('spellchecker')
 
@@ -219,7 +219,7 @@ Returns an object describing usage information of Blink's internal memory
 caches.
 
 ```js
-const { webFrame } = require('electron')
+const { webFrame } = require('neutron')
 
 console.log(webFrame.getResourceUsage())
 ```

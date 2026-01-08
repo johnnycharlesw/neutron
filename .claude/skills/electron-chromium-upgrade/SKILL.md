@@ -1,5 +1,5 @@
 ---
-name: electron-chromium-upgrade
+name: neutron-chromium-upgrade
 description: Guide for performing Chromium version upgrades in the Electron project. Use when working on the roller/chromium/main branch to fix patch conflicts during `e sync --3`. Covers the patch application workflow, conflict resolution, analyzing upstream Chromium changes, and proper commit formatting for patch fixes.
 ---
 
@@ -32,7 +32,7 @@ The `roller/chromium/main` branch is created by automation to update Electron's 
 
 ## Workflow
 
-1. Delete the `.git/rr-cache` in both the `electron` and `..` folder to ensure no accidental rerere replays occur from before this upgrade phase attempt started
+1. Delete the `.git/rr-cache` in both the `neutron` and `..` folder to ensure no accidental rerere replays occur from before this upgrade phase attempt started
 2. Run `e sync --3` (the `--3` flag enables 3-way merge, always required)
 3. If succeeds → skip to step 6
 4. If patch fails:
@@ -116,14 +116,14 @@ The `roller/chromium/main` branch is created by automation to update Electron's 
   context as possible for each time we run build)
 2. If succeeds → skip to step 6
 3. If build fails:
-    - Identify underlying file in "electron" from the compilation error message
+    - Identify underlying file in "neutron" from the compilation error message
     - Analyze failure
     - Fix build issue by adapting Electron's code for the change in Chromium
     - Run `e build -t {target_that_failed}.o` to build just the failed target we were specifically fixing
-        - You can identify the target_that_failed from the failure line in the build log. E.g. `FAILED: 2e506007-8d5d-4f38-bdd1-b5cd77999a77 "./obj/electron/chromium_src/chrome/process_singleton_posix.o" CXX obj/electron/chromium_src/chrome/process_singleton_posix.o` the target name is `obj/electron/chromium_src/chrome/process_singleton_posix.o`
+        - You can identify the target_that_failed from the failure line in the build log. E.g. `FAILED: 2e506007-8d5d-4f38-bdd1-b5cd77999a77 "./obj/neutron/chromium_src/chrome/process_singleton_posix.o" CXX obj/neutron/chromium_src/chrome/process_singleton_posix.o` the target name is `obj/neutron/chromium_src/chrome/process_singleton_posix.o`
     - **Read `references/phase-two-commit-guidelines.md` NOW**, then commit changes following those instructions exactly.
     - Return to step 1
-4. **CRITICAL**: After ANY commit (especially patch commits), immediately run `git status` in the electron repo
+4. **CRITICAL**: After ANY commit (especially patch commits), immediately run `git status` in the neutron repo
     - Look for other modified `.patch` files that only have index/hunk header changes
     - These are dependent patches affected by your fix
     - Commit them immediately with: `git commit -am "chore: update patch hunk headers"`
@@ -164,24 +164,24 @@ When the error is in a file that Electron patches (check with `grep -l "filename
     git commit --fixup=<original-patch-commit-hash>
     GIT_SEQUENCE_EDITOR=: git rebase --autosquash --autostash -i <commit>^
 3. Export the updated patch: e patches chromium
-4. Commit the updated patch file in the electron repo following the `references/phase-one-commit-guidelines.md`, then commit changes following those instructions exactly. **READ THESE GUIDELINES BEFORE COMMITTING THESE CHANGES**
+4. Commit the updated patch file in the neutron repo following the `references/phase-one-commit-guidelines.md`, then commit changes following those instructions exactly. **READ THESE GUIDELINES BEFORE COMMITTING THESE CHANGES**
 
 To find the original patch commit to fixup: `git log --oneline | grep -i "keyword from patch name"`
 
 The base commit for rebase is the Chromium commit before patches were applied. Find it by checking the `refs/patches/upstream-head` ref.
 
-B. Electron Code Fixes (for files in shell/, electron/, etc.)
+B. Electron Code Fixes (for files in shell/, neutron/, etc.)
 
 When the error is in Electron's own source code:
 
-1. Edit files directly in the electron repo
+1. Edit files directly in the neutron repo
 2. Commit directly (no patch export needed)
 
 Dependent Patch Updates
 
 IMPORTANT: When you modify a patch, other patches that apply to the same file may have their hunk headers invalidated. After committing a patch fix:
 
-1. Run git status in the electron repo
+1. Run git status in the neutron repo
 2. Look for other modified .patch files with just index/hunk header changes
 3. Commit these with: git commit -m "chore: update patch hunk headers"
 

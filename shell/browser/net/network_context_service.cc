@@ -10,17 +10,17 @@
 #include "chrome/common/chrome_constants.h"
 #include "content/public/browser/network_service_instance.h"
 #include "content/public/browser/shared_cors_origin_access_list.h"
-#include "electron/fuses.h"
+#include "neutron/fuses.h"
 #include "net/http/http_util.h"
 #include "net/net_buildflags.h"
 #include "services/network/network_service.h"
 #include "services/network/public/cpp/cors/origin_access_list.h"
 #include "shell/browser/browser_process_impl.h"
-#include "shell/browser/electron_browser_client.h"
-#include "shell/browser/electron_browser_context.h"
+#include "shell/browser/neutron_browser_client.h"
+#include "shell/browser/neutron_browser_context.h"
 #include "shell/browser/net/system_network_context_manager.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -38,7 +38,7 @@ bool ShouldTriggerNetworkDataMigration() {
 }  // namespace
 
 NetworkContextService::NetworkContextService(content::BrowserContext* context)
-    : browser_context_(static_cast<ElectronBrowserContext*>(context)),
+    : browser_context_(static_cast<NeutronBrowserContext*>(context)),
       proxy_config_monitor_(browser_context_->prefs()) {}
 
 NetworkContextService::~NetworkContextService() = default;
@@ -69,7 +69,7 @@ void NetworkContextService::ConfigureNetworkContextParams(
 
   network_context_params->accept_language =
       net::HttpUtil::GenerateAcceptLanguageHeader(
-          ElectronBrowserClient::Get()->GetApplicationLocale());
+          NeutronBrowserClient::Get()->GetApplicationLocale());
 
   // Enable the HTTP cache.
   network_context_params->http_cache_enabled =
@@ -112,7 +112,7 @@ void NetworkContextService::ConfigureNetworkContextParams(
     network_context_params->persist_session_cookies = false;
 
     network_context_params->enable_encrypted_cookies =
-        electron::fuses::IsCookieEncryptionEnabled();
+        neutron::fuses::IsCookieEncryptionEnabled();
 
     network_context_params->file_paths->transport_security_persister_file_name =
         base::FilePath(chrome::kTransportSecurityPersisterFilename);
@@ -124,4 +124,4 @@ void NetworkContextService::ConfigureNetworkContextParams(
       browser_context_->in_memory_pref_store());
 }
 
-}  // namespace electron
+}  // namespace neutron

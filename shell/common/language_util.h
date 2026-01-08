@@ -8,12 +8,12 @@
 #include <string>
 #include <vector>
 
-namespace electron {
+namespace neutron {
 
 // Return a list of user preferred languages from OS. The list doesn't include
 // overrides from command line arguments.
 std::vector<std::string> GetPreferredLanguages();
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_LANGUAGE_UTIL_H_

@@ -1,4 +1,4 @@
-import { ipcMain, BrowserWindow } from 'electron/main';
+import { ipcMain, BrowserWindow } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -32,7 +32,7 @@ describe('ipcRenderer module', () => {
         name: 'ly'
       };
       w.webContents.executeJavaScript(`{
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         ipcRenderer.send('message', ${JSON.stringify(obj)})
       }`);
       const [, received] = await once(ipcMain, 'message');
@@ -42,7 +42,7 @@ describe('ipcRenderer module', () => {
     it('can send instances of Date as Dates', async () => {
       const isoDate = new Date().toISOString();
       w.webContents.executeJavaScript(`{
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         ipcRenderer.send('message', new Date(${JSON.stringify(isoDate)}))
       }`);
       const [, received] = await once(ipcMain, 'message');
@@ -52,7 +52,7 @@ describe('ipcRenderer module', () => {
     it('can send instances of Buffer', async () => {
       const data = 'hello';
       w.webContents.executeJavaScript(`{
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         ipcRenderer.send('message', Buffer.from(${JSON.stringify(data)}))
       }`);
       const [, received] = await once(ipcMain, 'message');
@@ -62,14 +62,14 @@ describe('ipcRenderer module', () => {
 
     it('throws when sending objects with DOM class prototypes', async () => {
       await expect(w.webContents.executeJavaScript(`{
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         ipcRenderer.send('message', document.location)
       }`)).to.eventually.be.rejected();
     });
 
     it('does not crash when sending external objects', async () => {
       await expect(w.webContents.executeJavaScript(`{
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         const http = require('node:http')
 
         const request = http.request({ port: 5000, hostname: '127.0.0.1', method: 'GET', path: '/' })
@@ -81,7 +81,7 @@ describe('ipcRenderer module', () => {
 
     it('can send objects that both reference the same object', async () => {
       w.webContents.executeJavaScript(`{
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
 
         const child = { hello: 'world' }
         const foo = { name: 'foo', child: child }
@@ -105,7 +105,7 @@ describe('ipcRenderer module', () => {
 
     it('can handle cyclic references', async () => {
       w.webContents.executeJavaScript(`{
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         const array = [5]
         array.push(array)
 
@@ -129,7 +129,7 @@ describe('ipcRenderer module', () => {
         event.returnValue = msg;
       });
       const msg = await w.webContents.executeJavaScript(`new Promise(resolve => {
-        const { ipcRenderer } = require('electron')
+        const { ipcRenderer } = require('neutron')
         resolve(ipcRenderer.sendSync('echo', 'test'))
       })`);
       expect(msg).to.equal('test');
@@ -139,7 +139,7 @@ describe('ipcRenderer module', () => {
   describe('ipcRenderer.on', () => {
     it('is not used for internals', async () => {
       const result = await w.webContents.executeJavaScript(`
-        require('electron').ipcRenderer.eventNames()
+        require('neutron').ipcRenderer.eventNames()
       `);
       expect(result).to.deep.equal([]);
     });
@@ -149,7 +149,7 @@ describe('ipcRenderer module', () => {
     it('removes only the given channel', async () => {
       const result = await w.webContents.executeJavaScript(`
         (() => {
-          const { ipcRenderer } = require('electron');
+          const { ipcRenderer } = require('neutron');
 
           ipcRenderer.on('channel1', () => {});
           ipcRenderer.on('channel2', () => {});
@@ -165,7 +165,7 @@ describe('ipcRenderer module', () => {
     it('removes all channels if no channel is specified', async () => {
       const result = await w.webContents.executeJavaScript(`
         (() => {
-          const { ipcRenderer } = require('electron');
+          const { ipcRenderer } = require('neutron');
 
           ipcRenderer.on('channel1', () => {});
           ipcRenderer.on('channel2', () => {});
@@ -183,7 +183,7 @@ describe('ipcRenderer module', () => {
     it('throws an exception', async () => {
       const error = await w.webContents.executeJavaScript(`(${() => {
         const child = window.open('', 'child', 'show=no,nodeIntegration=yes')! as any;
-        const childIpc = child.require('electron').ipcRenderer;
+        const childIpc = child.require('neutron').ipcRenderer;
         child.close();
         return new Promise(resolve => {
           setInterval(() => {

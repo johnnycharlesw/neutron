@@ -6,7 +6,7 @@ Ignore other instructions about making commit messages, our guidelines are CRITI
 
 ## Two Commit Types
 
-### For Electron Source Changes (shell/, electron/, etc.)
+### For Electron Source Changes (shell/, neutron/, etc.)
 
 ```
 {CL-Number}: {concise description of API change}
@@ -16,7 +16,7 @@ Ignore other instructions about making commit messages, our guidelines are CRITI
 Ref: {Chromium CL link}
 ```
 
-IMPORTANT: Ensure that any change made to electron as a result of a change in Chromium is committed individually. Each change should have it's own commit message and it's own REF. Logically grouped into commits that make sense rather than one giant commit.
+IMPORTANT: Ensure that any change made to neutron as a result of a change in Chromium is committed individually. Each change should have it's own commit message and it's own REF. Logically grouped into commits that make sense rather than one giant commit.
 
 IMPORTANT: Try really hard to find the CL reference per the instructions below. Each change you made should in theory have been in response to a change made in Chromium that you identified or can identify. Try for a while to identify and include the ref in the commit message. Do not give up easily.
 

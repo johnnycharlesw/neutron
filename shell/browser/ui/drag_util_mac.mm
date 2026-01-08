@@ -38,7 +38,7 @@ id<NSDraggingSource> GetDraggingSource() {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 void DragFileItems(const std::vector<base::FilePath>& files,
                    const gfx::Image& icon,
@@ -86,4 +86,4 @@ void DragFileItems(const std::vector<base::FilePath>& files,
                                       source:GetDraggingSource()];
 }
 
-}  // namespace electron
+}  // namespace neutron

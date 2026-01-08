@@ -27,7 +27,7 @@
 #include "ui/views/widget/widget.h"
 #include "ui/views/window/frame_buttons.h"
 
-namespace electron {
+namespace neutron {
 
 class NativeWindowViews;
 
@@ -42,7 +42,7 @@ class ClientFrameViewLinux : public FramelessView,
 
   void Init(NativeWindowViews* window, views::Widget* frame) override;
 
-  // These are here for ElectronDesktopWindowTreeHostLinux to use.
+  // These are here for NeutronDesktopWindowTreeHostLinux to use.
   gfx::Insets RestoredMirroredFrameBorderInsets() const;
   gfx::Insets RestoredFrameBorderInsets() const;
   gfx::Insets GetInputInsets() const;
@@ -152,6 +152,6 @@ class ClientFrameViewLinux : public FramelessView,
   bool tiled_ = false;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_CLIENT_FRAME_VIEW_LINUX_H_

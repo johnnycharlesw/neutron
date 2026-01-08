@@ -29,7 +29,7 @@ cp.fork = (modulePath, args?, options?: cp.ForkOptions) => {
     return originalFork(modulePath, args, options);
   }
   // When forking a child script, we setup a special environment to make
-  // the electron binary run like upstream Node.js.
+  // the neutron binary run like upstream Node.js.
   options = options ?? {};
   options.env = Object.create(options.env || process.env);
   options.env!.ELECTRON_RUN_AS_NODE = '1';

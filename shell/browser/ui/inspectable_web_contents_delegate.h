@@ -12,7 +12,7 @@ namespace base {
 class FilePath;
 }
 
-namespace electron {
+namespace neutron {
 
 class InspectableWebContentsDelegate {
  public:
@@ -43,6 +43,6 @@ class InspectableWebContentsDelegate {
   virtual void DevToolsSetEyeDropperActive(bool active) {}
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_INSPECTABLE_WEB_CONTENTS_DELEGATE_H_

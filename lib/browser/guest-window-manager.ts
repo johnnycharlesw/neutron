@@ -5,10 +5,10 @@
  * out-of-process (cross-origin) are created here. "Embedder" roughly means
  * "parent."
  */
-import { parseFeatures } from '@electron/internal/browser/parse-features-string';
+import { parseFeatures } from '@neutron/internal/browser/parse-features-string';
 
-import { BrowserWindow } from 'electron/main';
-import type { BrowserWindowConstructorOptions, Referrer, WebContents, LoadURLOptions } from 'electron/main';
+import { BrowserWindow } from 'neutron/main';
+import type { BrowserWindowConstructorOptions, Referrer, WebContents, LoadURLOptions } from 'neutron/main';
 
 type PostData = LoadURLOptions['postData']
 export type WindowOpenArgs = {
@@ -35,7 +35,7 @@ export function openGuestWindow ({ embedder, guest, referrer, disposition, postD
   overrideBrowserWindowOptions?: BrowserWindowConstructorOptions,
   windowOpenArgs: WindowOpenArgs,
   outlivesOpener: boolean,
-  createWindow?: Electron.CreateWindowFunction
+  createWindow?: Neutron.CreateWindowFunction
 }): void {
   const { url, frameName, features } = windowOpenArgs;
   const { options: parsedOptions } = parseFeatures(features);
@@ -91,7 +91,7 @@ export function openGuestWindow ({ embedder, guest, referrer, disposition, postD
       httpReferrer: referrer,
       ...(postData && {
         postData,
-        extraHeaders: formatPostDataHeaders(postData as Electron.UploadRawData[])
+        extraHeaders: formatPostDataHeaders(postData as Neutron.UploadRawData[])
       })
     });
   }
@@ -104,7 +104,7 @@ export function openGuestWindow ({ embedder, guest, referrer, disposition, postD
 /**
  * Manage the relationship between embedder window and guest window. When the
  * guest is destroyed, notify the embedder. When the embedder is destroyed, so
- * too is the guest destroyed; this is Electron convention and isn't based in
+ * too is the guest destroyed; this is Neutron convention and isn't based in
  * browser behavior.
  */
 const handleWindowLifecycleEvents = function ({ embedder, guest, frameName, outlivesOpener }: {
@@ -158,11 +158,11 @@ export function makeWebPreferences ({ embedder, secureOverrideWebPreferences = {
 }) {
   const parentWebPreferences = embedder.getLastWebPreferences()!;
   const securityWebPreferencesFromParent = (Object.keys(securityWebPreferences).reduce((map, key) => {
-    if (securityWebPreferences[key] === parentWebPreferences[key as keyof Electron.WebPreferences]) {
-      (map as any)[key] = parentWebPreferences[key as keyof Electron.WebPreferences];
+    if (securityWebPreferences[key] === parentWebPreferences[key as keyof Neutron.WebPreferences]) {
+      (map as any)[key] = parentWebPreferences[key as keyof Neutron.WebPreferences];
     }
     return map;
-  }, {} as Electron.WebPreferences));
+  }, {} as Neutron.WebPreferences));
 
   return {
     ...parsedWebPreferences,

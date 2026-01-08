@@ -11,7 +11,7 @@
 
 #include "base/memory/weak_ptr.h"
 
-namespace electron {
+namespace neutron {
 
 class Notification;
 class NotificationDelegate;
@@ -46,6 +46,6 @@ class NotificationPresenter {
   std::set<Notification*> notifications_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_NOTIFICATION_PRESENTER_H_

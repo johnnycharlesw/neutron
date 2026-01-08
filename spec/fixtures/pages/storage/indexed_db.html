@@ -2,7 +2,7 @@
   try {
     let req = window.indexedDB.open('test')
   } catch (e) {
-    const {ipcRenderer} = require('electron')
+    const {ipcRenderer} = require('neutron')
     ipcRenderer.send('indexed-db-response', e.message)
   }
 </script>

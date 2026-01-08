@@ -1,4 +1,4 @@
-const { app, safeStorage } = require('electron');
+const { app, safeStorage } = require('neutron');
 
 const { promises: fs } = require('node:fs');
 const path = require('node:path');

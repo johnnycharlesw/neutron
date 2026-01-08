@@ -55,7 +55,7 @@ async function main () {
 
     const series = [
       {
-        metric: 'electron.build.effective-cache-hit-rate',
+        metric: 'neutron.build.effective-cache-hit-rate',
         points: [{ timestamp, value: (hitRate * 100).toFixed(2) }],
         type: 3, // GAUGE
         unit: 'percent',
@@ -66,7 +66,7 @@ async function main () {
     // Add all raw stats as individual metrics
     for (const [key, value] of Object.entries(stats)) {
       series.push({
-        metric: `electron.build.stats.${key.toLowerCase()}`,
+        metric: `neutron.build.stats.${key.toLowerCase()}`,
         points: [{ timestamp, value }],
         type: 1, // COUNT
         tags

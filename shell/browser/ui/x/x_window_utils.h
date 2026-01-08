@@ -9,7 +9,7 @@
 
 #include "ui/gfx/x/xproto.h"
 
-namespace electron {
+namespace neutron {
 
 // Sets the _NET_WM_WINDOW_TYPE of window.
 void SetWindowType(x11::Window window, const std::string& type);
@@ -26,6 +26,6 @@ void MoveWindowAbove(x11::Window window, x11::Window other_window);
 // Return true is the given window exists, false otherwise.
 bool IsWindowValid(x11::Window window);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_X_X_WINDOW_UTILS_H_

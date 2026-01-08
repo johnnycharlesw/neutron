@@ -1,4 +1,4 @@
-const { app, Menu } = require('electron');
+const { app, Menu } = require('neutron');
 
 function output (value) {
   process.stdout.write(JSON.stringify(value));

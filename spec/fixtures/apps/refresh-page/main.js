@@ -1,4 +1,4 @@
-const { BrowserWindow, app, protocol, net, session } = require('electron');
+const { BrowserWindow, app, protocol, net, session } = require('neutron');
 
 const { once } = require('node:events');
 const path = require('node:path');

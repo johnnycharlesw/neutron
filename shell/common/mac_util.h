@@ -9,10 +9,10 @@
 
 @class NSData;
 
-namespace electron::util {
+namespace neutron::util {
 
 base::span<const uint8_t> as_byte_span(NSData* data);
 
-}  // namespace electron::util
+}  // namespace neutron::util
 
 #endif  // ELECTRON_SHELL_MAC_UTIL_H_

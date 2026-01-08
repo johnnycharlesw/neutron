@@ -20,7 +20,7 @@
 #include "base/strings/sys_string_conversions.h"
 #include "content/public/browser/browser_task_traits.h"
 #include "content/public/browser/browser_thread.h"
-#include "electron/mas.h"
+#include "neutron/mas.h"
 #include "shell/browser/native_window.h"
 #include "shell/common/gin_converters/file_path_converter.h"
 #include "shell/common/gin_helper/dictionary.h"
@@ -208,7 +208,7 @@ void SetupDialog(NSSavePanel* dialog, const DialogSettings& settings) {
   NSString* default_dir = nil;
   NSString* default_filename = nil;
   if (!settings.default_path.empty()) {
-    electron::ScopedAllowBlockingForElectron allow_blocking;
+    neutron::ScopedAllowBlockingForElectron allow_blocking;
     if (base::DirectoryExists(settings.default_path)) {
       default_dir = base::SysUTF8ToNSString(settings.default_path.value());
     } else {
@@ -353,7 +353,7 @@ void ResolvePromiseInNextTick(gin_helper::Promise<v8::Local<v8::Value>> promise,
   // not do any runModal inside it. However since we can not control what
   // users will run in the microtask, we have to delay the resolution until
   // next tick, otherwise crash like this may happen:
-  // https://github.com/electron/electron/issues/26884
+  // https://github.com/neutron/neutron/issues/26884
   content::GetUIThreadTaskRunner({})->PostTask(
       FROM_HERE,
       base::BindOnce(

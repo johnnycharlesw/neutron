@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "electron/shell/browser/net/proxying_websocket.h"
+#include "neutron/shell/browser/net/proxying_websocket.h"
 
 #include <utility>
 
@@ -14,7 +14,7 @@
 #include "services/network/public/mojom/url_response_head.mojom.h"
 #include "third_party/abseil-cpp/absl/strings/str_format.h"
 
-namespace electron {
+namespace neutron {
 
 ProxyingWebSocket::ProxyingWebSocket(
     api::WebRequest* web_request,
@@ -457,4 +457,4 @@ void ProxyingWebSocket::OnMojoConnectionError() {
   // Deletes |this|.
 }
 
-}  // namespace electron
+}  // namespace neutron

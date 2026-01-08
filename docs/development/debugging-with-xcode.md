@@ -8,7 +8,7 @@ Run `gn gen` with the --ide=xcode argument.
 $ gn gen out/Testing --ide=xcode
 ```
 
-This will generate the electron.ninja.xcworkspace. You will have to open this workspace
+This will generate the neutron.ninja.xcworkspace. You will have to open this workspace
 to set breakpoints and inspect.
 
 See `gn help gen` for more information on generating IDE projects with GN.

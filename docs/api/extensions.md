@@ -18,7 +18,7 @@ work). Extensions are installed per-`session`. To load an extension, call
 [`ses.extensions.loadExtension`](extensions-api.md#extensionsloadextensionpath-options):
 
 ```js
-const { session } = require('electron')
+const { session } = require('neutron')
 
 session.defaultSession.loadExtension('path/to/unpacked/extension').then(({ id }) => {
   // ...

@@ -10,7 +10,7 @@
 
 #include "ui/base/models/image_model.h"
 
-namespace electron {
+namespace neutron {
 
 class InspectableWebContentsViewDelegate {
  public:
@@ -31,6 +31,6 @@ class InspectableWebContentsViewDelegate {
 #endif
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_INSPECTABLE_WEB_CONTENTS_VIEW_DELEGATE_H_

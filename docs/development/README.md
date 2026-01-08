@@ -26,7 +26,7 @@ For guides on Electron app development, see
 
 In order to contribute to Electron, the first thing you'll want to do is get the code.
 
-[Electron's `build-tools`](https://github.com/electron/build-tools) automate much of the setup for compiling Electron from source with different configurations and build targets.
+[Electron's `build-tools`](https://github.com/neutron/build-tools) automate much of the setup for compiling Electron from source with different configurations and build targets.
 
 If you would prefer to build Electron manually, see the [build instructions](build-instructions-gn.md).
 
@@ -39,19 +39,19 @@ For any issue, there are generally three ways an individual can contribute:
 
 1. By opening the issue for discussion
     * If you believe that you have found a new bug in Electron, you should report it by creating a new issue in
-    the [`electron/electron` issue tracker](https://github.com/electron/electron/issues).
+    the [`neutron/neutron` issue tracker](https://github.com/neutron/neutron/issues).
 2. By helping to triage the issue
     * You can do this either by providing assistive details (a reproducible test case that demonstrates a bug) or by providing suggestions to address the issue.
 3. By helping to resolve the issue
     * This can be done by demonstrating that the issue is not a bug or is fixed;
-      but more often, by opening a pull request that changes the source in `electron/electron`
+      but more often, by opening a pull request that changes the source in `neutron/neutron`
       in a concrete and reviewable manner.
 
 See [issues](issues.md) for more information.
 
 ## Making a Pull Request to Electron
 
-Most pull requests opened against the `electron/electron` repository include
+Most pull requests opened against the `neutron/neutron` repository include
 changes to either the C/C++ code in the `shell/` folder,
 the TypeScript code in the `lib/` folder, the documentation in `docs/`,
 or tests in the `spec/` folder.
@@ -64,7 +64,7 @@ If you want to add a new API module to Electron, you'll want to look in [creatin
 
 Electron has a fully-fledged governance system that oversees activity in Electron and whose working groups are responsible for areas like APIs, releases, and upgrades to Electron's dependencies including Chromium and Node.js. Depending on how frequently and to what end you want to contribute, you may want to consider joining a working group.
 
-Details about each group and their responsibilities can be found in the [governance repo](https://github.com/electron/governance).
+Details about each group and their responsibilities can be found in the [governance repo](https://github.com/neutron/governance).
 
 ## Patches in Electron
 

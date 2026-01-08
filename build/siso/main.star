@@ -45,9 +45,9 @@ def init(ctx):
       if win_toolchain_dir:
         sdk_version = gn_logs.read(ctx).get("windows_sdk_version")
         step_config["input_deps"][win_toolchain_dir + ":headers"].extend([
-          # third_party/electron_node/deps/uv/include/uv/win.h includes mswsock.h
+          # third_party/neutron_node/deps/uv/include/uv/win.h includes mswsock.h
           path.join(win_toolchain_dir, "Windows Kits/10/Include", sdk_version, "um/mswsock.h"),
-          # third_party/electron_node/src/debug_utils.cc includes lm.h
+          # third_party/neutron_node/src/debug_utils.cc includes lm.h
           path.join(win_toolchain_dir, "Windows Kits/10/Include", sdk_version, "um/Lm.h"),          
         ])
       

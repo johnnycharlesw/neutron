@@ -17,7 +17,7 @@
 #include "ui/gfx/x/connection.h"
 #include "ui/gfx/x/xproto.h"
 
-namespace electron {
+namespace neutron {
 
 void SetWindowType(x11::Window window, const std::string& type) {
   std::string type_prefix = "_NET_WM_WINDOW_TYPE_";
@@ -29,7 +29,7 @@ void SetWindowType(x11::Window window, const std::string& type) {
 }
 
 bool ShouldUseGlobalMenuBar() {
-  ScopedAllowBlockingForElectron allow_blocking;
+  ScopedAllowBlockingForNeutron allow_blocking;
   auto env = base::Environment::Create();
   if (env->HasVar("ELECTRON_FORCE_WINDOW_MENU_BAR"))
     return false;
@@ -84,4 +84,4 @@ bool IsWindowValid(x11::Window window) {
   return conn->GetWindowAttributes({window}).Sync();
 }
 
-}  // namespace electron
+}  // namespace neutron

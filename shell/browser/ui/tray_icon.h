@@ -9,12 +9,12 @@
 #include <vector>
 
 #include "base/observer_list.h"
-#include "shell/browser/ui/electron_menu_model.h"
+#include "shell/browser/ui/neutron_menu_model.h"
 #include "shell/browser/ui/tray_icon_observer.h"
 #include "shell/common/gin_converters/guid_converter.h"
 #include "ui/gfx/geometry/rect.h"
 
-namespace electron {
+namespace neutron {
 
 class TrayIcon {
  public:
@@ -89,12 +89,12 @@ class TrayIcon {
 
   // Popups the menu.
   virtual void PopUpContextMenu(const gfx::Point& pos,
-                                base::WeakPtr<ElectronMenuModel> menu_model) {}
+                                base::WeakPtr<NeutronMenuModel> menu_model) {}
 
   virtual void CloseContextMenu() {}
 
   // Set the context menu for this icon.
-  virtual void SetContextMenu(raw_ptr<ElectronMenuModel> menu_model) = 0;
+  virtual void SetContextMenu(raw_ptr<NeutronMenuModel> menu_model) = 0;
 
   // Returns the bounds of tray icon.
   virtual gfx::Rect GetBounds();
@@ -138,6 +138,6 @@ class TrayIcon {
   base::ObserverList<TrayIconObserver> observers_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_TRAY_ICON_H_

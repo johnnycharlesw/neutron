@@ -5,10 +5,10 @@
 <grit latest_public_release="0" current_release="1"
       source_lang_id="en">
   <outputs>
-    <output filename="grit/electron_resources.h" type="rc_header">
+    <output filename="grit/neutron_resources.h" type="rc_header">
       <emit emit_type='prepend'></emit>
     </output>
-    <output filename="electron_resources.pak" type="data_package" />
+    <output filename="neutron_resources.pak" type="data_package" />
   </outputs>
   <release seq="1" allow_pseudo="false">
     <includes>

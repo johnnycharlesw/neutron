@@ -38,7 +38,7 @@ To set an app-defined custom Dock menu, pass any [Menu](../api/menu.md) instance
 ## Attaching a context menu
 
 ```js title='Setting a Dock menu'
-const { app, BrowserWindow, Menu } = require('electron/main')
+const { app, BrowserWindow, Menu } = require('neutron/main')
 
 // dock.setMenu only works after the 'ready' event is fired
 app.whenReady().then(() => {

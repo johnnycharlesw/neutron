@@ -9,7 +9,7 @@
 #include "base/check.h"
 #include "base/i18n/rtl.h"
 
-namespace electron {
+namespace neutron {
 
 std::vector<std::string> GetPreferredLanguages() {
   std::vector<std::string> preferredLanguages;
@@ -34,4 +34,4 @@ std::vector<std::string> GetPreferredLanguages() {
   return preferredLanguages;
 }
 
-}  // namespace electron
+}  // namespace neutron

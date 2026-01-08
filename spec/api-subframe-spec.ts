@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron/main';
+import { app, BrowserWindow, ipcMain } from 'neutron/main';
 
 import { expect } from 'chai';
 

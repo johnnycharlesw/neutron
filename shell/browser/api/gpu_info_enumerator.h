@@ -11,7 +11,7 @@
 #include "base/values.h"
 #include "gpu/config/gpu_info.h"
 
-namespace electron {
+namespace neutron {
 
 // This class implements the enumerator for reading all the attributes in
 // GPUInfo into a dictionary.
@@ -55,5 +55,5 @@ class GPUInfoEnumerator final : public gpu::GPUInfo::Enumerator {
   base::Value::Dict current_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 #endif  // ELECTRON_SHELL_BROWSER_API_GPU_INFO_ENUMERATOR_H_

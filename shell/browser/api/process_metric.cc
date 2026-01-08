@@ -19,7 +19,7 @@
 #include <mach/mach.h>
 #include "base/process/port_provider_mac.h"
 #include "content/public/browser/browser_child_process_host.h"
-#include "electron/mas.h"
+#include "neutron/mas.h"
 
 extern "C" int sandbox_check(pid_t pid, const char* operation, int type, ...);
 
@@ -48,7 +48,7 @@ std::optional<mach_task_basic_info_data_t> GetTaskInfo(mach_port_t task) {
 
 #endif  // BUILDFLAG(IS_MAC)
 
-namespace electron {
+namespace neutron {
 
 ProcessMetric::ProcessMetric(int type,
                              base::ProcessHandle handle,
@@ -169,4 +169,4 @@ bool ProcessMetric::IsSandboxed() const {
 
 #endif  // BUILDFLAG(IS_MAC)
 
-}  // namespace electron
+}  // namespace neutron

@@ -59,7 +59,7 @@ bar to reposition our app window!
 
 ```
 
-For more information around how to manage drag regions defined by your electron application,
+For more information around how to manage drag regions defined by your neutron application,
 see the [Custom draggable regions][] section below.
 
 Congratulations, you've just implemented a basic custom title bar!
@@ -75,7 +75,7 @@ over them. This is useful if you want to create custom traffic lights in your HT
 use the native UI to control the window.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ titleBarStyle: 'customButtonsOnHover' })
 ```
@@ -89,7 +89,7 @@ Applying `hiddenInset` title bar style will shift the vertical inset of the traf
 by a fixed amount.
 
 ```js title='main.js'
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ titleBarStyle: 'hiddenInset' })
 ```
@@ -99,7 +99,7 @@ a set of coordinates to the `trafficLightPosition` option in the `BrowserWindow`
 constructor.
 
 ```js title='main.js'
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({
   titleBarStyle: 'hidden',
@@ -114,7 +114,7 @@ The `win.setWindowButtonVisibility` forces traffic lights to be show or hidden d
 on the value of its boolean parameter.
 
 ```js title='main.js'
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 // hides the traffic lights
@@ -152,7 +152,7 @@ control buttons. Similarly, if the height option is not specified, the window co
 default to the standard system height:
 
 ```js title='main.js'
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({
   titleBarStyle: 'hidden',

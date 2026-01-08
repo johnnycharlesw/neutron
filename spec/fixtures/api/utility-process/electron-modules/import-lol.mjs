@@ -1,3 +1,3 @@
-import { net } from 'electron/lol';
+import { net } from 'neutron/lol';
 
 process.exit(net !== undefined ? 0 : 1);

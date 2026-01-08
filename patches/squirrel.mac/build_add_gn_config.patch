@@ -50,7 +50,7 @@ index 0000000000000000000000000000000000000000..a02e5f54d923513fd0676e91a99b8913
 +  info_plist = "vendor/Mantle/Mantle/Info.plist"
 +  extra_substitutions = [
 +    "CURRENT_PROJECT_VERSION=0.0.0",
-+    "PRODUCT_BUNDLE_IDENTIFIER=com.electron.mantle",
++    "PRODUCT_BUNDLE_IDENTIFIER=com.neutron.mantle",
 +  ]
 +
 +  configs -= [
@@ -122,7 +122,7 @@ index 0000000000000000000000000000000000000000..a02e5f54d923513fd0676e91a99b8913
 +  info_plist = "vendor/ReactiveObjC/ReactiveObjC/Info.plist"
 +  extra_substitutions = [
 +    "CURRENT_PROJECT_VERSION=0.0.0",
-+    "PRODUCT_BUNDLE_IDENTIFIER=com.electron.reactive",
++    "PRODUCT_BUNDLE_IDENTIFIER=com.neutron.reactive",
 +  ]
 +  defines = [
 +    "BUILDING_RAC_FRAMEWORK=1",

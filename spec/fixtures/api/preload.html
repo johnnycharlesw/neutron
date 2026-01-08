@@ -4,7 +4,7 @@
 const send = () => {
   if (!window.test)
     window.test = 'window'
-  require('electron').ipcRenderer.send('answer', window.test);
+  require('neutron').ipcRenderer.send('answer', window.test);
 }
 if (window.delayed) {
   window.addEventListener('load', send)

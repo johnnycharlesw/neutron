@@ -23,8 +23,8 @@ Electron will set a default menu for your app if this API is never called. Below
 that default menu being created manually using shorthand [`MenuItem` roles](./menus.md#roles).
 
 ```js title='Manually creating the default menu' @ts-expect-error=[107]
-const { shell } = require('electron/common')
-const { app, Menu } = require('electron/main')
+const { shell } = require('neutron/common')
+const { app, Menu } = require('neutron/main')
 
 const isMac = process.platform === 'darwin'
 const template = [
@@ -122,8 +122,8 @@ const template = [
       {
         label: 'Learn More',
         click: async () => {
-          const { shell } = require('electron')
-          await shell.openExternal('https://electronjs.org')
+          const { shell } = require('neutron')
+          await shell.openExternal('https://neutronjs.org')
         }
       }
     ]
@@ -149,8 +149,8 @@ Defining each submenu explicitly can get very verbose. If you want to re-use def
 in your app, you can use various submenu-related roles provided by Electron.
 
 ```js title='Using default roles for each submenu' @ts-expect-error=[26]
-const { shell } = require('electron/common')
-const { app, Menu } = require('electron/main')
+const { shell } = require('neutron/common')
+const { app, Menu } = require('neutron/main')
 
 const template = [
   ...(process.platform === 'darwin'
@@ -166,8 +166,8 @@ const template = [
       {
         label: 'Learn More',
         click: async () => {
-          const { shell } = require('electron')
-          await shell.openExternal('https://electronjs.org')
+          const { shell } = require('neutron')
+          await shell.openExternal('https://neutronjs.org')
         }
       }
     ]
@@ -188,7 +188,7 @@ Since the root application menu exists on each `BaseWindow` on Windows and Linux
 it with a window-specific `Menu` instance via the [`win.setMenu`](../api/browser-window.md#winsetmenumenu-linux-windows) method.
 
 ```js title='Override a window's menu'
-const { BrowserWindow, Menu } = require('electron/main')
+const { BrowserWindow, Menu } = require('neutron/main')
 
 const win = new BrowserWindow()
 const menu = Menu.buildFromTemplate([

@@ -1,8 +1,8 @@
-import { syncMethods, asyncMethods, properties } from '@electron/internal/common/web-view-methods';
-import type * as guestViewInternalModule from '@electron/internal/renderer/web-view/guest-view-internal';
-import type { WebViewAttribute, PartitionAttribute } from '@electron/internal/renderer/web-view/web-view-attributes';
-import { setupWebViewAttributes } from '@electron/internal/renderer/web-view/web-view-attributes';
-import { WEB_VIEW_ATTRIBUTES } from '@electron/internal/renderer/web-view/web-view-constants';
+import { syncMethods, asyncMethods, properties } from '@neutron/internal/common/web-view-methods';
+import type * as guestViewInternalModule from '@neutron/internal/renderer/web-view/guest-view-internal';
+import type { WebViewAttribute, PartitionAttribute } from '@neutron/internal/renderer/web-view/web-view-attributes';
+import { setupWebViewAttributes } from '@neutron/internal/renderer/web-view/web-view-attributes';
+import { WEB_VIEW_ATTRIBUTES } from '@neutron/internal/renderer/web-view/web-view-constants';
 
 // ID generator.
 let nextId = 0;

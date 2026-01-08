@@ -17,11 +17,11 @@
 #include "content/public/common/content_switches.h"
 #include "content/public/renderer/render_frame.h"
 #include "content/public/renderer/render_thread.h"
-#include "electron/buildflags/buildflags.h"
-#include "electron/fuses.h"
+#include "neutron/buildflags/buildflags.h"
+#include "neutron/fuses.h"
 #include "printing/buildflags/buildflags.h"
-#include "shell/browser/api/electron_api_protocol.h"
-#include "shell/common/api/electron_api_native_image.h"
+#include "shell/browser/api/neutron_api_protocol.h"
+#include "shell/common/api/neutron_api_native_image.h"
 #include "shell/common/color_util.h"
 #include "shell/common/gin_helper/dictionary.h"
 #include "shell/common/node_includes.h"
@@ -30,11 +30,11 @@
 #include "shell/common/plugin.mojom.h"
 #include "shell/common/world_ids.h"
 #include "shell/renderer/api/context_bridge/object_cache.h"
-#include "shell/renderer/api/electron_api_context_bridge.h"
+#include "shell/renderer/api/neutron_api_context_bridge.h"
 #include "shell/renderer/browser_exposed_renderer_interfaces.h"
 #include "shell/renderer/content_settings_observer.h"
-#include "shell/renderer/electron_api_service_impl.h"
-#include "shell/renderer/electron_autofill_agent.h"
+#include "shell/renderer/neutron_api_service_impl.h"
+#include "shell/renderer/neutron_autofill_agent.h"
 #include "third_party/abseil-cpp/absl/strings/str_format.h"
 #include "third_party/blink/public/common/associated_interfaces/associated_interface_provider.h"
 #include "third_party/blink/public/common/associated_interfaces/associated_interface_registry.h"
@@ -72,7 +72,7 @@
 #if BUILDFLAG(ENABLE_PDF_VIEWER)
 #include "components/pdf/common/constants.h"  // nogncheck
 #include "components/pdf/common/pdf_util.h"   // nogncheck
-#include "shell/common/electron_constants.h"
+#include "shell/common/neutron_constants.h"
 #endif  // BUILDFLAG(ENABLE_PDF_VIEWER)
 
 #if BUILDFLAG(ENABLE_PLUGINS)
@@ -95,12 +95,12 @@
 #include "extensions/renderer/extension_frame_helper.h"
 #include "extensions/renderer/extension_web_view_helper.h"
 #include "extensions/renderer/guest_view/mime_handler_view/mime_handler_view_container_manager.h"
-#include "shell/common/extensions/electron_extensions_client.h"
-#include "shell/renderer/extensions/electron_extensions_renderer_api_provider.h"
-#include "shell/renderer/extensions/electron_extensions_renderer_client.h"
+#include "shell/common/extensions/neutron_extensions_client.h"
+#include "shell/renderer/extensions/neutron_extensions_renderer_api_provider.h"
+#include "shell/renderer/extensions/neutron_extensions_renderer_client.h"
 #endif  // BUILDFLAG(ENABLE_ELECTRON_EXTENSIONS)
 
-namespace electron {
+namespace neutron {
 
 content::RenderFrame* GetRenderFrame(v8::Isolate* const isolate,
                                      v8::Local<v8::Object> value);
@@ -141,7 +141,7 @@ RendererClientBase::RendererClientBase() {
   std::vector<std::string> service_worker_schemes_list =
       ParseSchemesCLISwitch(command_line, switches::kServiceWorkerSchemes);
   for (const std::string& scheme : service_worker_schemes_list)
-    electron::api::AddServiceWorkerScheme(scheme);
+    neutron::api::AddServiceWorkerScheme(scheme);
   // Parse --standard-schemes=scheme1,scheme2
   std::vector<std::string> standard_schemes_list =
       ParseSchemesCLISwitch(command_line, switches::kStandardSchemes);
@@ -221,15 +221,15 @@ void RendererClientBase::RenderThreadStarted() {
                                                      true);
 
 #if BUILDFLAG(ENABLE_ELECTRON_EXTENSIONS)
-  extensions_client_ = std::make_unique<ElectronExtensionsClient>();
+  extensions_client_ = std::make_unique<NeutronExtensionsClient>();
   extensions::ExtensionsClient::Set(extensions_client_.get());
 
   extensions_renderer_client_ =
-      std::make_unique<ElectronExtensionsRendererClient>();
+      std::make_unique<NeutronExtensionsRendererClient>();
   extensions_renderer_client_->AddAPIProvider(
       std::make_unique<extensions::CoreExtensionsRendererAPIProvider>());
   extensions_renderer_client_->AddAPIProvider(
-      std::make_unique<ElectronExtensionsRendererAPIProvider>());
+      std::make_unique<NeutronExtensionsRendererAPIProvider>());
   extensions::ExtensionsRendererClient::Set(extensions_renderer_client_.get());
   extensions_renderer_client_->RenderThreadStarted();
 
@@ -281,7 +281,7 @@ void RendererClientBase::RenderThreadStarted() {
 
   // Allow file scheme to handle service worker by default.
   // FIXME(zcbenz): Can this be moved elsewhere?
-  if (electron::fuses::IsGrantFileProtocolExtraPrivilegesEnabled()) {
+  if (neutron::fuses::IsGrantFileProtocolExtraPrivilegesEnabled()) {
     blink::WebSecurityPolicy::RegisterURLSchemeAsAllowingServiceWorkers("file");
     blink::SchemeRegistry::RegisterURLSchemeAsSupportingFetchAPI("file");
   }
@@ -298,9 +298,9 @@ void RendererClientBase::RenderThreadStarted() {
 
 void RendererClientBase::ExposeInterfacesToBrowser(mojo::BinderMap* binders) {
   // NOTE: Do not add binders directly within this method. Instead, modify the
-  // definition of |ExposeElectronRendererInterfacesToBrowser()| to ensure
+  // definition of |ExposeNeutronRendererInterfacesToBrowser()| to ensure
   // security review coverage.
-  ExposeElectronRendererInterfacesToBrowser(this, binders);
+  ExposeNeutronRendererInterfacesToBrowser(this, binders);
 }
 
 void RendererClientBase::RenderFrameCreated(
@@ -313,12 +313,12 @@ void RendererClientBase::RenderFrameCreated(
 #if BUILDFLAG(ENABLE_PRINTING)
   new printing::PrintRenderFrameHelper(
       render_frame,
-      std::make_unique<electron::PrintRenderFrameHelperDelegate>());
+      std::make_unique<neutron::PrintRenderFrameHelperDelegate>());
 #endif
 
-  // Note: ElectronApiServiceImpl has to be created now to capture the
+  // Note: NeutronApiServiceImpl has to be created now to capture the
   // DidCreateDocumentElement event.
-  new ElectronApiServiceImpl(render_frame, this);
+  new NeutronApiServiceImpl(render_frame, this);
 
 #if BUILDFLAG(ENABLE_ELECTRON_EXTENSIONS)
   auto* dispatcher = extensions_renderer_client_->dispatcher();
@@ -395,7 +395,7 @@ bool RendererClientBase::IsPluginHandledExternally(
   DCHECK(plugin_element.HasHTMLTagName("object") ||
          plugin_element.HasHTMLTagName("embed"));
 
-  mojo::AssociatedRemote<mojom::ElectronPluginInfoHost> plugin_info_host;
+  mojo::AssociatedRemote<mojom::NeutronPluginInfoHost> plugin_info_host;
   render_frame->GetRemoteAssociatedInterfaces()->GetInterface(
       &plugin_info_host);
   mojom::PluginInfoPtr plugin_info = mojom::PluginInfo::New();
@@ -605,7 +605,7 @@ void RendererClientBase::SetupMainWorldOverrides(
   v8::LocalVector<v8::Value> isolated_bundle_args(isolate,
                                                   {isolated_api.GetHandle()});
 
-  util::CompileAndCall(isolate, context, "electron/js2c/isolated_bundle",
+  util::CompileAndCall(isolate, context, "neutron/js2c/isolated_bundle",
                        &isolated_bundle_params, &isolated_bundle_args);
 }
 
@@ -627,4 +627,4 @@ void RendererClientBase::AllowGuestViewElementDefinition(
       v8::Null(isolate), 0, nullptr, base::NullCallback());
 }
 
-}  // namespace electron
+}  // namespace neutron

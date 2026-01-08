@@ -1,14 +1,14 @@
-import { IPC_MESSAGES } from '@electron/internal//common/ipc-messages';
-import { ipcMainInternal } from '@electron/internal/browser/ipc-main-internal';
-import * as ipcMainUtils from '@electron/internal/browser/ipc-main-internal-utils';
+import { IPC_MESSAGES } from '@neutron/internal//common/ipc-messages';
+import { ipcMainInternal } from '@neutron/internal/browser/ipc-main-internal';
+import * as ipcMainUtils from '@neutron/internal/browser/ipc-main-internal-utils';
 
-import { dialog, Menu } from 'electron/main';
+import { dialog, Menu } from 'neutron/main';
 
 import * as fs from 'fs';
 
 const convertToMenuTemplate = function (items: ContextMenuItem[], handler: (id: number) => void) {
   return items.map(function (item) {
-    const transformed: Electron.MenuItemConstructorOptions = item.type === 'subMenu'
+    const transformed: Neutron.MenuItemConstructorOptions = item.type === 'subMenu'
       ? {
           type: 'submenu',
           label: item.label,
@@ -40,7 +40,7 @@ const convertToMenuTemplate = function (items: ContextMenuItem[], handler: (id: 
   });
 };
 
-const getEditMenuItems = function (): Electron.MenuItemConstructorOptions[] {
+const getEditMenuItems = function (): Neutron.MenuItemConstructorOptions[] {
   return [
     { role: 'undo' },
     { role: 'redo' },
@@ -59,7 +59,7 @@ const isChromeDevTools = function (pageURL: string) {
   return protocol === 'devtools:';
 };
 
-const assertChromeDevTools = function (contents: Electron.WebContents, api: string) {
+const assertChromeDevTools = function (contents: Neutron.WebContents, api: string) {
   const pageURL = contents.getURL();
   if (!isChromeDevTools(pageURL)) {
     console.error(`Blocked ${pageURL} from calling ${api}`);

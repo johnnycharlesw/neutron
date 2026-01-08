@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 const locale = process.argv[2].substr(11);
 if (locale.length !== 0) {

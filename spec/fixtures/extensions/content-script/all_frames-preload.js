@@ -1,7 +1,7 @@
-const { ipcRenderer, webFrame } = require('electron');
+const { ipcRenderer, webFrame } = require('neutron');
 
 if (process.isMainFrame) {
-  // https://github.com/electron/electron/issues/17252
+  // https://github.com/neutron/neutron/issues/17252
   ipcRenderer.on('executeJavaScriptInFrame', (event, frameToken, code, responseId) => {
     const frame = webFrame.findFrameByToken(frameToken);
     if (!frame) {

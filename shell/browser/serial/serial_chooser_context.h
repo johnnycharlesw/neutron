@@ -32,9 +32,9 @@ template <typename T>
 class PendingRemote;
 }  // namespace mojo
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserContext;
+class NeutronBrowserContext;
 
 const char kDisableSerialBlocklist[] = "disable-serial-blocklist";
 
@@ -63,7 +63,7 @@ class SerialChooserContext : public KeyedService,
     virtual void OnSerialChooserContextShutdown() = 0;
   };
 
-  explicit SerialChooserContext(ElectronBrowserContext* context);
+  explicit SerialChooserContext(NeutronBrowserContext* context);
   ~SerialChooserContext() override;
 
   // disable copy
@@ -122,11 +122,11 @@ class SerialChooserContext : public KeyedService,
   mojo::Receiver<device::mojom::SerialPortManagerClient> client_receiver_{this};
   base::ObserverList<PortObserver> port_observer_list_;
 
-  raw_ptr<ElectronBrowserContext> browser_context_;
+  raw_ptr<NeutronBrowserContext> browser_context_;
 
   base::WeakPtrFactory<SerialChooserContext> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_SERIAL_SERIAL_CHOOSER_CONTEXT_H_

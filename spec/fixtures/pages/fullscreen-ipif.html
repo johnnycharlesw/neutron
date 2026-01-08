@@ -1,7 +1,7 @@
 <body>
     <iframe style="width: 0" frameborder=0 src="fullscreen.html" allowfullscreen></iframe>
     <script>
-        const { webFrame, ipcRenderer } = require('electron')
+        const { webFrame, ipcRenderer } = require('neutron')
         const iframe = document.querySelector('iframe')
 
         document.addEventListener('fullscreenchange', () => {

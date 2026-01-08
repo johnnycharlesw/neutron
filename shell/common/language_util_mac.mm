@@ -10,7 +10,7 @@
 
 #include "base/strings/sys_string_conversions.h"
 
-namespace electron {
+namespace neutron {
 
 std::vector<std::string> GetPreferredLanguages() {
   __block std::vector<std::string> languages;
@@ -22,4 +22,4 @@ std::vector<std::string> GetPreferredLanguages() {
   return languages;
 }
 
-}  // namespace electron
+}  // namespace neutron

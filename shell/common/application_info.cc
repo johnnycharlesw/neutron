@@ -9,11 +9,11 @@
 #include "chrome/browser/browser_process.h"
 #include "chrome/common/chrome_version.h"
 #include "components/embedder_support/user_agent_utils.h"
-#include "electron/electron_version.h"
+#include "neutron/neutron_version.h"
 #include "shell/browser/browser.h"
 #include "third_party/abseil-cpp/absl/strings/str_format.h"
 
-namespace electron {
+namespace neutron {
 
 std::string& OverriddenApplicationName() {
   static base::NoDestructor<std::string> overridden_application_name;
@@ -56,4 +56,4 @@ bool IsAppRTL() {
   return text_direction == base::i18n::RIGHT_TO_LEFT;
 }
 
-}  // namespace electron
+}  // namespace neutron

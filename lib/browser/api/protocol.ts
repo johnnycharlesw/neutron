@@ -1,4 +1,4 @@
-import { ProtocolRequest, session } from 'electron/main';
+import { ProtocolRequest, session } from 'neutron/main';
 
 import { createReadStream } from 'fs';
 import { Readable } from 'stream';
@@ -7,7 +7,7 @@ import { ReadableStream } from 'stream/web';
 import type { ReadableStreamDefaultReader } from 'stream/web';
 
 // Global protocol APIs.
-const { registerSchemesAsPrivileged, getStandardSchemes, Protocol } = process._linkedBinding('electron_browser_protocol');
+const { registerSchemesAsPrivileged, getStandardSchemes, Protocol } = process._linkedBinding('neutron_browser_protocol');
 
 const ERR_FAILED = -2;
 const ERR_UNEXPECTED = -9;
@@ -115,7 +115,7 @@ function validateResponse (res: Response) {
   return true;
 }
 
-Protocol.prototype.handle = function (this: Electron.Protocol, scheme: string, handler: (req: Request) => Response | Promise<Response>) {
+Protocol.prototype.handle = function (this: Neutron.Protocol, scheme: string, handler: (req: Request) => Response | Promise<Response>) {
   const register = isBuiltInScheme(scheme) ? this.interceptProtocol : this.registerProtocol;
   const success = register.call(this, scheme, async (preq: ProtocolRequest, cb: any) => {
     try {
@@ -153,12 +153,12 @@ Protocol.prototype.handle = function (this: Electron.Protocol, scheme: string, h
   if (!success) throw new Error(`Failed to register protocol: ${scheme}`);
 };
 
-Protocol.prototype.unhandle = function (this: Electron.Protocol, scheme: string) {
+Protocol.prototype.unhandle = function (this: Neutron.Protocol, scheme: string) {
   const unregister = isBuiltInScheme(scheme) ? this.uninterceptProtocol : this.unregisterProtocol;
   if (!unregister.call(this, scheme)) { throw new Error(`Failed to unhandle protocol: ${scheme}`); }
 };
 
-Protocol.prototype.isProtocolHandled = function (this: Electron.Protocol, scheme: string) {
+Protocol.prototype.isProtocolHandled = function (this: Neutron.Protocol, scheme: string) {
   const isRegistered = isBuiltInScheme(scheme) ? this.isProtocolIntercepted : this.isProtocolRegistered;
   return isRegistered.call(this, scheme);
 };
@@ -185,6 +185,6 @@ const protocol = {
   handle: (...args) => session.defaultSession.protocol.handle(...args),
   unhandle: (...args) => session.defaultSession.protocol.unhandle(...args),
   isProtocolHandled: (...args) => session.defaultSession.protocol.isProtocolHandled(...args)
-} as typeof Electron.protocol;
+} as typeof Neutron.protocol;
 
 export default protocol;

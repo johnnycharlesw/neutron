@@ -11,13 +11,13 @@
 #include "base/no_destructor.h"
 #include "base/process/process.h"
 #include "base/strings/utf_string_conversions.h"
-#include "electron/mas.h"
+#include "neutron/mas.h"
 #include "net/base/network_change_notifier.h"
 #include "services/network/public/cpp/wrapper_shared_url_loader_factory.h"
 #include "services/network/public/mojom/host_resolver.mojom.h"
 #include "services/network/public/mojom/network_context.mojom.h"
 #include "shell/browser/javascript_environment.h"
-#include "shell/common/api/electron_bindings.h"
+#include "shell/common/api/neutron_bindings.h"
 #include "shell/common/gin_converters/file_path_converter.h"
 #include "shell/common/gin_helper/dictionary.h"
 #include "shell/common/node_bindings.h"
@@ -28,7 +28,7 @@
 #include "shell/common/crash_keys.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 mojo::Remote<node::mojom::NodeServiceClient>& GetRemote() {
   static base::NoDestructor<mojo::Remote<node::mojom::NodeServiceClient>>
@@ -46,8 +46,8 @@ void V8FatalErrorCallback(const char* location, const char* message) {
   }
 
 #if !IS_MAS_BUILD()
-  electron::crash_keys::SetCrashKey("electron.v8-fatal.message", message);
-  electron::crash_keys::SetCrashKey("electron.v8-fatal.location", location);
+  neutron::crash_keys::SetCrashKey("neutron.v8-fatal.message", message);
+  neutron::crash_keys::SetCrashKey("neutron.v8-fatal.location", location);
 #endif
 
   volatile int* zero = nullptr;
@@ -93,8 +93,8 @@ NodeService::NodeService(
     mojo::PendingReceiver<node::mojom::NodeService> receiver)
     : node_bindings_{NodeBindings::Create(
           NodeBindings::BrowserEnvironment::kUtility)},
-      electron_bindings_{
-          std::make_unique<ElectronBindings>(node_bindings_->uv_loop())} {
+      neutron_bindings_{
+          std::make_unique<NeutronBindings>(node_bindings_->uv_loop())} {
   if (receiver.is_valid())
     receiver_.Bind(std::move(receiver));
 }
@@ -169,8 +169,8 @@ void NodeService::Initialize(
   // We do not want to crash the utility process on unhandled rejections.
   node_env_->options()->unhandled_rejections = "warn-with-error-code";
 
-  // Add Electron extended APIs.
-  electron_bindings_->BindTo(node_env_->isolate(), node_env_->process_object());
+  // Add Neutron extended APIs.
+  neutron_bindings_->BindTo(node_env_->isolate(), node_env_->process_object());
 
   // Add entry script to process object.
   gin_helper::Dictionary process(node_env_->isolate(),
@@ -197,4 +197,4 @@ void NodeService::Initialize(
   node_bindings_->StartPolling();
 }
 
-}  // namespace electron
+}  // namespace neutron

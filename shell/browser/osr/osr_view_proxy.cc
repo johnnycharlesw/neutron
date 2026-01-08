@@ -6,7 +6,7 @@
 
 #include <memory>
 
-namespace electron {
+namespace neutron {
 
 OffscreenViewProxy::OffscreenViewProxy(views::View* view) : view_(view) {
   view_bitmap_ = std::make_unique<SkBitmap>();
@@ -47,4 +47,4 @@ void OffscreenViewProxy::OnEvent(ui::Event* event) {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

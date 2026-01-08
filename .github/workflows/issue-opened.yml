@@ -14,11 +14,11 @@ jobs:
     permissions: {}
     steps:
       - name: Generate GitHub App token
-        uses: electron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
+        uses: neutron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
         id: generate-token
         with:
           creds: ${{ secrets.ISSUE_TRIAGE_GH_APP_CREDS }}
-          org: electron
+          org: neutron
       - name: Add to Issue Triage
         uses: dsanders11/project-actions/add-item@2134fe7cc71c58b7ae259c82a8e63c6058255678 # v1.7.0
         with:
@@ -32,11 +32,11 @@ jobs:
     permissions: {}
     steps:
       - name: Generate GitHub App token
-        uses: electron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
+        uses: neutron/github-app-auth-action@384fd19694fe7b6dcc9a684746c6976ad78228ae # v1.1.1
         id: generate-token
         with:
           creds: ${{ secrets.ISSUE_TRIAGE_GH_APP_CREDS }}
-          org: electron
+          org: neutron
       - name: Sparse checkout repository
         uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
@@ -44,7 +44,7 @@ jobs:
             .
             .github
             .yarn
-      - run: yarn workspaces focus @electron/gha-workflows
+      - run: yarn workspaces focus @neutron/gha-workflows
       - name: Add labels
         uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
         id: add-labels
@@ -56,7 +56,7 @@ jobs:
             const { chdir } = require('node:process');
             chdir('${{ github.workspace }}/.github/workflows');
 
-            const { ElectronVersions } = require('@electron/fiddle-core');
+            const { ElectronVersions } = require('@neutron/fiddle-core');
             const { fromMarkdown } = require('mdast-util-from-markdown');
             const { select } = require('unist-util-select');
             const semver = require('semver');
@@ -68,11 +68,11 @@ jobs:
 
             const labels = [];
 
-            const electronVersion = select('heading:has(> text[value="Electron Version"]) + paragraph > text', tree)?.value.trim();
-            if (electronVersion !== undefined) {
+            const neutronVersion = select('heading:has(> text[value="Electron Version"]) + paragraph > text', tree)?.value.trim();
+            if (neutronVersion !== undefined) {
               // It's possible for multiple versions to be listed -
               // for now check for comma or space separated version.
-              const versions = electronVersion.split(/, | /);
+              const versions = neutronVersion.split(/, | /);
               let hasSupportedVersion = false;
 
               for (const version of versions) {
@@ -90,8 +90,8 @@ jobs:
                     labelExists = true;
                   } catch {}
 
-                  const electronVersions = await ElectronVersions.create(undefined, { ignoreCache: true });
-                  const validVersions = [...electronVersions.supportedMajors, ...electronVersions.prereleaseMajors];
+                  const neutronVersions = await ElectronVersions.create(undefined, { ignoreCache: true });
+                  const validVersions = [...neutronVersions.supportedMajors, ...neutronVersions.prereleaseMajors];
 
                   if (validVersions.includes(major)) {
                     hasSupportedVersion = true;
@@ -155,6 +155,6 @@ jobs:
 
             Hello @${{ github.event.issue.user.login }}. Thanks for reporting this and helping to make Electron better!
             
-            The version of Electron reported in this issue has reached end-of-life and is [no longer supported](https://www.electronjs.org/docs/latest/tutorial/electron-timelines#timeline). If you're still experiencing this issue on a [supported version](https://www.electronjs.org/releases/stable) of Electron, please update this issue to reflect that version of Electron.
+            The version of Electron reported in this issue has reached end-of-life and is [no longer supported](https://www.neutronjs.org/docs/latest/tutorial/neutron-timelines#timeline). If you're still experiencing this issue on a [supported version](https://www.neutronjs.org/releases/stable) of Electron, please update this issue to reflect that version of Electron.
 
-            Now adding the https://github.com/electron/electron/labels/blocked%2Fneed-info%20%E2%9D%8C label for this reason. This issue will be closed in 10 days if the above is not addressed.
+            Now adding the https://github.com/neutron/neutron/labels/blocked%2Fneed-info%20%E2%9D%8C label for this reason. This issue will be closed in 10 days if the above is not addressed.

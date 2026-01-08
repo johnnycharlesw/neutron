@@ -1,13 +1,13 @@
-const { app, safeStorage } = require('electron');
+const { app, safeStorage } = require('neutron');
 
 const { expect } = require('chai');
 
 (async () => {
   if (!app.isReady()) {
     // isEncryptionAvailable() returns false before the app is ready on
-    // Linux: https://github.com/electron/electron/issues/32206
+    // Linux: https://github.com/neutron/neutron/issues/32206
     // and
-    // Windows: https://github.com/electron/electron/issues/33640.
+    // Windows: https://github.com/neutron/neutron/issues/33640.
     expect(safeStorage.isEncryptionAvailable()).to.equal(process.platform === 'darwin');
     if (safeStorage.isEncryptionAvailable()) {
       const plaintext = 'plaintext';

@@ -127,7 +127,7 @@ def execute(argv, env=None, cwd=None):
     raise e
 
 
-def get_electron_branding():
+def get_neutron_branding():
   SOURCE_ROOT = os.path.abspath(os.path.join(__file__, '..', '..', '..'))
   branding_file_path = os.path.join(
     SOURCE_ROOT, 'shell', 'app', 'BRANDING.json')
@@ -135,16 +135,16 @@ def get_electron_branding():
     return json.load(file_in)
 
 
-cached_electron_version = None
-def get_electron_version():
-  global cached_electron_version
-  if cached_electron_version is None:
-    cached_electron_version = str.strip(execute([
+cached_neutron_version = None
+def get_neutron_version():
+  global cached_neutron_version
+  if cached_neutron_version is None:
+    cached_neutron_version = str.strip(execute([
       'node',
       '-p',
       'require("./script/lib/get-version").getElectronVersion()'
     ], cwd=ELECTRON_DIR).decode())
-  return cached_electron_version
+  return cached_neutron_version
 
 def store_artifact(prefix, key_prefix, files):
   # Azure Storage
@@ -170,20 +170,20 @@ def get_out_dir():
 # NOTE: This path is not created by gn, it is used as a scratch zone by our
 #       upload scripts
 def get_dist_dir():
-  return os.path.join(get_out_dir(), 'gen', 'electron_dist')
+  return os.path.join(get_out_dir(), 'gen', 'neutron_dist')
 
-def get_electron_exec():
+def get_neutron_exec():
   out_dir = get_out_dir()
 
   if sys.platform == 'darwin':
     return f'{out_dir}/Electron.app/Contents/MacOS/Electron'
   if sys.platform == 'win32':
-    return f'{out_dir}/electron.exe'
+    return f'{out_dir}/neutron.exe'
   if sys.platform == 'linux':
-    return f'{out_dir}/electron'
+    return f'{out_dir}/neutron'
 
   raise Exception(
-      f"get_electron_exec: unexpected platform '{sys.platform}'")
+      f"get_neutron_exec: unexpected platform '{sys.platform}'")
 
 def get_buildtools_executable(name):
   buildtools = os.path.realpath(os.path.join(ELECTRON_DIR, '..', 'buildtools'))

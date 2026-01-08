@@ -13,7 +13,7 @@
 #include "third_party/skia/include/core/SkBitmap.h"
 #include "url/gurl.h"
 
-namespace electron {
+namespace neutron {
 
 extern const bool debug_notifications;
 
@@ -104,6 +104,6 @@ class Notification {
   base::WeakPtrFactory<Notification> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_NOTIFICATION_H_

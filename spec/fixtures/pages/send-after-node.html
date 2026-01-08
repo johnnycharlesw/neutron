@@ -2,7 +2,7 @@
 <body>
 <script type="text/javascript" charset="utf-8">
   require('node:fs').readdir(process.cwd(), () => {
-    require('electron').ipcRenderer.send('async-node-api-done');
+    require('neutron').ipcRenderer.send('async-node-api-done');
   })
 </script>
 </body>

@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('neutron');
 
 window.addEventListener('DOMContentLoaded', () => {
   window.open('127.0.0.1:7001', '_blank');

@@ -3,7 +3,7 @@ From: Niklas Wenzel <dev@nikwen.de>
 Date: Tue, 27 May 2025 02:03:54 +0200
 Subject: fix: crash when process to extract zip cannot be launched
 
-Fixes https://github.com/electron/electron/issues/47270
+Fixes https://github.com/neutron/neutron/issues/47270
 
 diff --git a/Squirrel/SQRLZipArchiver.m b/Squirrel/SQRLZipArchiver.m
 index 68f5dac8e553638f41306956df9d38eeda18f8f2..a9cd676df63e19edf9e20473d27b85591c7cb49e 100644

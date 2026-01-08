@@ -1,4 +1,4 @@
-import { screen, desktopCapturer, BrowserWindow } from 'electron/main';
+import { screen, desktopCapturer, BrowserWindow } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -151,7 +151,7 @@ ifdescribe(!process.arch.includes('arm') && process.platform !== 'win32')('deskt
     }
   });
 
-  // Regression test - see https://github.com/electron/electron/issues/43002
+  // Regression test - see https://github.com/neutron/neutron/issues/43002
   it('does not affect window resizable state', async () => {
     const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
     await w.loadURL('about:blank');

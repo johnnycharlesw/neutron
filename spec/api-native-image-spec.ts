@@ -1,4 +1,4 @@
-import { nativeImage } from 'electron/common';
+import { nativeImage } from 'neutron/common';
 
 import { expect } from 'chai';
 
@@ -491,7 +491,7 @@ describe('nativeImage module', () => {
     });
 
     itremote('works in the renderer', async (path: string) => {
-      const { nativeImage } = require('electron');
+      const { nativeImage } = require('neutron');
       const goodSize = { width: 100, height: 100 };
       const result = await nativeImage.createThumbnailFromPath(path, goodSize);
       expect(result.isEmpty()).to.equal(false);

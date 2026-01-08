@@ -9,11 +9,11 @@ toc_max_heading_level: 3
 
 :::info Reporting security issues
 For information on how to properly disclose an Electron vulnerability,
-see [SECURITY.md](https://github.com/electron/electron/blob/main/SECURITY.md).
+see [SECURITY.md](https://github.com/neutron/neutron/blob/main/SECURITY.md).
 
 For upstream Chromium vulnerabilities: Electron keeps up to date with alternating
 Chromium releases. For more information, see the
-[Electron Release Timelines](../tutorial/electron-timelines.md) document.
+[Electron Release Timelines](../tutorial/neutron-timelines.md) document.
 :::
 
 ## Preface
@@ -54,7 +54,7 @@ Chromium shared library and Node.js. Vulnerabilities affecting these components
 may impact the security of your application. By updating Electron to the latest
 version, you ensure that critical vulnerabilities (such as _nodeIntegration bypasses_)
 are already patched and cannot be exploited in your application. For more information,
-see "[Use a current version of Electron](#16-use-a-current-version-of-electron)".
+see "[Use a current version of Electron](#16-use-a-current-version-of-neutron)".
 
 * **Evaluate your dependencies.** While NPM provides half a million reusable packages,
 it is your responsibility to choose trusted 3rd-party libraries. If you use outdated
@@ -112,11 +112,11 @@ You should at least follow these steps to improve the security of your applicati
 13. [Disable or limit navigation](#13-disable-or-limit-navigation)
 14. [Disable or limit creation of new windows](#14-disable-or-limit-creation-of-new-windows)
 15. [Do not use `shell.openExternal` with untrusted content](#15-do-not-use-shellopenexternal-with-untrusted-content)
-16. [Use a current version of Electron](#16-use-a-current-version-of-electron)
+16. [Use a current version of Electron](#16-use-a-current-version-of-neutron)
 17. [Validate the `sender` of all IPC messages](#17-validate-the-sender-of-all-ipc-messages)
 18. [Avoid usage of the `file://` protocol and prefer usage of custom protocols](#18-avoid-usage-of-the-file-protocol-and-prefer-usage-of-custom-protocols)
 19. [Check which fuses you can change](#19-check-which-fuses-you-can-change)
-20. [Do not expose Electron APIs to untrusted web content](#20-do-not-expose-electron-apis-to-untrusted-web-content)
+20. [Do not expose Electron APIs to untrusted web content](#20-do-not-expose-neutron-apis-to-untrusted-web-content)
 
 ### 1. Only load secure content
 
@@ -287,7 +287,7 @@ security-conscious developers might want to assume the very opposite.
 #### How?
 
 ```js title='main.js (Main Process)'
-const { session } = require('electron')
+const { session } = require('neutron')
 
 const { URL } = require('node:url')
 
@@ -389,7 +389,7 @@ which can be set using Electron's
 handler:
 
 ```js title='main.js (Main Process)'
-const { session } = require('electron')
+const { session } = require('neutron')
 
 session.defaultSession.webRequest.onHeadersReceived((details, callback) => {
   callback({
@@ -623,7 +623,7 @@ sometimes be fooled - a `startsWith('https://example.com')` test would let
 `https://example.com.attacker.com` through.
 
 ```js title='main.js (Main Process)'
-const { app } = require('electron')
+const { app } = require('neutron')
 
 const { URL } = require('node:url')
 
@@ -665,7 +665,7 @@ and the options used to create it. We recommend that you register a handler to
 monitor the creation of windows, and deny any unexpected window creation.
 
 ```js title='main.js (Main Process)' @ts-type={isSafeForExternalOpen:(url:string)=>boolean}
-const { app, shell } = require('electron')
+const { app, shell } = require('neutron')
 
 app.on('web-contents-created', (event, contents) => {
   contents.setWindowOpenHandler(({ url }) => {
@@ -702,14 +702,14 @@ leveraged to execute arbitrary commands.
 
 ```js title='main.js (Main Process)' @ts-type={USER_CONTROLLED_DATA_HERE:string}
 //  Bad
-const { shell } = require('electron')
+const { shell } = require('neutron')
 
 shell.openExternal(USER_CONTROLLED_DATA_HERE)
 ```
 
 ```js title='main.js (Main Process)'
 //  Good
-const { shell } = require('electron')
+const { shell } = require('neutron')
 
 shell.openExternal('https://example.com/index.html')
 ```
@@ -772,7 +772,7 @@ ipcMain.handle('get-secrets', (e) => {
 
 function validateSender (frame) {
   // Value the host of the URL using an actual URL parser and an allowlist
-  if ((new URL(frame.url)).host === 'electronjs.org') return true
+  if ((new URL(frame.url)).host === 'neutronjs.org') return true
   return false
 }
 ```
@@ -815,7 +815,7 @@ that your application might have the rights for.
 
 #### How?
 
-[`@electron/fuses`](https://npmjs.com/package/@electron/fuses) is a module we made to make
+[`@neutron/fuses`](https://npmjs.com/package/@neutron/fuses) is a module we made to make
 flipping these fuses easy. Check out the README of that module for more details on usage and
 potential error cases, and refer to
 [How do I flip fuses?](./fuses.md#how-do-i-flip-fuses) in our documentation.
@@ -842,17 +842,17 @@ In short, we want the untrusted web content to only have access to necessary inf
 
 ```js title='preload'.js'
 // Bad
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   on: ipcRenderer.on
 })
 
 // Also bad
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   onUpdateCounter: (callback) => ipcRenderer.on('update-counter', callback)
 })
 
 // Good
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   onUpdateCounter: (callback) => ipcRenderer.on('update-counter', (_event, value) => callback(value))
 })
 ```

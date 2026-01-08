@@ -4,7 +4,7 @@ Date: Thu, 18 Oct 2018 17:07:01 -0700
 Subject: desktop_media_list.patch
 
 * Use our grit resources instead of the chrome ones.
-* Disabled WindowCaptureMacV2 feature for https://github.com/electron/electron/pull/30507
+* Disabled WindowCaptureMacV2 feature for https://github.com/neutron/neutron/pull/30507
 * Ensure "OnRefreshComplete()" even if there are no items in the list
 
 diff --git a/chrome/browser/media/webrtc/desktop_media_list.h b/chrome/browser/media/webrtc/desktop_media_list.h
@@ -91,7 +91,7 @@ index 3be638f1032815d39634b5725031d7f3124e1ad2..fce3e30bc736ac72a42d24956d4abf9f
  #elif BUILDFLAG(IS_MAC)
 +#if 0
 +  // Should be re-enabled when addressing
-+  // https://github.com/electron/electron/issues/30682
++  // https://github.com/neutron/neutron/issues/30682
    if (remote_cocoa::ScopedCGWindowID::Get(desktop_media_id.id)) {
      window_id = desktop_media_id.id;
    }

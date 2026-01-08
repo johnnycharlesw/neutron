@@ -17,7 +17,7 @@ On Linux, there is also a `selection` clipboard. To manipulate it
 you need to pass `selection` to each method:
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 clipboard.writeText('Example string', 'selection')
 console.log(clipboard.readText('selection'))
@@ -37,7 +37,7 @@ The `clipboard` module has the following methods:
 Returns `string` - The content in the clipboard as plain text.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 clipboard.writeText('hello i am a bit of text!')
 
@@ -54,7 +54,7 @@ console.log(text)
 Writes the `text` into the clipboard as plain text.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 const text = 'hello i am a bit of text!'
 clipboard.writeText(text)
@@ -67,7 +67,7 @@ clipboard.writeText(text)
 Returns `string` - The content in the clipboard as markup.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 clipboard.writeHTML('<b>Hi</b>')
 const html = clipboard.readHTML()
@@ -84,7 +84,7 @@ console.log(html)
 Writes `markup` to the clipboard.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 clipboard.writeHTML('<b>Hi</b>')
 ```
@@ -109,7 +109,7 @@ Writes `image` to the clipboard.
 Returns `string` - The content in the clipboard as RTF.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 clipboard.writeRTF('{\\rtf1\\ansi{\\fonttbl\\f0\\fswiss Helvetica;}\\f0\\pard\nThis is some {\\b bold} text.\\par\n}')
 
@@ -126,7 +126,7 @@ console.log(rtf)
 Writes the `text` into the clipboard in RTF.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 const rtf = '{\\rtf1\\ansi{\\fonttbl\\f0\\fswiss Helvetica;}\\f0\\pard\nThis is some {\\b bold} text.\\par\n}'
 clipboard.writeRTF(rtf)
@@ -157,9 +157,9 @@ Writes the `title` (macOS only) and `url` into the clipboard as a bookmark.
 > clipboard.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
-clipboard.writeBookmark('Electron Homepage', 'https://electronjs.org')
+clipboard.writeBookmark('Electron Homepage', 'https://neutronjs.org')
 ```
 
 ### `clipboard.readFindText()` _macOS_
@@ -188,7 +188,7 @@ Clears the clipboard content.
 Returns `string[]` - An array of supported formats for the clipboard `type`.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 const formats = clipboard.availableFormats()
 console.log(formats)
@@ -203,7 +203,7 @@ console.log(formats)
 Returns `boolean` - Whether the clipboard supports the specified `format`.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 const hasFormat = clipboard.has('public/utf8-plain-text')
 console.log(hasFormat)
@@ -227,7 +227,7 @@ are not valid.
 Returns `Buffer` - Reads `format` type from the clipboard.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 const buffer = Buffer.from('this is binary', 'utf8')
 clipboard.writeBuffer('public/utf8-plain-text', buffer)
@@ -247,7 +247,7 @@ console.log(buffer.equals(ret))
 Writes the `buffer` into the clipboard as `format`.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 const buffer = Buffer.from('writeBuffer', 'utf8')
 clipboard.writeBuffer('public/utf8-plain-text', buffer)
@@ -266,7 +266,7 @@ clipboard.writeBuffer('public/utf8-plain-text', buffer)
 Writes `data` to the clipboard.
 
 ```js
-const { clipboard } = require('electron')
+const { clipboard } = require('neutron')
 
 clipboard.write({
   text: 'test',

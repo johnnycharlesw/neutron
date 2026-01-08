@@ -11,7 +11,7 @@
 #include "base/path_service.h"
 #include "content/browser/mac_helpers.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -56,4 +56,4 @@ NSBundle* MainApplicationBundle() {
                                       MainApplicationBundlePath())];
 }
 
-}  // namespace electron
+}  // namespace neutron

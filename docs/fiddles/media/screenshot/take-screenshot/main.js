@@ -1,4 +1,4 @@
-const { BrowserWindow, app, screen, ipcMain, desktopCapturer, shell } = require('electron/main')
+const { BrowserWindow, app, screen, ipcMain, desktopCapturer, shell } = require('neutron/main')
 const fs = require('node:fs').promises
 const os = require('node:os')
 const path = require('node:path')

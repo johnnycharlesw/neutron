@@ -19,7 +19,7 @@
 #include "ui/gfx/image/image.h"
 #include "ui/gfx/skbitmap_operations.h"
 
-namespace electron::api {
+namespace neutron::api {
 
 constexpr static int kMaxFrameRate = 30;
 
@@ -174,4 +174,4 @@ gfx::Size FrameSubscriber::GetRenderViewSize() const {
       gfx::ScaleSize(gfx::SizeF(size), view->GetDeviceScaleFactor()));
 }
 
-}  // namespace electron::api
+}  // namespace neutron::api

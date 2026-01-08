@@ -16,30 +16,30 @@ handler for a specific [protocol](../api/protocol.md).
 
 By the end of this tutorial, we will have set our app to intercept and handle
 any clicked URLs that start with a specific protocol. In this guide, the protocol
-we will use will be "`electron-fiddle://`".
+we will use will be "`neutron-fiddle://`".
 
 ## Examples
 
 ### Main Process (main.js)
 
-First, we will import the required modules from `electron`. These modules help
+First, we will import the required modules from `neutron`. These modules help
 control our application lifecycle and create a native browser window.
 
 ```js
-const { app, BrowserWindow, shell } = require('electron')
+const { app, BrowserWindow, shell } = require('neutron')
 
 const path = require('node:path')
 ```
 
-Next, we will proceed to register our application to handle all "`electron-fiddle://`" protocols.
+Next, we will proceed to register our application to handle all "`neutron-fiddle://`" protocols.
 
 ```js
 if (process.defaultApp) {
   if (process.argv.length >= 2) {
-    app.setAsDefaultProtocolClient('electron-fiddle', process.execPath, [path.resolve(process.argv[1])])
+    app.setAsDefaultProtocolClient('neutron-fiddle', process.execPath, [path.resolve(process.argv[1])])
   }
 } else {
-  app.setAsDefaultProtocolClient('electron-fiddle')
+  app.setAsDefaultProtocolClient('neutron-fiddle')
 }
 ```
 
@@ -128,10 +128,10 @@ make sure the macOS `Info.plist` and the Linux `.desktop` files for the app are 
 the new protocol handler. Some of the Electron tools for bundling and distributing apps handle
 this for you.
 
-#### [Electron Forge](https://electronforge.io)
+#### [Electron Forge](https://neutronforge.io)
 
 If you're using Electron Forge, adjust `packagerConfig` for macOS support, and the configuration for
-the appropriate Linux makers for Linux support, in your [Forge configuration](https://www.electronforge.io/configuration)
+the appropriate Linux makers for Linux support, in your [Forge configuration](https://www.neutronforge.io/configuration)
 _(please note the following example only shows the bare minimum needed to add the configuration changes)_:
 
 ```json
@@ -142,15 +142,15 @@ _(please note the following example only shows the bare minimum needed to add th
         "protocols": [
           {
             "name": "Electron Fiddle",
-            "schemes": ["electron-fiddle"]
+            "schemes": ["neutron-fiddle"]
           }
         ]
       },
       "makers": [
         {
-          "name": "@electron-forge/maker-deb",
+          "name": "@neutron-forge/maker-deb",
           "config": {
-            "mimeType": ["x-scheme-handler/electron-fiddle"]
+            "mimeType": ["x-scheme-handler/neutron-fiddle"]
           }
         }
       ]
@@ -159,7 +159,7 @@ _(please note the following example only shows the bare minimum needed to add th
 }
 ```
 
-#### [Electron Packager](https://github.com/electron/packager)
+#### [Electron Packager](https://github.com/neutron/packager)
 
 For macOS support:
 
@@ -168,14 +168,14 @@ Electron Forge is handled, except
 `protocols` is part of the Packager options passed to the `packager` function.
 
 ```js @ts-nocheck
-const packager = require('@electron/packager')
+const packager = require('@neutron/packager')
 
 packager({
   // ...other options...
   protocols: [
     {
       name: 'Electron Fiddle',
-      schemes: ['electron-fiddle']
+      schemes: ['neutron-fiddle']
     }
   ]
 
@@ -187,19 +187,19 @@ If you're using Electron Packager's CLI, use the `--protocol` and `--protocol-na
 example:
 
 ```shell
-npx electron-packager . --protocol=electron-fiddle --protocol-name="Electron Fiddle"
+npx neutron-packager . --protocol=neutron-fiddle --protocol-name="Electron Fiddle"
 ```
 
 ## Conclusion
 
 After you start your Electron app, you can enter in a URL in your browser that contains the custom
-protocol, for example `"electron-fiddle://open"` and observe that the application will respond and
+protocol, for example `"neutron-fiddle://open"` and observe that the application will respond and
 show an error dialog box.
 
 <!--
     Because Electron examples usually require multiple files (HTML, CSS, JS
     for the main and renderer process, etc.), we use this custom code block
-    for Fiddle (https://www.electronjs.org/fiddle).
+    for Fiddle (https://www.neutronjs.org/fiddle).
     Please modify any of the files in the referenced folder to fit your
     example.
     The content in this codeblock will not be rendered in the website so you

@@ -6,7 +6,7 @@ Subject: web_contents.patch
 This allows overriding the RenderViewHostDelegateView of a WebContents, which
 is needed for OSR.
 
-Originally landed in https://github.com/electron/libchromiumcontent/pull/226.
+Originally landed in https://github.com/neutron/libchromiumcontent/pull/226.
 
 diff --git a/content/browser/web_contents/web_contents_impl.cc b/content/browser/web_contents/web_contents_impl.cc
 index a91722d82e5a323e920e47f059d8eaeaa859548e..5a3d9fbb0c5f79e0186a34131aced7a5043daf15 100644

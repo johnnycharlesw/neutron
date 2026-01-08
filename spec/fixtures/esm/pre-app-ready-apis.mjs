@@ -1,7 +1,7 @@
-import * as electron from 'electron';
+import * as neutron from 'neutron';
 
 try {
-  electron.app.disableHardwareAcceleration();
+  neutron.app.disableHardwareAcceleration();
 } catch {
   process.exit(1);
 }

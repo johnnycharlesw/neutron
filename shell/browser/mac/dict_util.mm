@@ -11,7 +11,7 @@
 #include "base/strings/sys_string_conversions.h"
 #include "base/values.h"
 
-namespace electron {
+namespace neutron {
 
 NSArray* ListValueToNSArray(const base::Value::List& value) {
   const auto json = base::WriteJson(value);
@@ -100,4 +100,4 @@ base::Value::Dict NSDictionaryToValue(NSDictionary* dict) {
   return result;
 }
 
-}  // namespace electron
+}  // namespace neutron

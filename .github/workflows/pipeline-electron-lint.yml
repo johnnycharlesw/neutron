@@ -11,7 +11,7 @@ on:
 permissions: {}
 
 concurrency:
-  group: electron-lint-${{ github.ref_protected == true && github.run_id || github.ref }}
+  group: neutron-lint-${{ github.ref_protected == true && github.run_id || github.ref }}
   cancel-in-progress: ${{ github.ref_protected != true }}
 
 env:
@@ -20,7 +20,7 @@ env:
 jobs:
   lint:
     name: Lint
-    runs-on: electron-arc-centralus-linux-amd64-4core
+    runs-on: neutron-arc-centralus-linux-amd64-4core
     permissions:
       contents: read
     timeout-minutes: 20
@@ -29,13 +29,13 @@ jobs:
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Install Dependencies
-      uses: ./src/electron/.github/actions/install-dependencies
+      uses: ./src/neutron/.github/actions/install-dependencies
     - name: Set Chromium Git Cookie
-      uses: ./src/electron/.github/actions/set-chromium-cookie
+      uses: ./src/neutron/.github/actions/set-chromium-cookie
     - name: Setup third_party Depot Tools
       shell: bash
       run: |
@@ -45,7 +45,7 @@ jobs:
     - name: Download GN Binary
       shell: bash
       run: |
-        chromium_revision="$(grep -A1 chromium_version src/electron/DEPS | tr -d '\n' | cut -d\' -f4)"
+        chromium_revision="$(grep -A1 chromium_version src/neutron/DEPS | tr -d '\n' | cut -d\' -f4)"
         gn_version="$(curl -sL "https://chromium.googlesource.com/chromium/src/+/${chromium_revision}/DEPS?format=TEXT" | base64 -d | grep gn_version | head -n1 | cut -d\' -f4)"
 
         cipd ensure -ensure-file - -root . <<-CIPD
@@ -59,7 +59,7 @@ jobs:
     - name: Download clang-format Binary
       shell: bash
       run: |
-        chromium_revision="$(grep -A1 chromium_version src/electron/DEPS | tr -d '\n' | cut -d\' -f4)"
+        chromium_revision="$(grep -A1 chromium_version src/neutron/DEPS | tr -d '\n' | cut -d\' -f4)"
 
         mkdir -p src/buildtools
         curl -sL "https://chromium.googlesource.com/chromium/src/+/${chromium_revision}/buildtools/DEPS?format=TEXT" | base64 -d > src/buildtools/DEPS
@@ -67,7 +67,7 @@ jobs:
         gclient sync --spec="solutions=[{'name':'src/buildtools','url':None,'deps_file':'DEPS','custom_vars':{'process_deps':True},'managed':False}]"
     - name: Add ESLint problem matcher
       shell: bash
-      run: echo "::add-matcher::src/electron/.github/problem-matchers/eslint-stylish.json"
+      run: echo "::add-matcher::src/neutron/.github/problem-matchers/eslint-stylish.json"
     - name: Run Lint
       shell: bash
       run: |
@@ -77,12 +77,12 @@ jobs:
         # Another option would be to checkout "buildtools" inside the Electron checkout,
         # but then we would lint its contents (at least gn format), and it doesn't pass it.
 
-        cd src/electron
+        cd src/neutron
         node script/yarn.js install --immutable
         node script/yarn.js lint
     - name: Run Script Typechecker
       shell: bash
       run: |
-        cd src/electron
+        cd src/neutron
         node script/yarn.js tsc -p tsconfig.script.json
     

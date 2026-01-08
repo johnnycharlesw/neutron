@@ -27,7 +27,7 @@ template <typename T>
 class PendingRemote;
 }  // namespace mojo
 
-namespace electron {
+namespace neutron {
 
 // Read data from node Stream and feed it to NetworkService.
 //
@@ -117,6 +117,6 @@ class NodeStreamLoader : public network::mojom::URLLoader {
   base::WeakPtrFactory<NodeStreamLoader> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_NODE_STREAM_LOADER_H_

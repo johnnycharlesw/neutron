@@ -10,7 +10,7 @@
       <h1>Use system dialogs</h1>
 
       <h3>
-        The <code>dialog</code> module in Electron allows you to use native
+        The <code>dialog</code> module in Neutron allows you to use native
         system dialogs for opening files or directories, saving a file or
         displaying informational messages.
       </h3>
@@ -23,7 +23,7 @@
 
       <p>
         Open the
-        <a href="https://www.electronjs.org/docs/latest/api/dialog/">
+        <a href="https://www.neutronjs.org/docs/latest/api/dialog/">
           full API documentation (opens in new window)
         </a>
         in your browser.
@@ -47,7 +47,7 @@
           <h5>Renderer Process</h5>
           <pre>
           <code>
-const {ipcRenderer} = require('electron')
+const {ipcRenderer} = require('neutron')
 
 const selectDirBtn = document.getElementById('select-directory')
 
@@ -63,7 +63,7 @@ ipcRenderer.on('selected-directory', (event, path) => {
           <h5>Main Process</h5>
           <pre>
           <code>
-const {ipcMain, dialog} = require('electron')
+const {ipcMain, dialog} = require('neutron')
 
 ipcMain.on('open-file-dialog', (event) => {
   dialog.showOpenDialog({
@@ -86,9 +86,9 @@ ipcMain.on('open-file-dialog', (event) => {
               use sheet version, pass the <code>window</code> as the first
               argument in the dialog method.
             </p>
-            <pre><code class="language-js">const ipc = require('electron').ipcMain
-const dialog = require('electron').dialog
-const BrowserWindow = require('electron').BrowserWindow
+            <pre><code class="language-js">const ipc = require('neutron').ipcMain
+const dialog = require('neutron').dialog
+const BrowserWindow = require('neutron').BrowserWindow
 
 
 ipc.on('open-file-dialog-sheet', function (event) {

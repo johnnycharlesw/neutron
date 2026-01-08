@@ -10,7 +10,7 @@ the [`BrowserWindow`](browser-window.md) object. An example of accessing the
 `webContents` object:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ width: 800, height: 1500 })
 win.loadURL('https://github.com')
@@ -54,7 +54,7 @@ If you want to also observe navigations in `<iframe>`s, use [`will-frame-navigat
 These methods can be accessed from the `webContents` module:
 
 ```js
-const { webContents } = require('electron')
+const { webContents } = require('neutron')
 
 console.log(webContents)
 ```
@@ -108,7 +108,7 @@ async function lookupTargetId (browserWindow) {
 > Render and control the contents of a BrowserWindow instance.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 ### Instance Events
 
@@ -446,7 +446,7 @@ Calling `event.preventDefault()` will ignore the `beforeunload` event handler
 and allow the page to be unloaded.
 
 ```js
-const { BrowserWindow, dialog } = require('electron')
+const { BrowserWindow, dialog } = require('neutron')
 
 const win = new BrowserWindow({ width: 800, height: 600 })
 win.webContents.on('will-prevent-unload', (event) => {
@@ -526,7 +526,7 @@ To only prevent the menu shortcuts, use
 [`setIgnoreMenuShortcuts`](#contentssetignoremenushortcutsignore):
 
 ```js
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 app.whenReady().then(() => {
   const win = new BrowserWindow({ width: 800, height: 600 })
@@ -550,7 +550,7 @@ Emitted before dispatching mouse events in the page.
 Calling `event.preventDefault` will prevent the page mouse events.
 
 ```js
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 app.whenReady().then(() => {
   const win = new BrowserWindow({ width: 800, height: 600 })
@@ -883,7 +883,7 @@ Due to the nature of bluetooth, scanning for devices when
 with either a device id or an empty string to cancel the request.
 
 ```js title='main.js'
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 let win = null
 
@@ -918,7 +918,7 @@ Returns:
 Emitted when a new frame is generated. Only the dirty area is passed in the buffer.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ webPreferences: { offscreen: true } })
 win.webContents.on('paint', (event, dirty, image) => {
@@ -933,10 +933,10 @@ copying data between CPU and GPU memory, with Chromium's hardware acceleration s
 Only a limited number of textures can exist at the same time, so it's important that you call `texture.release()` as soon as you're done with the texture.
 By managing the texture lifecycle by yourself, you can safely pass the `texture.textureInfo` to other processes through IPC.
 
-More details can be found in the [offscreen rendering tutorial](../tutorial/offscreen-rendering.md). To learn about how to handle the texture in native code, refer to [offscreen rendering's code documentation.](https://github.com/electron/electron/blob/main/shell/browser/osr/README.md).
+More details can be found in the [offscreen rendering tutorial](../tutorial/offscreen-rendering.md). To learn about how to handle the texture in native code, refer to [offscreen rendering's code documentation.](https://github.com/neutron/neutron/blob/main/shell/browser/osr/README.md).
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ webPreferences: { offscreen: { useSharedTexture: true } } })
 win.webContents.on('paint', async (e, dirty, image) => {
@@ -946,7 +946,7 @@ win.webContents.on('paint', async (e, dirty, image) => {
     await new Promise(resolve => setTimeout(resolve, 50))
 
     // You can send the native texture handle to native code for importing into your rendering pipeline.
-    // Read more at https://github.com/electron/electron/blob/main/shell/browser/osr/README.md
+    // Read more at https://github.com/neutron/neutron/blob/main/shell/browser/osr/README.md
     // importTextureHandle(dirty, e.texture.textureInfo)
 
     // You must call `e.texture.release()` as soon as possible, before the underlying frame pool is drained.
@@ -1136,7 +1136,7 @@ Initiates a download of the resource at `url` without navigating. The
 Returns `string` - The URL of the current web page.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ width: 800, height: 600 })
 win.loadURL('https://github.com').then(() => {
@@ -1207,7 +1207,7 @@ Reloads current page and ignores cache.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1221,7 +1221,7 @@ Returns `boolean` - Whether the browser can go back to previous web page.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1235,7 +1235,7 @@ Returns `boolean` - Whether the browser can go forward to next web page.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1251,7 +1251,7 @@ Returns `boolean` - Whether the web page can go to `offset`.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1265,7 +1265,7 @@ Clears the navigation history.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1279,7 +1279,7 @@ Makes the browser go back a web page.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1293,7 +1293,7 @@ Makes the browser go forward a web page.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1309,7 +1309,7 @@ Navigates browser to the specified absolute web page index.
 <!--
 ```YAML history
 deprecated:
-  - pr-url: https://github.com/electron/electron/pull/41752
+  - pr-url: https://github.com/neutron/neutron/pull/41752
     breaking-changes-header: deprecated-clearhistory-cangoback-goback-cangoforward-goforward-gotoindex-cangotooffset-gotooffset-on-webcontents
 ```
 -->
@@ -1474,7 +1474,7 @@ conjunction with `did-create-window`.
 An example showing how to customize the process of new `BrowserWindow` creation to be `BrowserView` attached to main window instead:
 
 ```js
-const { BrowserView, BrowserWindow } = require('electron')
+const { BrowserView, BrowserWindow } = require('neutron')
 
 const mainWindow = new BrowserWindow()
 
@@ -1812,7 +1812,7 @@ The `landscape` will be ignored if `@page` CSS at-rule is used in the web page.
 An example of `webContents.printToPDF`:
 
 ```js
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 const fs = require('node:fs')
 const os = require('node:os')
@@ -1847,7 +1847,7 @@ Adds the specified path to DevTools workspace. Must be used after DevTools
 creation:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 win.webContents.on('devtools-opened', () => {
@@ -1894,7 +1894,7 @@ An example of showing devtools in a `<webview>` tag:
   <webview id="browser" src="https://github.com"></webview>
   <webview id="devtools" src="about:blank"></webview>
   <script>
-    const { ipcRenderer } = require('electron')
+    const { ipcRenderer } = require('neutron')
     const emittedOnce = (element, eventName) => new Promise(resolve => {
       element.addEventListener(eventName, event => resolve(event), { once: true })
     })
@@ -1914,7 +1914,7 @@ An example of showing devtools in a `<webview>` tag:
 
 ```js
 // Main process
-const { ipcMain, webContents } = require('electron')
+const { ipcMain, webContents } = require('neutron')
 
 ipcMain.on('open-devtools', (event, targetContentsId, devtoolsContentsId) => {
   const target = webContents.fromId(targetContentsId)
@@ -1927,7 +1927,7 @@ ipcMain.on('open-devtools', (event, targetContentsId, devtoolsContentsId) => {
 An example of showing devtools in a `BrowserWindow`:
 
 ```js title='main.js'
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 let win = null
 let devtools = null
@@ -2056,7 +2056,7 @@ the `webFrame.routingId` value.  E.g.
 
 ```js
 // In a renderer process
-console.log('My frameId is:', require('electron').webFrame.routingId)
+console.log('My frameId is:', require('neutron').webFrame.routingId)
 ```
 
 You can also read `frameId` from all incoming IPC messages in the main process.
@@ -2174,7 +2174,7 @@ the cursor when dragging.
 Returns `Promise<void>` - resolves if the page is saved.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 
@@ -2309,7 +2309,7 @@ when the page becomes backgrounded. This also affects the Page Visibility API.
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/38924
+  - pr-url: https://github.com/neutron/neutron/pull/38924
     description: "`WebContents.backgroundThrottling` set to false affects all `WebContents` in the host `BrowserWindow`"
     breaking-changes-header: behavior-changed-webcontentsbackgroundthrottling-set-to-false-affects-all-webcontents-in-the-host-browserwindow
 ```
@@ -2429,7 +2429,7 @@ A [`Debugger`](debugger.md) instance for this webContents.
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/38924
+  - pr-url: https://github.com/neutron/neutron/pull/38924
     description: "`WebContents.backgroundThrottling` set to false affects all `WebContents` in the host `BrowserWindow`"
     breaking-changes-header: behavior-changed-webcontentsbackgroundthrottling-set-to-false-affects-all-webcontents-in-the-host-browserwindow
 ```

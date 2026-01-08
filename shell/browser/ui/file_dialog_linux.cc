@@ -131,7 +131,7 @@ class FileChooserDialog : public ui::SelectFileDialog::Listener {
 
   // ui::SelectFileDialog::Listener
   void FileSelected(const ui::SelectedFileInfo& file, int index) override {
-    v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+    v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
     v8::HandleScope scope(isolate);
     auto dict = gin_helper::Dictionary::CreateEmpty(isolate);
     dict.Set("canceled", false);
@@ -152,7 +152,7 @@ class FileChooserDialog : public ui::SelectFileDialog::Listener {
 
   void MultiFilesSelected(
       const std::vector<ui::SelectedFileInfo>& files) override {
-    v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+    v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
     v8::HandleScope scope(isolate);
     auto dict = gin_helper::Dictionary::CreateEmpty(isolate);
     dict.Set("canceled", false);
@@ -168,7 +168,7 @@ class FileChooserDialog : public ui::SelectFileDialog::Listener {
   }
 
   void FileSelectionCanceled() override {
-    v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+    v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
     v8::HandleScope scope(isolate);
     auto dict = gin_helper::Dictionary::CreateEmpty(isolate);
     dict.Set("canceled", true);

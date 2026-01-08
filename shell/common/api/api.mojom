@@ -1,4 +1,4 @@
-module electron.mojom;
+module neutron.mojom;
 
 import "mojo/public/mojom/base/string16.mojom";
 import "ui/gfx/geometry/mojom/geometry.mojom";

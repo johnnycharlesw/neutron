@@ -1,4 +1,4 @@
-const { app, net, session } = require('electron');
+const { app, net, session } = require('neutron');
 
 if (process.env.TEST_DUMP_FILE) {
   app.commandLine.appendSwitch('log-net-log', process.env.TEST_DUMP_FILE);

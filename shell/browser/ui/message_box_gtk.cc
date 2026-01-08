@@ -14,7 +14,7 @@
 #include "base/no_destructor.h"
 #include "base/strings/string_util.h"
 #include "base/strings/utf_string_conversions.h"
-#include "electron/electron_gtk_stubs.h"
+#include "neutron/neutron_gtk_stubs.h"
 #include "shell/browser/browser.h"
 #include "shell/browser/native_window_observer.h"
 #include "shell/browser/native_window_views.h"
@@ -28,7 +28,7 @@
 #include "ui/base/ui_base_features.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 MessageBoxSettings::MessageBoxSettings() = default;
 MessageBoxSettings::MessageBoxSettings(const MessageBoxSettings&) = default;
@@ -255,8 +255,8 @@ void CloseMessageBox(int id) {
 
 void ShowErrorBox(const std::u16string& title, const std::u16string& content) {
   if (Browser::Get()->is_ready()) {
-    electron::MessageBoxSettings settings;
-    settings.type = electron::MessageBoxType::kError;
+    neutron::MessageBoxSettings settings;
+    settings.type = neutron::MessageBoxType::kError;
     settings.buttons = {};
     settings.title = "Error";
     settings.message = base::UTF16ToUTF8(title);
@@ -276,4 +276,4 @@ void ShowErrorBox(const std::u16string& title, const std::u16string& content) {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

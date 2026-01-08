@@ -12,7 +12,7 @@
 #include "base/memory/raw_ptr.h"
 #include "v8/include/v8-forward.h"
 
-namespace electron {
+namespace neutron {
 
 // Like ES6's WeakMap, with a K key and Weak Pointer value.
 template <typename K>
@@ -73,6 +73,6 @@ class KeyWeakMap {
   std::unordered_map<K, Mapped> map_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_KEY_WEAK_MAP_H_

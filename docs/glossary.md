@@ -82,7 +82,7 @@ main process is responsible for creating each new renderer process in the app.
 The full Node API is built in.
 
 Every app's main process file is specified in the `main` property in
-`package.json`. This is how `electron .` knows what file to execute at startup.
+`package.json`. This is how `neutron .` knows what file to execute at startup.
 
 In Chromium, this process is referred to as the "browser process". It is
 renamed in Electron to avoid confusion with renderer processes.
@@ -237,7 +237,7 @@ embedded content will be asynchronous. This keeps your app safe from the
 embedded content.
 
 [addons]: https://nodejs.org/api/addons.html
-[asar]: https://github.com/electron/asar
+[asar]: https://github.com/neutron/asar
 [autoupdater]: api/auto-updater.md
 [code signing]: tutorial/code-signing.md
 [context isolation]: tutorial/context-isolation.md

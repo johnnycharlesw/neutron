@@ -7,8 +7,8 @@ const goBtn = document.getElementById('goBtn')
 const historyPanel = document.getElementById('historyPanel')
 
 async function updateButtons () {
-  const canGoBack = await window.electronAPI.canGoBack()
-  const canGoForward = await window.electronAPI.canGoForward()
+  const canGoBack = await window.neutronAPI.canGoBack()
+  const canGoForward = await window.neutronAPI.canGoForward()
   backBtn.disabled = !canGoBack
   backHistoryBtn.disabled = !canGoBack
 
@@ -17,7 +17,7 @@ async function updateButtons () {
 }
 
 async function updateURL () {
-  urlInput.value = await window.electronAPI.getCurrentURL()
+  urlInput.value = await window.neutronAPI.getCurrentURL()
 }
 
 function transformURL (url) {
@@ -31,11 +31,11 @@ function transformURL (url) {
 async function navigate (url) {
   const urlInput = transformURL(url)
 
-  await window.electronAPI.loadURL(urlInput)
+  await window.neutronAPI.loadURL(urlInput)
 }
 
 async function showHistory (forward = false) {
-  const history = await window.electronAPI.getHistory()
+  const history = await window.neutronAPI.getHistory()
   const currentIndex = history.findIndex(entry => entry.url === transformURL(urlInput.value))
 
   if (!currentIndex) {
@@ -57,8 +57,8 @@ async function showHistory (forward = false) {
   historyPanel.style.display = 'block'
 }
 
-backBtn.addEventListener('click', () => window.electronAPI.goBack())
-forwardBtn.addEventListener('click', () => window.electronAPI.goForward())
+backBtn.addEventListener('click', () => window.neutronAPI.goBack())
+forwardBtn.addEventListener('click', () => window.neutronAPI.goForward())
 backHistoryBtn.addEventListener('click', () => showHistory(false))
 forwardHistoryBtn.addEventListener('click', () => showHistory(true))
 goBtn.addEventListener('click', () => navigate(urlInput.value))
@@ -76,7 +76,7 @@ document.addEventListener('click', (e) => {
   }
 })
 
-window.electronAPI.onNavigationUpdate(() => {
+window.neutronAPI.onNavigationUpdate(() => {
   updateButtons()
   updateURL()
 })

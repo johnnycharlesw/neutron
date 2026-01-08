@@ -32,19 +32,19 @@ template <typename T>
 class WeakCell;
 }  // namespace gin
 
-namespace electron {
+namespace neutron {
 namespace api {
 class Session;
 }
 
-class ElectronHidDelegate;
+class NeutronHidDelegate;
 
 class HidChooserContext;
 
 // HidChooserController provides data for the WebHID API permission prompt.
 class HidChooserController
     : private content::WebContentsObserver,
-      private electron::HidChooserContext::DeviceObserver {
+      private neutron::HidChooserContext::DeviceObserver {
  public:
   // Construct a chooser controller for Human Interface Devices (HID).
   // |render_frame_host| is used to initialize the chooser strings and to access
@@ -58,7 +58,7 @@ class HidChooserController
       std::vector<blink::mojom::HidDeviceFilterPtr> exclusion_filters,
       content::HidChooser::Callback callback,
       content::WebContents* web_contents,
-      base::WeakPtr<ElectronHidDelegate> hid_delegate);
+      base::WeakPtr<NeutronHidDelegate> hid_delegate);
   HidChooserController(HidChooserController&) = delete;
   HidChooserController& operator=(HidChooserController&) = delete;
   ~HidChooserController() override;
@@ -130,13 +130,13 @@ class HidChooserController
   base::ScopedObservation<HidChooserContext, HidChooserContext::DeviceObserver>
       observation_{this};
 
-  base::WeakPtr<ElectronHidDelegate> hid_delegate_;
+  base::WeakPtr<NeutronHidDelegate> hid_delegate_;
 
   content::GlobalRenderFrameHostId render_frame_host_id_;
 
   base::WeakPtrFactory<HidChooserController> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_HID_HID_CHOOSER_CONTROLLER_H_

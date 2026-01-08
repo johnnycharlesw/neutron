@@ -1,11 +1,11 @@
-import * as electron from 'electron/main';
+import * as neutron from 'neutron/main';
 
 import * as fs from 'node:fs';
 import { Module } from 'node:module';
 import * as path from 'node:path';
 import * as url from 'node:url';
 
-const { app, dialog } = electron;
+const { app, dialog } = neutron;
 
 type DefaultAppOptions = {
   file: null | string;
@@ -127,7 +127,7 @@ async function loadApplicationPackage (packagePath: string) {
       filePath = (Module as any)._resolveFilename(packagePath, null, true);
       app.setAppPath(appPath || path.dirname(filePath));
     } catch (e) {
-      showErrorMessage(`Unable to find Electron app at ${packagePath}\n\n${(e as Error).message}`);
+      showErrorMessage(`Unable to find Neutron app at ${packagePath}\n\n${(e as Error).message}`);
       return;
     }
 
@@ -158,7 +158,7 @@ async function loadApplicationByFile (appPath: string) {
 
 async function startRepl () {
   if (process.platform === 'win32') {
-    console.error('Electron REPL not currently supported on Windows');
+    console.error('Neutron REPL not currently supported on Windows');
     process.exit(1);
   }
 
@@ -167,14 +167,14 @@ async function startRepl () {
 
   const GREEN = '32';
   const colorize = (color: string, s: string) => `\x1b[${color}m${s}\x1b[0m`;
-  const electronVersion = colorize(GREEN, `v${process.versions.electron}`);
+  const neutronVersion = colorize(GREEN, `v${process.versions.neutron}`);
   const nodeVersion = colorize(GREEN, `v${process.versions.node}`);
 
   console.info(`
-    Welcome to the Electron.js REPL \\[._.]/
+    Welcome to the Neutron.js REPL \\[._.]/
 
-    You can access all Electron.js modules here as well as Node.js modules.
-    Using: Node.js ${nodeVersion} and Electron.js ${electronVersion}
+    You can access all Neutron.js modules here as well as Node.js modules.
+    Using: Node.js ${nodeVersion} and Neutron.js ${neutronVersion}
   `);
 
   const { start } = await import('node:repl');
@@ -212,9 +212,9 @@ async function startRepl () {
     });
   }
 
-  defineBuiltin(repl.context, 'electron', () => electron);
-  for (const api of Object.keys(electron) as (keyof typeof electron)[]) {
-    defineBuiltin(repl.context, api, () => electron[api]);
+  defineBuiltin(repl.context, 'neutron', () => neutron);
+  for (const api of Object.keys(neutron) as (keyof typeof neutron)[]) {
+    defineBuiltin(repl.context, api, () => neutron[api]);
   }
 
   // Copied from node/lib/repl.js. For better DX, we don't want to
@@ -229,7 +229,7 @@ async function startRepl () {
     'typeof', 'var', 'void', 'while', 'with', 'yield'
   ];
 
-  const electronBuiltins = [...Object.keys(electron), 'original-fs', 'electron'];
+  const neutronBuiltins = [...Object.keys(neutron), 'original-fs', 'neutron'];
 
   const defaultComplete: Function = repl.completer;
   (repl as any).completer = (line: string, callback: Function) => {
@@ -238,7 +238,7 @@ async function startRepl () {
 
     const filterFn = (c: string) => c.startsWith(currentSymbol);
     const ignores = commonWords.filter(filterFn);
-    const hits = electronBuiltins.filter(filterFn);
+    const hits = neutronBuiltins.filter(filterFn);
 
     if (!ignores.length && hits.length) {
       callback(null, [hits, currentSymbol]);
@@ -263,7 +263,7 @@ if (option.file && !option.webdriver) {
     await loadApplicationPackage(file);
   }
 } else if (option.version) {
-  console.log('v' + process.versions.electron);
+  console.log('v' + process.versions.neutron);
   process.exit(0);
 } else if (option.abi) {
   console.log(process.versions.modules);
@@ -273,10 +273,10 @@ if (option.file && !option.webdriver) {
 } else {
   if (!option.noHelp) {
     const welcomeMessage = `
-Electron ${process.versions.electron} - Build cross platform desktop apps with JavaScript, HTML, and CSS
-Usage: electron [options] [path]
+Neutron ${process.versions.neutron} - Build cross platform desktop apps with JavaScript, HTML, and CSS
+Usage: neutron [options] [path]
 
-A path to an Electron app may be specified. It must be one of the following:
+A path to an Neutron app may be specified. It must be one of the following:
   - index.js file.
   - Folder containing a package.json file.
   - Folder containing an index.js file.

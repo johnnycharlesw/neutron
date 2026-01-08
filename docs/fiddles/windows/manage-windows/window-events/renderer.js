@@ -13,13 +13,13 @@ const showFocusBtn = (btn) => {
   focusModalBtn.addEventListener('click', focusWindow)
 }
 const focusWindow = () => {
-  window.electronAPI.focusDemoWindow()
+  window.neutronAPI.focusDemoWindow()
 }
 
-window.electronAPI.onWindowFocus(hideFocusBtn)
-window.electronAPI.onWindowClose(hideFocusBtn)
-window.electronAPI.onWindowBlur(showFocusBtn)
+window.neutronAPI.onWindowFocus(hideFocusBtn)
+window.neutronAPI.onWindowClose(hideFocusBtn)
+window.neutronAPI.onWindowBlur(showFocusBtn)
 
 listenToWindowBtn.addEventListener('click', () => {
-  window.electronAPI.showDemoWindow()
+  window.neutronAPI.showDemoWindow()
 })

@@ -8,7 +8,7 @@
 
 #include <unistd.h>
 
-namespace electron {
+namespace neutron {
 
 // Given a pid, return true if the process has the same code signature with
 // with current app.
@@ -19,6 +19,6 @@ namespace electron {
 // to the NODE_CHANNEL_ID env getting removed).
 bool ProcessSignatureIsSameWithCurrentApp(pid_t pid);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // SHELL_COMMON_MAC_CODESIGN_UTIL_H_

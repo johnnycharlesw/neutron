@@ -2,7 +2,7 @@
 // Use of this source code is governed by the MIT license that can be
 // found in the LICENSE file.
 
-#import "shell/browser/mac/electron_application.h"
+#import "shell/browser/mac/neutron_application.h"
 
 #include <string>
 #include <utility>
@@ -18,7 +18,7 @@
 #include "content/public/common/content_features.h"
 #include "shell/browser/browser.h"
 #include "shell/browser/mac/dict_util.h"
-#import "shell/browser/mac/electron_application_delegate.h"
+#import "shell/browser/mac/neutron_application_delegate.h"
 #include "ui/accessibility/ax_mode.h"
 
 namespace {
@@ -97,7 +97,7 @@ inline void dispatch_sync_main(dispatch_block_t block) {
   // We simply try to close the browser, which in turn will try to close the
   // windows. Termination can proceed if all windows are closed or window close
   // can be cancelled which will abort termination.
-  electron::Browser::Get()->Quit();
+  neutron::Browser::Get()->Quit();
 }
 
 - (void)setShutdownHandler:(base::RepeatingCallback<bool()>)handler {
@@ -164,9 +164,9 @@ inline void dispatch_sync_main(dispatch_block_t block) {
     std::string activity_type(
         base::SysNSStringToUTF8(userActivity.activityType));
     base::Value::Dict user_info =
-        electron::NSDictionaryToValue(userActivity.userInfo);
+        neutron::NSDictionaryToValue(userActivity.userInfo);
 
-    electron::Browser* browser = electron::Browser::Get();
+    neutron::Browser* browser = neutron::Browser::Get();
     shouldWait =
         browser->UpdateUserActivityState(activity_type, std::move(user_info))
             ? YES
@@ -193,9 +193,9 @@ inline void dispatch_sync_main(dispatch_block_t block) {
     std::string activity_type(
         base::SysNSStringToUTF8(userActivity.activityType));
     base::Value::Dict user_info =
-        electron::NSDictionaryToValue(userActivity.userInfo);
+        neutron::NSDictionaryToValue(userActivity.userInfo);
 
-    electron::Browser* browser = electron::Browser::Get();
+    neutron::Browser* browser = neutron::Browser::Get();
     browser->UserActivityWasContinued(activity_type, std::move(user_info));
   });
   [userActivity setNeedsSave:YES];
@@ -215,7 +215,7 @@ inline void dispatch_sync_main(dispatch_block_t block) {
         withReplyEvent:(NSAppleEventDescriptor*)replyEvent {
   NSString* url =
       [[event paramDescriptorForKeyword:keyDirectObject] stringValue];
-  electron::Browser::Get()->OpenURL(base::SysNSStringToUTF8(url));
+  neutron::Browser::Get()->OpenURL(base::SysNSStringToUTF8(url));
 }
 
 // Returns the list of accessibility attributes that this object supports.
@@ -255,7 +255,7 @@ inline void dispatch_sync_main(dispatch_block_t block) {
   bool is_manual_ax = [attribute isEqualToString:@"AXManualAccessibility"];
   if ([attribute isEqualToString:@"AXEnhancedUserInterface"] || is_manual_ax) {
     [self enableScreenReaderCompleteModeAfterDelay:[value boolValue]];
-    electron::Browser::Get()->OnAccessibilitySupportChanged();
+    neutron::Browser::Get()->OnAccessibilitySupportChanged();
 
     // Don't call the superclass function for AXManualAccessibility,
     // as it will log an AXError and make it appear as though the attribute
@@ -365,7 +365,7 @@ inline void dispatch_sync_main(dispatch_block_t block) {
 }
 
 - (void)orderFrontStandardAboutPanel:(id)sender {
-  electron::Browser::Get()->ShowAboutPanel();
+  neutron::Browser::Get()->ShowAboutPanel();
 }
 
 - (void)addNativeEventProcessorObserver:

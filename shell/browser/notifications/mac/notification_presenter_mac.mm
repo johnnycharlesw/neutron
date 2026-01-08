@@ -14,7 +14,7 @@
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
-namespace electron {
+namespace neutron {
 
 // static
 std::unique_ptr<NotificationPresenter> NotificationPresenter::Create() {
@@ -30,7 +30,7 @@ CocoaNotification* NotificationPresenterMac::GetNotification(
       return native_notification;
   }
 
-  if (electron::debug_notifications) {
+  if (neutron::debug_notifications) {
     LOG(INFO) << "Could not find notification for "
               << [ns_notification.identifier UTF8String];
   }
@@ -54,4 +54,4 @@ Notification* NotificationPresenterMac::CreateNotificationObject(
   return new CocoaNotification(delegate, this);
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -8,15 +8,15 @@
 #include "base/strings/utf_string_conversions.h"
 #include "components/pdf/common/constants.h"
 #include "extensions/common/constants.h"
-#include "shell/common/electron_constants.h"
+#include "shell/common/neutron_constants.h"
 #endif  // BUILDFLAG(ENABLE_PDF_VIEWER)
 
-namespace electron {
+namespace neutron {
 
 void GetInternalPlugins(std::vector<content::WebPluginInfo>* plugins) {
 #if BUILDFLAG(ENABLE_PDF_VIEWER)
   // NB. in Chrome, this plugin isn't registered until the PDF extension is
-  // loaded. However, in Electron, we load the PDF extension unconditionally
+  // loaded. However, in Neutron, we load the PDF extension unconditionally
   // when it is enabled in the build, so we're OK to load the plugin eagerly
   // here.
   plugins->push_back(GetPDFPluginInfo());
@@ -37,4 +37,4 @@ content::WebPluginInfo GetPDFPluginInfo() {
 }
 #endif  // BUILDFLAG(ENABLE_PDF_VIEWER)
 
-}  // namespace electron
+}  // namespace neutron

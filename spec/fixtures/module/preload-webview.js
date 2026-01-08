@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('neutron');
 
 window.onload = function () {
   ipcRenderer.send('webview', typeof WebView);

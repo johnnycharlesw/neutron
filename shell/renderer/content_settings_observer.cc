@@ -13,7 +13,7 @@
 #include "third_party/blink/public/web/web_local_frame.h"
 #include "third_party/blink/public/web/web_view.h"
 
-namespace electron {
+namespace neutron {
 
 ContentSettingsObserver::ContentSettingsObserver(
     content::RenderFrame* render_frame)
@@ -23,7 +23,7 @@ ContentSettingsObserver::ContentSettingsObserver(
 
 ContentSettingsObserver::~ContentSettingsObserver() = default;
 
-mojom::ElectronWebContentsUtility&
+mojom::NeutronWebContentsUtility&
 ContentSettingsObserver::GetWebContentsUtility() {
   if (!web_contents_utility_) {
     render_frame()->GetRemoteAssociatedInterfaces()->GetInterface(
@@ -61,4 +61,4 @@ void ContentSettingsObserver::OnDestruct() {
   delete this;
 }
 
-}  // namespace electron
+}  // namespace neutron

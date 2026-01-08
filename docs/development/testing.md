@@ -21,7 +21,7 @@ you error would be caught at commit time.
 
 ## Unit Tests
 
-If you are not using [build-tools](https://github.com/electron/build-tools),
+If you are not using [build-tools](https://github.com/neutron/build-tools),
 ensure that the name you have configured for your
 local build of Electron is one of `Testing`, `Release`, `Default`, or
 you have set `process.env.ELECTRON_OUT_DIR`. Without these set, Electron will fail
@@ -66,15 +66,15 @@ the Node.js source tree.
 2. Node headers have to be compiled for your configuration.
 
    ```powershell
-   ninja -C out\Testing electron:node_headers
+   ninja -C out\Testing neutron:node_headers
    ```
 
-3. The electron.lib has to be copied as node.lib.
+3. The neutron.lib has to be copied as node.lib.
 
    ```powershell
    cd out\Testing
    mkdir gen\node_headers\Release
-   copy electron.lib gen\node_headers\Release\node.lib
+   copy neutron.lib gen\node_headers\Release\node.lib
    ```
 
 #### Missing fonts

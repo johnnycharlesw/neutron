@@ -7,7 +7,7 @@
 #include "v8/include/v8-local-handle.h"
 #include "v8/include/v8-object.h"
 
-namespace electron::api::context_bridge {
+namespace neutron::api::context_bridge {
 
 ObjectCache::ObjectCache() = default;
 ObjectCache::~ObjectCache() = default;
@@ -30,4 +30,4 @@ v8::MaybeLocal<v8::Value> ObjectCache::GetCachedProxiedObject(
   return iter->second;
 }
 
-}  // namespace electron::api::context_bridge
+}  // namespace neutron::api::context_bridge

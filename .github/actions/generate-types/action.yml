@@ -16,13 +16,13 @@ runs:
       export ELECTRON_DIR=$(pwd)
       if [ "${{ inputs.sha-file }}" == ".dig-old" ]; then
         cd /tmp
-        git clone https://github.com/electron/electron.git
-        cd electron
+        git clone https://github.com/neutron/neutron.git
+        cd neutron
       fi
       git checkout $(cat $ELECTRON_DIR/${{ inputs.sha-file }})
       node script/yarn.js install --immutable
       echo "#!/usr/bin/env node\nglobal.x=1" > node_modules/typescript/bin/tsc
-      node node_modules/.bin/electron-docs-parser --dir=./ --outDir=./ --moduleVersion=0.0.0-development
-      node node_modules/.bin/electron-typescript-definitions --api=electron-api.json --outDir=artifacts
-      mv artifacts/electron.d.ts $ELECTRON_DIR/artifacts/${{ inputs.filename }}
-    working-directory: ./electron
+      node node_modules/.bin/neutron-docs-parser --dir=./ --outDir=./ --moduleVersion=0.0.0-development
+      node node_modules/.bin/neutron-typescript-definitions --api=neutron-api.json --outDir=artifacts
+      mv artifacts/neutron.d.ts $ELECTRON_DIR/artifacts/${{ inputs.filename }}
+    working-directory: ./neutron

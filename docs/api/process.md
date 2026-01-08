@@ -50,7 +50,7 @@ beginning to load the web page or the main script.
 
 A `boolean`. When the app is started by being passed as parameter to the default Electron executable, this
 property is `true` in the main process, otherwise it is `undefined`.
-For example when running the app with `electron .`, it is `true`,
+For example when running the app with `neutron .`, it is `true`,
 even if the app is packaged ([`isPackaged`](app.md#appispackaged-readonly)) is `true`.
 This can be useful to determine how many arguments will need to be sliced off from `process.argv`.
 
@@ -122,7 +122,7 @@ A `string` representing the current process's type, can be:
 
 A `string` representing Chrome's version string.
 
-### `process.versions.electron` _Readonly_
+### `process.versions.neutron` _Readonly_
 
 A `string` representing Electron's version string.
 

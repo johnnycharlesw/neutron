@@ -13,8 +13,8 @@
 #include "content/public/browser/permission_descriptor_util.h"
 #include "content/public/browser/render_process_host.h"
 #include "content/public/browser/web_contents_user_data.h"
-#include "shell/browser/electron_browser_context.h"
-#include "shell/browser/electron_permission_manager.h"
+#include "shell/browser/neutron_browser_context.h"
+#include "shell/browser/neutron_permission_manager.h"
 #include "shell/browser/media/media_capture_devices_dispatcher.h"
 #include "third_party/blink/public/common/mediastream/media_stream_request.h"
 #include "third_party/blink/public/mojom/mediastream/media_stream.mojom.h"
@@ -42,7 +42,7 @@ constexpr std::string_view MediaStreamTypeToString(
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -174,10 +174,10 @@ void MediaAccessAllowed(const content::MediaStreamRequest& request,
         return;
 
       content::BrowserContext* browser_context = rfh->GetBrowserContext();
-      ElectronBrowserContext* electron_browser_context =
-          static_cast<ElectronBrowserContext*>(browser_context);
+      NeutronBrowserContext* neutron_browser_context =
+          static_cast<NeutronBrowserContext*>(browser_context);
       auto split_callback = base::SplitOnceCallback(std::move(callback));
-      if (electron_browser_context->ChooseDisplayMediaDevice(
+      if (neutron_browser_context->ChooseDisplayMediaDevice(
               request, std::move(split_callback.second)))
         return;
       std::move(split_callback.first)
@@ -217,7 +217,7 @@ void WebContentsPermissionHelper::RequestPermission(
     base::OnceCallback<void(bool)> callback,
     bool user_gesture,
     base::Value::Dict details) {
-  auto* permission_manager = static_cast<ElectronPermissionManager*>(
+  auto* permission_manager = static_cast<NeutronPermissionManager*>(
       web_contents_->GetBrowserContext()->GetPermissionControllerDelegate());
   auto origin = web_contents_->GetLastCommittedURL();
   permission_manager->RequestPermissionWithDetails(
@@ -231,7 +231,7 @@ bool WebContentsPermissionHelper::CheckPermission(
     blink::PermissionType permission,
     base::Value::Dict details) const {
   auto* rfh = web_contents_->GetPrimaryMainFrame();
-  auto* permission_manager = static_cast<ElectronPermissionManager*>(
+  auto* permission_manager = static_cast<NeutronPermissionManager*>(
       web_contents_->GetBrowserContext()->GetPermissionControllerDelegate());
   auto origin = web_contents_->GetLastCommittedURL();
   return permission_manager->CheckPermissionWithDetails(permission, rfh, origin,
@@ -333,4 +333,4 @@ bool WebContentsPermissionHelper::CheckSerialAccessPermission(
 
 WEB_CONTENTS_USER_DATA_KEY_IMPL(WebContentsPermissionHelper);
 
-}  // namespace electron
+}  // namespace neutron

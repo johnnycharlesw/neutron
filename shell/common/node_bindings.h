@@ -31,7 +31,7 @@ class IsolateData;
 class MultiIsolatePlatform;
 }  // namespace node
 
-namespace electron {
+namespace neutron {
 
 // A helper class to manage uv_handle_t types, e.g. uv_async_t.
 //
@@ -211,9 +211,9 @@ class NodeBindings {
 
   // Choose a reasonable unique index that's higher than any Blink uses
   // and thus unlikely to collide with an existing index.
-  static constexpr int kElectronContextEmbedderDataIndex =
+  static constexpr int kNeutronContextEmbedderDataIndex =
       static_cast<int>(gin::kPerContextDataStartIndex) +
-      static_cast<int>(gin::kEmbedderElectron);
+      static_cast<int>(gin::kEmbedderNeutron);
 
   // Thread to poll uv events.
   static void EmbedThreadRunner(void* arg);
@@ -256,6 +256,6 @@ void OnNodePreload(node::Environment* env,
                    v8::Local<v8::Value> process,
                    v8::Local<v8::Value> require);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_NODE_BINDINGS_H_

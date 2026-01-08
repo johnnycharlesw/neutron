@@ -10,11 +10,11 @@ TEMPLATE_H = """
 #ifndef ELECTRON_SNAPSHOT_CHECKSUM_H_
 #define ELECTRON_SNAPSHOT_CHECKSUM_H_
 
-namespace electron::snapshot_checksum {
+namespace neutron::snapshot_checksum {
 
 inline constexpr std::string_view kChecksum = "{checksum}";
 
-}  // namespace electron::snapshot_checksum
+}  // namespace neutron::snapshot_checksum
 
 #endif  // ELECTRON_SNAPSHOT_CHECKSUM_H_
 """

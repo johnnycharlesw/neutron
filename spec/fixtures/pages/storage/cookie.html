@@ -2,7 +2,7 @@
   try {
     document.cookie = "test=123"
   } catch (e) {
-    const {ipcRenderer} = require('electron')
+    const {ipcRenderer} = require('neutron')
     ipcRenderer.send('cookie-response', e.message)
   }
 </script>

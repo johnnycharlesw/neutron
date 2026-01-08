@@ -1,3 +1,3 @@
-const { Tray } = process._linkedBinding('electron_browser_tray');
+const { Tray } = process._linkedBinding('neutron_browser_tray');
 
 export default Tray;

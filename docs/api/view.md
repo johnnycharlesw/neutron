@@ -8,7 +8,7 @@ This module cannot be used until the `ready` event of the `app`
 module is emitted.
 
 ```js
-const { BaseWindow, View } = require('electron')
+const { BaseWindow, View } = require('neutron')
 
 const win = new BaseWindow()
 const view = new View()
@@ -28,7 +28,7 @@ Process: [Main](../glossary.md#main-process)
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### `new View()`
 

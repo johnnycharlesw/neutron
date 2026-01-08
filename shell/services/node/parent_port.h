@@ -29,7 +29,7 @@ template <typename T>
 class Handle;
 }  // namespace gin_helper
 
-namespace electron {
+namespace neutron {
 
 // There is only a single instance of this class
 // for the lifetime of a Utility Process which
@@ -69,6 +69,6 @@ class ParentPort final : public gin_helper::DeprecatedWrappable<ParentPort>,
   blink::MessagePortDescriptor port_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_SERVICES_NODE_PARENT_PORT_H_

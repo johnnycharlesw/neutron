@@ -1,5 +1,5 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import { ipcRendererInternal } from '@electron/internal/renderer/ipc-renderer-internal';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import { ipcRendererInternal } from '@neutron/internal/renderer/ipc-renderer-internal';
 
 import { EventEmitter } from 'events';
 
@@ -20,7 +20,7 @@ export function createPreloadProcessObject (): NodeJS.Process {
   const preloadProcess: NodeJS.Process = new EventEmitter() as any;
 
   preloadProcess.getProcessMemoryInfo = () => {
-    return ipcRendererInternal.invoke<Electron.ProcessMemoryInfo>(IPC_MESSAGES.BROWSER_GET_PROCESS_MEMORY_INFO);
+    return ipcRendererInternal.invoke<Neutron.ProcessMemoryInfo>(IPC_MESSAGES.BROWSER_GET_PROCESS_MEMORY_INFO);
   };
 
   Object.defineProperty(preloadProcess, 'noDeprecation', {
@@ -32,11 +32,11 @@ export function createPreloadProcessObject (): NodeJS.Process {
     }
   });
 
-  const { hasSwitch } = process._linkedBinding('electron_common_command_line');
+  const { hasSwitch } = process._linkedBinding('neutron_common_command_line');
 
   // Similar to nodes --expose-internals flag, this exposes _linkedBinding so
   // that tests can call it to get access to some test only bindings
-  if (hasSwitch('unsafely-expose-electron-internals-for-testing')) {
+  if (hasSwitch('unsafely-expose-neutron-internals-for-testing')) {
     preloadProcess._linkedBinding = process._linkedBinding;
   }
 

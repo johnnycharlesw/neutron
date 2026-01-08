@@ -24,7 +24,7 @@ enum Flags : uint64_t;
 }
 }  // namespace node
 
-namespace electron::util {
+namespace neutron::util {
 
 // Emit a warning via node's process.emitWarning()
 void EmitWarning(v8::Isolate* isolate,
@@ -87,9 +87,9 @@ class ExplicitMicrotasksScope {
   v8::MicrotasksPolicy original_policy_;
 };
 
-}  // namespace electron::util
+}  // namespace neutron::util
 
-namespace electron::Buffer {
+namespace neutron::Buffer {
 
 // Convenience function to view a Node buffer's data as a base::span().
 // Analogous to base::as_byte_span()
@@ -104,6 +104,6 @@ namespace electron::Buffer {
 [[nodiscard]] v8::MaybeLocal<v8::Object> Copy(v8::Isolate* isolate,
                                               base::span<const uint8_t> data);
 
-}  // namespace electron::Buffer
+}  // namespace neutron::Buffer
 
 #endif  // ELECTRON_SHELL_COMMON_NODE_UTIL_H_

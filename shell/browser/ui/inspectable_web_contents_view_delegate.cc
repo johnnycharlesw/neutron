@@ -5,10 +5,10 @@
 
 #include "shell/browser/ui/inspectable_web_contents_view_delegate.h"
 
-namespace electron {
+namespace neutron {
 
 ui::ImageModel InspectableWebContentsViewDelegate::GetDevToolsWindowIcon() {
   return {};
 }
 
-}  // namespace electron
+}  // namespace neutron

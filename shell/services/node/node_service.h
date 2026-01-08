@@ -23,9 +23,9 @@ class Environment;
 
 }  // namespace node
 
-namespace electron {
+namespace neutron {
 
-class ElectronBindings;
+class NeutronBindings;
 class JavascriptEnvironment;
 class NodeBindings;
 
@@ -78,7 +78,7 @@ class NodeService : public node::mojom::NodeService {
   const std::unique_ptr<NodeBindings> node_bindings_;
 
   // depends-on: node_bindings_'s uv_loop
-  const std::unique_ptr<ElectronBindings> electron_bindings_;
+  const std::unique_ptr<NeutronBindings> neutron_bindings_;
 
   // depends-on: node_bindings_'s uv_loop
   std::unique_ptr<JavascriptEnvironment> js_env_;
@@ -89,6 +89,6 @@ class NodeService : public node::mojom::NodeService {
   std::unique_ptr<net::NetworkChangeNotifier> network_change_notifier_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_SERVICES_NODE_NODE_SERVICE_H_

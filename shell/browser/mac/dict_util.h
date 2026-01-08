@@ -9,13 +9,13 @@
 
 #include "base/values.h"
 
-namespace electron {
+namespace neutron {
 
 NSArray* ListValueToNSArray(const base::Value::List& value);
 base::Value::List NSArrayToValue(NSArray* arr);
 NSDictionary* DictionaryValueToNSDictionary(const base::Value::Dict& value);
 base::Value::Dict NSDictionaryToValue(NSDictionary* dict);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_MAC_DICT_UTIL_H_

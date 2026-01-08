@@ -41,7 +41,7 @@
 #include "extensions/common/user_script.h"
 #include "extensions/common/utils/content_script_utils.h"
 #include "extensions/common/utils/extension_types_utils.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 #include "third_party/abseil-cpp/absl/strings/str_format.h"
 
 namespace extensions {
@@ -270,7 +270,7 @@ bool CanAccessTarget(const PermissionsData& permissions,
                      ScriptExecutor::FrameScope* frame_scope_out,
                      std::set<int>* frame_ids_out,
                      std::string* error_out) {
-  auto* contents = electron::api::WebContents::FromID(target.tab_id);
+  auto* contents = neutron::api::WebContents::FromID(target.tab_id);
   if (!contents) {
     *error_out = absl::StrFormat("No tab with id: %d", target.tab_id);
     return false;

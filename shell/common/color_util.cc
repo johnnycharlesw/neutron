@@ -33,7 +33,7 @@ bool IsHexFormatWithAlpha(const std::string& str) {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 std::optional<SkColor> ParseCSSColor(const std::string& color_string) {
   // ParseCssColorString expects RGBA and we historically use ARGB
@@ -90,4 +90,4 @@ SkColor GetSysSkColor(int which) {
 }
 #endif
 
-}  // namespace electron
+}  // namespace neutron

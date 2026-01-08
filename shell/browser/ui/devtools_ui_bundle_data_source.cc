@@ -25,7 +25,7 @@
 #include "ui/color/color_provider.h"
 #include "ui/color/color_provider_utils.h"
 
-namespace electron {
+namespace neutron {
 namespace {
 std::string PathWithoutParams(const std::string& path) {
   return GURL(base::StrCat({content::kChromeDevToolsScheme,
@@ -132,4 +132,4 @@ void BundledDataSource::StartBundledDataRequest(const std::string& path,
   std::move(callback).Run(bytes);
 }
 
-}  // namespace electron
+}  // namespace neutron

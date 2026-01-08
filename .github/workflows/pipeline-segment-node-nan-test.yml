@@ -29,7 +29,7 @@ on:
 permissions: {}
 
 concurrency:
-  group: electron-node-nan-test-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ github.ref_protected == true && github.run_id || github.ref }}
+  group: neutron-node-nan-test-${{ inputs.target-platform }}-${{ inputs.target-arch }}-${{ github.ref_protected == true && github.run_id || github.ref }}
   cancel-in-progress: ${{ github.ref_protected != true }}
 
 env:
@@ -40,7 +40,7 @@ env:
 jobs:
   node-tests:
     name: Run Node.js Tests
-    runs-on: electron-arc-centralus-linux-amd64-8core
+    runs-on: neutron-arc-centralus-linux-amd64-8core
     permissions:
       contents: read
     timeout-minutes: 30
@@ -52,18 +52,18 @@ jobs:
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Set Chromium Git Cookie
-      uses: ./src/electron/.github/actions/set-chromium-cookie
+      uses: ./src/neutron/.github/actions/set-chromium-cookie
     - name: Install Build Tools
-      uses: ./src/electron/.github/actions/install-build-tools
+      uses: ./src/neutron/.github/actions/install-build-tools
     - name: Init Build Tools
       run: |
         e init -f --root=$(pwd) --out=Default ${{ inputs.gn-build-type }} --import ${{ inputs.gn-build-type }} --target-cpu ${{ inputs.target-arch }}
     - name: Install Dependencies
-      uses: ./src/electron/.github/actions/install-dependencies
+      uses: ./src/neutron/.github/actions/install-dependencies
     - name: Download Generated Artifacts
       uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
@@ -75,7 +75,7 @@ jobs:
         name: src_artifacts_linux_${{ env.TARGET_ARCH }}
         path: ./src_artifacts_linux_${{ env.TARGET_ARCH }}
     - name: Restore Generated Artifacts
-      run: ./src/electron/script/actions/restore-artifacts.sh
+      run: ./src/neutron/script/actions/restore-artifacts.sh
     - name: Unzip Dist
       run: |
         cd src/out/Default
@@ -85,7 +85,7 @@ jobs:
     - name: Run Node.js Tests
       run: |
         cd src
-        node electron/script/node-spec-runner.js --default --jUnitDir=junit
+        node neutron/script/node-spec-runner.js --default --jUnitDir=junit
     - name: Wait for active SSH sessions
       if: always() && !cancelled()
       shell: bash
@@ -96,7 +96,7 @@ jobs:
         done
   nan-tests:
     name: Run Nan Tests
-    runs-on: electron-arc-centralus-linux-amd64-4core
+    runs-on: neutron-arc-centralus-linux-amd64-4core
     permissions:
       contents: read
     timeout-minutes: 30
@@ -108,18 +108,18 @@ jobs:
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Set Chromium Git Cookie
-      uses: ./src/electron/.github/actions/set-chromium-cookie
+      uses: ./src/neutron/.github/actions/set-chromium-cookie
     - name: Install Build Tools
-      uses: ./src/electron/.github/actions/install-build-tools
+      uses: ./src/neutron/.github/actions/install-build-tools
     - name: Init Build Tools
       run: |
         e init -f --root=$(pwd) --out=Default ${{ inputs.gn-build-type }}
     - name: Install Dependencies
-      uses: ./src/electron/.github/actions/install-dependencies
+      uses: ./src/neutron/.github/actions/install-dependencies
     - name: Download Generated Artifacts
       uses: actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131
       with:
@@ -131,7 +131,7 @@ jobs:
         name: src_artifacts_linux_${{ env.TARGET_ARCH }}
         path: ./src_artifacts_linux_${{ env.TARGET_ARCH }}
     - name: Restore Generated Artifacts
-      run: ./src/electron/script/actions/restore-artifacts.sh
+      run: ./src/neutron/script/actions/restore-artifacts.sh
     - name: Unzip Dist
       run: |
         cd src/out/Default
@@ -140,11 +140,11 @@ jobs:
       run: sh -e /etc/init.d/xvfb start
     - name: Add Clang problem matcher
       shell: bash
-      run: echo "::add-matcher::src/electron/.github/problem-matchers/clang.json"
+      run: echo "::add-matcher::src/neutron/.github/problem-matchers/clang.json"
     - name: Run Nan Tests
       run: |
         cd src
-        node electron/script/nan-spec-runner.js
+        node neutron/script/nan-spec-runner.js
     - name: Remove Clang problem matcher
       shell: bash
       run: echo "::remove-matcher owner=clang::"

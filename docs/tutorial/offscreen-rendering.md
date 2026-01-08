@@ -37,7 +37,7 @@ setting.
     The frames are directly copied in GPU textures, thus this mode is very fast because
     there's no CPU-GPU memory copies overhead, and you can directly import the shared
     texture to your own rendering program. You can read more details at
-    [here](https://github.com/electron/electron/blob/main/shell/browser/osr/README.md).
+    [here](https://github.com/neutron/neutron/blob/main/shell/browser/osr/README.md).
 
 2. Use CPU shared memory bitmap
 
@@ -59,7 +59,7 @@ To enable this mode, GPU acceleration has to be disabled by calling the
 ## Example
 
 ```fiddle docs/fiddles/features/offscreen-rendering
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('neutron/main')
 const fs = require('node:fs')
 const path = require('node:path')
 

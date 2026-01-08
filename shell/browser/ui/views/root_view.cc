@@ -11,7 +11,7 @@
 #include "shell/browser/ui/views/menu_bar.h"
 #include "ui/views/layout/box_layout.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -40,7 +40,7 @@ RootView::RootView(NativeWindow* window)
 
 RootView::~RootView() = default;
 
-void RootView::SetMenu(ElectronMenuModel* menu_model) {
+void RootView::SetMenu(NeutronMenuModel* menu_model) {
   if (menu_model == nullptr) {
     // Remove accelerators
     UnregisterAcceleratorsWithFocusManager();
@@ -173,7 +173,7 @@ bool RootView::AcceleratorPressed(const ui::Accelerator& accelerator) {
 }
 
 void RootView::RegisterAcceleratorsWithFocusManager(
-    ElectronMenuModel* menu_model) {
+    NeutronMenuModel* menu_model) {
   if (!menu_model)
     return;
   // Clear previous accelerators.
@@ -194,4 +194,4 @@ void RootView::UnregisterAcceleratorsWithFocusManager() {
   focus_manager->UnregisterAccelerators(this);
 }
 
-}  // namespace electron
+}  // namespace neutron

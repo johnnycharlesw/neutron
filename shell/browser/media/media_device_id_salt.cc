@@ -12,11 +12,11 @@
 
 using content::BrowserThread;
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
-const char kMediaDeviceIdSalt[] = "electron.media.device_id_salt";
+const char kMediaDeviceIdSalt[] = "neutron.media.device_id_salt";
 
 }  // namespace
 
@@ -50,4 +50,4 @@ void MediaDeviceIDSalt::Reset(PrefService* pref_service) {
                           base::UnguessableToken::Create().ToString());
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -12,7 +12,7 @@
 #include "third_party/blink/public/common/mediastream/media_stream_request.h"
 #include "third_party/blink/public/common/permissions/permission_utils.h"
 
-namespace electron {
+namespace neutron {
 
 // Applies the permission requested for WebContents.
 class WebContentsPermissionHelper
@@ -71,6 +71,6 @@ class WebContentsPermissionHelper
   WEB_CONTENTS_USER_DATA_KEY_DECL();
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WEB_CONTENTS_PERMISSION_HELPER_H_

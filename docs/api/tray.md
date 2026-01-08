@@ -9,7 +9,7 @@ Process: [Main](../glossary.md#main-process)
 `Tray` is an [EventEmitter][event-emitter].
 
 ```js title='Creating a basic tray menu'
-const { app, Menu, Tray } = require('electron')
+const { app, Menu, Tray } = require('neutron')
 
 let tray = null
 app.whenReady().then(() => {
@@ -30,7 +30,7 @@ app.whenReady().then(() => {
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 **Platform Considerations**
 
@@ -47,7 +47,7 @@ app.whenReady().then(() => {
   you have to call `setContextMenu` again. For example:
 
 ```js
-const { app, Menu, Tray } = require('electron')
+const { app, Menu, Tray } = require('neutron')
 
 let appIcon = null
 app.whenReady().then(() => {
@@ -360,7 +360,7 @@ Returns `boolean` - Whether the tray icon is destroyed.
   you have to call `setContextMenu` again. For example:
 
 ```js
-const { app, Menu, Tray } = require('electron')
+const { app, Menu, Tray } = require('neutron')
 
 let appIcon = null
 app.whenReady().then(() => {

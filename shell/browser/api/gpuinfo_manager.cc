@@ -14,7 +14,7 @@
 #include "shell/common/gin_helper/promise.h"
 #include "shell/common/thread_restrictions.h"
 
-namespace electron {
+namespace neutron {
 
 GPUInfoManager* GPUInfoManager::GetInstance() {
   // will be deleted by CleanedUpAtExit::DoCleanup
@@ -69,7 +69,7 @@ void GPUInfoManager::FetchBasicInfo(gin_helper::Promise<base::Value> promise) {
 #if BUILDFLAG(IS_WIN)
   // Needed for CollectNPUInformation in gpu/config/gpu_info_collector_win.cc
   // which calls blocking function base::LoadSystemLibrary.
-  electron::ScopedAllowBlockingForElectron allow_blocking;
+  neutron::ScopedAllowBlockingForNeutron allow_blocking;
 #endif
   gpu::GPUInfo gpu_info;
   CollectBasicGraphicsInfo(&gpu_info);
@@ -83,4 +83,4 @@ base::Value::Dict GPUInfoManager::EnumerateGPUInfo(
   return enumerator.GetDictionary();
 }
 
-}  // namespace electron
+}  // namespace neutron

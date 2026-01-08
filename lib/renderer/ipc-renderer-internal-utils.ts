@@ -1,6 +1,6 @@
-import { ipcRendererInternal } from '@electron/internal/renderer/ipc-renderer-internal';
+import { ipcRendererInternal } from '@neutron/internal/renderer/ipc-renderer-internal';
 
-type IPCHandler = (event: Electron.IpcRendererEvent, ...args: any[]) => any
+type IPCHandler = (event: Neutron.IpcRendererEvent, ...args: any[]) => any
 
 export const handle = function <T extends IPCHandler> (channel: string, handler: T) {
   ipcRendererInternal.on(channel, async (event, requestId, ...args) => {

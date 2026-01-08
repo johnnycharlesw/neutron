@@ -7,10 +7,10 @@ import shutil
 import subprocess
 import sys
 
-from lib.util import get_electron_branding, rm_rf
+from lib.util import get_neutron_branding, rm_rf
 
-PROJECT_NAME = get_electron_branding()['project_name']
-PRODUCT_NAME = get_electron_branding()['product_name']
+PROJECT_NAME = get_neutron_branding()['project_name']
+PRODUCT_NAME = get_neutron_branding()['product_name']
 SOURCE_ROOT = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
 
 def main():
@@ -21,17 +21,17 @@ def main():
   app_path = create_app_copy(initial_app_path)
 
   if sys.platform == 'darwin':
-    electron = os.path.join(app_path, 'Contents', 'MacOS', PRODUCT_NAME)
+    neutron = os.path.join(app_path, 'Contents', 'MacOS', PRODUCT_NAME)
     ffmpeg_name = 'libffmpeg.dylib'
     ffmpeg_app_path = os.path.join(app_path, 'Contents', 'Frameworks',
                     f'{PRODUCT_NAME} Framework.framework',
                     'Libraries')
   elif sys.platform == 'win32':
-    electron = os.path.join(app_path, f'{PROJECT_NAME}.exe')
+    neutron = os.path.join(app_path, f'{PROJECT_NAME}.exe')
     ffmpeg_app_path = app_path
     ffmpeg_name = 'ffmpeg.dll'
   else:
-    electron = os.path.join(app_path, PROJECT_NAME)
+    neutron = os.path.join(app_path, PROJECT_NAME)
     ffmpeg_app_path = app_path
     ffmpeg_name = 'libffmpeg.so'
 
@@ -47,7 +47,7 @@ def main():
     env['ELECTRON_ENABLE_STACK_DUMPING'] = 'true'
     # FIXME: Enable after ELECTRON_ENABLE_LOGGING works again
     # env['ELECTRON_ENABLE_LOGGING'] = 'true'
-    testargs = [electron, test_path]
+    testargs = [neutron, test_path]
     if sys.platform != 'linux' and (platform.machine() == 'ARM64' or
         os.environ.get('TARGET_ARCH') == 'arm64'):
       testargs.append('--disable-accelerated-video-decode')

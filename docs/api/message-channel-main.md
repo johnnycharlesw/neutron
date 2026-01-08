@@ -19,7 +19,7 @@ Example:
 
 ```js
 // Main process
-const { BrowserWindow, MessageChannelMain } = require('electron')
+const { BrowserWindow, MessageChannelMain } = require('neutron')
 
 const w = new BrowserWindow()
 const { port1, port2 } = new MessageChannelMain()
@@ -27,7 +27,7 @@ w.webContents.postMessage('port', null, [port2])
 port1.postMessage({ some: 'message' })
 
 // Renderer process
-const { ipcRenderer } = require('electron')
+const { ipcRenderer } = require('neutron')
 
 ipcRenderer.on('port', (e) => {
   // e.ports is a list of ports sent along with this message
@@ -39,7 +39,7 @@ ipcRenderer.on('port', (e) => {
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### Instance Properties
 

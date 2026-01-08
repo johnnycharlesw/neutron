@@ -6,7 +6,7 @@ Subject: feat: expose raw response headers from URLLoader
 With https://chromium-review.googlesource.com/c/chromium/src/+/2856099
 unfiltered response headers are only available via trusted channel
 through //services/network/public/mojom/devtools_observer.mojom.
-https://github.com/electron/electron/pull/30503/commits/28f4da1582d046e96cb58f3cbb590503e89dfd0d
+https://github.com/neutron/neutron/pull/30503/commits/28f4da1582d046e96cb58f3cbb590503e89dfd0d
 was an attempt to use this interface but given the original response is
 signalled on a different interface via URLLoaderClient::OnReceiveResponse
 it is harder to sync these data from two different channels for a synchronous

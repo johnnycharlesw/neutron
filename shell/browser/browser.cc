@@ -15,14 +15,14 @@
 #include "chrome/common/chrome_paths.h"
 #include "gin/arguments.h"
 #include "shell/browser/browser_observer.h"
-#include "shell/browser/electron_browser_main_parts.h"
+#include "shell/browser/neutron_browser_main_parts.h"
 #include "shell/browser/native_window.h"
 #include "shell/browser/window_list.h"
 #include "shell/common/application_info.h"
 #include "shell/common/gin_converters/login_item_settings_converter.h"
 #include "shell/common/thread_restrictions.h"
 
-namespace electron {
+namespace neutron {
 
 LoginItemSettings::LoginItemSettings() = default;
 LoginItemSettings::~LoginItemSettings() = default;
@@ -68,7 +68,7 @@ void Browser::RemoveObserver(BrowserObserver* obs) {
 
 // static
 Browser* Browser::Get() {
-  return ElectronBrowserMainParts::Get()->browser();
+  return NeutronBrowserMainParts::Get()->browser();
 }
 
 #if BUILDFLAG(IS_WIN) || BUILDFLAG(IS_LINUX)
@@ -91,17 +91,17 @@ void Browser::Quit() {
   if (!is_quitting_)
     return;
 
-  if (electron::WindowList::IsEmpty())
+  if (neutron::WindowList::IsEmpty())
     NotifyAndShutdown();
   else
-    electron::WindowList::CloseAllWindows();
+    neutron::WindowList::CloseAllWindows();
 }
 
 void Browser::Exit(gin::Arguments* args) {
   int code = 0;
   args->GetNext(&code);
 
-  if (!ElectronBrowserMainParts::Get()->SetExitCode(code)) {
+  if (!NeutronBrowserMainParts::Get()->SetExitCode(code)) {
     // Message loop is not ready, quit directly.
     exit(code);
   } else {
@@ -112,12 +112,12 @@ void Browser::Exit(gin::Arguments* args) {
     is_exiting_ = true;
 
     // Must destroy windows before quitting, otherwise bad things can happen.
-    if (electron::WindowList::IsEmpty()) {
+    if (neutron::WindowList::IsEmpty()) {
       Shutdown();
     } else {
       // Unlike Quit(), we do not ask to close window, but destroy the window
       // without asking.
-      electron::WindowList::DestroyAllWindows();
+      neutron::WindowList::DestroyAllWindows();
     }
   }
 }
@@ -182,7 +182,7 @@ void Browser::WillFinishLaunching() {
 
 void Browser::DidFinishLaunching(base::Value::Dict launch_info) {
   // Make sure the userData directory is created.
-  ScopedAllowBlockingForElectron allow_blocking;
+  ScopedAllowBlockingForNeutron allow_blocking;
   base::FilePath user_data;
   if (base::PathService::Get(chrome::DIR_USER_DATA, &user_data)) {
     base::CreateDirectoryAndGetError(user_data, nullptr);
@@ -280,4 +280,4 @@ void Browser::DidResignActive() {
 }
 #endif
 
-}  // namespace electron
+}  // namespace neutron

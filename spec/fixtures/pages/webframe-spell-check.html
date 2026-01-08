@@ -1,7 +1,7 @@
 <html>
 <body>
 <script type="text/javascript" charset="utf-8">
-  const {ipcRenderer, webFrame} = require('electron')
+  const {ipcRenderer, webFrame} = require('neutron')
   webFrame.setSpellCheckProvider('en-US', {
     spellCheck: (words, callback) => {
       callback(words)

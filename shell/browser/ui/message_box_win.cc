@@ -22,7 +22,7 @@
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/win/icon_util.h"
 
-namespace electron {
+namespace neutron {
 
 MessageBoxSettings::MessageBoxSettings() = default;
 MessageBoxSettings::MessageBoxSettings(const MessageBoxSettings&) = default;
@@ -178,7 +178,7 @@ DialogResult ShowTaskDialogWstr(gfx::AcceleratedWidget parent,
   }
 
   // TaskDialogIndirect doesn't allow empty name, if we set empty title it
-  // will show "electron.exe" in title.
+  // will show "neutron.exe" in title.
   std::wstring app_name;
   if (title.empty()) {
     app_name = base::UTF8ToWide(Browser::Get()->GetName());
@@ -287,7 +287,7 @@ DialogResult ShowTaskDialogUTF8(const MessageBoxSettings& settings,
 int ShowMessageBoxSync(const MessageBoxSettings& settings) {
   gfx::AcceleratedWidget parent_widget =
       settings.parent_window
-          ? static_cast<electron::NativeWindowViews*>(settings.parent_window)
+          ? static_cast<neutron::NativeWindowViews*>(settings.parent_window)
                 ->GetAcceleratedWidget()
           : nullptr;
   DialogResult result = ShowTaskDialogUTF8(settings, parent_widget, nullptr);
@@ -309,7 +309,7 @@ void ShowMessageBox(const MessageBoxSettings& settings,
 
   gfx::AcceleratedWidget parent_widget =
       settings.parent_window
-          ? static_cast<electron::NativeWindowViews*>(settings.parent_window)
+          ? static_cast<neutron::NativeWindowViews*>(settings.parent_window)
                 ->GetAcceleratedWidget()
           : nullptr;
   dialog_thread::Run(base::BindOnce(&ShowTaskDialogUTF8, settings,
@@ -351,4 +351,4 @@ void ShowErrorBox(const std::u16string& title, const std::u16string& content) {
                      nullptr);
 }
 
-}  // namespace electron
+}  // namespace neutron

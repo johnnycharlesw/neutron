@@ -10,7 +10,7 @@
 
 #include "base/macros/remove_parens.h"
 #include "base/strings/stringize_macros.h"
-#include "electron/electron_gtk_stubs.h"
+#include "neutron/neutron_gtk_stubs.h"
 #include "third_party/skia/include/core/SkBitmap.h"
 #include "third_party/skia/include/core/SkColor.h"
 #include "third_party/skia/include/core/SkUnPreMultiply.h"

@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow } = require('neutron');
 
 app.whenReady().then(() => {
   const w = new BrowserWindow({ show: false, webPreferences: { webviewTag: true } });

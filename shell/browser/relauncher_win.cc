@@ -96,7 +96,7 @@ StringType AddQuoteForArg(const StringType& arg) {
 }  // namespace
 
 StringType GetWaitEventName(base::ProcessId pid) {
-  return base::StrCat({L"ElectronRelauncherWaitEvent-",
+  return base::StrCat({L"NeutronRelauncherWaitEvent-",
                        base::NumberToWString(static_cast<int>(pid))});
 }
 

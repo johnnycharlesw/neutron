@@ -8,7 +8,7 @@
 
 #include <IOSurface/IOSurface.h>
 
-namespace electron {
+namespace neutron {
 
 void OffScreenHostDisplayClient::OnDisplayReceivedCALayerParams(
     const gfx::CALayerParams& ca_layer_params) {
@@ -36,4 +36,4 @@ void OffScreenHostDisplayClient::OnDisplayReceivedCALayerParams(
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -12,7 +12,7 @@
 #include "ui/views/widget/widget.h"
 #include "ui/views/widget/widget_delegate.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -41,7 +41,7 @@ int FramelessView::ResizingBorderHitTestImpl(const gfx::Point& point,
                              ? frame_->widget_delegate()->CanResize()
                              : false;
 
-  // https://github.com/electron/electron/issues/611
+  // https://github.com/neutron/neutron/issues/611
   // If window isn't resizable, we should always return HTNOWHERE, otherwise the
   // hover state of DOM will not be cleared probably.
   if (!can_ever_resize)
@@ -113,7 +113,7 @@ gfx::Size FramelessView::GetMinimumSize() const {
 
 gfx::Size FramelessView::GetMaximumSize() const {
   gfx::Size size = window_->GetContentMaximumSize();
-  // Electron public APIs returns (0, 0) when maximum size is not set, but it
+  // Neutron public APIs returns (0, 0) when maximum size is not set, but it
   // would break internal window APIs like HWNDMessageHandler::SetAspectRatio.
   return size.IsEmpty() ? gfx::Size(INT_MAX, INT_MAX) : size;
 }
@@ -121,4 +121,4 @@ gfx::Size FramelessView::GetMaximumSize() const {
 BEGIN_METADATA(FramelessView)
 END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

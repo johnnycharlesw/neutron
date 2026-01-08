@@ -1,4 +1,4 @@
-const { app, ipcMain } = require('electron');
+const { app, ipcMain } = require('neutron');
 
 app.whenReady().then(() => {
   process.stdout.write(JSON.stringify(ipcMain.eventNames()));

@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow, ipcMain, shell } = require('electron/main')
+const { app, BrowserWindow, ipcMain, shell } = require('neutron/main')
 const path = require('node:path')
 
 function createWindow () {
@@ -28,7 +28,7 @@ function createWindow () {
       return
     }
     demoWindow = new BrowserWindow({ width: 600, height: 400 })
-    demoWindow.loadURL('https://electronjs.org')
+    demoWindow.loadURL('https://neutronjs.org')
     demoWindow.on('close', () => {
       demoWindow = undefined
       mainWindow.webContents.send('window-close')

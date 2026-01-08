@@ -1,7 +1,7 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import * as ipcRendererUtils from '@electron/internal/renderer/ipc-renderer-internal-utils';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import * as ipcRendererUtils from '@neutron/internal/renderer/ipc-renderer-internal-utils';
 
-import { webFrame, WebFrame } from 'electron/renderer';
+import { webFrame, WebFrame } from 'neutron/renderer';
 
 // All keys of WebFrame that extend Function
 type WebFrameMethod = {

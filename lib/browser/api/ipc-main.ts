@@ -1,4 +1,4 @@
-import { IpcMainImpl } from '@electron/internal/browser/ipc-main-impl';
+import { IpcMainImpl } from '@neutron/internal/browser/ipc-main-impl';
 
 const ipcMain = new IpcMainImpl();
 

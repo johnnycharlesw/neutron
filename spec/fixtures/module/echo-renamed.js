@@ -1,6 +1,6 @@
 let echo;
 try {
-  echo = require('@electron-ci/echo');
+  echo = require('@neutron-ci/echo');
 } catch {
   process.exit(1);
 }

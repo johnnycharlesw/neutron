@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain, WebContents } from 'electron/main';
+import { BrowserWindow, ipcMain, WebContents } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -83,7 +83,7 @@ describe('webFrame module', () => {
       await win.loadURL('data:text/html,<iframe name="test"></iframe>');
       w = win.webContents;
       await w.executeJavaScript(`
-        var { webFrame } = require('electron');
+        var { webFrame } = require('neutron');
         var isSameWebFrame = (a, b) => a.context === b.context;
         childFrame = webFrame.firstChild;
         null

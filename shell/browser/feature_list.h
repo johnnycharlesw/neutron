@@ -7,11 +7,11 @@
 
 #include <string>
 
-namespace electron {
+namespace neutron {
 void InitializeFeatureList();
 void InitializeFieldTrials();
 std::string EnablePlatformSpecificFeatures();
 std::string DisablePlatformSpecificFeatures();
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_FEATURE_LIST_H_

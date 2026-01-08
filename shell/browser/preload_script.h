@@ -11,7 +11,7 @@
 #include "gin/converter.h"
 #include "v8/include/v8-forward.h"
 
-namespace electron {
+namespace neutron {
 
 struct PreloadScript {
   enum class ScriptType { kWebFrame, kServiceWorker };
@@ -24,11 +24,11 @@ struct PreloadScript {
   bool deprecated = false;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 namespace gin {
 
-using electron::PreloadScript;
+using neutron::PreloadScript;
 
 template <>
 struct Converter<PreloadScript::ScriptType> {

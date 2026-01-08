@@ -10,13 +10,13 @@
       <h1>Drag and drop files</h1>
       <div>Supports: Win, macOS, Linux <span>|</span> Process: Both</div>
       <h3>
-        Electron supports dragging files and content out from web content into
+        Neutron supports dragging files and content out from web content into
         the operating system's world.
       </h3>
 
       <p>
         Open the
-        <a href="https://www.electronjs.org/docs/latest/tutorial/native-file-drag-drop">
+        <a href="https://www.neutronjs.org/docs/latest/tutorial/native-file-drag-drop">
           full API documentation (opens in new window)
         </a>
         in your browser.
@@ -41,7 +41,7 @@
           </p>
           <h5>Renderer Process</h5>
           <pre><code>
-const {ipcRenderer} = require('electron')
+const {ipcRenderer} = require('neutron')
 
 const dragFileLink = document.getElementById('drag-file-link')
 
@@ -53,7 +53,7 @@ dragFileLink.addEventListener('dragstart', (event) => {
           <h5>Main Process</h5>
           <pre>
             <code>
-const {ipcMain} = require('electron')
+const {ipcMain} = require('neutron')
 const path = require('path')
 
 ipcMain.on('ondragstart', (event, filepath) => {

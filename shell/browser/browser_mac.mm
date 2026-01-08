@@ -18,17 +18,17 @@
 #include "base/mac/mac_util.mm"
 #include "base/strings/sys_string_conversions.h"
 #include "chrome/browser/browser_process.h"
-#include "electron/mas.h"
+#include "neutron/mas.h"
 #include "net/base/apple/url_conversions.h"
 #include "shell/browser/badging/badge_manager.h"
 #include "shell/browser/browser_observer.h"
 #include "shell/browser/javascript_environment.h"
 #include "shell/browser/mac/dict_util.h"
-#include "shell/browser/mac/electron_application.h"
-#include "shell/browser/mac/electron_application_delegate.h"
+#include "shell/browser/mac/neutron_application.h"
+#include "shell/browser/mac/neutron_application_delegate.h"
 #include "shell/browser/native_window.h"
 #include "shell/browser/window_list.h"
-#include "shell/common/api/electron_api_native_image.h"
+#include "shell/common/api/neutron_api_native_image.h"
 #include "shell/common/application_info.h"
 #include "shell/common/gin_converters/image_converter.h"
 #include "shell/common/gin_converters/login_item_settings_converter.h"
@@ -40,7 +40,7 @@
 #include "ui/gfx/image/image.h"
 #include "url/gurl.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -654,4 +654,4 @@ void Browser::SetSecureKeyboardEntryEnabled(bool enabled) {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

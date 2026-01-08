@@ -1,13 +1,13 @@
 <html>
 <body>
 <script type="text/javascript" charset="utf-8">
-  const {ipcRenderer} = require('electron')
+  const {ipcRenderer} = require('neutron')
 
   let echo
   let requireError
 
   try {
-    echo = require('@electron-ci/echo')
+    echo = require('@neutron-ci/echo')
   } catch (error) {
     requireError = error
   }

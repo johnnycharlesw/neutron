@@ -9,7 +9,7 @@ module is emitted.
 
 ```js
 // In the main process.
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ width: 800, height: 600 })
 
@@ -39,7 +39,7 @@ process has rendered the page for the first time if the window has not been show
 the window after this event will have no visual flash:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ show: false })
 win.once('ready-to-show', () => {
@@ -61,7 +61,7 @@ the app feel slow. In this case, it is recommended to show the window
 immediately, and use a `backgroundColor` close to your app's background:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow({ backgroundColor: '#2e2c29' })
 win.loadURL('https://github.com')
@@ -87,7 +87,7 @@ For more information about these color types see valid options in [win.setBackgr
 By using `parent` option, you can create child windows:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const top = new BrowserWindow()
 const child = new BrowserWindow({ parent: top })
@@ -103,7 +103,7 @@ A modal window is a child window that disables parent window. To create a modal
 window, you have to set both the `parent` and `modal` options:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const top = new BrowserWindow()
 const child = new BrowserWindow({ parent: top, modal: true, show: false })
@@ -157,7 +157,7 @@ It creates a new `BrowserWindow` with native properties as set by the `options`.
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### `new BrowserWindow([options])`
 
@@ -381,7 +381,7 @@ Commands are lowercased, underscores are replaced with hyphens, and the
 e.g. `APPCOMMAND_BROWSER_BACKWARD` is emitted as `browser-backward`.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 win.on('app-command', (e, cmd) => {
@@ -493,7 +493,7 @@ Returns `BrowserWindow | null` - The window with the given `id`.
 Objects created with `new BrowserWindow` have the following properties:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 // In this example `win` is our instance
 const win = new BrowserWindow({ width: 800, height: 600 })
 win.loadURL('https://github.com')
@@ -838,7 +838,7 @@ Resizes and moves the window to the supplied bounds. Any properties that are not
 On Wayland (Linux), has the same limitations as `setSize` and `setPosition`.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 
@@ -1111,7 +1111,7 @@ attached just below the window frame, but you may want to display them beneath
 a HTML-rendered toolbar. For example:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 
@@ -1124,7 +1124,7 @@ win.setSheetOffset(toolbarRect.height)
 <!--
 ```YAML history
 changes:
-  - pr-url: https://github.com/electron/electron/pull/41391
+  - pr-url: https://github.com/neutron/neutron/pull/41391
     description: "`window.flashFrame(bool)` will flash dock icon continuously on macOS"
     breaking-changes-header: behavior-changed-windowflashframebool-will-flash-dock-icon-continuously-on-macos
 ```
@@ -1265,7 +1265,7 @@ Node's [`url.format`](https://nodejs.org/api/url.html#url_url_format_urlobject)
 method:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 
@@ -1282,7 +1282,7 @@ You can load a URL using a `POST` request with URL-encoded data by doing
 the following:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 
@@ -1610,7 +1610,7 @@ to
 [`NSWindowSharingNone`](https://developer.apple.com/documentation/appkit/nswindow/sharingtype-swift.enum/none?language=objc).
 Unfortunately, due to an intentional change in macOS, newer Mac applications that use
 `ScreenCaptureKit` will capture your window despite `win.setContentProtection(true)`.
-See [here](https://github.com/electron/electron/issues/48258#issuecomment-3269893618).
+See [here](https://github.com/neutron/neutron/issues/48258#issuecomment-3269893618).
 
 #### `win.isContentProtected()` _macOS_ _Windows_
 

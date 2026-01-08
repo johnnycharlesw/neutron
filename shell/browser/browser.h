@@ -37,10 +37,10 @@ namespace gin_helper {
 class Arguments;
 }
 
-namespace electron {
+namespace neutron {
 
 class BrowserObserver;
-class ElectronMenuModel;
+class NeutronMenuModel;
 
 #if BUILDFLAG(IS_WIN)
 struct LaunchItem {
@@ -114,7 +114,7 @@ class Browser : private WindowListObserver {
   // Overrides the application version.
   void SetVersion(const std::string& version);
 
-  // Returns the application's name, default is just Electron.
+  // Returns the application's name, default is just Neutron.
   std::string GetName() const;
 
   // Overrides the application name.
@@ -234,7 +234,7 @@ class Browser : private WindowListObserver {
   bool DockIsVisible();
 
   // Set docks' menu.
-  void DockSetMenu(ElectronMenuModel* model);
+  void DockSetMenu(NeutronMenuModel* model);
 
   // Set docks' icon.
   void DockSetIcon(v8::Isolate* isolate, v8::Local<v8::Value> icon);
@@ -391,6 +391,6 @@ class Browser : private WindowListObserver {
 #endif
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_BROWSER_H_

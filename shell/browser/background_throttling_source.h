@@ -5,7 +5,7 @@
 #ifndef ELECTRON_SHELL_BROWSER_BACKGROUND_THROTTLING_SOURCE
 #define ELECTRON_SHELL_BROWSER_BACKGROUND_THROTTLING_SOURCE
 
-namespace electron {
+namespace neutron {
 
 class BackgroundThrottlingSource {
  public:
@@ -13,6 +13,6 @@ class BackgroundThrottlingSource {
   virtual bool GetBackgroundThrottling() const = 0;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_BACKGROUND_THROTTLING_SOURCE

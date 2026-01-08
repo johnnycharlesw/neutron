@@ -1,4 +1,4 @@
-import { BrowserWindow, ipcMain } from 'electron/main';
+import { BrowserWindow, ipcMain } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -1711,7 +1711,7 @@ describe('asar package', function () {
   describe('native-image', function () {
     itremote('reads image from asar archive', function () {
       const p = path.join(asarDir, 'logo.asar', 'logo.png');
-      const logo = require('electron').nativeImage.createFromPath(p);
+      const logo = require('neutron').nativeImage.createFromPath(p);
       expect(logo.getSize()).to.deep.equal({
         width: 55,
         height: 55
@@ -1720,7 +1720,7 @@ describe('asar package', function () {
 
     itremote('reads image from asar archive with unpacked files', function () {
       const p = path.join(asarDir, 'unpack.asar', 'atom.png');
-      const logo = require('electron').nativeImage.createFromPath(p);
+      const logo = require('neutron').nativeImage.createFromPath(p);
       expect(logo.getSize()).to.deep.equal({
         width: 1024,
         height: 1024

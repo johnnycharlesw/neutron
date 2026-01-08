@@ -3,7 +3,7 @@ From: Jeremy Apthorp <nornagon@nornagon.net>
 Date: Thu, 20 Sep 2018 17:48:59 -0700
 Subject: resource_file_conflict.patch
 
-Resolve conflict between //chrome's .pak files and //electron's. The paths
+Resolve conflict between //chrome's .pak files and //neutron's. The paths
 that chrome code hardcodes require that we generate resources at these
 paths, but GN throws errors if there are multiple targets that generate the
 same files.
@@ -14,7 +14,7 @@ and here:
 https://chromium.googlesource.com/chromium/src/+/69.0.3497.106/ui/base/resource/resource_bundle_mac.mm#50
 
 This isn't needed on Mac because resource files are copied into the app bundle,
-and are built in `$root_out_dir/electron_repack` (while Chromium's resources
+and are built in `$root_out_dir/neutron_repack` (while Chromium's resources
 target `$root_out_dir/repack`), but on Windows and Linux, the resource files go
 directly in `$root_out_dir`, and so they conflict.
 
@@ -32,7 +32,7 @@ patch, GN refuses to generate the ninja files:
 
    Collisions:
      //chrome:packed_resources_100_percent
-     //electron:packed_resources_100_percent
+     //neutron:packed_resources_100_percent
 
    See //tools/grit/repack.gni:35:3: Collision.
      action(_repack_target_name) {
@@ -45,7 +45,7 @@ Some alternatives to this patch:
    LoadChromeResources would check.
 2. Pass a Delegate that overrides `GetPathForResourcePack`, check for the
    `chrome_{100,200}_percent.pak` filenames, and rewrite them to
-   `electron_{100,200}_percent.pak`.
+   `neutron_{100,200}_percent.pak`.
 3. Initialize the resource bundle with DO_NOT_LOAD_COMMON_RESOURCES and load
    the paks ourselves.
 
@@ -60,7 +60,7 @@ index f8d29b704ab491524175e773062c624dfd59db0a..f21010994e7e554c63f1bf24d5c09e99
  }
  
 -if (!is_android) {
-+if (!is_android && !is_electron_build) {
++if (!is_android && !is_neutron_build) {
    chrome_paks("packed_resources") {
      if (is_mac) {
        output_dir = "$root_gen_dir/repack"
@@ -68,9 +68,9 @@ index f8d29b704ab491524175e773062c624dfd59db0a..f21010994e7e554c63f1bf24d5c09e99
    deps = [ "//chrome/test/data/webui:resources" ]
  }
  
-+if (is_electron_build) {
++if (is_neutron_build) {
 +  group("packed_resources") {
-+    public_deps = [ "//electron:packed_resources" ]
++    public_deps = [ "//neutron:packed_resources" ]
 +  }
 +}
 +

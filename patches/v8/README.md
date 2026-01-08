@@ -1,7 +1,7 @@
 ### Exporting node's patches to v8
 
 ```cmd
-$ cd third_party/electron_node
+$ cd third_party/neutron_node
 $ CURRENT_NODE_VERSION=vX.Y.Z  # e.g. v10.11.0
 
 # Find the last commit with the message "deps: update V8 to <some version>"

@@ -1,10 +1,10 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
 From: deepak1556 <hop2deep@gmail.com>
 Date: Wed, 20 Aug 2025 04:03:11 +0900
-Subject: chore: add electron objects to WrappablePointerTag
+Subject: chore: add neutron objects to WrappablePointerTag
 
 Extends gin::WrappablePointerTag with tags needed for
-electron objects that extend gin::Wrappable and gets
+neutron objects that extend gin::Wrappable and gets
 allocated on the cpp heap
 
 diff --git a/gin/public/wrappable_pointer_tags.h b/gin/public/wrappable_pointer_tags.h
@@ -16,13 +16,13 @@ index 573bcb2e56068a2ade6d8ab28964b077487874fd..0321ca6d3c7e1ed541cc1beffb20b1db
    kWebAXObjectProxy,             // content::WebAXObjectProxy
    kWrappedExceptionHandler,      // extensions::WrappedExceptionHandler
 -  kLastPointerTag = kWrappedExceptionHandler,
-+  kElectronApp,                         // electron::api::App
-+  kElectronDebugger,                    // electron::api::Debugger
++  kElectronApp,                         // neutron::api::App
++  kElectronDebugger,                    // neutron::api::Debugger
 +  kElectronEvent,                       // gin_helper::internal::Event
-+  kElectronMenu,                        // electron::api::Menu
-+  kElectronNetLog,                      // electron::api::NetLog
-+  kElectronSession,                     // electron::api::Session
-+  kElectronWebRequest,                  // electron::api::WebRequest
++  kElectronMenu,                        // neutron::api::Menu
++  kElectronNetLog,                      // neutron::api::NetLog
++  kElectronSession,                     // neutron::api::Session
++  kElectronWebRequest,                  // neutron::api::WebRequest
 +  kLastPointerTag = kElectronWebRequest,
  };
  

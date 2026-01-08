@@ -10,7 +10,7 @@
 
 #include <string>
 
-namespace electron {
+namespace neutron {
 
 class ScopedHString {
  public:
@@ -40,6 +40,6 @@ class ScopedHString {
   HSTRING str_ = nullptr;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WIN_SCOPED_HSTRING_H_

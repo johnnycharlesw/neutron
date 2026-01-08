@@ -1,30 +1,30 @@
 export const moduleList: ElectronInternal.ModuleEntry[] = [
   {
     name: 'contextBridge',
-    loader: () => require('@electron/internal/renderer/api/context-bridge')
+    loader: () => require('@neutron/internal/renderer/api/context-bridge')
   },
   {
     name: 'crashReporter',
-    loader: () => require('@electron/internal/renderer/api/crash-reporter')
+    loader: () => require('@neutron/internal/renderer/api/crash-reporter')
   },
   {
     name: 'ipcRenderer',
-    loader: () => require('@electron/internal/renderer/api/ipc-renderer')
+    loader: () => require('@neutron/internal/renderer/api/ipc-renderer')
   },
   {
     name: 'nativeImage',
-    loader: () => require('@electron/internal/common/api/native-image')
+    loader: () => require('@neutron/internal/common/api/native-image')
   },
   {
     name: 'sharedTexture',
-    loader: () => require('@electron/internal/renderer/api/shared-texture')
+    loader: () => require('@neutron/internal/renderer/api/shared-texture')
   },
   {
     name: 'webFrame',
-    loader: () => require('@electron/internal/renderer/api/web-frame')
+    loader: () => require('@neutron/internal/renderer/api/web-frame')
   },
   {
     name: 'webUtils',
-    loader: () => require('@electron/internal/renderer/api/web-utils')
+    loader: () => require('@neutron/internal/renderer/api/web-utils')
   }
 ];

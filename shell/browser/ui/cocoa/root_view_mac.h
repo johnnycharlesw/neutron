@@ -8,7 +8,7 @@
 #include "base/memory/raw_ptr.h"
 #include "ui/views/view.h"
 
-namespace electron {
+namespace neutron {
 
 class NativeWindow;
 
@@ -30,6 +30,6 @@ class RootViewMac : public views::View {
   raw_ptr<NativeWindow> window_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_COCOA_ROOT_VIEW_MAC_H_

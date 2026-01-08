@@ -1,4 +1,4 @@
-import * as electron from 'electron';
+import * as neutron from 'neutron';
 
-console.log('ESM Package Launch, ready:', electron.app.isReady());
+console.log('ESM Package Launch, ready:', neutron.app.isReady());
 process.exit(0);

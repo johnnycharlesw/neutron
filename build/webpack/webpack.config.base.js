@@ -5,13 +5,13 @@ const WrapperPlugin = require('wrapper-webpack-plugin');
 const fs = require('node:fs');
 const path = require('node:path');
 
-const electronRoot = path.resolve(__dirname, '../..');
+const neutronRoot = path.resolve(__dirname, '../..');
 
 class AccessDependenciesPlugin {
   apply (compiler) {
     compiler.hooks.compilation.tap('AccessDependenciesPlugin', compilation => {
       compilation.hooks.finishModules.tap('AccessDependenciesPlugin', modules => {
-        const filePaths = modules.map(m => m.resource).filter(p => p).map(p => path.relative(electronRoot, p));
+        const filePaths = modules.map(m => m.resource).filter(p => p).map(p => path.relative(neutronRoot, p));
         console.info(JSON.stringify(filePaths));
       });
     });
@@ -26,12 +26,12 @@ module.exports = ({
   wrapInitWithProfilingTimeout,
   wrapInitWithTryCatch
 }) => {
-  let entry = path.resolve(electronRoot, 'lib', target, 'init.ts');
+  let entry = path.resolve(neutronRoot, 'lib', target, 'init.ts');
   if (!fs.existsSync(entry)) {
-    entry = path.resolve(electronRoot, 'lib', target, 'init.js');
+    entry = path.resolve(neutronRoot, 'lib', target, 'init.js');
   }
 
-  const electronAPIFile = path.resolve(electronRoot, 'lib', loadElectronFromAlternateTarget || target, 'api', 'exports', 'electron.ts');
+  const neutronAPIFile = path.resolve(neutronRoot, 'lib', loadElectronFromAlternateTarget || target, 'api', 'exports', 'neutron.ts');
 
   return (env = {}, argv = {}) => {
     const onlyPrintingGraph = !!env.PRINT_WEBPACK_GRAPH;
@@ -62,9 +62,9 @@ module.exports = ({
 
     if (targetDeletesNodeGlobals) {
       plugins.push(new webpack.ProvidePlugin({
-        Buffer: ['@electron/internal/common/webpack-provider', 'Buffer'],
-        global: ['@electron/internal/common/webpack-provider', '_global'],
-        process: ['@electron/internal/common/webpack-provider', 'process']
+        Buffer: ['@neutron/internal/common/webpack-provider', 'Buffer'],
+        global: ['@neutron/internal/common/webpack-provider', '_global'],
+        process: ['@neutron/internal/common/webpack-provider', 'process']
       }));
     }
 
@@ -77,20 +77,20 @@ module.exports = ({
     }
 
     plugins.push(new webpack.ProvidePlugin({
-      Promise: ['@electron/internal/common/webpack-globals-provider', 'Promise']
+      Promise: ['@neutron/internal/common/webpack-globals-provider', 'Promise']
     }));
 
     plugins.push(new webpack.DefinePlugin(defines));
 
     if (wrapInitWithProfilingTimeout) {
       plugins.push(new WrapperPlugin({
-        header: 'function ___electron_webpack_init__() {',
+        header: 'function ___neutron_webpack_init__() {',
         footer: `
 };
-if ((globalThis.process || binding.process).argv.includes("--profile-electron-init")) {
-  setTimeout(___electron_webpack_init__, 0);
+if ((globalThis.process || binding.process).argv.includes("--profile-neutron-init")) {
+  setTimeout(___neutron_webpack_init__, 0);
 } else {
-  ___electron_webpack_init__();
+  ___neutron_webpack_init__();
 }`
       }));
     }
@@ -116,14 +116,14 @@ if ((globalThis.process || binding.process).argv.includes("--profile-electron-in
       },
       resolve: {
         alias: {
-          '@electron/internal': path.resolve(electronRoot, 'lib'),
-          electron$: electronAPIFile,
-          'electron/main$': electronAPIFile,
-          'electron/renderer$': electronAPIFile,
-          'electron/common$': electronAPIFile,
-          'electron/utility$': electronAPIFile,
+          '@neutron/internal': path.resolve(neutronRoot, 'lib'),
+          neutron$: neutronAPIFile,
+          'neutron/main$': neutronAPIFile,
+          'neutron/renderer$': neutronAPIFile,
+          'neutron/common$': neutronAPIFile,
+          'neutron/utility$': neutronAPIFile,
           // Force timers to resolve to our dependency that doesn't use window.postMessage
-          timers: path.resolve(electronRoot, 'node_modules', 'timers-browserify', 'main.js')
+          timers: path.resolve(neutronRoot, 'node_modules', 'timers-browserify', 'main.js')
         },
         extensions: ['.ts', '.js'],
         fallback: {
@@ -140,7 +140,7 @@ if ((globalThis.process || binding.process).argv.includes("--profile-electron-in
           test: /\.ts$/,
           loader: 'ts-loader',
           options: {
-            configFile: path.resolve(electronRoot, 'tsconfig.electron.json'),
+            configFile: path.resolve(neutronRoot, 'tsconfig.neutron.json'),
             transpileOnly: onlyPrintingGraph,
             ignoreDiagnostics: [
               // File '{0}' is not under 'rootDir' '{1}'.

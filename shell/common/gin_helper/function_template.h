@@ -131,7 +131,7 @@ bool GetNextArgument(gin::Arguments* args,
   }
 }
 
-// Electron-specific GetNextArgument that supports std::optional.
+// Neutron-specific GetNextArgument that supports std::optional.
 template <typename T>
 bool GetNextArgument(gin::Arguments* args,
                      const InvokerOptions& invoker_options,
@@ -144,7 +144,7 @@ bool GetNextArgument(gin::Arguments* args,
   return true;
 }
 
-// Electron-specific GetNextArgument that supports ErrorThrower.
+// Neutron-specific GetNextArgument that supports ErrorThrower.
 inline bool GetNextArgument(gin::Arguments* args,
                             const InvokerOptions& invoker_options,
                             bool is_first,

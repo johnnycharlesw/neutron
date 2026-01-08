@@ -11,7 +11,7 @@ declare const binding: {
 process._linkedBinding = binding.get;
 
 const { EventEmitter } = events;
-const v8Util = process._linkedBinding('electron_common_v8_util');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
 
 // Include properties from script 'binding' parameter.
 Object.assign(process, binding.process);

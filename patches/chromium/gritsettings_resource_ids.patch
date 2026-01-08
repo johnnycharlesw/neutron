@@ -3,7 +3,7 @@ From: deepak1556 <hop2deep@gmail.com>
 Date: Thu, 18 Oct 2018 17:07:17 -0700
 Subject: gritsettings_resource_ids.patch
 
-Add electron resources file to the list of resource ids generation.
+Add neutron resources file to the list of resource ids generation.
 
 diff --git a/tools/gritsettings/resource_ids.spec b/tools/gritsettings/resource_ids.spec
 index 05e4c8df0474b83fa5dfdca6ef70411f98fb332c..57339cf20746680b834aca498c83be3379e1ec7f 100644
@@ -13,7 +13,7 @@ index 05e4c8df0474b83fa5dfdca6ef70411f98fb332c..57339cf20746680b834aca498c83be33
      "messages": [10120],
    },
  
-+  "electron/build/electron_resources.grd": {
++  "neutron/build/neutron_resources.grd": {
 +    "messages": [31750],
 +    "includes": [31950],
 +  }

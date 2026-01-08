@@ -16,7 +16,7 @@ class Location;
 class TimeDelta;
 }  // namespace base
 
-namespace electron {
+namespace neutron {
 
 // TaskRunner implementation that posts tasks into libuv's default loop.
 class UvTaskRunner : public base::SingleThreadTaskRunner {
@@ -44,6 +44,6 @@ class UvTaskRunner : public base::SingleThreadTaskRunner {
   std::map<UvHandle<uv_timer_t>, base::OnceClosure, UvHandleCompare> tasks_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_APP_UV_TASK_RUNNER_H_

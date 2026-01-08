@@ -1,4 +1,4 @@
-const { app, BrowserWindow, Notification } = require('electron/main')
+const { app, BrowserWindow, Notification } = require('neutron/main')
 
 function createWindow () {
   const win = new BrowserWindow({

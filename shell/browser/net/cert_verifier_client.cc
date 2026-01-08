@@ -7,7 +7,7 @@
 #include "net/cert/cert_verify_result.h"
 #include "shell/browser/net/cert_verifier_client.h"
 
-namespace electron {
+namespace neutron {
 
 VerifyRequestParams::VerifyRequestParams() = default;
 
@@ -43,4 +43,4 @@ void CertVerifierClient::Verify(
           std::move(callback), default_result));
 }
 
-}  // namespace electron
+}  // namespace neutron

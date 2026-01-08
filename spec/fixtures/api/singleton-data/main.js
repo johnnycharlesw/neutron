@@ -1,4 +1,4 @@
-const { app } = require('electron');
+const { app } = require('neutron');
 
 // Send data from the second instance to the first instance.
 const sendAdditionalData = app.commandLine.hasSwitch('send-data');

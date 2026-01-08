@@ -1,4 +1,4 @@
-import { BrowserWindow, WebPreferences } from 'electron/main';
+import { BrowserWindow, WebPreferences } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -12,7 +12,7 @@ import { listen } from './lib/spec-helpers';
 import { closeWindow } from './lib/window-helpers';
 
 const messageContainsSecurityWarning = (event: Event, level: number, message: string) => {
-  return message.includes('Electron Security Warning');
+  return message.includes('Neutron Security Warning');
 };
 
 const isLoaded = (event: Event, level: number, message: string) => {

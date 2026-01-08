@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "electron/shell/browser/extensions/api/streams_private/streams_private_api.h"
+#include "neutron/shell/browser/extensions/api/streams_private/streams_private_api.h"
 
 #include <memory>
 #include <utility>
@@ -10,12 +10,12 @@
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/frame_tree_node_id.h"
 #include "content/public/browser/web_contents.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "extensions/browser/extension_registry.h"
 #include "extensions/browser/guest_view/mime_handler_view/mime_handler_stream_manager.h"
 #include "extensions/browser/guest_view/mime_handler_view/mime_handler_view_guest.h"
 #include "extensions/common/manifest_handlers/mime_types_handler.h"
-#include "shell/browser/api/electron_api_web_contents.h"
+#include "shell/browser/api/neutron_api_web_contents.h"
 
 #if BUILDFLAG(ENABLE_PDF_VIEWER)
 #include "base/feature_list.h"
@@ -61,7 +61,7 @@ void StreamsPrivateAPI::SendExecuteMimeTypeHandlerEvent(
       handler->handler_url());
 
   int tab_id = -1;
-  auto* api_contents = electron::api::WebContents::From(web_contents);
+  auto* api_contents = neutron::api::WebContents::From(web_contents);
   if (api_contents)
     tab_id = api_contents->ID();
 

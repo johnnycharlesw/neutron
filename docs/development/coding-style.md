@@ -75,4 +75,4 @@ Electron APIs uses the same capitalization scheme as Node.js:
 When creating a new API, it is preferred to use getters and setters instead of
 jQuery's one-function style. For example, `.getText()` and `.setText(text)`
 are preferred to `.text([text])`. There is a
-[discussion](https://github.com/electron/electron/issues/46) on this.
+[discussion](https://github.com/neutron/neutron/issues/46) on this.

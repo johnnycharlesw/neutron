@@ -1,4 +1,4 @@
-import { app, BrowserWindow, Menu, session, net as electronNet, WebContents, utilityProcess } from 'electron/main';
+import { app, BrowserWindow, Menu, session, net as neutronNet, WebContents, utilityProcess } from 'neutron/main';
 
 import { assert, expect } from 'chai';
 import * as semver from 'semver';
@@ -22,16 +22,16 @@ const fixturesPath = path.resolve(__dirname, 'fixtures');
 
 const isMacOSx64 = process.platform === 'darwin' && process.arch === 'x64';
 
-describe('electron module', () => {
+describe('neutron module', () => {
   it('does not expose internal modules to require', () => {
     expect(() => {
       require('clipboard');
     }).to.throw(/Cannot find module 'clipboard'/);
   });
 
-  describe('require("electron")', () => {
-    it('always returns the internal electron module', () => {
-      require('electron');
+  describe('require("neutron")', () => {
+    it('always returns the internal neutron module', () => {
+      require('neutron');
     });
   });
 });
@@ -89,29 +89,29 @@ describe('app module', () => {
   describe('app name APIs', () => {
     describe('with properties', () => {
       it('returns the name field of package.json', () => {
-        expect(app.name).to.equal('Electron Test Main');
+        expect(app.name).to.equal('Neutron Test Main');
       });
 
       it('overrides the name', () => {
-        expect(app.name).to.equal('Electron Test Main');
-        app.name = 'electron-test-name';
+        expect(app.name).to.equal('Neutron Test Main');
+        app.name = 'neutron-test-name';
 
-        expect(app.name).to.equal('electron-test-name');
-        app.name = 'Electron Test Main';
+        expect(app.name).to.equal('neutron-test-name');
+        app.name = 'Neutron Test Main';
       });
     });
 
     describe('with functions', () => {
       it('returns the name field of package.json', () => {
-        expect(app.getName()).to.equal('Electron Test Main');
+        expect(app.getName()).to.equal('Neutron Test Main');
       });
 
       it('overrides the name', () => {
-        expect(app.getName()).to.equal('Electron Test Main');
-        app.setName('electron-test-name');
+        expect(app.getName()).to.equal('Neutron Test Main');
+        app.setName('neutron-test-name');
 
-        expect(app.getName()).to.equal('electron-test-name');
-        app.setName('Electron Test Main');
+        expect(app.getName()).to.equal('neutron-test-name');
+        app.setName('Neutron Test Main');
       });
     });
   });
@@ -176,10 +176,10 @@ describe('app module', () => {
 
     it('emits a process exit event with the code', async () => {
       const appPath = path.join(fixturesPath, 'api', 'quit-app');
-      const electronPath = process.execPath;
+      const neutronPath = process.execPath;
       let output = '';
 
-      appProcess = cp.spawn(electronPath, [appPath]);
+      appProcess = cp.spawn(neutronPath, [appPath]);
       if (appProcess && appProcess.stdout) {
         appProcess.stdout.on('data', data => { output += data; });
       }
@@ -193,9 +193,9 @@ describe('app module', () => {
 
     it('closes all windows', async function () {
       const appPath = path.join(fixturesPath, 'api', 'exit-closes-all-windows-app');
-      const electronPath = process.execPath;
+      const neutronPath = process.execPath;
 
-      appProcess = cp.spawn(electronPath, [appPath]);
+      appProcess = cp.spawn(neutronPath, [appPath]);
       const [code, signal] = await once(appProcess, 'exit');
 
       expect(signal).to.equal(null, 'exit signal should be null, if you see this please tag @MarshallOfSound');
@@ -203,9 +203,9 @@ describe('app module', () => {
     });
 
     ifit(['darwin', 'linux'].includes(process.platform))('exits gracefully', async function () {
-      const electronPath = process.execPath;
+      const neutronPath = process.execPath;
       const appPath = path.join(fixturesPath, 'api', 'singleton');
-      appProcess = cp.spawn(electronPath, [appPath]);
+      appProcess = cp.spawn(neutronPath, [appPath]);
 
       // Singleton will send us greeting data to let us know it's running.
       // After that, ask it to exit gracefully and confirm that it does.
@@ -405,7 +405,7 @@ describe('app module', () => {
 
   describe('app.relaunch', () => {
     let server: net.Server | null = null;
-    const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\electron-app-relaunch' : '/tmp/electron-app-relaunch';
+    const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\neutron-app-relaunch' : '/tmp/neutron-app-relaunch';
 
     beforeEach(done => {
       fs.unlink(socketPath, () => {
@@ -458,8 +458,8 @@ describe('app module', () => {
 
   ifdescribe(process.platform === 'darwin')('app.setUserActivity(type, userInfo)', () => {
     it('sets the current activity', () => {
-      app.setUserActivity('com.electron.testActivity', { testData: '123' });
-      expect(app.getCurrentActivityType()).to.equal('com.electron.testActivity');
+      app.setUserActivity('com.neutron.testActivity', { testData: '123' });
+      expect(app.getCurrentActivityType()).to.equal('com.neutron.testActivity');
     });
   });
 
@@ -504,7 +504,7 @@ describe('app module', () => {
   //   it('can import certificate into platform cert store', done => {
   //     const options = {
   //       certificate: path.join(certPath, 'client.p12'),
-  //       password: 'electron'
+  //       password: 'neutron'
   //     }
 
   //     w = new BrowserWindow({
@@ -589,7 +589,7 @@ describe('app module', () => {
       });
       await w.loadURL('about:blank');
 
-      const emitted = once(app, 'render-process-gone') as Promise<[any, WebContents, Electron.RenderProcessGoneDetails]>;
+      const emitted = once(app, 'render-process-gone') as Promise<[any, WebContents, Neutron.RenderProcessGoneDetails]>;
       w.webContents.executeJavaScript('process.crash()');
 
       const [, webContents, details] = await emitted;
@@ -701,7 +701,7 @@ describe('app module', () => {
         restoreState: false,
         executableWillLaunchAtLogin: true,
         launchItems: [{
-          name: 'electron.app.Electron',
+          name: 'neutron.app.Neutron',
           path: process.execPath,
           args: [],
           scope: 'user',
@@ -719,7 +719,7 @@ describe('app module', () => {
         restoreState: false,
         executableWillLaunchAtLogin: false,
         launchItems: [{
-          name: 'electron.app.Electron',
+          name: 'neutron.app.Neutron',
           path: process.execPath,
           args: [],
           scope: 'user',
@@ -752,7 +752,7 @@ describe('app module', () => {
         restoreState: false,
         executableWillLaunchAtLogin: true,
         launchItems: [{
-          name: 'electron.app.Electron',
+          name: 'neutron.app.Neutron',
           path: process.execPath,
           args: [],
           scope: 'user',
@@ -887,7 +887,7 @@ describe('app module', () => {
           scope: 'user',
           enabled: false
         }, {
-          name: 'electron.app.Electron',
+          name: 'neutron.app.Neutron',
           path: process.execPath,
           args: [],
           scope: 'user',
@@ -904,7 +904,7 @@ describe('app module', () => {
         restoreState: false,
         executableWillLaunchAtLogin: true,
         launchItems: [{
-          name: 'electron.app.Electron',
+          name: 'neutron.app.Neutron',
           path: process.execPath,
           args: [],
           scope: 'user',
@@ -930,7 +930,7 @@ describe('app module', () => {
           scope: 'user',
           enabled: false
         }, {
-          name: 'electron.app.Electron',
+          name: 'neutron.app.Neutron',
           path: process.execPath,
           args: ['arg1'],
           scope: 'user',
@@ -949,24 +949,24 @@ describe('app module', () => {
         executableWillLaunchAtLogin: true,
         launchItems: [{
           name: 'additionalEntry',
-          path: 'C:\\electron\\myapp.exe',
+          path: 'C:\\neutron\\myapp.exe',
           args: ['arg1'],
           scope: 'user',
           enabled: true
         }]
       };
 
-      app.setLoginItemSettings({ openAtLogin: true, name: 'additionalEntry', enabled: true, path: 'C:\\electron\\myapp.exe', args: ['arg1'] });
-      expect(app.getLoginItemSettings({ path: '"C:\\electron\\MYAPP.exe"' })).to.deep.equal(expectation);
+      app.setLoginItemSettings({ openAtLogin: true, name: 'additionalEntry', enabled: true, path: 'C:\\neutron\\myapp.exe', args: ['arg1'] });
+      expect(app.getLoginItemSettings({ path: '"C:\\neutron\\MYAPP.exe"' })).to.deep.equal(expectation);
 
       app.setLoginItemSettings({ openAtLogin: false, name: 'additionalEntry' });
-      app.setLoginItemSettings({ openAtLogin: true, name: 'additionalEntry', enabled: true, path: '"C:\\electron\\MYAPP.exe"', args: ['arg1'] });
-      expect(app.getLoginItemSettings({ path: 'C:\\electron\\myapp.exe' })).to.deep.equal({
+      app.setLoginItemSettings({ openAtLogin: true, name: 'additionalEntry', enabled: true, path: '"C:\\neutron\\MYAPP.exe"', args: ['arg1'] });
+      expect(app.getLoginItemSettings({ path: 'C:\\neutron\\myapp.exe' })).to.deep.equal({
         ...expectation,
         launchItems: [
           {
             name: 'additionalEntry',
-            path: 'C:\\electron\\MYAPP.exe',
+            path: 'C:\\neutron\\MYAPP.exe',
             args: ['arg1'],
             scope: 'user',
             enabled: true
@@ -1327,7 +1327,7 @@ describe('app module', () => {
   });
 
   ifdescribe(process.platform === 'win32')('setAsDefaultProtocolClient(protocol, path, args)', () => {
-    const protocol = 'electron-test';
+    const protocol = 'neutron-test';
     const updateExe = path.resolve(path.dirname(process.execPath), '..', 'Update.exe');
     const processStartArgs = [
       '--processStart', `"${path.basename(process.execPath)}"`,
@@ -1421,9 +1421,9 @@ describe('app module', () => {
       expect(exists).to.equal(true);
     });
 
-    it('sets the default client such that getApplicationNameForProtocol returns Electron', () => {
+    it('sets the default client such that getApplicationNameForProtocol returns Neutron', () => {
       app.setAsDefaultProtocolClient(protocol);
-      expect(app.getApplicationNameForProtocol(`${protocol}://`)).to.equal('Electron');
+      expect(app.getApplicationNameForProtocol(`${protocol}://`)).to.equal('Neutron');
     });
   });
 
@@ -1474,7 +1474,7 @@ describe('app module', () => {
     it('does not launch for argument following a URL', async () => {
       const appPath = path.join(fixturesPath, 'api', 'quit-app');
       // App should exit with non 123 code.
-      const first = cp.spawn(process.execPath, [appPath, 'electron-test:?', 'abc']);
+      const first = cp.spawn(process.execPath, [appPath, 'neutron-test:?', 'abc']);
       const [code] = await once(first, 'exit');
       expect(code).to.not.equal(123);
     });
@@ -1490,7 +1490,7 @@ describe('app module', () => {
     it('launches successfully for multiple URIs following --', async () => {
       const appPath = path.join(fixturesPath, 'api', 'quit-app');
       // App should exit with code 123.
-      const first = cp.spawn(process.execPath, [appPath, '--', 'http://electronjs.org', 'electron-test://testdata']);
+      const first = cp.spawn(process.execPath, [appPath, '--', 'http://neutronjs.org', 'neutron-test://testdata']);
       const [code] = await once(first, 'exit');
       expect(code).to.equal(123);
     });
@@ -1549,7 +1549,7 @@ describe('app module', () => {
   });
 
   describe('getAppMetrics() API', () => {
-    it('returns memory and cpu stats of all running electron processes', () => {
+    it('returns memory and cpu stats of all running neutron processes', () => {
       const appMetrics = app.getAppMetrics();
       expect(appMetrics).to.be.an('array').and.have.lengthOf.at.least(1, 'App memory info object is not > 0');
 
@@ -1680,7 +1680,7 @@ describe('app module', () => {
   ifdescribe(!(process.platform === 'linux' && (process.arch === 'arm64' || process.arch === 'arm')))('sandbox options', () => {
     let appProcess: cp.ChildProcess = null as any;
     let server: net.Server = null as any;
-    const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\electron-mixed-sandbox' : '/tmp/electron-mixed-sandbox';
+    const socketPath = process.platform === 'win32' ? '\\\\.\\pipe\\neutron-mixed-sandbox' : '/tmp/neutron-mixed-sandbox';
 
     beforeEach(function (done) {
       fs.unlink(socketPath, () => {
@@ -1797,7 +1797,7 @@ describe('app module', () => {
 
       it('keeps references to the menu', () => {
         app.dock?.setMenu(new Menu());
-        const v8Util = process._linkedBinding('electron_common_v8_util');
+        const v8Util = process._linkedBinding('neutron_common_v8_util');
         v8Util.requestGarbageCollectionForTesting();
       });
     });
@@ -1861,7 +1861,7 @@ describe('app module', () => {
 
     // Note that dock.show tests should run after dock.hide tests, to work
     // around a bug of macOS.
-    // See https://github.com/electron/electron/pull/25269 for more.
+    // See https://github.com/neutron/neutron/pull/25269 for more.
     describe('dock.show', () => {
       it('should not throw', () => {
         return app.dock?.show().then(() => {
@@ -2001,9 +2001,9 @@ describe('app module', () => {
     it('affects dns lookup behavior', async () => {
       // 1. resolve a domain name to check that things are working
       await expect(new Promise((resolve, reject) => {
-        electronNet.request({
+        neutronNet.request({
           method: 'HEAD',
-          url: 'https://www.electronjs.org'
+          url: 'https://www.neutronjs.org'
         }).on('response', resolve)
           .on('error', reject)
           .end();
@@ -2016,11 +2016,11 @@ describe('app module', () => {
       });
       // 3. check that resolving domain names now fails
       await expect(new Promise((resolve, reject) => {
-        electronNet.request({
+        neutronNet.request({
           method: 'HEAD',
           // Needs to be a slightly different domain to above, otherwise the
           // response will come from the cache.
-          url: 'https://electronjs.org'
+          url: 'https://neutronjs.org'
         }).on('response', resolve)
           .on('error', reject)
           .end();
@@ -2031,7 +2031,7 @@ describe('app module', () => {
   describe('about panel', () => {
     it('app.setAboutPanelOptions() does not crash', () => {
       app.setAboutPanelOptions({
-        applicationName: 'electron!!',
+        applicationName: 'neutron!!',
         version: '1.2.3'
       });
     });
@@ -2145,7 +2145,7 @@ describe('app module', () => {
     it('impacts proxy for requests made from utility process', async () => {
       const utilityFixturePath = path.resolve(__dirname, 'fixtures', 'api', 'utility-process', 'api-net-spec.js');
       const fn = async () => {
-        const urlRequest = electronNet.request('http://example.com/');
+        const urlRequest = neutronNet.request('http://example.com/');
         const response = await getResponse(urlRequest);
         expect(response.statusCode).to.equal(200);
         const message = await collectStreamBody(response);
@@ -2181,7 +2181,7 @@ describe('app module', () => {
       await app.setProxy(config);
       const proxy = await app.resolveProxy('http://example.com/');
       expect(proxy).to.equal('PROXY myproxy:80');
-      const urlRequest = electronNet.request(url);
+      const urlRequest = neutronNet.request(url);
       const response = await getResponse(urlRequest);
       expect(response.statusCode).to.equal(200);
       const message = await collectStreamBody(response);
@@ -2241,7 +2241,7 @@ describe('default behavior', () => {
     });
 
     it('should have a reasonable default', () => {
-      expect(initialValue).to.include(`Electron/${process.versions.electron}`);
+      expect(initialValue).to.include(`Neutron/${process.versions.neutron}`);
       expect(initialValue).to.include(`Chrome/${process.versions.chrome}`);
     });
 
@@ -2303,8 +2303,8 @@ describe('default behavior', () => {
 
 async function runTestApp (name: string, ...args: any[]) {
   const appPath = path.join(fixturesPath, 'api', name);
-  const electronPath = process.execPath;
-  const appProcess = cp.spawn(electronPath, [appPath, ...args]);
+  const neutronPath = process.execPath;
+  const appProcess = cp.spawn(neutronPath, [appPath, ...args]);
 
   let output = '';
   appProcess.stdout.on('data', (data) => { output += data; });

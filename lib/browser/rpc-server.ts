@@ -1,9 +1,9 @@
-import { ipcMainInternal } from '@electron/internal/browser/ipc-main-internal';
-import * as ipcMainUtils from '@electron/internal/browser/ipc-main-internal-utils';
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
+import { ipcMainInternal } from '@neutron/internal/browser/ipc-main-internal';
+import * as ipcMainUtils from '@neutron/internal/browser/ipc-main-internal-utils';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
 
-import { clipboard } from 'electron/common';
-import { webFrameMain } from 'electron/main';
+import { clipboard } from 'neutron/common';
+import { webFrameMain } from 'neutron/main';
 
 import * as fs from 'fs';
 import * as path from 'path';
@@ -50,7 +50,7 @@ ipcMainUtils.handleSync(IPC_MESSAGES.BROWSER_CLIPBOARD_SYNC, function (event, me
 });
 
 const getPreloadScriptsFromEvent = (event: ElectronInternal.IpcMainInternalEvent) => {
-  const session: Electron.Session = event.type === 'service-worker' ? event.session : event.sender.session;
+  const session: Neutron.Session = event.type === 'service-worker' ? event.session : event.sender.session;
   let preloadScripts = session.getPreloadScripts();
 
   if (event.type === 'frame') {
@@ -69,7 +69,7 @@ const getPreloadScriptsFromEvent = (event: ElectronInternal.IpcMainInternalEvent
   return preloadScripts.filter(script => path.isAbsolute(script.filePath));
 };
 
-const readPreloadScript = async function (script: Electron.PreloadScript): Promise<ElectronInternal.PreloadScript> {
+const readPreloadScript = async function (script: Neutron.PreloadScript): Promise<ElectronInternal.PreloadScript> {
   let contents;
   let error;
   try {

@@ -22,7 +22,7 @@
 #include "ui/views/widget/widget_delegate.h"
 #include "ui/views/window/client_view.h"
 
-namespace electron {
+namespace neutron {
 
 class DevToolsWindowDelegate : public views::ClientView,
                                public views::WidgetDelegate {
@@ -265,4 +265,4 @@ views::View* InspectableWebContentsView::GetContentsView() const {
   return contents_web_view_ ? contents_web_view_ : no_contents_view_;
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -21,14 +21,14 @@
 #include "content/public/browser/devtools_frontend_host.h"
 #include "content/public/browser/web_contents_delegate.h"
 #include "content/public/browser/web_contents_observer.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "ui/gfx/geometry/rect.h"
 
 class PrefService;
 class PrefRegistrySimple;
 struct RegisterOptions;
 
-namespace electron {
+namespace neutron {
 
 class InspectableWebContentsDelegate;
 class InspectableWebContentsView;
@@ -284,6 +284,6 @@ class InspectableWebContents
   base::WeakPtrFactory<InspectableWebContents> weak_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_INSPECTABLE_WEB_CONTENTS_H_

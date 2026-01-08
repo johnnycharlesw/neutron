@@ -1,4 +1,4 @@
-const { ipcRenderer } = require('electron');
+const { ipcRenderer } = require('neutron');
 
 if (process.isMainFrame) {
   window.addEventListener('DOMContentLoaded', () => {

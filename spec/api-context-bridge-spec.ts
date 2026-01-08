@@ -1,5 +1,5 @@
-import { BrowserWindow, ipcMain } from 'electron/main';
-import { contextBridge } from 'electron/renderer';
+import { BrowserWindow, ipcMain } from 'neutron/main';
+import { contextBridge } from 'neutron/renderer';
 
 import { expect } from 'chai';
 
@@ -68,7 +68,7 @@ describe('contextBridge', () => {
   const generateTests = (useSandbox: boolean) => {
     describe(`with sandbox=${useSandbox}`, () => {
       const makeBindingWindow = async (bindingCreator: Function, worldId: number = 0) => {
-        const preloadContentForMainWorld = `const renderer_1 = require('electron');
+        const preloadContentForMainWorld = `const renderer_1 = require('neutron');
         ${useSandbox
 ? ''
 : `require('node:v8').setFlagsFromString('--expose_gc');
@@ -78,7 +78,7 @@ describe('contextBridge', () => {
         });`}
         (${bindingCreator.toString()})();`;
 
-        const preloadContentForIsolatedWorld = `const renderer_1 = require('electron');
+        const preloadContentForIsolatedWorld = `const renderer_1 = require('neutron');
         ${useSandbox
 ? ''
 : `require('node:v8').setFlagsFromString('--expose_gc');
@@ -91,7 +91,7 @@ describe('contextBridge', () => {
         });`}
         (${bindingCreator.toString()})();`;
 
-        const tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'electron-spec-preload-'));
+        const tmpDir = await fs.promises.mkdtemp(path.resolve(os.tmpdir(), 'neutron-spec-preload-'));
         dir = tmpDir;
         await fs.promises.writeFile(path.resolve(tmpDir, 'preload.js'), worldId === 0 ? preloadContentForMainWorld : preloadContentForIsolatedWorld);
         w = new BrowserWindow({
@@ -101,7 +101,7 @@ describe('contextBridge', () => {
             nodeIntegration: true,
             sandbox: useSandbox,
             preload: path.resolve(tmpDir, 'preload.js'),
-            additionalArguments: ['--unsafely-expose-electron-internals-for-testing']
+            additionalArguments: ['--unsafely-expose-neutron-internals-for-testing']
           }
         });
         await w.loadURL(serverUrl);
@@ -671,7 +671,7 @@ describe('contextBridge', () => {
         it('should release the global hold on methods sent across contexts', async () => {
           await makeBindingWindow(() => {
             const trackedValues: WeakRef<object>[] = [];
-            require('electron').ipcRenderer.on('get-gc-info', (e: any) => e.sender.send('gc-info', { trackedValues: trackedValues.filter(value => value.deref()).length }));
+            require('neutron').ipcRenderer.on('get-gc-info', (e: any) => e.sender.send('gc-info', { trackedValues: trackedValues.filter(value => value.deref()).length }));
             contextBridge.exposeInMainWorld('example', {
               getFunction: () => () => 123,
               track: (value: object) => { trackedValues.push(new WeakRef(value)); }
@@ -699,12 +699,12 @@ describe('contextBridge', () => {
         it('should not leak the global hold on methods sent across contexts when reloading a sandboxed renderer', async () => {
           await makeBindingWindow(() => {
             const trackedValues: WeakRef<object>[] = [];
-            require('electron').ipcRenderer.on('get-gc-info', (e: any) => e.sender.send('gc-info', { trackedValues: trackedValues.filter(value => value.deref()).length }));
+            require('neutron').ipcRenderer.on('get-gc-info', (e: any) => e.sender.send('gc-info', { trackedValues: trackedValues.filter(value => value.deref()).length }));
             contextBridge.exposeInMainWorld('example', {
               getFunction: () => () => 123,
               track: (value: object) => { trackedValues.push(new WeakRef(value)); }
             });
-            require('electron').ipcRenderer.send('window-ready-for-tasking');
+            require('neutron').ipcRenderer.send('window-ready-for-tasking');
           });
           const loadPromise = once(ipcMain, 'window-ready-for-tasking');
           expect((await getGCInfo()).trackedValues).to.equal(0);
@@ -1364,7 +1364,7 @@ describe('contextBridge', () => {
             const uuid = crypto.randomUUID();
             const done = (receivedUuid: string) => {
               if (receivedUuid === uuid) {
-                require('electron').ipcRenderer.send('done');
+                require('neutron').ipcRenderer.send('done');
               }
             };
             contextBridge.executeInMainWorld({

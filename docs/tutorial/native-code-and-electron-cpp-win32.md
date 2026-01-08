@@ -1,6 +1,6 @@
 # Native Code and Electron: C++ (Windows)
 
-This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-electron.md) and focuses on creating a native addon for Windows using C++ and the [Win32 API](https://learn.microsoft.com/en-us/windows/win32/). To illustrate how you can embed native Win32 code in your Electron app, we'll be building a basic native Windows GUI (using the Windows Common Controls) that communicates with Electron's JavaScript.
+This tutorial builds on the [general introduction to Native Code and Electron](./native-code-and-neutron.md) and focuses on creating a native addon for Windows using C++ and the [Win32 API](https://learn.microsoft.com/en-us/windows/win32/). To illustrate how you can embed native Win32 code in your Electron app, we'll be building a basic native Windows GUI (using the Windows Common Controls) that communicates with Electron's JavaScript.
 
 Specifically, we'll be integrating with two commonly used native Windows libraries:
 
@@ -14,11 +14,11 @@ This tutorial will be most useful to those who already have some familiarity wit
 
 ## Requirements
 
-Just like our [general introduction to Native Code and Electron](./native-code-and-electron.md), this tutorial assumes you have Node.js and npm installed, as well as the basic tools necessary for compiling native code. Since this tutorial discusses writing native code that interacts with Windows, we recommend that you follow this tutorial on Windows with both Visual Studio and the "Desktop development with C++ workload" installed. For details, see the [Visual Studio Installation instructions](https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio).
+Just like our [general introduction to Native Code and Electron](./native-code-and-neutron.md), this tutorial assumes you have Node.js and npm installed, as well as the basic tools necessary for compiling native code. Since this tutorial discusses writing native code that interacts with Windows, we recommend that you follow this tutorial on Windows with both Visual Studio and the "Desktop development with C++ workload" installed. For details, see the [Visual Studio Installation instructions](https://learn.microsoft.com/en-us/visualstudio/install/install-visual-studio).
 
 ## 1) Creating a package
 
-You can re-use the package we created in our [Native Code and Electron](./native-code-and-electron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
+You can re-use the package we created in our [Native Code and Electron](./native-code-and-neutron.md) tutorial. This tutorial will not be repeating the steps described there. Let's first setup our basic addon folder structure:
 
 ```txt
 my-native-win32-addon/
@@ -44,7 +44,7 @@ Our `package.json` should look like this:
   "author": "Your Name",
   "scripts": {
     "clean": "rm -rf build_swift && rm -rf build",
-    "build-electron": "electron-rebuild",
+    "build-neutron": "neutron-rebuild",
     "build": "node-gyp configure && node-gyp build"
   },
   "license": "MIT",

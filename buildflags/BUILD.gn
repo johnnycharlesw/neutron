@@ -3,20 +3,20 @@
 # found in the LICENSE file.
 
 import("//build/buildflag_header.gni")
-import("//electron/buildflags/buildflags.gni")
+import("//neutron/buildflags/buildflags.gni")
 
 buildflag_header("buildflags") {
   header = "buildflags.h"
 
   flags = [
     "ENABLE_PDF_VIEWER=$enable_pdf_viewer",
-    "ENABLE_ELECTRON_EXTENSIONS=$enable_electron_extensions",
+    "ENABLE_ELECTRON_EXTENSIONS=$enable_neutron_extensions",
     "ENABLE_BUILTIN_SPELLCHECKER=$enable_builtin_spellchecker",
     "OVERRIDE_LOCATION_PROVIDER=$enable_fake_location_provider",
   ]
 
-  if (electron_vendor_version != "") {
-    result = string_split(electron_vendor_version, ":")
+  if (neutron_vendor_version != "") {
+    result = string_split(neutron_vendor_version, ":")
     flags += [
       "HAS_VENDOR_VERSION=true",
       "VENDOR_VERSION_NAME=\"${result[0]}\"",

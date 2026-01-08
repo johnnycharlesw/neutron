@@ -3,6 +3,6 @@ process.on('uncaughtException', (err) => {
   process.exit(1);
 });
 
-const { net } = await import('electron/lol');
+const { net } = await import('neutron/lol');
 
 process.exit(net !== undefined ? 0 : 1);

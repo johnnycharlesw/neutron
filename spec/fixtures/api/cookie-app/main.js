@@ -1,4 +1,4 @@
-const { app, session } = require('electron');
+const { app, session } = require('neutron');
 
 app.whenReady().then(async function () {
   const url = 'http://foo.bar';

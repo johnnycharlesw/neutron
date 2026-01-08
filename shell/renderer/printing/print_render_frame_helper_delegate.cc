@@ -7,7 +7,7 @@
 #include <utility>
 
 #include "content/public/renderer/render_frame.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "third_party/blink/public/web/web_element.h"
 #include "third_party/blink/public/web/web_local_frame.h"
 
@@ -17,7 +17,7 @@
 #include "extensions/renderer/guest_view/mime_handler_view/post_message_support.h"
 #endif  // BUILDFLAG(ENABLE_ELECTRON_EXTENSIONS)
 
-namespace electron {
+namespace neutron {
 
 PrintRenderFrameHelperDelegate::PrintRenderFrameHelperDelegate() = default;
 
@@ -60,4 +60,4 @@ bool PrintRenderFrameHelperDelegate::OverridePrint(
   return false;
 }
 
-}  // namespace electron
+}  // namespace neutron

@@ -6,7 +6,7 @@ Subject: chore: restore some deprecated wrapper utility in gin
 Restores part of https://chromium-review.googlesource.com/c/chromium/src/+/6799157
 
 Patch can be removed once cppgc migration is complete
-https://github.com/electron/electron/issues/47922
+https://github.com/neutron/neutron/issues/47922
 
 diff --git a/gin/function_template.h b/gin/function_template.h
 index c80020b2bda2af39b38295dad3c6208cb8294b88..873015289db9709c00c32080e5387d9cdfea1f69 100644

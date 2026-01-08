@@ -19,7 +19,7 @@
 #include "third_party/blink/public/common/messaging/transferable_message_mojom_traits.h"
 #include "third_party/blink/public/mojom/blob/blob.mojom.h"
 
-namespace electron {
+namespace neutron {
 
 gin::DeprecatedWrapperInfo ParentPort::kWrapperInfo = {gin::kEmbedderNativeGin};
 
@@ -48,7 +48,7 @@ void ParentPort::PostMessage(v8::Local<v8::Value> message_value) {
     v8::Isolate* isolate = JavascriptEnvironment::GetIsolate();
     blink::TransferableMessage transferable_message;
 
-    if (!electron::SerializeV8Value(isolate, message_value,
+    if (!neutron::SerializeV8Value(isolate, message_value,
                                     &transferable_message)) {
       // SerializeV8Value sets an exception.
       return;
@@ -94,7 +94,7 @@ bool ParentPort::Accept(mojo::Message* mojo_message) {
   auto wrapped_ports =
       MessagePort::EntanglePorts(isolate, std::move(message.ports));
   v8::Local<v8::Value> message_value =
-      electron::DeserializeV8Value(isolate, message);
+      neutron::DeserializeV8Value(isolate, message);
   v8::Local<v8::Object> self;
   if (!GetWrapper(isolate).ToLocal(&self))
     return false;
@@ -125,7 +125,7 @@ const char* ParentPort::GetTypeName() {
   return "ParentPort";
 }
 
-}  // namespace electron
+}  // namespace neutron
 
 namespace {
 
@@ -135,9 +135,9 @@ void Initialize(v8::Local<v8::Object> exports,
                 void* priv) {
   v8::Isolate* const isolate = v8::Isolate::GetCurrent();
   gin_helper::Dictionary dict{isolate, exports};
-  dict.SetMethod("createParentPort", &electron::ParentPort::Create);
+  dict.SetMethod("createParentPort", &neutron::ParentPort::Create);
 }
 
 }  // namespace
 
-NODE_LINKED_BINDING_CONTEXT_AWARE(electron_utility_parent_port, Initialize)
+NODE_LINKED_BINDING_CONTEXT_AWARE(neutron_utility_parent_port, Initialize)

@@ -74,8 +74,8 @@ describe('crash cases', () => {
   for (const crashCase of cases) {
     ifit(shouldRunCase(crashCase))(`the "${crashCase}" case should not crash`, () => {
       const fixture = path.resolve(fixturePath, crashCase);
-      const argsFile = path.resolve(fixture, 'electron.args');
-      const envFile = path.resolve(fixture, 'electron.env.json');
+      const argsFile = path.resolve(fixture, 'neutron.args');
+      const envFile = path.resolve(fixture, 'neutron.env.json');
       const args = [fixture];
       let env = process.env;
       if (fs.existsSync(argsFile)) {

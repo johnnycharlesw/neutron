@@ -1,4 +1,4 @@
-const { app, BrowserWindow, utilityProcess } = require('electron');
+const { app, BrowserWindow, utilityProcess } = require('neutron');
 
 const path = require('node:path');
 

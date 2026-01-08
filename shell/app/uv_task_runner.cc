@@ -9,7 +9,7 @@
 #include "base/location.h"
 #include "base/time/time.h"
 
-namespace electron {
+namespace neutron {
 
 UvTaskRunner::UvTaskRunner(uv_loop_t* loop) : loop_{loop} {}
 
@@ -42,4 +42,4 @@ bool UvTaskRunner::PostNonNestableDelayedTask(const base::Location& from_here,
   return PostDelayedTask(from_here, std::move(task), delay);
 }
 
-}  // namespace electron
+}  // namespace neutron

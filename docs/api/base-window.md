@@ -14,16 +14,16 @@ module is emitted.
 
 ```js
 // In the main process.
-const { BaseWindow, WebContentsView } = require('electron')
+const { BaseWindow, WebContentsView } = require('neutron')
 
 const win = new BaseWindow({ width: 800, height: 600 })
 
 const leftView = new WebContentsView()
-leftView.webContents.loadURL('https://electronjs.org')
+leftView.webContents.loadURL('https://neutronjs.org')
 win.contentView.addChildView(leftView)
 
 const rightView = new WebContentsView()
-rightView.webContents.loadURL('https://github.com/electron/electron')
+rightView.webContents.loadURL('https://github.com/neutron/neutron')
 win.contentView.addChildView(rightView)
 
 leftView.setBounds({ x: 0, y: 0, width: 400, height: 600 })
@@ -35,7 +35,7 @@ rightView.setBounds({ x: 400, y: 0, width: 400, height: 600 })
 By using `parent` option, you can create child windows:
 
 ```js
-const { BaseWindow } = require('electron')
+const { BaseWindow } = require('neutron')
 
 const parent = new BaseWindow()
 const child = new BaseWindow({ parent })
@@ -49,7 +49,7 @@ A modal window is a child window that disables parent window. To create a modal
 window, you have to set both the `parent` and `modal` options:
 
 ```js
-const { BaseWindow } = require('electron')
+const { BaseWindow } = require('neutron')
 
 const parent = new BaseWindow()
 const child = new BaseWindow({ parent, modal: true })
@@ -74,7 +74,7 @@ It is your responsibility to close the `webContents` when you no longer need the
 the `BaseWindow` is closed:
 
 ```js
-const { BaseWindow, WebContentsView } = require('electron')
+const { BaseWindow, WebContentsView } = require('neutron')
 
 const win = new BaseWindow({ width: 800, height: 600 })
 
@@ -101,7 +101,7 @@ It creates a new `BaseWindow` with native properties as set by the `options`.
 
 > [!WARNING]
 > Electron's built-in classes cannot be subclassed in user code.
-> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-electron-built-in-modules).
+> For more information, see [the FAQ](../faq.md#class-inheritance-does-not-work-with-neutron-built-in-modules).
 
 ### `new BaseWindow([options])`
 
@@ -297,7 +297,7 @@ Commands are lowercased, underscores are replaced with hyphens, and the
 e.g. `APPCOMMAND_BROWSER_BACKWARD` is emitted as `browser-backward`.
 
 ```js
-const { BaseWindow } = require('electron')
+const { BaseWindow } = require('neutron')
 
 const win = new BaseWindow()
 win.on('app-command', (e, cmd) => {
@@ -392,7 +392,7 @@ Returns `BaseWindow | null` - The window with the given `id`.
 Objects created with `new BaseWindow` have the following properties:
 
 ```js
-const { BaseWindow } = require('electron')
+const { BaseWindow } = require('neutron')
 // In this example `win` is our instance
 const win = new BaseWindow({ width: 800, height: 600 })
 ```
@@ -506,7 +506,7 @@ On Linux the setter is a no-op, although the getter returns `true`.
 A `boolean` property that determines whether the window is excluded from the application’s Windows menu. `false` by default.
 
 ```js @ts-expect-error=[12]
-const { Menu, BaseWindow } = require('electron')
+const { Menu, BaseWindow } = require('neutron')
 
 const win = new BaseWindow({ height: 600, width: 600 })
 
@@ -732,7 +732,7 @@ Closes the currently open [Quick Look][quick-look] panel.
 Resizes and moves the window to the supplied bounds. Any properties that are not supplied will default to their current values.
 
 ```js
-const { BaseWindow } = require('electron')
+const { BaseWindow } = require('neutron')
 
 const win = new BaseWindow()
 
@@ -993,7 +993,7 @@ attached just below the window frame, but you may want to display them beneath
 a HTML-rendered toolbar. For example:
 
 ```js
-const { BaseWindow } = require('electron')
+const { BaseWindow } = require('neutron')
 
 const win = new BaseWindow()
 
@@ -1006,9 +1006,9 @@ win.setSheetOffset(toolbarRect.height)
 <!--
 ```YAML history
 added:
-  - pr-url: https://github.com/electron/electron/pull/35658
+  - pr-url: https://github.com/neutron/neutron/pull/35658
 changes:
-  - pr-url: https://github.com/electron/electron/pull/41391
+  - pr-url: https://github.com/neutron/neutron/pull/41391
     description: "`window.flashFrame(bool)` will flash dock icon continuously on macOS"
     breaking-changes-header: behavior-changed-windowflashframebool-will-flash-dock-icon-continuously-on-macos
 ```

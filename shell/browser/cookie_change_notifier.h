@@ -15,14 +15,14 @@ class CoookieChangeInfo;
 class CookieChangeNotifier;
 }  // namespace net
 
-namespace electron {
+namespace neutron {
 
-class ElectronBrowserContext;
+class NeutronBrowserContext;
 
 // Sends cookie-change notifications on the UI thread.
 class CookieChangeNotifier : private network::mojom::CookieChangeListener {
  public:
-  explicit CookieChangeNotifier(ElectronBrowserContext* browser_context);
+  explicit CookieChangeNotifier(NeutronBrowserContext* browser_context);
   ~CookieChangeNotifier() override;
 
   // disable copy
@@ -41,13 +41,13 @@ class CookieChangeNotifier : private network::mojom::CookieChangeListener {
   // network::mojom::CookieChangeListener implementation.
   void OnCookieChange(const net::CookieChangeInfo& change) override;
 
-  raw_ptr<ElectronBrowserContext> browser_context_;
+  raw_ptr<NeutronBrowserContext> browser_context_;
   base::RepeatingCallbackList<void(const net::CookieChangeInfo& change)>
       cookie_change_sub_list_;
 
   mojo::Receiver<network::mojom::CookieChangeListener> receiver_;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_COOKIE_CHANGE_NOTIFIER_H_

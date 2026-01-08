@@ -5,7 +5,7 @@
 
 #include "shell/browser/osr/osr_paint_event.h"
 
-namespace electron {
+namespace neutron {
 
 OffscreenNativePixmapPlaneInfo::~OffscreenNativePixmapPlaneInfo() = default;
 OffscreenNativePixmapPlaneInfo::OffscreenNativePixmapPlaneInfo(
@@ -28,4 +28,4 @@ OffscreenSharedTextureValue::~OffscreenSharedTextureValue() = default;
 OffscreenSharedTextureValue::OffscreenSharedTextureValue(
     const OffscreenSharedTextureValue& other) = default;
 
-}  // namespace electron
+}  // namespace neutron

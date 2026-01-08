@@ -10,7 +10,7 @@
 #include "base/no_destructor.h"
 #include "components/keyed_service/content/browser_context_keyed_service_factory.h"
 
-namespace electron {
+namespace neutron {
 
 class HidChooserContext;
 
@@ -39,6 +39,6 @@ class HidChooserContextFactory : public BrowserContextKeyedServiceFactory {
       content::BrowserContext* context) const override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_HID_HID_CHOOSER_CONTEXT_FACTORY_H_

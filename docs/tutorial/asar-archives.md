@@ -6,7 +6,7 @@ hide_title: false
 ---
 
 After creating an [application distribution](application-distribution.md), the
-app's source code are usually bundled into an [ASAR archive](https://github.com/electron/asar),
+app's source code are usually bundled into an [ASAR archive](https://github.com/neutron/asar),
 which is a simple extensive archive format designed for Electron apps. By bundling the app
 we can mitigate issues around long path names on Windows, speed up `require` and conceal your source
 code from cursory inspection.
@@ -63,7 +63,7 @@ require('./path/to/example.asar/dir/module.js')
 You can also display a web page in an ASAR archive with `BrowserWindow`:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 

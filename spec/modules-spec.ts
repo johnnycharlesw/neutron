@@ -1,4 +1,4 @@
-import { BrowserWindow, utilityProcess } from 'electron/main';
+import { BrowserWindow, utilityProcess } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -25,7 +25,7 @@ describe('modules support', () => {
         w.loadURL('about:blank');
         await expect(
           w.webContents.executeJavaScript(
-            "{ require('@electron-ci/echo'); null }"
+            "{ require('@neutron-ci/echo'); null }"
           )
         ).to.be.fulfilled();
       });
@@ -36,7 +36,7 @@ describe('modules support', () => {
         expect(msg).to.equal('ok');
       });
 
-      ifit(process.platform === 'win32')('can be required if electron.exe is renamed', () => {
+      ifit(process.platform === 'win32')('can be required if neutron.exe is renamed', () => {
         const testExecPath = path.join(path.dirname(process.execPath), 'test.exe');
         fs.copyFileSync(process.execPath, testExecPath);
         try {
@@ -59,7 +59,7 @@ describe('modules support', () => {
       it('can be required in renderer', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         w.loadURL('about:blank');
-        await expect(w.webContents.executeJavaScript('{ require(\'@electron-ci/uv-dlopen\'); null }')).to.be.fulfilled();
+        await expect(w.webContents.executeJavaScript('{ require(\'@neutron-ci/uv-dlopen\'); null }')).to.be.fulfilled();
       });
 
       it('can be required in node binary', async function () {
@@ -81,22 +81,22 @@ describe('modules support', () => {
       });
     });
 
-    describe('require(\'electron/...\')', () => {
-      const utilityProcessFixturesPath = path.resolve(__dirname, 'fixtures', 'api', 'utility-process', 'electron-modules');
+    describe('require(\'neutron/...\')', () => {
+      const utilityProcessFixturesPath = path.resolve(__dirname, 'fixtures', 'api', 'utility-process', 'neutron-modules');
 
-      it('require(\'electron/lol\') should throw in the main process', () => {
+      it('require(\'neutron/lol\') should throw in the main process', () => {
         expect(() => {
-          require('electron/lol');
-        }).to.throw(/Cannot find module 'electron\/lol'/);
+          require('neutron/lol');
+        }).to.throw(/Cannot find module 'neutron\/lol'/);
       });
 
-      it('require(\'electron/lol\') should throw in the renderer process', async () => {
+      it('require(\'neutron/lol\') should throw in the renderer process', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         w.loadURL('about:blank');
-        await expect(w.webContents.executeJavaScript('{ require(\'electron/lol\'); null }')).to.eventually.be.rejected();
+        await expect(w.webContents.executeJavaScript('{ require(\'neutron/lol\'); null }')).to.eventually.be.rejected();
       });
 
-      it('require(\'electron/lol\') should throw in the utility process', async () => {
+      it('require(\'neutron/lol\') should throw in the utility process', async () => {
         const child = utilityProcess.fork(path.join(utilityProcessFixturesPath, 'require-lol.js'), [], {
           stdio: ['ignore', 'ignore', 'pipe']
         });
@@ -104,88 +104,88 @@ describe('modules support', () => {
         child.stderr!.on('data', (data) => { stderr += data.toString('utf8'); });
         const [code] = await once(child, 'exit');
         expect(code).to.equal(1);
-        expect(stderr).to.match(/Cannot find module 'electron\/lol'/);
+        expect(stderr).to.match(/Cannot find module 'neutron\/lol'/);
       });
 
-      it('require(\'electron\') should not throw in the main process', () => {
+      it('require(\'neutron\') should not throw in the main process', () => {
         expect(() => {
-          require('electron');
+          require('neutron');
         }).to.not.throw();
       });
 
-      it('require(\'electron\') should not throw in the renderer process', async () => {
+      it('require(\'neutron\') should not throw in the renderer process', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         w.loadURL('about:blank');
-        await expect(w.webContents.executeJavaScript('{ require(\'electron\'); null }')).to.be.fulfilled();
+        await expect(w.webContents.executeJavaScript('{ require(\'neutron\'); null }')).to.be.fulfilled();
       });
 
-      it('require(\'electron/main\') should not throw in the main process', () => {
+      it('require(\'neutron/main\') should not throw in the main process', () => {
         expect(() => {
-          require('electron/main');
+          require('neutron/main');
         }).to.not.throw();
       });
 
-      it('require(\'electron/main\') should not throw in the renderer process', async () => {
+      it('require(\'neutron/main\') should not throw in the renderer process', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         w.loadURL('about:blank');
-        await expect(w.webContents.executeJavaScript('{ require(\'electron/main\'); null }')).to.be.fulfilled();
+        await expect(w.webContents.executeJavaScript('{ require(\'neutron/main\'); null }')).to.be.fulfilled();
       });
 
-      it('require(\'electron/main\') should not throw in the utility process', async () => {
+      it('require(\'neutron/main\') should not throw in the utility process', async () => {
         const child = utilityProcess.fork(path.join(utilityProcessFixturesPath, 'require-main.js'));
         const [code] = await once(child, 'exit');
         expect(code).to.equal(0);
       });
 
-      it('require(\'electron/renderer\') should not throw in the main process', () => {
+      it('require(\'neutron/renderer\') should not throw in the main process', () => {
         expect(() => {
-          require('electron/renderer');
+          require('neutron/renderer');
         }).to.not.throw();
       });
 
-      it('require(\'electron/renderer\') should not throw in the renderer process', async () => {
+      it('require(\'neutron/renderer\') should not throw in the renderer process', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         w.loadURL('about:blank');
-        await expect(w.webContents.executeJavaScript('{ require(\'electron/renderer\'); null }')).to.be.fulfilled();
+        await expect(w.webContents.executeJavaScript('{ require(\'neutron/renderer\'); null }')).to.be.fulfilled();
       });
 
-      it('require(\'electron/renderer\') should not throw in the utility process', async () => {
+      it('require(\'neutron/renderer\') should not throw in the utility process', async () => {
         const child = utilityProcess.fork(path.join(utilityProcessFixturesPath, 'require-renderer.js'));
         const [code] = await once(child, 'exit');
         expect(code).to.equal(0);
       });
 
-      it('require(\'electron/common\') should not throw in the main process', () => {
+      it('require(\'neutron/common\') should not throw in the main process', () => {
         expect(() => {
-          require('electron/common');
+          require('neutron/common');
         }).to.not.throw();
       });
 
-      it('require(\'electron/common\') should not throw in the renderer process', async () => {
+      it('require(\'neutron/common\') should not throw in the renderer process', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         w.loadURL('about:blank');
-        await expect(w.webContents.executeJavaScript('{ require(\'electron/common\'); null }')).to.be.fulfilled();
+        await expect(w.webContents.executeJavaScript('{ require(\'neutron/common\'); null }')).to.be.fulfilled();
       });
 
-      it('require(\'electron/common\') should not throw in the utility process', async () => {
+      it('require(\'neutron/common\') should not throw in the utility process', async () => {
         const child = utilityProcess.fork(path.join(utilityProcessFixturesPath, 'require-common.js'));
         const [code] = await once(child, 'exit');
         expect(code).to.equal(0);
       });
 
-      it('require(\'electron/utility\') should not throw in the main process', () => {
+      it('require(\'neutron/utility\') should not throw in the main process', () => {
         expect(() => {
-          require('electron/utility');
+          require('neutron/utility');
         }).to.not.throw();
       });
 
-      it('require(\'electron/utility\') should not throw in the renderer process', async () => {
+      it('require(\'neutron/utility\') should not throw in the renderer process', async () => {
         const w = new BrowserWindow({ show: false, webPreferences: { nodeIntegration: true, contextIsolation: false } });
         w.loadURL('about:blank');
-        await expect(w.webContents.executeJavaScript('{ require(\'electron/utility\'); null }')).to.be.fulfilled();
+        await expect(w.webContents.executeJavaScript('{ require(\'neutron/utility\'); null }')).to.be.fulfilled();
       });
 
-      it('require(\'electron/utility\') should not throw in the utility process', async () => {
+      it('require(\'neutron/utility\') should not throw in the utility process', async () => {
         const child = utilityProcess.fork(path.join(utilityProcessFixturesPath, 'require-utility.js'));
         const [code] = await once(child, 'exit');
         expect(code).to.equal(0);
@@ -287,13 +287,13 @@ describe('modules support', () => {
   });
 
   describe('esm', () => {
-    it('can load the built-in "electron" module via ESM import', async () => {
-      await expect(import('electron')).to.eventually.be.ok();
+    it('can load the built-in "neutron" module via ESM import', async () => {
+      await expect(import('neutron')).to.eventually.be.ok();
     });
 
-    it('the built-in "electron" module loaded via ESM import has the same exports as the CJS module', async () => {
-      const esmElectron = await import('electron');
-      const cjsElectron = require('electron');
+    it('the built-in "neutron" module loaded via ESM import has the same exports as the CJS module', async () => {
+      const esmElectron = await import('neutron');
+      const cjsElectron = require('neutron');
       expect(Object.keys(esmElectron)).to.deep.equal(Object.keys(cjsElectron));
     });
   });

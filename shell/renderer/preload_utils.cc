@@ -10,7 +10,7 @@
 #include "shell/common/node_includes.h"
 #include "v8/include/v8-context.h"
 
-namespace electron::preload_utils {
+namespace neutron::preload_utils {
 
 namespace {
 
@@ -73,4 +73,4 @@ double Uptime() {
       .InSecondsF();
 }
 
-}  // namespace electron::preload_utils
+}  // namespace neutron::preload_utils

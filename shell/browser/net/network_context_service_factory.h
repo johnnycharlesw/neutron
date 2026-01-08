@@ -20,7 +20,7 @@ template <typename T>
 class NoDestructor;
 }
 
-namespace electron {
+namespace neutron {
 
 class NetworkContextService;
 
@@ -51,6 +51,6 @@ class NetworkContextServiceFactory : public BrowserContextKeyedServiceFactory {
       content::BrowserContext* context) const override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NET_NETWORK_CONTEXT_SERVICE_FACTORY_H_

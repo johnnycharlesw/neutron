@@ -50,7 +50,7 @@ async function main () {
       body: JSON.stringify({
         series: [
           {
-            metric: 'electron.patches.count',
+            metric: 'neutron.patches.count',
             points: [
               {
                 timestamp,
@@ -60,7 +60,7 @@ async function main () {
             type: 3 // GAUGE
           },
           {
-            metric: 'electron.patches.lineCount',
+            metric: 'neutron.patches.lineCount',
             points: [
               {
                 timestamp,

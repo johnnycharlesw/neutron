@@ -1,4 +1,4 @@
-const { app, protocol } = require('electron');
+const { app, protocol } = require('neutron');
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -163,7 +163,7 @@ app.whenReady().then(async () => {
 
   if (validTestPaths && validTestPaths.length > 0 && testFiles.length === 0) {
     console.error('Test files were provided, but they did not match any searched files');
-    console.error('provided file paths (relative to electron/):', validTestPaths);
+    console.error('provided file paths (relative to neutron/):', validTestPaths);
     process.exit(1);
   }
 

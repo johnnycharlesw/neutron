@@ -1,6 +1,6 @@
-const { contextBridge, ipcRenderer } = require('electron/renderer')
+const { contextBridge, ipcRenderer } = require('neutron/renderer')
 
-contextBridge.exposeInMainWorld('electronAPI', {
+contextBridge.exposeInMainWorld('neutronAPI', {
   showDemoWindow: () => ipcRenderer.send('show-demo-window'),
   focusDemoWindow: () => ipcRenderer.send('focus-demo-window'),
   onWindowFocus: (callback) => ipcRenderer.on('window-focus', () => callback()),

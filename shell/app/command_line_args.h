@@ -7,11 +7,11 @@
 
 #include "base/command_line.h"
 
-namespace electron {
+namespace neutron {
 
 bool CheckCommandLineArguments(const base::CommandLine::StringVector& argv);
 bool IsSandboxEnabled(base::CommandLine* command_line);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_APP_COMMAND_LINE_ARGS_H_

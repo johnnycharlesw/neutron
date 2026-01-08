@@ -1,4 +1,4 @@
-import { clipboard, nativeImage } from 'electron/common';
+import { clipboard, nativeImage } from 'neutron/common';
 
 import { expect } from 'chai';
 
@@ -56,13 +56,13 @@ ifdescribe(process.platform !== 'win32' || process.arch !== 'arm64')('clipboard 
 
   ifdescribe(process.platform !== 'linux')('clipboard.readBookmark', () => {
     it('returns title and url', () => {
-      clipboard.writeBookmark('a title', 'https://electronjs.org');
+      clipboard.writeBookmark('a title', 'https://neutronjs.org');
 
       const readBookmark = clipboard.readBookmark();
       if (process.platform !== 'win32') {
         expect(readBookmark.title).to.equal('a title');
       }
-      expect(clipboard.readBookmark().url).to.equal('https://electronjs.org');
+      expect(clipboard.readBookmark().url).to.equal('https://neutronjs.org');
 
       clipboard.writeText('no bookmark');
       expect(clipboard.readBookmark()).to.deep.equal({
@@ -145,7 +145,7 @@ ifdescribe(process.platform !== 'win32' || process.arch !== 'arm64')('clipboard 
     });
 
     ifit(process.platform !== 'win32')('writes a Buffer using a raw format that is used by native apps', function () {
-      const message = 'Hello from Electron!';
+      const message = 'Hello from Neutron!';
       const buffer = Buffer.from(message);
       let rawFormat = 'text/plain';
       if (process.platform === 'darwin') {

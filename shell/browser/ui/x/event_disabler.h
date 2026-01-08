@@ -9,7 +9,7 @@
 
 #include "ui/events/event_rewriter.h"
 
-namespace electron {
+namespace neutron {
 
 class EventDisabler : public ui::EventRewriter {
  public:
@@ -29,6 +29,6 @@ class EventDisabler : public ui::EventRewriter {
       std::unique_ptr<ui::Event>* new_event) override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_X_EVENT_DISABLER_H_

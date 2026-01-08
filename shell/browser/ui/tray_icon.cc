@@ -4,7 +4,7 @@
 
 #include "shell/browser/ui/tray_icon.h"
 
-namespace electron {
+namespace neutron {
 
 TrayIcon::BalloonOptions::BalloonOptions() = default;
 
@@ -92,4 +92,4 @@ void TrayIcon::NotifyDragEnded() {
   observers_.Notify(&TrayIconObserver::OnDragEnded);
 }
 
-}  // namespace electron
+}  // namespace neutron

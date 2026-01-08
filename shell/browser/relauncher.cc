@@ -15,7 +15,7 @@
 #include "base/process/launch.h"
 #include "content/public/common/content_paths.h"
 #include "content/public/common/main_function_params.h"
-#include "shell/common/electron_command_line.h"
+#include "shell/common/neutron_command_line.h"
 
 #if BUILDFLAG(IS_POSIX)
 #include "base/posix/eintr_wrapper.h"
@@ -158,7 +158,7 @@ bool RelaunchAppWithHelper(const base::FilePath& helper,
 }
 
 int RelauncherMain(const content::MainFunctionParams& main_parameters) {
-  const StringVector& argv = electron::ElectronCommandLine::argv();
+  const StringVector& argv = neutron::NeutronCommandLine::argv();
 
   if (argv.size() < 4 || argv[1] != kRelauncherTypeArg) {
     LOG(ERROR) << "relauncher process invoked with unexpected arguments";

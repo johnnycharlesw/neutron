@@ -1,11 +1,11 @@
-import { getIPCRenderer } from '@electron/internal/renderer/ipc-renderer-bindings';
+import { getIPCRenderer } from '@neutron/internal/renderer/ipc-renderer-bindings';
 
 import { EventEmitter } from 'events';
 
 const ipc = getIPCRenderer();
 const internal = false;
 
-class IpcRenderer extends EventEmitter implements Electron.IpcRenderer {
+class IpcRenderer extends EventEmitter implements Neutron.IpcRenderer {
   send (channel: string, ...args: any[]) {
     return ipc.send(internal, channel, args);
   }

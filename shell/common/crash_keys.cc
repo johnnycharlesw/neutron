@@ -16,15 +16,15 @@
 #include "base/strings/string_number_conversions.h"
 #include "components/crash/core/common/crash_key.h"
 #include "content/public/common/content_switches.h"
-#include "electron/buildflags/buildflags.h"
-#include "electron/fuses.h"
-#include "shell/common/electron_constants.h"
+#include "neutron/buildflags/buildflags.h"
+#include "neutron/fuses.h"
+#include "shell/common/neutron_constants.h"
 #include "shell/common/node_util.h"
 #include "shell/common/options_switches.h"
 #include "shell/common/process_util.h"
 #include "third_party/crashpad/crashpad/client/annotation.h"
 
-namespace electron::crash_keys {
+namespace neutron::crash_keys {
 
 namespace {
 
@@ -56,7 +56,7 @@ void SetCrashKey(const std::string& key, const std::string& value) {
         base::StrCat({"The crash key name, '", key, "', is longer than ",
                       base::NumberToString(kMaxCrashKeyNameLength),
                       " bytes, ignoring it."}),
-        "electron");
+        "neutron");
     return;
   }
 
@@ -94,8 +94,8 @@ void GetCrashKeys(std::map<std::string, std::string>* keys) {
 
 namespace {
 bool IsRunningAsNode() {
-  return electron::fuses::IsRunAsNodeEnabled() &&
-         base::Environment::Create()->HasVar(electron::kRunAsNode);
+  return neutron::fuses::IsRunAsNodeEnabled() &&
+         base::Environment::Create()->HasVar(neutron::kRunAsNode);
 }
 }  // namespace
 
@@ -131,4 +131,4 @@ void SetPlatformCrashKey() {
 #endif
 }
 
-}  // namespace electron::crash_keys
+}  // namespace neutron::crash_keys

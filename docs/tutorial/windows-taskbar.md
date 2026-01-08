@@ -61,7 +61,7 @@ Starting with a working application from the
 following lines:
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.setUserTasks([
   {
@@ -81,7 +81,7 @@ To clear your tasks list, you need to call `app.setUserTasks` with an empty
 array in the `main.js` file.
 
 ```js
-const { app } = require('electron')
+const { app } = require('neutron')
 
 app.setUserTasks([])
 ```
@@ -125,7 +125,7 @@ Starting with a working application from the
 following lines:
 
 ```js
-const { BrowserWindow, nativeImage } = require('electron')
+const { BrowserWindow, nativeImage } = require('neutron')
 
 const path = require('node:path')
 
@@ -151,7 +151,7 @@ To clear thumbnail toolbar buttons, you need to call
 `BrowserWindow.setThumbarButtons` with an empty array in the `main.js` file.
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 win.setThumbarButtons([])
@@ -190,7 +190,7 @@ Starting with a working application from the
 following lines:
 
 ```js
-const { BrowserWindow, nativeImage } = require('electron')
+const { BrowserWindow, nativeImage } = require('neutron')
 
 const win = new BrowserWindow()
 
@@ -219,7 +219,7 @@ Starting with a working application from the
 following lines:
 
 ```js
-const { BrowserWindow } = require('electron')
+const { BrowserWindow } = require('neutron')
 
 const win = new BrowserWindow()
 

@@ -11,7 +11,7 @@ struct WebPreferences;
 }  // namespace web_pref
 }  // namespace blink
 
-namespace electron {
+namespace neutron {
 
 // Set the default font preferences. The functionality is copied from
 // chrome/browser/prefs_tab_helper.cc with modifications to work
@@ -21,6 +21,6 @@ namespace electron {
 // Refs https://issues.chromium.org/issues/400473071
 void SetFontDefaults(blink::web_pref::WebPreferences* prefs);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_FONT_DEFAULTS_H_

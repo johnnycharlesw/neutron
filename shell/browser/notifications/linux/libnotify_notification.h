@@ -10,7 +10,7 @@
 #include "shell/browser/notifications/notification.h"
 #include "ui/base/glib/scoped_gsignal.h"
 
-namespace electron {
+namespace neutron {
 
 class LibnotifyNotification : public Notification {
  public:
@@ -36,6 +36,6 @@ class LibnotifyNotification : public Notification {
   bool on_dismissing_ = false;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NOTIFICATIONS_LINUX_LIBNOTIFY_NOTIFICATION_H_

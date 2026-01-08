@@ -5,8 +5,8 @@ Subject: printing.patch
 
 Add changeset that was previously applied to sources in chromium_src. The
 majority of changes originally come from these PRs:
-  * https://github.com/electron/electron/pull/1835
-  * https://github.com/electron/electron/pull/8596
+  * https://github.com/neutron/neutron/pull/1835
+  * https://github.com/neutron/neutron/pull/8596
 
 This patch also fixes callback for manual user cancellation and success.
 

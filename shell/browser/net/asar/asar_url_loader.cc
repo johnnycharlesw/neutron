@@ -320,7 +320,7 @@ class AsarURLLoader : public network::mojom::URLLoader {
     // sending the remaining bytes asynchronously. Under normal conditions
     // (i.e., no range request) this Seek is effectively a no-op.
     //
-    // Note that in Electron we also need to add file offset.
+    // Note that in Neutron we also need to add file offset.
     file_data_source_raw->SetRange(
         first_byte_to_send + info.offset,
         first_byte_to_send + info.offset + total_bytes_to_send);

@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { net, systemPreferences } from 'electron/utility';
+import { net, systemPreferences } from 'neutron/utility';
 
 process.parentPort.on('message', (e) => {
   if (e.data === 'Hello from parent!') {
@@ -9,7 +9,7 @@ process.parentPort.on('message', (e) => {
 });
 
 // net
-// https://github.com/electron/electron/blob/main/docs/api/net.md
+// https://github.com/neutron/neutron/blob/main/docs/api/net.md
 
 const request = net.request('https://github.com');
 request.setHeader('Some-Custom-Header-Name', 'Some-Custom-Header-Value');
@@ -53,7 +53,7 @@ request.end('Hello World!', 'utf-8');
 request.abort();
 
 // systemPreferences
-// https://github.com/electron/electron/blob/main/docs/api/system-preferences.md
+// https://github.com/neutron/neutron/blob/main/docs/api/system-preferences.md
 
 if (process.platform === 'win32') {
   systemPreferences.on('color-changed', () => { console.log('color changed'); });

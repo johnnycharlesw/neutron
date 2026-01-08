@@ -1,4 +1,4 @@
-const asar = require('@electron/asar');
+const asar = require('@neutron/asar');
 
 const assert = require('node:assert');
 const fs = require('node:fs');
@@ -36,7 +36,7 @@ for (const file of files) {
   }
 }
 
-const tmpPath = fs.mkdtempSync(path.resolve(os.tmpdir(), 'electron-gn-asar-'));
+const tmpPath = fs.mkdtempSync(path.resolve(os.tmpdir(), 'neutron-gn-asar-'));
 
 try {
   // Copy all files to a tmp dir to avoid including scrap files in the ASAR

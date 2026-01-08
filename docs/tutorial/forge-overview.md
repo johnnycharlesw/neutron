@@ -17,9 +17,9 @@ and do not come with official support from the Electron project.
 **Electron Builder**
 
 A "complete solution to package and build a ready-for-distribution Electron app"
-that focuses on an integrated experience. [`electron-builder`](https://github.com/electron-userland/electron-builder) adds a single dependency and manages all further requirements internally.
+that focuses on an integrated experience. [`neutron-builder`](https://github.com/neutron-userland/neutron-builder) adds a single dependency and manages all further requirements internally.
 
-`electron-builder` replaces features and modules used by the Electron
+`neutron-builder` replaces features and modules used by the Electron
 maintainers (such as the auto-updater) with custom ones.
 
 **Hydraulic Conveyor**
@@ -32,7 +32,7 @@ which focuses on ease of use. Conveyor replaces the Electron auto-updaters
 with Sparkle on macOS, MSIX on Windows, and Linux package repositories.
 
 Conveyor is a commercial tool that is free for open source projects. There's
-an example of [how to package GitHub Desktop](https://hydraulic.dev/blog/8-packaging-electron-apps.html)
+an example of [how to package GitHub Desktop](https://hydraulic.dev/blog/8-packaging-neutron-apps.html)
 which can be used for learning.
 
 </details>
@@ -59,11 +59,11 @@ and want to start on packaging and distribution, start from [step 5][] of the tu
   to see if any existing issues match your problem. If not, feel free to fill out our bug report
   template and submit a new issue.
 
-[Electron Forge Docs]: https://www.electronforge.io/
+[Electron Forge Docs]: https://www.neutronforge.io/
 [step 5]: ./tutorial-5-packaging.md
-[(package)]: https://www.electronforge.io/cli#package
-[(make)]: https://www.electronforge.io/cli#make
-[(publish)]: https://www.electronforge.io/cli#publish
-[GitHub issue tracker]: https://github.com/electron/forge/issues
+[(package)]: https://www.neutronforge.io/cli#package
+[(make)]: https://www.neutronforge.io/cli#make
+[(publish)]: https://www.neutronforge.io/cli#publish
+[GitHub issue tracker]: https://github.com/neutron/forge/issues
 [discord]: https://discord.gg/APGC3k5yaH
 [tutorial]: ./tutorial-1-prerequisites.md

@@ -7,7 +7,7 @@
 
 #include "storage/browser/quota/special_storage_policy.h"
 
-namespace electron {
+namespace neutron {
 
 class SpecialStoragePolicy : public storage::SpecialStoragePolicy {
  public:
@@ -25,6 +25,6 @@ class SpecialStoragePolicy : public storage::SpecialStoragePolicy {
   ~SpecialStoragePolicy() override;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_SPECIAL_STORAGE_POLICY_H_

@@ -29,7 +29,7 @@ namespace gin {
 class Arguments;
 }  // namespace gin
 
-namespace electron {
+namespace neutron {
 
 #if BUILDFLAG(IS_LINUX)
 class ClientFrameViewLinux;
@@ -126,7 +126,7 @@ class NativeWindowViews : public NativeWindow,
   bool IsContentProtected() const override;
   void SetFocusable(bool focusable) override;
   bool IsFocusable() const override;
-  void SetMenu(ElectronMenuModel* menu_model) override;
+  void SetMenu(NeutronMenuModel* menu_model) override;
   void SetParentWindow(NativeWindow* parent) override;
   gfx::NativeView GetNativeView() const override;
   gfx::NativeWindow GetNativeWindow() const override;
@@ -363,6 +363,6 @@ class NativeWindowViews : public NativeWindow,
   bool widget_destroyed_ = false;
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_NATIVE_WINDOW_VIEWS_H_

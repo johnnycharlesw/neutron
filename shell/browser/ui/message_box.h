@@ -13,7 +13,7 @@
 #include "base/memory/raw_ptr_exclusion.h"
 #include "ui/gfx/image/image_skia.h"
 
-namespace electron {
+namespace neutron {
 
 class NativeWindow;
 
@@ -26,8 +26,8 @@ enum class MessageBoxType {
 };
 
 struct MessageBoxSettings {
-  RAW_PTR_EXCLUSION electron::NativeWindow* parent_window = nullptr;
-  MessageBoxType type = electron::MessageBoxType::kNone;
+  RAW_PTR_EXCLUSION neutron::NativeWindow* parent_window = nullptr;
+  MessageBoxType type = neutron::MessageBoxType::kNone;
   std::vector<std::string> buttons;
   std::optional<int> id;
   int default_id;
@@ -60,6 +60,6 @@ void CloseMessageBox(int id);
 // stage of application.
 void ShowErrorBox(const std::u16string& title, const std::u16string& content);
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_MESSAGE_BOX_H_

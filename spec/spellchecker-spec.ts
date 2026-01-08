@@ -1,4 +1,4 @@
-import { BrowserWindow, Session, session } from 'electron/main';
+import { BrowserWindow, Session, session } from 'neutron/main';
 
 import { expect } from 'chai';
 
@@ -11,8 +11,8 @@ import { setTimeout } from 'node:timers/promises';
 import { ifit, ifdescribe, listen } from './lib/spec-helpers';
 import { closeWindow } from './lib/window-helpers';
 
-const features = process._linkedBinding('electron_common_features');
-const v8Util = process._linkedBinding('electron_common_v8_util');
+const features = process._linkedBinding('neutron_common_features');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
 
 ifdescribe(features.isBuiltinSpellCheckerEnabled())('spellchecker', function () {
   this.timeout((process.env.IS_ASAN ? 200 : 20) * 1000);
@@ -27,13 +27,13 @@ ifdescribe(features.isBuiltinSpellCheckerEnabled())('spellchecker', function () 
       x: 43,
       y: 42
     });
-    return (await contextMenuPromise)[1] as Electron.ContextMenuParams;
+    return (await contextMenuPromise)[1] as Neutron.ContextMenuParams;
   }
 
   // When the page is just loaded, the spellchecker might not be ready yet. Since
   // there is no event to know the state of spellchecker, the only reliable way
   // to detect spellchecker is to keep checking with a busy loop.
-  async function rightClickUntil (fn: (params: Electron.ContextMenuParams) => boolean) {
+  async function rightClickUntil (fn: (params: Neutron.ContextMenuParams) => boolean) {
     const now = Date.now();
     const timeout = (process.env.IS_ASAN ? 180 : 10) * 1000;
     let contextMenuParams = await rightClick();
@@ -65,7 +65,7 @@ ifdescribe(features.isBuiltinSpellCheckerEnabled())('spellchecker', function () 
   after(() => server.close());
 
   const fixtures = path.resolve(__dirname, 'fixtures');
-  const preload = path.join(fixtures, 'module', 'preload-electron.js');
+  const preload = path.join(fixtures, 'module', 'preload-neutron.js');
 
   const generateSpecs = (description: string, sandbox: boolean) => {
     describe(description, () => {
@@ -88,7 +88,7 @@ ifdescribe(features.isBuiltinSpellCheckerEnabled())('spellchecker', function () 
         await closeWindow(w);
       });
 
-      // Context menu test can not run on Windows or Linux (https://github.com/electron/electron/pull/48657 broke linux).
+      // Context menu test can not run on Windows or Linux (https://github.com/neutron/neutron/pull/48657 broke linux).
       const shouldRun = process.platform !== 'win32' && process.platform !== 'linux';
 
       ifit(shouldRun)('should detect correctly spelled words as correct', async () => {
@@ -123,7 +123,7 @@ ifdescribe(features.isBuiltinSpellCheckerEnabled())('spellchecker', function () 
         await w.webContents.executeJavaScript('document.body.querySelector("textarea").focus()');
         await rightClickUntil((contextMenuParams) => contextMenuParams.misspelledWord.length > 0);
 
-        const callWebFrameFn = (expr: string) => w.webContents.executeJavaScript(`electron.webFrame.${expr}`);
+        const callWebFrameFn = (expr: string) => w.webContents.executeJavaScript(`neutron.webFrame.${expr}`);
 
         expect(await callWebFrameFn('isWordMisspelled("typography")')).to.equal(false);
         expect(await callWebFrameFn('isWordMisspelled("typograpy")')).to.equal(true);
@@ -141,7 +141,7 @@ ifdescribe(features.isBuiltinSpellCheckerEnabled())('spellchecker', function () 
           await w.webContents.executeJavaScript('document.body.querySelector("textarea").focus()');
           await rightClickUntil((contextMenuParams) => contextMenuParams.misspelledWord.length > 0);
 
-          const callWebFrameFn = (expr: string) => w.webContents.executeJavaScript(`electron.webFrame.${expr}`);
+          const callWebFrameFn = (expr: string) => w.webContents.executeJavaScript(`neutron.webFrame.${expr}`);
 
           w.webContents.session.spellCheckerEnabled = false;
           v8Util.runUntilIdle();

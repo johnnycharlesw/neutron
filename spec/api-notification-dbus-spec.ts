@@ -6,8 +6,8 @@
 //
 // See https://pypi.python.org/pypi/python-dbusmock to read about dbusmock.
 
-import { nativeImage } from 'electron/common';
-import { app } from 'electron/main';
+import { nativeImage } from 'neutron/common';
+import { app } from 'neutron/main';
 
 import { expect } from 'chai';
 import * as dbus from 'dbus-native';
@@ -94,7 +94,7 @@ ifdescribe(!skip)('Notification module (dbus)', () => {
     before(done => {
       mock.on('MethodCalled', onMethodCalled(done));
       // lazy load Notification after we listen to MethodCalled mock signal
-      Notification = require('electron').Notification;
+      Notification = require('neutron').Notification;
       const n = new Notification({
         title: 'title',
         subtitle: 'subtitle',

@@ -26,7 +26,7 @@ template <typename T>
 class PendingRemote;
 }  // namespace mojo
 
-namespace electron::api {
+namespace neutron::api {
 
 class WebContents;
 
@@ -81,6 +81,6 @@ class FrameSubscriber : private content::WebContentsObserver,
   base::WeakPtrFactory<FrameSubscriber> weak_ptr_factory_{this};
 };
 
-}  // namespace electron::api
+}  // namespace neutron::api
 
 #endif  // ELECTRON_SHELL_BROWSER_API_FRAME_SUBSCRIBER_H_

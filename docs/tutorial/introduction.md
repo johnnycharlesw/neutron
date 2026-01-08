@@ -29,7 +29,7 @@ experiment with Electron's APIs or to prototype features during development.
 Fiddle also integrates nicely with our documentation. When browsing through examples
 in our tutorials, you'll frequently see an "Open in Electron Fiddle" button underneath
 a code block. If you have Fiddle installed, this button will open a
-`fiddle.electronjs.org` link that will automatically load the example into Fiddle,
+`fiddle.neutronjs.org` link that will automatically load the example into Fiddle,
 no copy-pasting required.
 
 ```fiddle docs/fiddles/quick-start
@@ -60,7 +60,7 @@ Are you getting stuck anywhere? Here are a few links to places to look:
 
 - If you need help with developing your app, our [community Discord server][discord]
   is a great place to get advice from other Electron app developers.
-- If you suspect you're running into a bug with the `electron` package, please check
+- If you suspect you're running into a bug with the `neutron` package, please check
   the [GitHub issue tracker][issue-tracker] to see if any existing issues match your
   problem. If not, feel free to fill out our bug report template and submit a new issue.
 
@@ -69,8 +69,8 @@ Are you getting stuck anywhere? Here are a few links to places to look:
 [tutorial]: tutorial-1-prerequisites.md
 [api documentation]: ../api/app.md
 [chromium]: https://www.chromium.org/
-[discord]: https://discord.gg/electronjs
+[discord]: https://discord.gg/neutronjs
 [examples]: examples.md
-[fiddle]: https://www.electronjs.org/fiddle
-[issue-tracker]: https://github.com/electron/electron/issues
+[fiddle]: https://www.neutronjs.org/fiddle
+[issue-tracker]: https://github.com/neutron/neutron/issues
 [node]: https://nodejs.org/

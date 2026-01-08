@@ -9,7 +9,7 @@
 #include "ui/base/metadata/metadata_header_macros.h"
 #include "ui/views/window/native_frame_view.h"
 
-namespace electron {
+namespace neutron {
 
 class NativeWindow;
 
@@ -34,6 +34,6 @@ class NativeFrameView : public views::NativeFrameView {
   raw_ptr<NativeWindow> window_;  // weak ref.
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_UI_VIEWS_NATIVE_FRAME_VIEW_H_

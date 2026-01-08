@@ -3,7 +3,7 @@
 > Manage a list of navigation entries, representing the user's browsing history within the application.
 
 Process: [Main](../glossary.md#main-process)<br />
-_This class is not exported from the `'electron'` module. It is only available as a return value of other methods in the Electron API._
+_This class is not exported from the `'neutron'` module. It is only available as a return value of other methods in the Electron API._
 
 Each [NavigationEntry](./structures/navigation-entry.md) corresponds to a specific visited page.
 The indexing system follows a sequential order, where the entry for the earliest visited

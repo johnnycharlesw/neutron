@@ -32,8 +32,8 @@ index 8779d4609c9eed155c414a1c97d3598906857b22..731ac034f85c8c5ebee6d29a0395f6e8
 +    if r != 0:
 +        sys.exit(r)
 +
-+    electron_script = os.path.join(CHROMIUM_SRC, 'third_party', 'engflow-reclient-configs', 'configure_reclient.py')
-+    r = subprocess.call([sys.executable, electron_script, '--src_dir=src', '--force'])
++    neutron_script = os.path.join(CHROMIUM_SRC, 'third_party', 'engflow-reclient-configs', 'configure_reclient.py')
++    r = subprocess.call([sys.executable, neutron_script, '--src_dir=src', '--force'])
 +    if r != 0:
 +        sys.exit(r)
 +

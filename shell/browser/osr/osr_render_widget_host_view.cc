@@ -49,7 +49,7 @@
 #include "ui/gfx/skbitmap_operations.h"
 #include "ui/latency/latency_info.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -98,17 +98,17 @@ ui::MouseWheelEvent UiMouseWheelEventFromWebMouseEvent(
 
 }  // namespace
 
-class ElectronDelegatedFrameHostClient
+class NeutronDelegatedFrameHostClient
     : public content::DelegatedFrameHostClient {
  public:
-  explicit ElectronDelegatedFrameHostClient(OffScreenRenderWidgetHostView* view)
+  explicit NeutronDelegatedFrameHostClient(OffScreenRenderWidgetHostView* view)
       : view_(view) {}
 
   // disable copy
-  ElectronDelegatedFrameHostClient(const ElectronDelegatedFrameHostClient&) =
+  NeutronDelegatedFrameHostClient(const NeutronDelegatedFrameHostClient&) =
       delete;
-  ElectronDelegatedFrameHostClient& operator=(
-      const ElectronDelegatedFrameHostClient&) = delete;
+  NeutronDelegatedFrameHostClient& operator=(
+      const NeutronDelegatedFrameHostClient&) = delete;
 
   // content::DelegatedFrameHostClient
   [[nodiscard]] ui::Layer* DelegatedFrameHostGetLayer() const override {
@@ -173,7 +173,7 @@ OffScreenRenderWidgetHostView::OffScreenRenderWidgetHostView(
       size_(initial_size),
       painting_(painting),
       delegated_frame_host_client_{
-          std::make_unique<ElectronDelegatedFrameHostClient>(this)},
+          std::make_unique<NeutronDelegatedFrameHostClient>(this)},
       delegated_frame_host_{std::make_unique<content::DelegatedFrameHost>(
           AllocateFrameSinkId(),
           delegated_frame_host_client_.get(),
@@ -1049,4 +1049,4 @@ void OffScreenRenderWidgetHostView::
   NOTREACHED();
 }
 
-}  // namespace electron
+}  // namespace neutron

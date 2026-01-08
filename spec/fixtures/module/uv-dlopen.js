@@ -1,1 +1,1 @@
-require('@electron-ci/uv-dlopen');
+require('@neutron-ci/uv-dlopen');

@@ -10,7 +10,7 @@
 #include "base/i18n/rtl.h"
 #include "components/autofill/core/common/autofill_features.h"
 #include "content/public/browser/render_frame_host.h"
-#include "electron/buildflags/buildflags.h"
+#include "neutron/buildflags/buildflags.h"
 #include "mojo/public/cpp/bindings/associated_remote.h"
 #include "shell/browser/osr/osr_render_widget_host_view.h"
 #include "shell/browser/osr/osr_view_proxy.h"
@@ -27,7 +27,7 @@
 #include "ui/gfx/geometry/vector2d.h"
 #include "ui/gfx/text_utils.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -222,7 +222,7 @@ void AutofillPopup::SetItems(const std::vector<std::u16string>& values,
 }
 
 void AutofillPopup::AcceptSuggestion(int index) {
-  mojo::AssociatedRemote<mojom::ElectronAutofillAgent> autofill_agent;
+  mojo::AssociatedRemote<mojom::NeutronAutofillAgent> autofill_agent;
   frame_host_->GetRemoteAssociatedInterfaces()->GetInterface(&autofill_agent);
   autofill_agent->AcceptDataListSuggestion(value_at(index));
 }
@@ -311,4 +311,4 @@ int AutofillPopup::LineFromY(int y) const {
   return values_.size() - 1;
 }
 
-}  // namespace electron
+}  // namespace neutron

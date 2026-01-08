@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('neutron/main')
 
 function createWindow () {
   const onlineStatusWindow = new BrowserWindow({

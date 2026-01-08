@@ -20,8 +20,8 @@
 
 namespace {
 
-UINT ConvertIconType(electron::TrayIcon::IconType type) {
-  using IconType = electron::TrayIcon::IconType;
+UINT ConvertIconType(neutron::TrayIcon::IconType type) {
+  using IconType = neutron::TrayIcon::IconType;
   switch (type) {
     case IconType::kNone:
       return NIIF_NONE;
@@ -40,7 +40,7 @@ UINT ConvertIconType(electron::TrayIcon::IconType type) {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 NotifyIcon::NotifyIcon(NotifyIconHost* host,
                        UINT id,
@@ -208,7 +208,7 @@ void NotifyIcon::Focus() {
 }
 
 void NotifyIcon::PopUpContextMenu(const gfx::Point& pos,
-                                  base::WeakPtr<ElectronMenuModel> menu_model) {
+                                  base::WeakPtr<NeutronMenuModel> menu_model) {
   // Returns if context menu isn't set.
   if (menu_model == nullptr && menu_model_ == nullptr)
     return;
@@ -244,7 +244,7 @@ void NotifyIcon::CloseContextMenu() {
   }
 }
 
-void NotifyIcon::SetContextMenu(raw_ptr<ElectronMenuModel> menu_model) {
+void NotifyIcon::SetContextMenu(raw_ptr<NeutronMenuModel> menu_model) {
   menu_model_ = menu_model;
 }
 
@@ -275,4 +275,4 @@ NOTIFYICONDATA NotifyIcon::InitIconData() const {
   return icon_data;
 }
 
-}  // namespace electron
+}  // namespace neutron

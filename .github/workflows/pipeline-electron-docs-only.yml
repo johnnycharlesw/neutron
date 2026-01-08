@@ -11,7 +11,7 @@ on:
 permissions: {}
 
 concurrency:
-  group: electron-docs-only-${{ github.ref }}
+  group: neutron-docs-only-${{ github.ref }}
   cancel-in-progress: true
 
 env:  
@@ -20,7 +20,7 @@ env:
 jobs:
   docs-only:
     name: Docs Only Compile
-    runs-on: electron-arc-centralus-linux-amd64-4core
+    runs-on: neutron-arc-centralus-linux-amd64-4core
     permissions:
       contents: read
     timeout-minutes: 20
@@ -29,31 +29,31 @@ jobs:
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Generate DEPS Hash
       run: |
-        node src/electron/script/generate-deps-hash.js
-        DEPSHASH=v1-src-cache-$(cat src/electron/.depshash)
+        node src/neutron/script/generate-deps-hash.js
+        DEPSHASH=v1-src-cache-$(cat src/neutron/.depshash)
         echo "DEPSHASH=$DEPSHASH" >> $GITHUB_ENV
         echo "CACHE_PATH=$DEPSHASH.tar" >> $GITHUB_ENV
     - name: Restore src cache via AKS
-      uses: ./src/electron/.github/actions/restore-cache-aks
+      uses: ./src/neutron/.github/actions/restore-cache-aks
       with:
         target-platform: linux
     - name: Checkout Electron
       uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
       with:
-        path: src/electron
+        path: src/neutron
         fetch-depth: 0
         ref: ${{ github.event.pull_request.head.sha }}
     - name: Install Dependencies
-      uses: ./src/electron/.github/actions/install-dependencies
+      uses: ./src/neutron/.github/actions/install-dependencies
     - name: Run TS/JS compile
       shell: bash
       run: |
-        cd src/electron
+        cd src/neutron
         node script/yarn.js create-typescript-definitions
         node script/yarn.js tsc -p tsconfig.default_app.json --noEmit
         for f in build/webpack/*.js

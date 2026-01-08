@@ -2,7 +2,7 @@
   try {
     window.sessionStorage
   } catch (e) {
-    const {ipcRenderer} = require('electron')
+    const {ipcRenderer} = require('neutron')
     ipcRenderer.send('session-storage-response', e.message)
   }
 </script>

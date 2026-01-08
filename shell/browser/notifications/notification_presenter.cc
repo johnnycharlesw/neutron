@@ -8,7 +8,7 @@
 
 #include "shell/browser/notifications/notification.h"
 
-namespace electron {
+namespace neutron {
 
 NotificationPresenter::NotificationPresenter() = default;
 
@@ -44,4 +44,4 @@ void NotificationPresenter::CloseNotificationWithId(
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

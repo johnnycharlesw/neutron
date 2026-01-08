@@ -19,7 +19,7 @@
 #include "shell/common/platform_util.h"
 #include "third_party/skia/include/core/SkBitmap.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -195,4 +195,4 @@ void LibnotifyNotification::OnNotificationView(NotifyNotification* notification,
   that->NotificationClicked();
 }
 
-}  // namespace electron
+}  // namespace neutron

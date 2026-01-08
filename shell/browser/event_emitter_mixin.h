@@ -28,7 +28,7 @@ class EventEmitterMixin {
   // Returns true if event.preventDefault() was called during processing.
   template <typename... Args>
   bool Emit(const std::string_view name, Args&&... args) {
-    v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+    v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
     v8::HandleScope handle_scope(isolate);
     v8::Local<v8::Object> wrapper;
     if (!static_cast<T*>(this)->GetWrapper(isolate).ToLocal(&wrapper))
@@ -44,7 +44,7 @@ class EventEmitterMixin {
   // this.emit(name, args...);
   template <typename... Args>
   void EmitWithoutEvent(const std::string_view name, Args&&... args) {
-    v8::Isolate* isolate = electron::JavascriptEnvironment::GetIsolate();
+    v8::Isolate* isolate = neutron::JavascriptEnvironment::GetIsolate();
     v8::HandleScope handle_scope(isolate);
     v8::Local<v8::Object> wrapper;
     if (!static_cast<T*>(this)->GetWrapper(isolate).ToLocal(&wrapper))
@@ -60,7 +60,7 @@ class EventEmitterMixin {
     auto* wrapper_info = &(static_cast<T*>(this)->kWrapperInfo);
 
     // DeprecatedWrapperInfo support will be removed as part of
-    // https://github.com/electron/electron/issues/47922
+    // https://github.com/neutron/neutron/issues/47922
     constexpr bool is_deprecated_wrapper =
         std::is_same_v<decltype(wrapper_info), gin::DeprecatedWrapperInfo*>;
 

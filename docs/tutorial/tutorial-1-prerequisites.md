@@ -33,7 +33,7 @@ a minimal Electron application from scratch, then teaches you how to
 package and distribute it to users using Electron Forge.
 
 If you prefer to get a project started with a single-command boilerplate, we recommend you start
-with Electron Forge's [`create-electron-app`](https://www.electronforge.io/) command.
+with Electron Forge's [`create-neutron-app`](https://www.neutronforge.io/) command.
 
 ## Assumptions
 
@@ -121,7 +121,7 @@ need to install Node.js themselves as a prerequisite to running your app.
 
 To check which version of Node.js is running in your app, you can access the global
 [`process.versions`][] variable in the main process or preload script. You can also reference
-[https://releases.electronjs.org/releases.json](https://releases.electronjs.org/releases.json).
+[https://releases.neutronjs.org/releases.json](https://releases.neutronjs.org/releases.json).
 
 :::
 

@@ -35,8 +35,8 @@ In macOS 10.15 Catalina, Apple introduced a new "automatic" dark mode option
 for all macOS computers. In order for the `nativeTheme.shouldUseDarkColors` and
 `Tray` APIs to work correctly in this mode on Catalina, you need to use Electron
 `>=7.0.0`, or set `NSRequiresAquaSystemAppearance` to `false` in your
-`Info.plist` file for older versions. Both [Electron Packager][electron-packager]
-and [Electron Forge][electron-forge] have a
+`Info.plist` file for older versions. Both [Electron Packager][neutron-packager]
+and [Electron Forge][neutron-forge] have a
 [`darwinDarkModeSupport` option][packager-darwindarkmode-api]
 to automate the `Info.plist` changes during app build time.
 
@@ -102,7 +102,7 @@ The `preload.js` script adds a new API to the `window` object called `darkMode`.
  main process.
 
 ```js title='preload.js'
-const { contextBridge, ipcRenderer } = require('electron')
+const { contextBridge, ipcRenderer } = require('neutron')
 
 contextBridge.exposeInMainWorld('darkMode', {
   toggle: () => ipcRenderer.invoke('dark-mode:toggle'),
@@ -134,7 +134,7 @@ Using `addEventListener`, the `renderer.js` file adds `'click'` [event listeners
 Finally, the `main.js` file represents the main process and contains the actual `nativeTheme` API.
 
 ```js
-const { app, BrowserWindow, ipcMain, nativeTheme } = require('electron')
+const { app, BrowserWindow, ipcMain, nativeTheme } = require('neutron')
 
 const path = require('node:path')
 
@@ -198,8 +198,8 @@ Run the example using Electron Fiddle and then click the "Toggle Dark Mode" butt
 ![Dark Mode](../images/dark_mode.gif)
 
 [system-wide-dark-mode]: https://developer.apple.com/design/human-interface-guidelines/macos/visual-design/dark-mode/
-[electron-forge]: https://www.electronforge.io/
-[electron-packager]: https://github.com/electron/packager
-[packager-darwindarkmode-api]: https://electron.github.io/packager/main/interfaces/electronpackager.options.html#darwindarkmodesupport
+[neutron-forge]: https://www.neutronforge.io/
+[neutron-packager]: https://github.com/neutron/packager
+[packager-darwindarkmode-api]: https://neutron.github.io/packager/main/interfaces/neutronpackager.options.html#darwindarkmodesupport
 [prefers-color-scheme]: https://developer.mozilla.org/en-US/docs/Web/CSS/@media/prefers-color-scheme
 [event-listeners]: https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener

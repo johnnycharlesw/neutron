@@ -1,4 +1,4 @@
-import { BrowserWindow, screen } from 'electron';
+import { BrowserWindow, screen } from 'neutron';
 
 import { expect, assert } from 'chai';
 
@@ -125,7 +125,7 @@ describe('webContents.setWindowOpenHandler', () => {
       const testFrameName = 'test-frame-name';
       const testFeatures = 'top=10&left=10&something-unknown&show=no';
       const testUrl = 'app://does-not-exist/';
-      const details = await new Promise<Electron.HandlerDetails>(resolve => {
+      const details = await new Promise<Neutron.HandlerDetails>(resolve => {
         browserWindow.webContents.setWindowOpenHandler((details) => {
           setTimeout(() => resolve(details));
           return { action: 'deny' };
@@ -145,7 +145,7 @@ describe('webContents.setWindowOpenHandler', () => {
     });
 
     it('includes post body', async () => {
-      const details = await new Promise<Electron.HandlerDetails>(resolve => {
+      const details = await new Promise<Neutron.HandlerDetails>(resolve => {
         browserWindow.webContents.setWindowOpenHandler((details) => {
           setTimeout(() => resolve(details));
           return { action: 'deny' };
@@ -189,7 +189,7 @@ describe('webContents.setWindowOpenHandler', () => {
     it('can change webPreferences of child windows', async () => {
       browserWindow.webContents.setWindowOpenHandler(() => ({ action: 'allow', overrideBrowserWindowOptions: { webPreferences: { defaultFontSize: 30 } } }));
 
-      const didCreateWindow = once(browserWindow.webContents, 'did-create-window') as Promise<[BrowserWindow, Electron.DidCreateWindowDetails]>;
+      const didCreateWindow = once(browserWindow.webContents, 'did-create-window') as Promise<[BrowserWindow, Neutron.DidCreateWindowDetails]>;
       browserWindow.webContents.executeJavaScript("window.open('about:blank', '', 'show=no') && true");
       const [childWindow] = await didCreateWindow;
 
@@ -353,7 +353,7 @@ describe('webContents.setWindowOpenHandler', () => {
     it('spawns browser window when createWindow is provided', async () => {
       const browserWindowTitle = 'Child browser window';
 
-      const childWindow = await new Promise<Electron.BrowserWindow>(resolve => {
+      const childWindow = await new Promise<Neutron.BrowserWindow>(resolve => {
         browserWindow.webContents.setWindowOpenHandler(() => {
           return {
             action: 'allow',
@@ -398,7 +398,7 @@ describe('webContents.setWindowOpenHandler', () => {
     });
 
     it('spawns browser window with overridden options', async () => {
-      const childWindow = await new Promise<Electron.BrowserWindow>(resolve => {
+      const childWindow = await new Promise<Neutron.BrowserWindow>(resolve => {
         browserWindow.webContents.setWindowOpenHandler(() => {
           return {
             action: 'allow',
@@ -425,7 +425,7 @@ describe('webContents.setWindowOpenHandler', () => {
     });
 
     it('spawns browser window with access to opener property', async () => {
-      const childWindow = await new Promise<Electron.BrowserWindow>(resolve => {
+      const childWindow = await new Promise<Neutron.BrowserWindow>(resolve => {
         browserWindow.webContents.setWindowOpenHandler(() => {
           return {
             action: 'allow',
@@ -446,7 +446,7 @@ describe('webContents.setWindowOpenHandler', () => {
     });
 
     it('spawns browser window without access to opener property because of noopener attribute ', async () => {
-      const childWindow = await new Promise<Electron.BrowserWindow>(resolve => {
+      const childWindow = await new Promise<Neutron.BrowserWindow>(resolve => {
         browserWindow.webContents.setWindowOpenHandler(() => {
           return {
             action: 'allow',

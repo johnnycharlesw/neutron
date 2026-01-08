@@ -27,7 +27,7 @@
 #include "services/network/public/mojom/chunked_data_pipe_getter.mojom.h"
 #include "services/network/public/mojom/fetch_api.mojom.h"
 #include "services/network/public/mojom/url_request.mojom.h"
-#include "shell/browser/api/electron_api_data_pipe_holder.h"
+#include "shell/browser/api/neutron_api_data_pipe_holder.h"
 #include "shell/common/gin_converters/gurl_converter.h"
 #include "shell/common/gin_converters/std_converter.h"
 #include "shell/common/gin_converters/value_converter.h"
@@ -371,7 +371,7 @@ class ChunkedDataPipeReadableStream final
       num_bytes = *size_ - bytes_read_;
     MojoResult rv = data_pipe_->ReadData(
         MOJO_READ_DATA_FLAG_NONE,
-        electron::util::as_byte_span(buf).first(num_bytes), num_bytes);
+        neutron::util::as_byte_span(buf).first(num_bytes), num_bytes);
     if (rv == MOJO_RESULT_OK) {
       bytes_read_ += num_bytes;
       // Not needed for correctness, but this allows the consumer to send the
@@ -528,7 +528,7 @@ v8::Local<v8::Value> Converter<network::ResourceRequestBody>::ToV8(
         upload_data.Set("type", "rawData");
         upload_data.Set(
             "bytes",
-            electron::Buffer::Copy(
+            neutron::Buffer::Copy(
                 isolate, element.As<network::DataElementBytes>().bytes())
                 .ToLocalChecked());
         break;
@@ -538,7 +538,7 @@ v8::Local<v8::Value> Converter<network::ResourceRequestBody>::ToV8(
         // TODO(zcbenz): After the NetworkService refactor, the old blobUUID API
         // becomes unnecessarily complex, we should deprecate the getBlobData
         // API and return the DataPipeHolder wrapper directly.
-        auto holder = electron::api::DataPipeHolder::Create(isolate, element);
+        auto holder = neutron::api::DataPipeHolder::Create(isolate, element);
         upload_data.Set("blobUUID", holder->id());
         // The lifetime of data pipe is bound to the uploadData object.
         upload_data.Set("dataPipe", holder);
@@ -630,9 +630,9 @@ v8::Local<v8::Value> Converter<network::ResourceRequest>::ToV8(
 }
 
 // static
-v8::Local<v8::Value> Converter<electron::VerifyRequestParams>::ToV8(
+v8::Local<v8::Value> Converter<neutron::VerifyRequestParams>::ToV8(
     v8::Isolate* isolate,
-    electron::VerifyRequestParams val) {
+    neutron::VerifyRequestParams val) {
   auto dict = gin::Dictionary::CreateEmpty(isolate);
   dict.Set("hostname", val.hostname);
   dict.Set("certificate", val.certificate);

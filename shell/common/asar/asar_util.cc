@@ -40,7 +40,7 @@ bool IsDirectoryCached(const base::FilePath& path) {
   if (it != is_directory_cache.end()) {
     return it->second;
   }
-  electron::ScopedAllowBlockingForElectron allow_blocking;
+  neutron::ScopedAllowBlockingForNeutron allow_blocking;
   return is_directory_cache[path] = base::DirectoryExists(path);
 }
 

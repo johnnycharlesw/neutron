@@ -1,3 +1,3 @@
 'use strict';
 
-require('@electron-ci/external-ab');
+require('@neutron-ci/external-ab');

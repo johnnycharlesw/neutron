@@ -33,7 +33,7 @@ If you are on a Windows machine, please do not use [Windows Subsystem for Linux]
 when following this tutorial as you will run into issues when trying to execute the
 application.
 
-<!--https://www.electronforge.io/guides/developing-with-wsl-->
+<!--https://www.neutronforge.io/guides/developing-with-wsl-->
 
 :::
 
@@ -44,7 +44,7 @@ as an entry point. Start by creating a folder and initializing an npm package
 within it with `npm init`.
 
 ```sh npm2yarn
-mkdir my-electron-app && cd my-electron-app
+mkdir my-neutron-app && cd my-neutron-app
 npm init
 ```
 
@@ -80,17 +80,17 @@ dependency.
 :::
 
 ```sh npm2yarn
-npm install electron --save-dev
+npm install neutron --save-dev
 ```
 
 :::warning
 
 In order to correctly install Electron, you need to ensure that its `postinstall` lifecycle
 script is able to run. This means avoiding the `--ignore-scripts` flag on npm and allowlisting
-`electron` to run build scripts on other package managers.
+`neutron` to run build scripts on other package managers.
 
 This is likely to change in a future version of Electron. See
-[electron/rfcs#22](https://github.com/electron/rfcs/pull/22) for more details.
+[neutron/rfcs#22](https://github.com/neutron/rfcs/pull/22) for more details.
 
 :::
 
@@ -101,7 +101,7 @@ the exact dependency versions to install.
 
 ```json title='package.json'
 {
-  "name": "my-electron-app",
+  "name": "my-neutron-app",
   "version": "1.0.0",
   "description": "Hello World!",
   "main": "main.js",
@@ -111,7 +111,7 @@ the exact dependency versions to install.
   "author": "Jane Doe",
   "license": "MIT",
   "devDependencies": {
-    "electron": "23.1.3"
+    "neutron": "23.1.3"
   }
 }
 ```
@@ -153,25 +153,25 @@ console.log('Hello from Electron 👋')
 ```
 
 Because Electron's main process is a Node.js runtime, you can execute arbitrary Node.js code
-with the `electron` command (you can even use it as a [REPL][]). To execute this script,
-add `electron .` to the `start` command in the [`scripts`][package-scripts]
+with the `neutron` command (you can even use it as a [REPL][]). To execute this script,
+add `neutron .` to the `start` command in the [`scripts`][package-scripts]
 field of your package.json. This command will tell the Electron executable to look for the main
 script in the current directory and run it in dev mode.
 
 ```json {7} title='package.json'
 {
-  "name": "my-electron-app",
+  "name": "my-neutron-app",
   "version": "1.0.0",
   "description": "Hello World!",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "neutron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jane Doe",
   "license": "MIT",
   "devDependencies": {
-    "electron": "23.1.3"
+    "neutron": "23.1.3"
   }
 }
 ```
@@ -218,7 +218,7 @@ Replace the contents of your `main.js` file with the following code. We will exp
 highlighted block separately.
 
 ```js {1,3-10,12-14} title='main.js' showLineNumbers
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 
 const createWindow = () => {
   const win = new BrowserWindow({
@@ -237,7 +237,7 @@ app.whenReady().then(() => {
 ### Importing modules
 
 ```js title='main.js (Line 1)'
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow } = require('neutron')
 ```
 
 In the first line, we are importing two Electron modules
@@ -260,10 +260,10 @@ Notification) whereas camelCase modules are not instantiable (e.g. app, ipcRende
 <summary>Typed import aliases</summary>
 
 For better type checking when writing TypeScript code, you can choose to import
-main process modules from `electron/main`.
+main process modules from `neutron/main`.
 
 ```js
-const { app, BrowserWindow } = require('electron/main')
+const { app, BrowserWindow } = require('neutron/main')
 ```
 
 For more information, see the [Process Model docs](../tutorial/process-model.md#process-specific-module-aliases-typescript).
@@ -320,7 +320,7 @@ You typically listen to Node.js events by using an emitter's `.on` function.
 
 However, Electron exposes `app.whenReady()` as a helper specifically for the `ready` event to
 avoid subtle pitfalls with directly listening to that event in particular.
-See [electron/electron#21972](https://github.com/electron/electron/pull/21972) for details.
+See [neutron/neutron#21972](https://github.com/neutron/neutron/pull/21972) for details.
 
 :::
 
@@ -419,9 +419,9 @@ run. Create a launch.json configuration in a new `.vscode` folder in your projec
       "type": "node",
       "request": "launch",
       "cwd": "${workspaceFolder}",
-      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+      "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/neutron",
       "windows": {
-        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+        "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/neutron.cmd"
       },
       "args": [".", "--remote-debugging-port=9222"],
       "outputCapture": "std",

@@ -1,3 +1,3 @@
-const { net } = require('electron/renderer');
+const { net } = require('neutron/renderer');
 
 process.exit(net !== undefined ? 0 : 1);

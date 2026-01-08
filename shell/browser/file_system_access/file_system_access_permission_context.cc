@@ -31,8 +31,8 @@
 #include "content/public/browser/render_process_host.h"
 #include "content/public/browser/web_contents.h"
 #include "gin/data_object_builder.h"
-#include "shell/browser/api/electron_api_session.h"
-#include "shell/browser/electron_permission_manager.h"
+#include "shell/browser/api/neutron_api_session.h"
+#include "shell/browser/neutron_permission_manager.h"
 #include "shell/browser/web_contents_permission_helper.h"
 #include "shell/common/gin_converters/callback_converter.h"
 #include "shell/common/gin_converters/file_path_converter.h"
@@ -83,7 +83,7 @@ namespace {
 
 using BlockType = ChromeFileSystemAccessPermissionContext::BlockType;
 using HandleType = content::FileSystemAccessPermissionContext::HandleType;
-using GrantType = electron::FileSystemAccessPermissionContext::GrantType;
+using GrantType = neutron::FileSystemAccessPermissionContext::GrantType;
 using SensitiveEntryResult =
     ChromeFileSystemAccessPermissionContext::SensitiveEntryResult;
 using blink::mojom::PermissionStatus;
@@ -237,7 +237,7 @@ std::string StringOrEmpty(const std::string* s) {
 
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 class FileSystemAccessPermissionContext::PermissionGrantImpl
     : public content::FileSystemAccessPermissionGrant {
@@ -259,7 +259,7 @@ class FileSystemAccessPermissionContext::PermissionGrantImpl
     DCHECK_CALLED_ON_VALID_SEQUENCE(sequence_checker_);
 
     auto* permission_manager =
-        static_cast<electron::ElectronPermissionManager*>(
+        static_cast<neutron::NeutronPermissionManager*>(
             context_->browser_context()->GetPermissionControllerDelegate());
     if (permission_manager && permission_manager->HasPermissionCheckHandler()) {
       base::Value::Dict details;
@@ -352,7 +352,7 @@ class FileSystemAccessPermissionContext::PermissionGrantImpl
     }
 
     auto* permission_manager =
-        static_cast<electron::ElectronPermissionManager*>(
+        static_cast<neutron::NeutronPermissionManager*>(
             context_->browser_context()->GetPermissionControllerDelegate());
     if (!permission_manager) {
       std::move(callback).Run(PermissionRequestOutcome::kRequestAborted);
@@ -756,7 +756,7 @@ void FileSystemAccessPermissionContext::DidCheckPathAgainstBlocklist(
 
   if (should_block) {
     gin::WeakCell<api::Session>* session =
-        electron::api::Session::FromBrowserContext(browser_context());
+        neutron::api::Session::FromBrowserContext(browser_context());
     if (session && session->Get()) {
       v8::Isolate* isolate = JavascriptEnvironment::GetIsolate();
       v8::HandleScope scope(isolate);
@@ -1106,4 +1106,4 @@ FileSystemAccessPermissionContext::GetWeakPtr() {
   return weak_factory_.GetWeakPtr();
 }
 
-}  // namespace electron
+}  // namespace neutron

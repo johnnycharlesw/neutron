@@ -13,7 +13,7 @@
 #include "shell/browser/web_contents_zoom_observer.h"
 #include "third_party/blink/public/common/tokens/tokens.h"
 
-namespace electron {
+namespace neutron {
 
 namespace api {
 class WebContents;
@@ -64,6 +64,6 @@ class WebViewGuestDelegate : public content::BrowserPluginGuestDelegate,
   base::WeakPtrFactory<WebViewGuestDelegate> weak_ptr_factory_{this};
 };
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_BROWSER_WEB_VIEW_GUEST_DELEGATE_H_

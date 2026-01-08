@@ -11,7 +11,7 @@
   </head>
   <body id="body">
     <script>
-      const { ipcRenderer } = require('electron');
+      const { ipcRenderer } = require('neutron');
 
       const observer = new MutationObserver((mutationList, observer) => {
         for (const { type, attributeName } of mutationList) {

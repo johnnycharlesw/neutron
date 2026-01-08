@@ -1,4 +1,4 @@
-import("//electron/build/args/all.gn")
+import("//neutron/build/args/all.gn")
 is_debug = false
 is_component_build = false
 is_component_ffmpeg = true

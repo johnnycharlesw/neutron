@@ -20,7 +20,7 @@
 #include "ui/display/win/screen_win.h"
 #include "ui/gfx/win/icon_util.h"
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -285,4 +285,4 @@ bool TaskbarHost::InitializeTaskbar() {
   }
 }
 
-}  // namespace electron
+}  // namespace neutron

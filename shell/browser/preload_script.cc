@@ -12,7 +12,7 @@
 
 namespace gin {
 
-using electron::PreloadScript;
+using neutron::PreloadScript;
 
 // static
 v8::Local<v8::Value> Converter<PreloadScript::ScriptType>::ToV8(

@@ -162,9 +162,9 @@ function sortGroups<T> (groups: {id?: T}[][]) {
   return sortedGroupIndexes.map(i => groups[i]);
 }
 
-export function sortMenuItems (menuItems: (Electron.MenuItemConstructorOptions | Electron.MenuItem)[]) {
-  const isSeparator = (i: Electron.MenuItemConstructorOptions | Electron.MenuItem) => {
-    const opts = i as Electron.MenuItemConstructorOptions;
+export function sortMenuItems (menuItems: (Neutron.MenuItemConstructorOptions | Neutron.MenuItem)[]) {
+  const isSeparator = (i: Neutron.MenuItemConstructorOptions | Neutron.MenuItem) => {
+    const opts = i as Neutron.MenuItemConstructorOptions;
     return i.type === 'separator' && !opts.before && !opts.after && !opts.beforeGroupContaining && !opts.afterGroupContaining;
   };
   const separators = menuItems.filter(isSeparator);

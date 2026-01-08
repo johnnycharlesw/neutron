@@ -19,19 +19,19 @@ TEMPLATE_H = """
 #define FUSE_EXPORT __attribute__((visibility("default")))
 #endif
 
-namespace electron::fuses {
+namespace neutron::fuses {
 
 extern const volatile char kFuseWire[];
 
 {getters}
 
-}  // namespace electron::fuses
+}  // namespace neutron::fuses
 
 #endif  // ELECTRON_FUSES_H_
 """
 
 TEMPLATE_CC = """
-#include "electron/fuses.h"
+#include "neutron/fuses.h"
 #include "base/dcheck_is_on.h"
 
 #if DCHECK_IS_ON()
@@ -39,13 +39,13 @@ TEMPLATE_CC = """
 #include <string>
 #endif
 
-namespace electron::fuses {
+namespace neutron::fuses {
 
 const volatile char kFuseWire[] = { /* sentinel */ {sentinel}, /* fuse_version */ {fuse_version}, /* fuse_wire_length */ {fuse_wire_length}, /* fuse_wire */ {initial_config}};
 
 {getters}
 
-}  // namespace electron:fuses
+}  // namespace neutron:fuses
 """
 
 with open(os.path.join(dir_path, "fuses.json5"), 'r') as f:

@@ -1,5 +1,5 @@
 // This file provides the global, process and Buffer variables to internal
-// Electron code once they have been deleted from the global scope.
+// Neutron code once they have been deleted from the global scope.
 //
 // It does this through the ProvidePlugin in the webpack.config.base.js file
 // Check out the Module.wrapper override in renderer/init.ts for more

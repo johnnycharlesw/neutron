@@ -1,13 +1,13 @@
-import { IPC_MESSAGES } from '@electron/internal/common/ipc-messages';
-import { internalContextBridge } from '@electron/internal/renderer/api/context-bridge';
-import { ipcRendererInternal } from '@electron/internal/renderer/ipc-renderer-internal';
-import * as ipcRendererUtils from '@electron/internal/renderer/ipc-renderer-internal-utils';
+import { IPC_MESSAGES } from '@neutron/internal/common/ipc-messages';
+import { internalContextBridge } from '@neutron/internal/renderer/api/context-bridge';
+import { ipcRendererInternal } from '@neutron/internal/renderer/ipc-renderer-internal';
+import * as ipcRendererUtils from '@neutron/internal/renderer/ipc-renderer-internal-utils';
 
-import { webFrame } from 'electron/renderer';
+import { webFrame } from 'neutron/renderer';
 
 const { contextIsolationEnabled } = internalContextBridge;
 
-/* Corrects for some Inspector adaptations needed in Electron.
+/* Corrects for some Inspector adaptations needed in Neutron.
 * 1) Use menu API to show context menu.
 */
 window.onload = function () {

@@ -1,30 +1,30 @@
-import { ipcMainInternal } from '@electron/internal/browser/ipc-main-internal';
-import { MessagePortMain } from '@electron/internal/browser/message-port-main';
+import { ipcMainInternal } from '@neutron/internal/browser/ipc-main-internal';
+import { MessagePortMain } from '@neutron/internal/browser/message-port-main';
 
-import type { ServiceWorkerMain } from 'electron/main';
-import { ipcMain } from 'electron/main';
+import type { ServiceWorkerMain } from 'neutron/main';
+import { ipcMain } from 'neutron/main';
 
-const v8Util = process._linkedBinding('electron_common_v8_util');
-const webFrameMainBinding = process._linkedBinding('electron_browser_web_frame_main');
+const v8Util = process._linkedBinding('neutron_common_v8_util');
+const webFrameMainBinding = process._linkedBinding('neutron_browser_web_frame_main');
 
-const addReplyToEvent = (event: Electron.IpcMainEvent) => {
+const addReplyToEvent = (event: Neutron.IpcMainEvent) => {
   const { processId, frameId } = event;
   event.reply = (channel: string, ...args: any[]) => {
     event.sender.sendToFrame([processId, frameId], channel, ...args);
   };
 };
 
-const addReturnValueToEvent = (event: Electron.IpcMainEvent | Electron.IpcMainServiceWorkerEvent) => {
+const addReturnValueToEvent = (event: Neutron.IpcMainEvent | Neutron.IpcMainServiceWorkerEvent) => {
   Object.defineProperty(event, 'returnValue', {
     set: (value) => event._replyChannel.sendReply(value),
     get: () => {}
   });
 };
 
-const getServiceWorkerFromEvent = (event: Electron.IpcMainServiceWorkerEvent | Electron.IpcMainServiceWorkerInvokeEvent): ServiceWorkerMain | undefined => {
+const getServiceWorkerFromEvent = (event: Neutron.IpcMainServiceWorkerEvent | Neutron.IpcMainServiceWorkerInvokeEvent): ServiceWorkerMain | undefined => {
   return event.session.serviceWorkers._getWorkerFromVersionIDIfExists(event.versionId);
 };
-const addServiceWorkerPropertyToEvent = (event: Electron.IpcMainServiceWorkerEvent | Electron.IpcMainServiceWorkerInvokeEvent) => {
+const addServiceWorkerPropertyToEvent = (event: Neutron.IpcMainServiceWorkerEvent | Neutron.IpcMainServiceWorkerInvokeEvent) => {
   Object.defineProperty(event, 'serviceWorker', {
     get: () => event.session.serviceWorkers.getWorkerFromVersionID(event.versionId)
   });
@@ -41,7 +41,7 @@ const cachedIpcEmitters: (ElectronInternal.IpcMainInternal | undefined)[] = [
 ];
 
 // Get list of relevant IPC emitters for dispatch.
-const getIpcEmittersForFrameEvent = (event: Electron.IpcMainEvent | Electron.IpcMainInvokeEvent): (ElectronInternal.IpcMainInternal | undefined)[] => {
+const getIpcEmittersForFrameEvent = (event: Neutron.IpcMainEvent | Neutron.IpcMainInvokeEvent): (ElectronInternal.IpcMainInternal | undefined)[] => {
   // Lookup by FrameTreeNode ID to ensure IPCs received after a frame swap are
   // always received. This occurs when a RenderFrame sends an IPC while it's
   // unloading and its internal state is pending deletion.
@@ -56,7 +56,7 @@ const getIpcEmittersForFrameEvent = (event: Electron.IpcMainEvent | Electron.Ipc
  * Listens for IPC dispatch events on `api`.
  */
 export function addIpcDispatchListeners (api: NodeJS.EventEmitter) {
-  api.on('-ipc-message' as any, function (event: Electron.IpcMainEvent | Electron.IpcMainServiceWorkerEvent, channel: string, args: any[]) {
+  api.on('-ipc-message' as any, function (event: Neutron.IpcMainEvent | Neutron.IpcMainServiceWorkerEvent, channel: string, args: any[]) {
     const internal = v8Util.getHiddenValue<boolean>(event, 'internal');
 
     if (internal) {
@@ -73,7 +73,7 @@ export function addIpcDispatchListeners (api: NodeJS.EventEmitter) {
     }
   } as any);
 
-  api.on('-ipc-invoke' as any, async function (event: Electron.IpcMainInvokeEvent | Electron.IpcMainServiceWorkerInvokeEvent, channel: string, args: any[]) {
+  api.on('-ipc-invoke' as any, async function (event: Neutron.IpcMainInvokeEvent | Neutron.IpcMainServiceWorkerInvokeEvent, channel: string, args: any[]) {
     const internal = v8Util.getHiddenValue<boolean>(event, 'internal');
 
     const replyWithResult = (result: any) => event._replyChannel.sendReply({ result });
@@ -82,7 +82,7 @@ export function addIpcDispatchListeners (api: NodeJS.EventEmitter) {
       event._replyChannel.sendReply({ error: error.toString() });
     };
 
-    const targets: (Electron.IpcMainServiceWorker | ElectronInternal.IpcMainInternal | undefined)[] = [];
+    const targets: (Neutron.IpcMainServiceWorker | ElectronInternal.IpcMainInternal | undefined)[] = [];
 
     if (internal) {
       targets.push(ipcMainInternal);
@@ -107,7 +107,7 @@ export function addIpcDispatchListeners (api: NodeJS.EventEmitter) {
     }
   } as any);
 
-  api.on('-ipc-message-sync' as any, function (event: Electron.IpcMainEvent | Electron.IpcMainServiceWorkerEvent, channel: string, args: any[]) {
+  api.on('-ipc-message-sync' as any, function (event: Neutron.IpcMainEvent | Neutron.IpcMainServiceWorkerEvent, channel: string, args: any[]) {
     const internal = v8Util.getHiddenValue<boolean>(event, 'internal');
     addReturnValueToEvent(event);
     if (internal) {
@@ -132,11 +132,11 @@ export function addIpcDispatchListeners (api: NodeJS.EventEmitter) {
     }
   } as any);
 
-  api.on('-ipc-message-host', function (event: Electron.IpcMainEvent, channel: string, args: any[]) {
+  api.on('-ipc-message-host', function (event: Neutron.IpcMainEvent, channel: string, args: any[]) {
     event.sender.emit('-ipc-message-host', event, channel, args);
   });
 
-  api.on('-ipc-ports' as any, function (event: Electron.IpcMainEvent | Electron.IpcMainServiceWorkerEvent, channel: string, message: any, ports: any[]) {
+  api.on('-ipc-ports' as any, function (event: Neutron.IpcMainEvent | Neutron.IpcMainServiceWorkerEvent, channel: string, message: any, ports: any[]) {
     event.ports = ports.map(p => new MessagePortMain(p));
     if (event.type === 'frame') {
       const ipcEmitters = getIpcEmittersForFrameEvent(event);

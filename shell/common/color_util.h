@@ -25,7 +25,7 @@ struct WrappedSkColor {
   operator SkColor() const { return value; }
 };
 
-namespace electron {
+namespace neutron {
 
 // Parses a CSS-style color string from hex, rgb(), rgba(),
 // hsl(), hsla(), or color name formats.
@@ -42,6 +42,6 @@ std::optional<DWORD> GetSystemAccentColor();
 SkColor GetSysSkColor(int which);
 #endif
 
-}  // namespace electron
+}  // namespace neutron
 
 #endif  // ELECTRON_SHELL_COMMON_COLOR_UTIL_H_

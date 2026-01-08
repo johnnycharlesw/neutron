@@ -22,7 +22,7 @@
 #include "shell/common/color_util.h"
 #endif
 
-namespace electron {
+namespace neutron {
 
 namespace {
 
@@ -54,7 +54,7 @@ MenuBar::~MenuBar() {
   window_->RemoveObserver(this);
 }
 
-void MenuBar::SetMenu(ElectronMenuModel* model) {
+void MenuBar::SetMenu(NeutronMenuModel* model) {
   menu_model_ = model;
   RebuildChildren();
 }
@@ -89,7 +89,7 @@ size_t MenuBar::GetItemCount() const {
 }
 
 bool MenuBar::GetMenuButtonFromScreenPoint(const gfx::Point& screenPoint,
-                                           ElectronMenuModel** menu_model,
+                                           NeutronMenuModel** menu_model,
                                            views::MenuButton** button) {
   if (!GetBoundsInScreen().Contains(screenPoint))
     return false;
@@ -97,7 +97,7 @@ bool MenuBar::GetMenuButtonFromScreenPoint(const gfx::Point& screenPoint,
   auto children = GetChildrenInZOrder();
   for (size_t i = 0, n = children.size(); i < n; ++i) {
     if (children[i]->GetBoundsInScreen().Contains(screenPoint) &&
-        (menu_model_->GetTypeAt(i) == ElectronMenuModel::TYPE_SUBMENU)) {
+        (menu_model_->GetTypeAt(i) == NeutronMenuModel::TYPE_SUBMENU)) {
       *menu_model = menu_model_->GetSubmenuModelAt(i);
       *button = static_cast<views::MenuButton*>(children[i]);
       return true;
@@ -178,8 +178,8 @@ void MenuBar::ButtonPressed(size_t id, const ui::Event& event) {
   if (!root_view_->HasFocus())
     root_view_->RequestFocus();
 
-  ElectronMenuModel::ItemType type = menu_model_->GetTypeAt(id);
-  if (type != ElectronMenuModel::TYPE_SUBMENU) {
+  NeutronMenuModel::ItemType type = menu_model_->GetTypeAt(id);
+  if (type != NeutronMenuModel::TYPE_SUBMENU) {
     menu_model_->ActivatedAt(id, 0);
     return;
   }
@@ -271,4 +271,4 @@ void MenuBar::UpdateViewColors() {
 BEGIN_METADATA(MenuBar)
 END_METADATA
 
-}  // namespace electron
+}  // namespace neutron

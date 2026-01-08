@@ -14,7 +14,7 @@ The following is an example of setting up Electron to automatically submit
 crash reports to a remote server:
 
 ```js
-const { crashReporter } = require('electron')
+const { crashReporter } = require('neutron')
 
 crashReporter.start({ submitURL: 'https://your-domain.com/url-to-submit' })
 ```
@@ -23,7 +23,7 @@ For setting up a server to accept and process crash reports, you can use
 following projects:
 
 * [socorro](https://github.com/mozilla-services/socorro)
-* [mini-breakpad-server](https://github.com/electron/mini-breakpad-server)
+* [mini-breakpad-server](https://github.com/neutron/mini-breakpad-server)
 
 > [!NOTE]
 > Electron uses Crashpad, not Breakpad, to collect and upload
@@ -31,10 +31,10 @@ following projects:
 
 Or use a 3rd party hosted solution:
 
-* [Backtrace](https://backtrace.io/electron/)
-* [Sentry](https://docs.sentry.io/clients/electron)
-* [BugSplat](https://www.bugsplat.com/docs/platforms/electron)
-* [Bugsnag](https://docs.bugsnag.com/platforms/electron/)
+* [Backtrace](https://backtrace.io/neutron/)
+* [Sentry](https://docs.sentry.io/clients/neutron)
+* [BugSplat](https://www.bugsplat.com/docs/platforms/neutron)
+* [Bugsnag](https://docs.bugsnag.com/platforms/neutron/)
 
 Crash reports are stored temporarily before being uploaded in a directory
 underneath the app's user data directory, called 'Crashpad'. You can override
@@ -182,7 +182,7 @@ Returns `Record<string, string>` - The current 'extra' parameters of the crash r
 
 ## In Node child processes
 
-Since `require('electron')` is not available in Node child processes, the
+Since `require('neutron')` is not available in Node child processes, the
 following APIs are available on the `process` object in Node child processes.
 
 #### `process.crashReporter.start(options)`

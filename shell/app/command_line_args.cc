@@ -35,12 +35,12 @@ bool IsUrlArg(const base::CommandLine::StringViewType arg) {
 }
 }  // namespace
 
-namespace electron {
+namespace neutron {
 
 // Check for CVE-2018-1000006 issues. Return true iff argv looks safe.
 // Sample exploit: 'exodus://aaaaaaaaa" --gpu-launcher="cmd" --aaaaa='
 // Prevent it by returning false if any arg except '--' follows a URL arg.
-// More info at https://www.electronjs.org/blog/protocol-handler-fix
+// More info at https://www.neutronjs.org/blog/protocol-handler-fix
 bool CheckCommandLineArguments(const base::CommandLine::StringVector& argv) {
   bool block_args = false;
   for (const auto& arg : argv) {
@@ -59,4 +59,4 @@ bool IsSandboxEnabled(base::CommandLine* command_line) {
          !command_line->HasSwitch(sandbox::policy::switches::kNoSandbox);
 }
 
-}  // namespace electron
+}  // namespace neutron

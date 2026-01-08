@@ -1,4 +1,4 @@
-import { ipcMainInternal } from '@electron/internal/browser/ipc-main-internal';
+import { ipcMainInternal } from '@neutron/internal/browser/ipc-main-internal';
 
 type IPCHandler = (event: ElectronInternal.IpcMainInternalEvent, ...args: any[]) => any
 
@@ -14,7 +14,7 @@ export const handleSync = function <T extends IPCHandler> (channel: string, hand
 
 let nextId = 0;
 
-export function invokeInWebContents<T> (sender: Electron.WebContents, command: string, ...args: any[]) {
+export function invokeInWebContents<T> (sender: Neutron.WebContents, command: string, ...args: any[]) {
   return new Promise<T>((resolve, reject) => {
     const requestId = ++nextId;
     const channel = `${command}_RESPONSE_${requestId}`;
@@ -37,7 +37,7 @@ export function invokeInWebContents<T> (sender: Electron.WebContents, command: s
   });
 }
 
-export function invokeInWebFrameMain<T> (sender: Electron.WebFrameMain, command: string, ...args: any[]) {
+export function invokeInWebFrameMain<T> (sender: Neutron.WebFrameMain, command: string, ...args: any[]) {
   return new Promise<T>((resolve, reject) => {
     const requestId = ++nextId;
     const channel = `${command}_RESPONSE_${requestId}`;
