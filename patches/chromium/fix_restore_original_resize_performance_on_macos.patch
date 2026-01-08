@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@neutronjs.org>
+From: Samuel Attard <marshallofsound@electronjs.org>
 Date: Tue, 21 Nov 2023 15:03:21 -0800
 Subject: fix: restore original resize performance on macOS
 

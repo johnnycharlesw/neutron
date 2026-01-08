@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Calvin Watford <clavin@neutronjs.org>
+From: Calvin Watford <clavin@electronjs.org>
 Date: Sat, 9 Aug 2025 17:00:20 -0600
 Subject: test: accomodate V8 thenable stack trace change in snapshot
 

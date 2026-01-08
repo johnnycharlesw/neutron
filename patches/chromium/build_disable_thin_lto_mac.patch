@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: VerteDinde <vertedinde@neutronjs.org>
+From: VerteDinde <vertedinde@electronjs.org>
 Date: Tue, 12 Nov 2024 21:16:15 -0800
 Subject: build: disable thin_lto on mac
 

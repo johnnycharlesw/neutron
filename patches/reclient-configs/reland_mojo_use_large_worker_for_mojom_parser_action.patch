@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@neutronjs.org>
+From: John Kleinschmidt <jkleinsc@electronjs.org>
 Date: Thu, 14 Mar 2024 11:11:36 -0400
 Subject: Reland "[mojo] Use large worker for mojom_parser action"
 

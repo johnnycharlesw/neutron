@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@neutronjs.org>
+From: John Kleinschmidt <jkleinsc@electronjs.org>
 Date: Mon, 1 Dec 2025 10:27:23 -0500
 Subject: chore: handle deprecation of v8::ReturnValue<void>::Set(Local<S>)
 

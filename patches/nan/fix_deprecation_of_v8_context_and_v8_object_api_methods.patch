@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@neutronjs.org>
+From: John Kleinschmidt <jkleinsc@electronjs.org>
 Date: Thu, 6 Nov 2025 11:47:29 -0500
 Subject: fix deprecation of v8::Context and v8::Object API methods
 

@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@neutronjs.org>
+From: John Kleinschmidt <jkleinsc@electronjs.org>
 Date: Mon, 11 Oct 2021 14:08:06 -0400
 Subject: load v8 snapshot in browser process
 

@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Samuel Attard <marshallofsound@neutronjs.org>
+From: Samuel Attard <marshallofsound@electronjs.org>
 Date: Wed, 26 Jul 2023 17:03:15 -0700
 Subject: fix: do not resolve neutron entrypoints
 

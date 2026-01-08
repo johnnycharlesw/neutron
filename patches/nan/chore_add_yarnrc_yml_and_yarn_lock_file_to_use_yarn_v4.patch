@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@neutronjs.org>
+From: John Kleinschmidt <jkleinsc@electronjs.org>
 Date: Wed, 12 Nov 2025 17:09:12 -0500
 Subject: chore: add .yarnrc.yml and yarn.lock file to use yarn v4
 

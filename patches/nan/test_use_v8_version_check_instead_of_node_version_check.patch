@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: Calvin Watford <clavin@neutronjs.org>
+From: Calvin Watford <clavin@electronjs.org>
 Date: Mon, 20 Oct 2025 10:04:13 -0600
 Subject: test: use v8 version check instead of node version check
 

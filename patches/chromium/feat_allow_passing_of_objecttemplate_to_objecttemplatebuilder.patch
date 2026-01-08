@@ -1,5 +1,5 @@
 From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
-From: John Kleinschmidt <jkleinsc@neutronjs.org>
+From: John Kleinschmidt <jkleinsc@electronjs.org>
 Date: Fri, 6 Oct 2023 14:15:20 -0400
 Subject: feat: allow passing of ObjectTemplate to ObjectTemplateBuilder
 
